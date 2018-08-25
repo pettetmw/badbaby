@@ -10,6 +10,8 @@ import pandas as pd
 import seaborn as sns
 import mne
 from mne import read_evokeds
+from badbaby.return_dataframes import  return_simms_mmn_df
+from badbaby.parameters import meg_dirs, project_dir
 
 
 def box_off(ax):
@@ -36,44 +38,21 @@ leg_kwargs = dict(frameon=True, columnspacing=0.1, labelspacing=0.1,
                   fontsize=10, fancybox=False, handlelength=2.0,
                   loc='best')
 
-project_dir = '/home/ktavabi/Projects/badbaby/static'
-data_dir = '/media/ktavabi/ALAYA/data/ilabs/badbaby/mismatch'
+static_dir = op.join(project_dir, 'static')
+data_dir = meg_dirs['mmn']
 fig_dir = op.join(data_dir, 'figures')
-# Read excel sheets into pandas dataframes
-xl_a = pd.read_excel(op.join(project_dir, 'badbaby.xlsx'), sheet_name='MMN',
-                     converters={'BAD': str})
-xl_b = pd.read_excel(op.join(project_dir, 'badbaby.xlsx'),
-                     sheet_name='simms_demographics')
-# Exclude subjects
-inclusion = xl_a['simms_inclusion'] == 1
-xl_a = xl_a[inclusion]
-subjects = pd.Series(np.intersect1d(xl_a['Subject_ID'].values,
-                                    xl_b['Subject_ID'].values))
-# Find intersection between dataframes for common subjects
-xl_a = xl_a[xl_a['Subject_ID'].isin(subjects.tolist())]
-xl_b = xl_b[xl_b['Subject_ID'].isin(subjects.tolist())]
-simms_df = pd.merge(xl_a, xl_b)
+
+simms_df, simms_cdi = return_simms_mmn_df()
 groups = np.unique(simms_df.Group).tolist()
 remap = dict([(2, '2 months'), (6, '6 months')])
-titles_comb = [remap[kind] for kind in [2, 6]]
+grp_names = [remap[kind] for kind in [2, 6]]
+remap = dict([('lh', 'left'), ('rh', 'right')])
+hemis = [remap[kind] for kind in ['lh', 'rh']]
 subjects = np.unique(np.asarray([x[:3] for x in simms_df.Subject_ID.values]))
-subjects = ['BAD_%s' % subj for subj in subjects]
 
-dfs = list()
-xl_c = pd.read_excel(op.join(project_dir, 'cdi_report_July_2018.xlsx'),
-                     sheet_name='WS')
-for age in np.unique(xl_c.CDIAge.values):
-    _, _, mask = np.intersect1d(np.asarray(subjects),
-                                xl_c[xl_c.CDIAge == age]
-                                ['ParticipantId'].values,
-                                return_indices=True)
-    dfs.append(xl_c[xl_c.CDIAge == age].iloc[mask])
-cdi_df = pd.concat(dfs, ignore_index=True)
 sns.set(style="whitegrid", palette="pastel", color_codes=True)
-for nm in ['M3L', 'VOCAB', 'HOWUSE',
-           'WORDEND', 'IRWORDS', 'OGWORDS',
-           'COMBINE', 'COMPLEX']:
-    g = sns.lmplot(x="CDIAge", y="M3L", truncate=True, data=cdi_df)
+for nm in ['M3L', 'VOCAB']:
+    g = sns.lmplot(x="CDIAge", y=nm, truncate=True, data=simms_cdi)
     g.set_axis_labels("Age (months)", nm)
     g.savefig(op.join(fig_dir, 'CDI_%s-by-age.png' % nm),
               dpi=300, format='png')
@@ -83,8 +62,7 @@ lpf = 30
 peak_lats = list()
 peak_amps = list()
 
-remap = dict([('lh', 'left'), ('rh', 'right')])
-titles_comb = [remap[kind] for kind in ['lh', 'rh']]
+
 for ii, group in enumerate(groups):
     subjects = simms_df[simms_df.Group == group].Subject_ID.values.tolist()
     for si, subj in enumerate(subjects):
@@ -149,8 +127,8 @@ for nm, unit, measure in zip(['Latency shift', 'Amplitude difference'],
     fig.savefig(op.join(fig_dir, f_out.replace(' ', '_')),
                 dpi=300, format='png')
 
-cdi_measure = np.asarray((cdi_df[cdi_df.CDIAge == 27].VOCAB.values,
-                          cdi_df[cdi_df.CDIAge == 30].VOCAB.values))
+cdi_measure = np.asarray((simms_cdi[simms_cdi.CDIAge == 27].VOCAB.values,
+                          simms_cdi[simms_cdi.CDIAge == 30].VOCAB.values))
 two_mos_lats = peak_lats[0]
 six_mos_lats = peak_lats[1]
 for hi, hem in enumerate(sensors.keys()):

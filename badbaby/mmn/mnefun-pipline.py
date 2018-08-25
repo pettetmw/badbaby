@@ -8,8 +8,9 @@ from __future__ import print_function
 
 import os.path as op
 import numpy as np
-import pandas as pd
 import mnefun
+from badbaby.parameters import meg_dirs
+from badbaby.return_dataframes import return_mmn_df
 # from score import score
 
 try:
@@ -17,13 +18,9 @@ try:
     from niprov.mnefunsupport import handler
 except ImportError:
     handler = None
-
-data_dir = '/home/ktavabi/Projects/badbaby/static'
-df = pd.read_excel(op.join(data_dir, 'badbaby.xlsx'), sheet_name='MMN',
-                   converters={'BAD': str})
-inclusion = df['Included'] == 1
-df = df[inclusion]
+df = return_mmn_df()
 ecg_chs = np.unique(df['ECG'].tolist())
+work_dir = meg_dirs['mmn']
 
 for sr, decim in zip([1200, 1800], [2, 3]):
     for ch in ecg_chs:
@@ -34,7 +31,7 @@ for sr, decim in zip([1200, 1800], [2, 3]):
         # noinspection PyTypeChecker
         print('    \nUsing %d Hz as sampling rate and\n'
               '    %s as ECG surrogate...' % (sr, ch))
-        print('    Subjects: ', subjects)
+        print('    %d ' % len(subjects), 'Subjects: ', subjects)
         params = mnefun.Params(tmin=-0.1, tmax=0.6, n_jobs=18,
                                n_jobs_fir='cuda', n_jobs_resample='cuda',
                                proj_sfreq=200, decim=decim,
@@ -45,9 +42,9 @@ for sr, decim in zip([1200, 1800], [2, 3]):
         # write prebad
         for si, subj in enumerate(subjects):
             bad_channels = df[df['Subject_ID'] == subj]['BAD'].tolist()
-            if op.exists(op.join(params.work_dir, params.subjects[si],
+            if op.exists(op.join(work_dir, params.subjects[si],
                                  'raw_fif')):
-                prebad_file = op.join(params.work_dir, params.subjects[si],
+                prebad_file = op.join(work_dir, params.subjects[si],
                                       'raw_fif',
                                       '%s_prebad.txt' % params.subjects[si])
                 if not op.exists(prebad_file):
@@ -170,5 +167,5 @@ for sr, decim in zip([1200, 1800], [2, 3]):
             gen_fwd=default,
             gen_inv=default,
             gen_report=default,
-            print_status=default
+            print_status=True
         )
