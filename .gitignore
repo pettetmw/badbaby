@@ -55,3 +55,5 @@ badbaby/.ropeproject/
 *.wav
 
 temp
+
+\.vscode/

@@ -1,12 +1,13 @@
 # -*- coding: utf-8 -*-
 
-""" """
+"""Script plots CDI and MEG-MMN dependents for specified cohort"""
 
 # Authors: Kambiz Tavabi <ktavabi@gmail.com>
 # License: MIT
 
 from os import path as op
 import numpy as np
+from scipy import stats
 import statsmodels.api as sm
 import matplotlib.pyplot as plt
 from matplotlib.lines import Line2D
@@ -16,6 +17,7 @@ import badbaby.parameters as params
 import badbaby.return_dataframes as rd
 from badbaby.set_viz_params import box_off, setup_pyplot
 
+
 # Some parameters
 leg_kwargs = setup_pyplot('seaborn-notebook')
 data_dir = params.meg_dirs['mmn']
@@ -24,13 +26,10 @@ analysis = 'Individual-matched'
 conditions = ['standard', 'Ba', 'Wa']
 lpf = 30
 csv_filename = 'Ford-%s-%d_dataset.csv' % (analysis, lpf)
-static_dir = op.join(params.project_dir, 'badbaby', 'static')
-
-meg_df, cdi_df = rd.return_ford_mmn_dfs()
+static_dir = params.static_dir
+meg_df, cdi_df = rd.return_ford_mmn_dfs()  # Ford, SIMMS, or Bezos
 df = pd.read_csv(op.join(static_dir, csv_filename), delimiter='\t')
 df.drop(columns='Unnamed: 0', inplace=True)
-
-# plot dependents
 sns.set(style="whitegrid", palette="muted", color_codes=True)
 groups = np.unique(df.group.values).tolist()
 groups = [groups[i:i + 2] for i in range(0, len(groups), 2)]
@@ -39,6 +38,31 @@ features = ['lats', 'amps']
 units = ['latency (sec)', 'strength (T)']
 ws_measures = ['M3L', 'VOCAB']
 cdi_ages = np.arange(18, 31, 3)
+
+# plot dependents
+ax = meg_df.complete.groupby(meg_df.Sex).sum().plot.pie(subplots=False,
+                                                        figsize=(8, 4))
+ax.set(title='Sex', ylabel='Data acquired')
+plt.axis('equal')
+plt.gcf().tight_layout()
+plt.gcf().savefig(op.join(static_dir, 'figure',
+                          'Ford_%s_%d_sexes_pie.pdf' % (analysis, lpf)),
+                  dpi=240, format='pdf')
+g = sns.lmplot(x='Age(days)', y='HC', truncate=True, data=meg_df)
+g.set_axis_labels('Age (days)', 'Head circumference (cm)')
+g.despine(bottom=True, left=True, offset=5, trim=True)
+g.savefig(op.join(static_dir, 'figure',
+                  'Ford_age-x-hc_reg.pdf'),
+          dpi=240, format='pdf')
+# CDI measures regplots
+for nm, label in zip(['M3L', 'VOCAB'], ['Mean length utterance',
+                                        'Words understood']):
+    g = sns.lmplot(x="CDIAge", y=nm, truncate=True, data=cdi_df)
+    g.set_axis_labels("Age (months)", label)
+    g.despine(bottom=True, left=True, offset=5, trim=True)
+    g.savefig(op.join(static_dir, 'figure',
+                      'Ford_%s-x-age_reg.pdf' % nm),
+              dpi=240, format='pdf')
 
 # violinplots
 for feature, unit in zip(features, units):
@@ -56,12 +80,31 @@ for feature, unit in zip(features, units):
         hs, labels = g.get_legend_handles_labels()
         fig.legend(hs, labels, **leg_kwargs)
         sns.despine(fig, left=True, bottom=True, offset=5, trim=True)
-        fig.savefig(op.join(fig_dir, 'Ford_auc-x-%s_%s_violins.pdf'
+        fig.savefig(op.join(static_dir, 'figure', 'Ford_auc-x-%s_%s_violins.pdf'
                             % (outputs[ii], analysis)),
                     dpi=240, format='pdf')
+# Descriptives
+lats_desc = df.groupby(['group', 'condition', 'hemisphere']). \
+    agg({'lats': ['count', 'mean', 'std', 'skew']})
+# t-tests
+lats_ds = df.groupby(['group', 'condition', 'hemisphere'])
+# Standard high vs low SES
+mask = lats_ds.get_group(('Low SES', 'standard', 'lh')).lats.notna()
+x = lats_ds.get_group(('Low SES', 'standard', 'lh'))
+x = x[mask]['lats'].values
+mask = lats_ds.get_group(('High SES', 'standard', 'lh')).lats.notna()
+y = lats_ds.get_group(('High SES', 'standard', 'lh'))
+y = y[mask]['lats'].values
+ts, ps = stats.ttest_ind(x, y, equal_var=False)
+
+
+groups = np.unique(df.group.values)
+# cond x hem x subj
+df[(df.groupby(group))]
+
+
 
 # Correlations: dependent measures vs. CDI measures
-groups = np.unique(df.group.values)
 for ii, group in enumerate(groups):
     print(' %s group' % group)
     for jj, key in enumerate(params.sensors.keys()):
@@ -100,13 +143,16 @@ for ii, group in enumerate(groups):
                         if results.f_pvalue < .05:
                             print('Regression results for %s...\n'
                                   % groups[ii])
+                            print(' %s at %d vs. %s-%s-%s' % (ws, cdi_age,
+                                                              cond, key,
+                                                              response))
                             print(results.summary())
                             fig, ax = plt.subplots(1, 1, figsize=(10, 5))
-                            ax.set(title=groups[ii], ylabel=ws,
-                                   xlabel=nm)
-                            ax.plot(X, Y, 'o', markersize=10)
-                            ax.plot(X, ols_ln, lw=1.5, ls='solid',
-                                    color='Crimson', zorder=5)
+                            ax.set(title=groups[ii], ylabel=nm,
+                                   xlabel=ws)
+                            ax.plot(X, Y, 'o', markersize=12)
+                            ax.plot(X, ols_ln, lw=3, ls='solid',
+                                    color='c', zorder=5)
                             box_off(ax)
                             ax.get_xticklabels()[0]. \
                                 set(horizontalalignment='right')
@@ -122,6 +168,7 @@ for ii, group in enumerate(groups):
                                     % (ws, cdi_age, response, key,
                                        groups[ii].replace(' ', ''),
                                        analysis, cond, lpf)
-                            fig.savefig(op.join(fig_dir, f_out), dpi=240,
+                            fig.savefig(op.join(static_dir, 'figure', f_out),
+                                        dpi=240,
                                         format='pdf')
                             plt.close(plt.gcf())
