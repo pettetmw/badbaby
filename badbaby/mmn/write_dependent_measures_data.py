@@ -16,14 +16,15 @@ from badbaby import return_dataframes as rd
 data_dir = params.meg_dirs['mmn']
 df, cdi_df = rd.return_simms_mmn_dfs()
 subjects = df.Subject_ID.values.tolist()
+agency = 'SIMMS'
 analysis = 'Individual'
 conditions = ['standard', 'Ba', 'Wa']
 lpf = 30
 erf_data = np.load(op.join(data_dir,
-                           'Ford_Analysis-%s_%d-ERF-data.npz'
-                           % (analysis, lpf)))
+                           '%s_Analysis-%s_%d-ERF-data.npz'
+                           % (agency, analysis, lpf)))
 file_out = op.join(data_dir,
-                   'Ford_Analysis-%s_%d-DepMeas-data.npz' % (analysis, lpf))
+                   '%s_Analysis-%s_%d-DepMeas-data.npz' % (agency, analysis, lpf))
 
 # Loop over subjects and write ND data matrix
 t0 = time.time()

@@ -6,8 +6,12 @@
 # License: MIT
 
 import os.path as op
+from os.path import expanduser
 
-project_dir = '/home/ktavabi/Projects/badbaby'
+home = expanduser("~")
+parent = op.realpath(__file__)
+parent = op.dirname(parent)
+static_dir = op.join(home, parent, 'static')
 data_dir = '/media/ktavabi/ALAYA/data/ilabs/badbaby'
 meg_dirs = {kk: op.join(data_dir, vv)
             for kk, vv in zip(['mmn', 'assr', 'ids'],

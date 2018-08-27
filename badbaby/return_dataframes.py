@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-""" """
+"""Script returns cohort specific pandas dataframes """
 
 # Authors: Kambiz Tavabi <ktavabi@gmail.com>
 # License: MIT
@@ -8,9 +8,9 @@
 import os.path as op
 import numpy as np
 import pandas as pd
-from badbaby.parameters import project_dir
+from badbaby import parameters as params
 
-static_dir = op.join(project_dir, 'badbaby', 'static')
+static_dir = params.static_dir
 
 
 def return_simms_mmn_dfs():
