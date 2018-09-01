@@ -84,17 +84,18 @@ for feature, unit in zip(features, units):
         fig.savefig(op.join(static_dir, 'figure', '%s_auc-x-%s_%s_violins.pdf'
                             % (agency, outputs[ii], analysis)),
                     dpi=240, format='pdf')
+plt.show()
 # Descriptives
 lats_desc = df.groupby(['group', 'condition', 'hemisphere']). \
     agg({'lats': ['count', 'mean', 'std', 'skew']})
 # t-tests
 lats_ds = df.groupby(['group', 'condition', 'hemisphere'])
 # Standard high vs low SES
-mask = lats_ds.get_group(('Low SES', 'standard', 'lh')).lats.notna()
-x = lats_ds.get_group(('Low SES', 'standard', 'lh'))
+mask = lats_ds.get_group(('Low SES', 'standard', 'rh')).lats.notna()
+x = lats_ds.get_group(('Low SES', 'standard', 'rh'))
 x = x[mask]['lats'].values
-mask = lats_ds.get_group(('High SES', 'standard', 'lh')).lats.notna()
-y = lats_ds.get_group(('High SES', 'standard', 'lh'))
+mask = lats_ds.get_group(('High SES', 'standard', 'rh')).lats.notna()
+y = lats_ds.get_group(('High SES', 'standard', 'rh'))
 y = y[mask]['lats'].values
 ts, ps = stats.ttest_ind(x, y, equal_var=False)
 # CDI between SES
