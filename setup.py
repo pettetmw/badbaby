@@ -21,8 +21,6 @@ REQUIRED = []
 # Trove Classifier for that!
 
 here = os.path.abspath(os.path.dirname(__file__))
-
-
 # Where the magic happens:
 setup(
     name=NAME,

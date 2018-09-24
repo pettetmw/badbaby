@@ -40,11 +40,20 @@ target/
 # IDE
 badbaby/.idea/
 badbaby/.ropeproject/
-badbaby/paradigm/data/
-badbaby/paradigm/expyfun/
-badbaby/paradigm/stimuli
 
 *$*
 *.xls#
 
 
+
+\.idea/
+
+*.xlsx#
+
+*.gz
+
+*.wav
+
+temp
+
+\.vscode/
