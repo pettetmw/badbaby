@@ -24,7 +24,8 @@ erf_data = np.load(op.join(data_dir,
                            '%s_Analysis-%s_%d-ERF-data.npz'
                            % (agency, analysis, lpf)))
 file_out = op.join(data_dir,
-                   '%s_Analysis-%s_%d-DepMeas-data.npz' % (agency, analysis, lpf))
+                   '%s_Analysis-%s_%d-DepMeas-data.npz'
+                   % (agency, analysis, lpf))
 
 # Loop over subjects and write ND data matrix
 t0 = time.time()
