@@ -8,7 +8,7 @@
 import os.path as op
 import numpy as np
 import pandas as pd
-from badbaby import parameters as params
+from badbaby import defaults as params
 
 static_dir = params.static_dir
 
@@ -43,20 +43,18 @@ def return_dataframes(paradigm, age=None, bezos=False, simms=False):
     elif simms:
         xl_a = xl_a[xl_a['simms_inclusion'] == 1]
     else:
-        if age is not None:
-            raise ValueError
-        xl_a = xl_a.drop('Notes', axis=1, inplace=False)
-        xl_a.dropna()
         #  Filter by age
         if age == 2:
-            xl_a = xl_a[xl_a['Age(days)'] < 70]
+            xl_a = xl_a[xl_a['Age(days)'] < 80]
         elif age == 6:
-            xl_a = xl_a[xl_a['Age(days)'] > 70]
+            xl_a = xl_a[xl_a['Age(days)'] > 80]
+    xl_a = xl_a.drop('Notes', axis=1, inplace=False)
+    xl_a.dropna()
     df = xl_a
     subject_ids = df.Subject_ID.values
     subject_ids = set(['BAD_%s' % ss[:3] for ss in subject_ids.tolist()])
     xl_b = pd.read_excel(op.join(static_dir, 'cdi_report_final_08292018.xlsx'),
-                         sheet_name='WS')
+                         sheet_name='Data')
     participant_ids = np.unique(xl_b.ParticipantId.values)
     # Exclude subjects without CDI data
     out = np.intersect1d(np.asarray(list(subject_ids)),

@@ -13,7 +13,7 @@ import matplotlib.pyplot as plt
 from matplotlib.lines import Line2D
 import pandas as pd
 import seaborn as sns
-import badbaby.parameters as params
+import badbaby.defaults as params
 import badbaby.return_dataframes as rd
 from badbaby.set_viz_params import box_off, setup_pyplot
 
@@ -54,15 +54,7 @@ g.despine(bottom=True, left=True, offset=5, trim=True)
 g.savefig(op.join(static_dir, 'figure',
                   '%s_age-x-hc_reg.pdf' % agency),
           dpi=240, format='pdf')
-# CDI measures regplots
-for nm, label in zip(['M3L', 'VOCAB'], ['Mean length utterance',
-                                        'Words understood']):
-    g = sns.lmplot(x="CDIAge", y=nm, truncate=True, data=cdi_df)
-    g.set_axis_labels("Age (months)", label)
-    g.despine(bottom=True, left=True, offset=5, trim=True)
-    g.savefig(op.join(static_dir, 'figure',
-                      '%s_%s-x-age_reg.pdf' % (agency, nm)),
-              dpi=240, format='pdf')
+
 
 # violinplots
 for feature, unit in zip(features, units):

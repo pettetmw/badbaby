@@ -11,7 +11,7 @@ import seaborn as sns
 import mne
 from mne import read_evokeds
 from badbaby.return_dataframes import  return_simms_mmn_df
-from badbaby.parameters import meg_dirs, project_dir
+from badbaby.defaults import meg_dirs, project_dir
 
 
 def box_off(ax):

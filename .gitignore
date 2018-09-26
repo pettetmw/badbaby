@@ -43,17 +43,9 @@ badbaby/.ropeproject/
 
 *$*
 *.xls#
-
-
-
 \.idea/
-
 *.xlsx#
-
 *.gz
-
 *.wav
-
 temp
-
 \.vscode/

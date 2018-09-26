@@ -9,7 +9,7 @@ from os import path as op
 import time
 import numpy as np
 from mne import read_evokeds
-from badbaby import parameters as params
+from badbaby import defaults as params
 from badbaby import return_dataframes as rd
 
 # Some parameters

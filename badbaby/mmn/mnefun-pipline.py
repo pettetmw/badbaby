@@ -9,7 +9,7 @@ from __future__ import print_function
 import os.path as op
 import numpy as np
 import mnefun
-from badbaby.parameters import meg_dirs
+from badbaby.defaults import meg_dirs
 from badbaby.return_dataframes import return_mmn_df
 # from score import score
 

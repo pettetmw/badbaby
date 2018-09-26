@@ -5,7 +5,7 @@ import numpy as np
 import pandas as pd
 import mne
 from mne import read_evokeds, grand_average
-import badbaby.parameters as params
+import badbaby.defaults as params
 import badbaby.return_dataframes as rd
 
 
