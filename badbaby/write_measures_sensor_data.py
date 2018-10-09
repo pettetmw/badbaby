@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-"""Analysis script for oddball sensor space data"""
+"""Write dependent measures for oddball sensor space data"""
 
 # Authors: Kambiz Tavabi <ktavabi@gmail.com>
 # License: MIT
@@ -33,8 +33,8 @@ def read_in_evoked(filename, condition):
 
 
 # Some parameters
-analysis = 'Oddball-matched'
-conditions = ['standard', 'deviant']
+analysis = 'Individual-matched'
+conditions = ['standard', 'Ba', 'Wa']
 lpf = 30
 age = 2
 data_dir = params.meg_dirs['mmn']
@@ -81,8 +81,9 @@ for ci, cond in enumerate(conditions):
                 erf_data = np.zeros((len(subjects), len(evoked.info['chs']),
                                      len(evoked.times)))
             erf_data[si] = evoked.data
-        np.savez(op.join(data_dir, '%s-%d_%s_evoked-arrays.npz'
-                         % (analysis, lpf, cond)), erf_data=erf_data)
+        np.savez(op.join(data_dir, '%s_%s_%s-mos_%d_evoked-arrays.npz'
+                         % (analysis, cond, age, lpf)),
+                 erf_data=erf_data, naves=naves)
         # do grand averaging
         grandavr = grand_average(evokeds)
         grandavr.save(file_out)
@@ -110,8 +111,8 @@ Ds = dict()
 for cond in conditions:
     evoked = mne.Evoked(op.join(data_dir, '%s_%s_%s-mos_%d_grand-ave.fif'
                                 % (analysis, cond, age, lpf)))
-    ds = np.load(op.join(data_dir, '%s-%d_%s_evoked-arrays.npz'
-                         % (analysis, lpf, cond)))
+    ds = np.load(op.join(data_dir, '%s_%s_%s-mos_%d_evoked-arrays.npz'
+                         % (analysis, cond, age, lpf)))
     ds = ds['erf_data']
     times = evoked.times
     Ds[cond] = dict()
@@ -179,7 +180,9 @@ for ci, cond in enumerate(conditions):
                 channels[si, ci, ii, jj] = ch
                 if ch in Ds[cond][ch_type][hem]:
                     print(' %s in significant sensors' % ch)
-
+    np.savez(op.join(data_dir, '%s_%s-mos_%d_measures.npz'
+                     % (analysis, age, lpf)),
+             auc=auc, latencies=latencies, channels=channels, naves=naves)
 # Compare ERF datasets for subset of channels over temporal cortex
 layout = np.unique(channels).astype('<U20').tolist()
 evoked_dict = dict()
@@ -195,8 +198,8 @@ for cond in conditions:
     evoked_dict[cond] = evokeds
 print(evoked_dict)
 
-colors = {k: v for k, v in zip(conditions, ["CornFlowerBlue", "Crimson"])}
+colors = {k: v for k, v in zip(conditions, ["CornFlowerBlue", "Crimson",
+                                            'Teal'])}
 pick = [evoked.ch_names.index(kk) for kk in layout]
 mne.viz.plot_compare_evokeds(evoked_dict, picks=pick, colors=colors, gfp=True)
-
 

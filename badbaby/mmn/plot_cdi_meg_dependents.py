@@ -40,17 +40,11 @@ ws_measures = ['M3L', 'VOCAB']
 cdi_ages = np.arange(18, 31, 3)
 
 # plot dependents
-ax = meg_df.complete.groupby(meg_df.Sex).sum().plot.pie(subplots=False,
-                                                        figsize=(8, 4))
-ax.set(title='Sex', ylabel='Data acquired')
-plt.axis('equal')
-plt.gcf().tight_layout()
+
 plt.gcf().savefig(op.join(static_dir, 'figure',
                           '%s_%s_%d_sexes_pie.pdf' % (agency, analysis, lpf)),
                   dpi=240, format='pdf')
-g = sns.lmplot(x='Age(days)', y='HC', truncate=True, data=meg_df)
-g.set_axis_labels('Age (days)', 'Head circumference (cm)')
-g.despine(bottom=True, left=True, offset=5, trim=True)
+
 g.savefig(op.join(static_dir, 'figure',
                   '%s_age-x-hc_reg.pdf' % agency),
           dpi=240, format='pdf')
