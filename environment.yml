@@ -42,3 +42,4 @@ dependencies:
   - cython
   - seaborn
   - xlrd>=0.9.0
+  - researchpy==0.1.4
