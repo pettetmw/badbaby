@@ -38,9 +38,7 @@ conditions = ['standard', 'Ba', 'Wa']
 lpf = 30
 age = 2
 data_dir = params.meg_dirs['mmn']
-fig_dir = op.join(data_dir, 'figures')
-if not op.isdir(fig_dir):
-    os.mkdir(fig_dir)
+
 meg_df, cdi_df = rd.return_dataframes('mmn', age=age)
 # Remove rows with 0 entry for CDI measures.
 for nm in ['M3L', 'VOCAB']:

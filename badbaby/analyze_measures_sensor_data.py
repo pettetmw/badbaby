@@ -5,7 +5,6 @@
 # Authors: Kambiz Tavabi <ktavabi@gmail.com>
 # License: MIT
 
-import os
 from os import path as op
 import numpy as np
 from scipy import stats
@@ -53,9 +52,7 @@ meg_dependents = ['auc', 'latencies', 'naves']
 ch_type = ['grad', 'mag']
 hems = ['lh', 'rh']
 data_dir = params.meg_dirs['mmn']
-fig_dir = op.join(data_dir, 'figures')
-if not op.isdir(fig_dir):
-    os.mkdir(fig_dir)
+
 fname = op.join(data_dir, '%s_%s-mos_%d_measures.npz'
                 % (analysis, age, lpf))
 if not op.isfile(fname):
