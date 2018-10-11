@@ -14,9 +14,35 @@ import pandas as pd
 import matplotlib.pyplot as plt
 from sklearn import linear_model
 from sklearn.metrics import mean_squared_error, r2_score
+import statsmodels.api as sm
+from statsmodels.formula.api import ols
+import statsmodels.stats.multicomp
+import researchpy as rp
 import badbaby.defaults as params
 import badbaby.return_dataframes as rd
 from meegproc.utils import box_off
+
+
+def fit_sklearn_glm(feature, target):
+    """Helper to fit simple GLM"""
+    prediction_space = np.linspace(min(feature), max(feature),
+                                   num=feature.shape[0]).reshape(-1, 1)
+    reg = linear_model.LinearRegression().fit(feature, target)
+    y_pred = reg.predict(prediction_space)
+    return reg, y_pred, prediction_space
+
+
+def return_r_stats(rr, n):
+    """Helper to compute t-stat for simple GLM"""
+    """Notes:
+        Calculation of t-value from r-value on StackExchange network
+        https://tinyurl.com/yapl82m3
+    """
+    t_val = np.sqrt(rr) / np.sqrt((1 - rr) / (n - 2))
+    # Two-sided pvalue as Prob(abs(t)>tt) using stats Survival Function (1-CDF — sometimes more accurate))  # noqa
+    p_val = stats.t.sf(np.abs(t_val), n - 1) * 2
+    return t_val, p_val
+
 
 # Some parameters
 analysis = 'Individual-matched'
@@ -60,18 +86,13 @@ xx = pd.merge(mmn_features, cdi_df, on='ParticipantId',
 # Split data on SES and CDIAge
 ses_grouping = xx.SES < xx.SES.median()  # low SES True
 xx['ses_group'] = ses_grouping.map({True: 'low', False: 'high'})
-df = xx.groupby(['ses_group', 'CDIAge', 'Sex'], as_index=False)
-df_desc = df[['SES', 'HC', 'M3L', 'VOCAB']].agg([np.count_nonzero,
-                                                 np.max, np.min, np.mean,
-                                                 np.std, np.var, np.median,
-                                                 stats.sem])
+
 #  Some plots
 print('\nDescriptive stats for Age(days) variable...\n',
       xx['Age(days)'].describe())
 fig, ax = plt.subplots(1, 1, figsize=(2, 2))
 xx.complete.groupby(xx.Sex).sum().plot.pie(subplots=False, ax=ax)
 ax.set(title='Sex', ylabel='Data acquired')
-fig.axis('equal')
 fig.tight_layout()
 scatter_kws = dict(s=50, linewidth=.5, edgecolor="w")
 g = sns.FacetGrid(xx, col="Sex", hue="ses_group",
@@ -95,36 +116,60 @@ for nm, title in zip(['M3L', 'VOCAB'],
     h.despine(offset=2, trim=True)
 
 # Linear model of SES-CDI
-y = xx[xx.CDIAge == 30].M3L.values.reshape(-1, 1)  # target
-mask_X = mmn_features.Subject_ID.isin(xx[xx.CDIAge == 30].Subject_ID)
-X = mmn_features[mask_X].SES.values.reshape(-1, 1)  # feature
-assert(y.shape == X.shape)
-prediction_space = np.linspace(min(X), max(X), num=X.shape[0]).reshape(-1, 1)
-reg = linear_model.LinearRegression()
-reg.fit(X, y)
-y_pred = reg.predict(prediction_space)
-plt.scatter(X, y)
-plt.ylabel('Words Understood')
-plt.xlabel('SES')
-plt.scatter(X, y, c='CornFlowerBlue')
-plt.plot(prediction_space, y_pred, c="Grey", lw=2)
-# The coefficients ax+b
-print(' Model Coefficients: \n', reg.coef_)
-# The mean squared error
-print(' Mean squared error: %.2f'
-      % mean_squared_error(y, y_pred))
-# Explained variance score: 1 is perfect prediction
-print('Variance score: %.2f' % r2_score(y, y_pred))
-R_sq = reg.score(X, y)
-n = X.shape[0]-2
-print(' Coefficient of determination R^2: %.2f' % R_sq)
-# Note Calculation of t-value from r-value on StackExchange network
-# https://tinyurl.com/yapl82m3
-t_val = np.sqrt(R_sq) / np.sqrt((1-R_sq) / n)
-p_val = stats.t.sf(np.abs(t_val), n-1)*2  # two-sided pvalue = Prob(abs(t)>tt) using stats Survival Function (1-CDF — sometimes more accurate))  # noqa
-print(' t-statistic = %6.3f pvalue = %6.4f'
-      % (t_val, p_val))
+ages = np.arange(21, 31, 3)
+for nm, tt in zip(['M3L', 'VOCAB'],
+                  ['Mean length of utterance', 'Words understood']):
+    fig, axs = plt.subplots(1, len(ages), figsize=(12, 6))
+    hs = list()
+    for fi, ax in enumerate(axs):
+        y = xx[xx.CDIAge == ages[fi]][nm].values.reshape(-1, 1)  # target
+        mask = mmn_features.Subject_ID.isin(xx[xx.CDIAge ==
+                                               ages[fi]].Subject_ID)
+        X = mmn_features[mask].SES.values.reshape(-1, 1)  # feature
+        assert(y.shape == X.shape)
+        hs.append(ax.scatter(X, y, c='CornFlowerBlue', s=50,
+                             zorder=5, marker='.', alpha=0.5))
+        ax.set(xlabel='SES', title='%d Mos' % ages[fi])
+        if fi == 0:
+            ax.set(ylabel=tt)
+        r, y_mod, space = fit_sklearn_glm(X, y)
+        hs.append(ax.plot(space, y_mod, c="Grey", lw=2, alpha=0.5))
+        ax.annotate('$\mathrm{r^{2}}=%.2f$''\n$\mathit{p = %.2f}$'
+                    % (r.score(X, y), p),
+                    xy=(0.05, 0.9), xycoords='axes fraction',
+                    bbox=dict(boxstyle='square', fc='w'))
+        # The coefficients ax+b
+        print(' Model Coefficients: \n', r.coef_)
+        # The mean squared error
+        print(' Mean squared error: %.2f'
+              % mean_squared_error(y, y_mod))
+        # Explained variance score: 1 is perfect prediction
+        print('Variance score: %.2f' % r2_score(y, y_mod))
+        t, p = return_r_stats(r.score(X, y), X.shape[0])
+        print(' Coefficient of determination R^2: %.2f' % r.score(X, y))
+        print(' t-statistic = %6.3f pvalue = %6.4f'
+              % (t, p))
 
+# OLS Regression ANOVA F-tests for Sex*SES interaction
+for nm, tt in zip(['M3L', 'VOCAB'],
+                  ['Mean length of utterance', 'Words understood']):
+    for ai in ages:
+        df = xx[xx.CDIAge == ai]
+        print('Testing variable: %s ' % nm, 'At %d mos of age...' % ai)
+        if model.f_pvalue < .05:  # Fits the model with the interaction term
+            print(rp.summary_cont(df.groupby(['Sex', 'ses_group']))[nm])
+            # This automatically include the main effects for each factor
+            model = ols('VOCAB ~ C(Sex)* C(ses_group)', df).fit()
+            model.summary()
+            print('JB test for normality p-value: %6.3f'
+                  % sm.stats.stattools.jarque_bera(model.resid)[1])
+            # Seeing if the overall model is significant
+            print(f"Overall model F({model.df_model: .0f},"
+                  f"{model.df_resid: .0f}) = {model.fvalue: .3f}, "
+                  f"p = {model.f_pvalue: .4f}")
+            res = sm.stats.anova_lm(model, typ=2, robust='hc3')
+        else:
+            print(' Go fish you sorry SOB.')
 
 # Put dependents into dataframe of obs x conditions x sensor types x hemisphere
 sz = data['auc'].size // 2
