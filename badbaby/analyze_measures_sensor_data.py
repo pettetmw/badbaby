@@ -204,24 +204,3 @@ for nm, tt in zip(['auc', 'latencies'],
     h.fig.suptitle(tt)
     h.despine(offset=2, trim=True)
 
-# OLS Regression F-tests (ANOVA)
-for nm, tt in zip(['auc', 'latencies'], ['Strength', 'Latency']):
-    # This automatically include the main effects for each factor
-    model = ols('%s ~ C(ses_group)*C(conditions)*C(hemisphere)' % nm,
-                df_mmn[df_mmn.ch_type == 'grad']).fit()
-    print(f"    Overall model p = {model.f_pvalue: .4f}")
-    if model.f_pvalue < .05:  # Fits the model with the interaction term
-        print(rp.summary_cont(df_mmn.groupby(['ses_group',
-                                              'conditions',
-                                              'hemisphere']))[nm])
-        print(model.summary())
-        print('JB test for normality p-value: %6.3f'
-              % sm.stats.stattools.jarque_bera(model.resid)[1])
-        # Seeing if the overall model is significant
-        print(f"Overall model F({model.df_model: .0f},"
-              f"{model.df_resid: .0f}) = {model.fvalue: .3f}, "
-              f"p = {model.f_pvalue: .4f}")
-        aov_table = sm.stats.anova_lm(model, typ=2, robust='hc3')
-        print(aov_table)
-    else:
-        print('     Go fish.\n')
