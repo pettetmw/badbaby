@@ -5,7 +5,6 @@
 # Authors: Kambiz Tavabi <ktavabi@gmail.com>
 # License: MIT
 
-import os
 from os import path as op
 import numpy as np
 import seaborn as sns
@@ -13,7 +12,7 @@ import mne
 from mne import (read_evokeds, grand_average)
 from mne.stats import permutation_t_test
 from mne.utils import _time_mask
-from meegproc import defaults, utils
+from meegproc import defaults
 import badbaby.defaults as params
 import badbaby.return_dataframes as rd
 
@@ -39,17 +38,18 @@ lpf = 30
 age = 2
 data_dir = params.meg_dirs['mmn']
 
-meg_df, cdi_df = rd.return_dataframes('mmn', age=age)
-# Remove rows with 0 entry for CDI measures.
-for nm in ['M3L', 'VOCAB']:
-    cdi_df = cdi_df[cdi_df[nm] != 0]
+meg_df, cdi_df = rd.return_dataframes('mmn', age=age, bezos=True)
+
 #  Confirm data is correct
 print('\nDescriptive stats for Age(days) variable...\n',
       meg_df['Age(days)'].describe())
+meg_df.hist(column=['SES', 'HC', 'Age(days)'], layout=(3, 1),
+            figsize=(8, 10), bins=50)
 # CDI measures regplots
 for nm, title in zip(['M3L', 'VOCAB'],
                      ['Mean length of utterance', 'Words understood']):
-    g = sns.lmplot(x="CDIAge", y=nm, truncate=True, data=cdi_df)
+    g = sns.lmplot(x="CDIAge", y=nm, truncate=True,
+                   data=cdi_df[cdi_df[nm] != 0])
     g.set_axis_labels("Age (months)", nm)
     g.ax.set(title=title)
     g.ax.grid(True)
@@ -58,7 +58,7 @@ for nm, title in zip(['M3L', 'VOCAB'],
 # Loop over subjects & plot grand average ERFs
 subjects = meg_df.Subject_ID.values
 naves = np.zeros((len(conditions), len(subjects)))
-tmin, tmax = (.09, .4)
+tmin, tmax = (.09, .45)
 print('Plotting Grand Averages')
 for ci, cond in enumerate(conditions):
     print('     Loading data for %s / %s' % (analysis, cond))
@@ -147,8 +147,6 @@ for cond in conditions:
                 list(set(np.asarray(info['ch_names'])[these_sensors]).
                      intersection(set(params.sensors[kk])))
 
-# Loop over subjects & compute dependent measures
-subjects = meg_df.Subject_ID.values
 # obs x conditions x sensor types x hemisphere
 auc = np.zeros((len(subjects), len(conditions), 2, 2))
 latencies = np.zeros_like(auc)
@@ -178,10 +176,11 @@ for ci, cond in enumerate(conditions):
                 channels[si, ci, ii, jj] = ch
                 if ch in Ds[cond][ch_type][hem]:
                     print(' %s in significant sensors' % ch)
-    np.savez(op.join(data_dir, '%s_%s-mos_%d_measures.npz'
-                     % (analysis, age, lpf)),
-             auc=auc, latencies=latencies, channels=channels, naves=naves)
-# Compare ERF datasets for subset of channels over temporal cortex
+np.savez(op.join(params.static_dir,
+                 '%s_%s-mos_%d_measures.npz' % (analysis, age, lpf)),
+         auc=auc, latencies=latencies, channels=channels, naves=naves)
+
+# Compare ERF datasets for subset of maximally responsive channels
 layout = np.unique(channels).astype('<U20').tolist()
 evoked_dict = dict()
 for cond in conditions:
