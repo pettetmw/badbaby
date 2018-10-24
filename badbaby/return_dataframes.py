@@ -6,7 +6,6 @@
 # License: MIT
 
 import os.path as op
-import numpy as np
 import pandas as pd
 from badbaby import defaults as params
 

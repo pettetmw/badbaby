@@ -9,8 +9,7 @@ from __future__ import print_function
 import os.path as op
 import numpy as np
 import mnefun
-from badbaby.defaults import meg_dirs
-from badbaby.return_dataframes import return_mmn_df
+import badbaby.return_dataframes as rd
 # from score import score
 
 try:
@@ -18,7 +17,8 @@ try:
     from niprov.mnefunsupport import handler
 except ImportError:
     handler = None
-df = return_mmn_df()
+#  TODO: verify & refactor
+df = rd.return_dataframes('mmn')[0]
 ecg_chs = np.unique(df['ECG'].tolist())
 work_dir = meg_dirs['mmn']
 
