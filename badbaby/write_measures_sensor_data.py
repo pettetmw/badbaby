@@ -12,7 +12,7 @@ import mne
 from mne import (read_evokeds, grand_average)
 from mne.stats import permutation_t_test
 from mne.utils import _time_mask
-from meegproc import defaults
+from huma import defaults
 import badbaby.defaults as params
 import badbaby.return_dataframes as rd
 
@@ -57,7 +57,6 @@ for nm, title in zip(['M3L', 'VOCAB'],
 
 # Loop over subjects & plot grand average ERFs
 subjects = meg_df.Subject_ID.values
-naves = np.zeros((len(conditions), len(subjects)))
 tmin, tmax = (.09, .45)
 print('Plotting Grand Averages')
 for ci, cond in enumerate(conditions):
@@ -74,14 +73,12 @@ for ci, cond in enumerate(conditions):
                                   % (analysis, lpf, subj))
             evoked = read_in_evoked(evoked_file, condition=cond)
             evokeds.append(evoked)
-            naves[ci, si] = evoked.nave
             if subj == subjects[0]:
                 erf_data = np.zeros((len(subjects), len(evoked.info['chs']),
                                      len(evoked.times)))
             erf_data[si] = evoked.data
         np.savez(op.join(data_dir, '%s_%s_%s-mos_%d_evoked-arrays.npz'
-                         % (analysis, cond, age, lpf)),
-                 erf_data=erf_data, naves=naves)
+                         % (analysis, cond, age, lpf)), erf_data=erf_data)
         # do grand averaging
         grandavr = grand_average(evokeds)
         grandavr.save(file_out)
@@ -151,6 +148,7 @@ for cond in conditions:
 auc = np.zeros((len(subjects), len(conditions), 2, 2))
 latencies = np.zeros_like(auc)
 channels = np.zeros_like(auc, dtype='<U20')
+naves = np.zeros((len(conditions), len(subjects)))
 for ci, cond in enumerate(conditions):
     print('     Loading data for %s / %s' % (analysis, cond))
     for si, subj in enumerate(subjects):
@@ -159,6 +157,7 @@ for ci, cond in enumerate(conditions):
                               '%s_%d-sss_eq_bad_%s-ave.fif'
                               % (analysis, lpf, subj))
         evoked = read_in_evoked(evoked_file, condition=cond)
+        naves[ci, si] = evoked.nave
         for ii, ch_type in enumerate(['grad', 'mag']):
             for jj, hem in enumerate(params.sensors.keys()):
                 these_sensors = params.sensors[hem]
@@ -168,6 +167,7 @@ for ci, cond in enumerate(conditions):
                 t0 = lat - .1
                 mask = _time_mask(ev.times, tmin=t0, tmax=lat,
                                   sfreq=ev.info['sfreq'])
+                #  TODO: Compute AUC at peak response location
                 auc[si, ci, ii, jj] = (np.sum(np.abs(ev.data[:, mask])) *
                                        (len(ev.times) /
                                         ev.info['sfreq']))
