@@ -164,13 +164,13 @@ for ci, cond in enumerate(conditions):
                 ev = evoked.copy().pick_channels(these_sensors)
                 ch, lat = ev.get_peak(ch_type=ch_type,
                                       tmin=tmin, tmax=tmax)
+                dummy = evoked.copy().pick_channels([ch])
                 t0 = lat - .1
-                mask = _time_mask(ev.times, tmin=t0, tmax=lat,
-                                  sfreq=ev.info['sfreq'])
-                #  TODO: Compute AUC at peak response location
-                auc[si, ci, ii, jj] = (np.sum(np.abs(ev.data[:, mask])) *
-                                       (len(ev.times) /
-                                        ev.info['sfreq']))
+                mask = _time_mask(evoked.times, tmin=t0, tmax=lat,
+                                  sfreq=evoked.info['sfreq'])
+                auc[si, ci, ii, jj] = (np.sum(np.abs(dummy.data[:, mask])) *
+                                       (len(evoked.times) /
+                                        evoked.info['sfreq']))
                 assert auc[si, ci, ii, jj] > 0
                 latencies[si, ci, ii, jj] = lat
                 channels[si, ci, ii, jj] = ch

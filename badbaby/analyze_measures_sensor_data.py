@@ -81,8 +81,8 @@ mmn_xls, cdi_xls = rd.return_dataframes('mmn', age=age, bezos=True)
 subj_ids = ['BAD_%s' % ss.split('a')[0]
             for ss in mmn_xls.Subject_ID.values]
 mmn_xls.insert(len(mmn_xls.columns), 'ParticipantId', subj_ids)
-mmn_cdi_df = pd.merge(mmn_xls, cdi_xls, on='ParticipantId',
-                      sort=True, validate='1:m').reindex()
+mmn_cdi_df = pd.merge(cdi_xls, mmn_xls, on='ParticipantId', how='inner',
+                      sort=True, validate='m:1').reindex()
 # Split data on SES and CDIAge
 ses_grouping = mmn_cdi_df.SES <= mmn_xls.SES.median()  # low SES True
 mmn_cdi_df['ses_group'] = ses_grouping.map({True: 'low', False: 'high'})
@@ -199,7 +199,7 @@ meg_df = pd.DataFrame({'Subject_ID': subj_ids.tolist(),
                        'conditions': c_levels.tolist() * len(subjects),
                        'ch_type': sns_levels.tolist() * (sz // 2),
                        'hemisphere': hem_levels.tolist() * sz,
-                       'auc': -np.log(data['auc'].reshape(-1, order='C')),
+                       'auc': 20 * np.log10(data['auc'].reshape(-1, order='C')),
                        'latencies': data['latencies'].reshape(-1, order='C'),
                        'channels': data['channels'].reshape(-1, order='C')})
 naves = np.transpose(data['naves'], (1, 0))
@@ -211,45 +211,52 @@ erf_naves = pd.DataFrame({'Subject_ID': subj_ids.tolist(),
 
 #  Merge MEG with MMN xls dataframes
 mmn_df = meg_df.merge(mmn_xls, on='Subject_ID', validate='m:1')
-g = sns.pairplot(mmn_df, vars=['auc', 'latencies'], hue='hemisphere',
-                 height=2.5)
+ses_grouping = mmn_df.SES <= mmn_df.SES.median()
+mmn_df['ses_group'] = ses_grouping.map({True: 1, False: 2})  # 1:low SES
+mmn_df['ses_label'] = ses_grouping.map({True: 'low', False: 'high'})
+mmn_df['condition_label'] = mmn_df.conditions
+mmn_df.replace({'condition_label': {1: 'ba', 2: 'wa', 3: 'standard'}},
+               inplace=True)
+mmn_df['hem_label'] = mmn_df.hemisphere
+mmn_df.replace({'hem_label': {1: 'lh', 2: 'rh'}}, inplace=True)
 
 # split gradiometer data on conditions and hemispheres
-grouped = mmn_df[mmn_df.ch_type == 3].groupby(['conditions', 'hemisphere'])
+grouped = mmn_df[mmn_df.ch_type == 3].groupby(['condition_label', 'hem_label'])
 print('\nDescriptive stats for Age(days) variable...\n', grouped.describe())
-mmn_df['ses_group'] = ses_grouping.map({True: 1, False: 2})  # 1:low SES
+g = sns.pairplot(mmn_df, vars=['auc', 'latencies'], hue='hem_label',
+                 height=2.5)
 
 #  Ball & stick plots of MEG measures as function of conditions and SES
-#  TODO: Fix legends
 for nm, tt in zip(['auc', 'latencies'],
                   ['Strength', 'Latency']):
-    h = sns.catplot(x='conditions', y=nm, hue='ses_group',
+    h = sns.catplot(x='condition_label', y=nm, hue='ses_label',
                     data=mmn_df[mmn_df.ch_type == 3],
-                    kind='point', ci='sd', dodge=True, legend=False,
+                    kind='point', ci='sd', dodge=True, legend=True,
                     palette=sns.color_palette('pastel', n_colors=2, desat=.5))
     h.fig.suptitle(tt)
     h.despine(offset=2, trim=True)
-#  TODO: Compute VIFs
-features_formula = "+".join(mmn_df.columns - ["auc"])
 
 # Combine conditions
-stim_grouping = mmn_df.conds_code == 3
+stim_grouping = mmn_df.conditions == 3
 mmn_df['stimulus'] = stim_grouping.map({True: 1, False: 2})  # 1:standard
 for nm, tt in zip(['auc', 'latencies'],
                   ['Strength', 'Latency']):
-    h = sns.catplot(x='stimulus', y=nm, hue='ses_group',
-                    data=mmn_df[mmn_df.ch_type == 'grad'],
+    h = sns.catplot(x='stimulus', y=nm, hue='ses_label',
+                    data=mmn_df[mmn_df.ch_type == 3],
                     kind='point', ci='sd', dodge=True,
                     palette=sns.color_palette('pastel', n_colors=2, desat=.5))
     h.fig.suptitle(tt)
     h.despine(offset=2, trim=True)
 
 # OLS Regression F-tests (ANOVA)
+#  TODO: Compute VIFs
+features_formula = "+".join(mmn_df.columns - ["auc"])
+
 for nm, tt in zip(['auc', 'latencies'],
                   ['Strength', 'Latency']):
     # This automatically include the main effects for each factor
-    model = ols('%s ~ C(ses_group)* C(conds_code)* C(hemisphere)' % nm,
-                mmn_df[mmn_df.ch_type == 'grad']).fit()
+    model = ols('%s ~ C(ses_group)+ C(conditions)+ C(hemisphere)' % nm,
+                mmn_df[mmn_df.ch_type == 3]).fit()
     print(f"Overall model p = {model.f_pvalue: .4f}")
     if model.f_pvalue < .05:  # Fits the model with the interaction term
         print(rp.summary_cont(mmn_df.groupby(['ses_group', 'conditions',
