@@ -36,7 +36,7 @@ def return_dataframes(paradigm, age=None, bezos=False, simms=False):
                            sheet_name=paradigm,
                            converters={'BAD': str})
     xl_meg = xl_meg[(xl_meg.complete == 1)]
-    xl_meg.drop(['Exam date', 'BAD', 'ECG', 'SR(Hz)', 'ACQ', 'MC-SVD',
+    xl_meg.drop(['Exam date', 'ACQ', 'MC-SVD',
                  'Artifact rej', 'Epochs'], axis=1, inplace=True)
     # Subselect by cohort
     if bezos:

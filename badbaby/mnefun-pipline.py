@@ -10,6 +10,7 @@ import os.path as op
 import numpy as np
 import mnefun
 import badbaby.return_dataframes as rd
+from badbaby import defaults
 # from score import score
 
 try:
@@ -17,10 +18,9 @@ try:
     from niprov.mnefunsupport import handler
 except ImportError:
     handler = None
-#  TODO: verify & refactor
 df = rd.return_dataframes('mmn')[0]
 ecg_chs = np.unique(df['ECG'].tolist())
-work_dir = meg_dirs['mmn']
+work_dir = defaults.meg_dirs['mmn']
 
 for sr, decim in zip([1200, 1800], [2, 3]):
     for ch in ecg_chs:
