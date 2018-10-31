@@ -223,8 +223,14 @@ mmn_df.replace({'hem_label': {1: 'lh', 2: 'rh'}}, inplace=True)
 # split gradiometer data on conditions and hemispheres
 grouped = mmn_df[mmn_df.ch_type == 3].groupby(['condition_label', 'hem_label'])
 print('\nDescriptive stats for Age(days) variable...\n', grouped.describe())
-g = sns.pairplot(mmn_df, vars=['auc', 'latencies'], hue='hem_label',
-                 height=2.5)
+ses_grouping = mmn_df.SES <= mmn_df.SES.median()
+mmn_df['ses_group'] = ses_grouping.map({True: 1, False: 2})  # 1:low SES
+mmn_df['ses_label'] = ses_grouping.map({True: 'low', False: 'high'})
+mmn_df['condition_label'] = mmn_df.conditions
+mmn_df.replace({'condition_label': {1: 'ba', 2: 'wa', 3: 'standard'}},
+               inplace=True)
+mmn_df['hem_label'] = mmn_df.hemisphere
+mmn_df.replace({'hem_label': {1: 'lh', 2: 'rh'}}, inplace=True)
 
 #  Ball & stick plots of MEG measures as function of conditions and SES
 for nm, tt in zip(['auc', 'latencies'],
@@ -235,6 +241,10 @@ for nm, tt in zip(['auc', 'latencies'],
                     palette=sns.color_palette('pastel', n_colors=2, desat=.5))
     h.fig.suptitle(tt)
     h.despine(offset=2, trim=True)
+
+
+#  TODO: Compute VIFs
+features_formula = "+".join(mmn_df.columns - ["auc"])
 
 # Combine conditions
 stim_grouping = mmn_df.conditions == 3
