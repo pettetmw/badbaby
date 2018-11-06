@@ -31,16 +31,6 @@ var/
 pip-log.txt
 pip-delete-this-directory.txt
 
-# Sphinx documentation
-docs/_build/
-
-# PyBuilder
-target/
-
-# IDE
-badbaby/.idea/
-badbaby/.ropeproject/
-
 *$*
 *.xls#
 \.idea/
@@ -49,3 +39,6 @@ badbaby/.ropeproject/
 *.wav
 temp
 \.vscode/
+\.ropeproject/
+
+badbaby/static/MMNdf_RM\.csv

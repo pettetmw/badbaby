@@ -199,7 +199,7 @@ meg_df = pd.DataFrame({'Subject_ID': subj_ids.tolist(),
                        'conditions': c_levels.tolist() * len(subjects),
                        'ch_type': sns_levels.tolist() * (sz // 2),
                        'hemisphere': hem_levels.tolist() * sz,
-                       'auc': 20 * np.log10(data['auc'].reshape(-1, order='C')),
+                       'auc': (data['auc'].reshape(-1, order='C')),
                        'latencies': data['latencies'].reshape(-1, order='C'),
                        'channels': data['channels'].reshape(-1, order='C')})
 naves = np.transpose(data['naves'], (1, 0))
@@ -231,7 +231,9 @@ mmn_df.replace({'condition_label': {1: 'ba', 2: 'wa', 3: 'standard'}},
                inplace=True)
 mmn_df['hem_label'] = mmn_df.hemisphere
 mmn_df.replace({'hem_label': {1: 'lh', 2: 'rh'}}, inplace=True)
-
+mmn_df.drop(axis=1, columns=['BAD', 'ECG', 'SR(Hz)', 'complete', 'CDI',
+                             'simms_inclusion', 'ParticipantId']).to_csv(
+    op.join(params.static_dir, 'MMNdf_RM.csv'), sep='\t')
 #  Ball & stick plots of MEG measures as function of conditions and SES
 for nm, tt in zip(['auc', 'latencies'],
                   ['Strength', 'Latency']):
@@ -241,10 +243,6 @@ for nm, tt in zip(['auc', 'latencies'],
                     palette=sns.color_palette('pastel', n_colors=2, desat=.5))
     h.fig.suptitle(tt)
     h.despine(offset=2, trim=True)
-
-
-#  TODO: Compute VIFs
-features_formula = "+".join(mmn_df.columns - ["auc"])
 
 # Combine conditions
 stim_grouping = mmn_df.conditions == 3
@@ -259,18 +257,15 @@ for nm, tt in zip(['auc', 'latencies'],
     h.despine(offset=2, trim=True)
 
 # OLS Regression F-tests (ANOVA)
-#  TODO: Compute VIFs
-features_formula = "+".join(mmn_df.columns - ["auc"])
-
 for nm, tt in zip(['auc', 'latencies'],
                   ['Strength', 'Latency']):
     # This automatically include the main effects for each factor
-    model = ols('%s ~ C(ses_group)+ C(conditions)+ C(hemisphere)' % nm,
+    model = ols('%s ~ C(ses_group)* C(conditions)* C(hemisphere)' % nm,
                 mmn_df[mmn_df.ch_type == 3]).fit()
-    print(f"Overall model p = {model.f_pvalue: .4f}")
+    print(f"    Overall model p = {model.f_pvalue: .4f}")
     if model.f_pvalue < .05:  # Fits the model with the interaction term
-        print(rp.summary_cont(mmn_df.groupby(['ses_group', 'conditions',
-                                              'hemisphere']))[nm])
+        print(rp.summary_cont(mmn_df.groupby(['ses_label', 'condition_label',
+                                              'hem_label']))[nm])
         print(model.summary())
         #  variance inflation factor, VIF, for one exogenous variable
         print(' JB test for normality p-value: %6.3f'
