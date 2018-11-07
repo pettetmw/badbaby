@@ -28,7 +28,6 @@ library(psych)
 library(nlme)
 library(car)
 library(rcompanion)
-library(rcompanion)
 library(multcompView)
 library(emmeans)
 library(rcompanion)
@@ -36,7 +35,7 @@ library(ggplot2)
 
 MMNdf <- read.csv(file = "/home/ktavabi/Projects/badbaby/badbaby/static/MMNdf_RM.csv",
 header=TRUE, sep="\t")
-MMNdf.mean <- aggregate(MMNdf$auc,
+MMNdf.mean <- aggregate(MMNdf$latencies,
 by=list(MMNdf$Subject_ID, MMNdf$ses_label,
 MMNdf$condition_label, MMNdf$hem_label),
 FUN='mean')
@@ -74,7 +73,7 @@ fmla <- as.formula("latencies ~ ses_label + condition_label + hem_label +
                     condition_label * hem_label")
 
 # Mixed effect model
-model.mixed = lme(formula, random=~ 1 | Subject_ID,
+model.mixed = lme(fmla, random=~ 1 | Subject_ID,
 correlation=corAR1(form=~ 1 | Subject_ID), data=MMNdf, method="REML")
 
 summary(model.mixed)
@@ -83,7 +82,7 @@ Anova(model.mixed)
 ######################
 # Fixed effect model #
 ######################
-model.fixed = gls(formula, correlation=corAR1(form=~1|Subject_ID),
+model.fixed = gls(fmla, correlation=corAR1(form=~1|Subject_ID),
 data=MMNdf, method='REML')
 
 summary(model.fixed)
@@ -148,4 +147,4 @@ ggplot(Sum, aes(x=hem_label, y=Mean, color=ses_label)) +
     geom_point(shape=15, size=4, position=pd) +
     theme_bw() +
     theme(axis.title=element_text(face="bold")) +
-    ylab("Strength")
+    ylab("Peak Latency")
