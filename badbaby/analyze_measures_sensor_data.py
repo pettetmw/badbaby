@@ -44,10 +44,11 @@ def return_r_stats(rr, n):
     return t_val, p_val
 
 
-def return_vif(feature, response, formula):
+def return_vif(X):
     """Helper to compute variance inflation factors for OLS model"""
     vif = pd.DataFrame()
-    vif['vif'] = [variance_inflation_factor(X.values, i) for i in range(X.shape[1])]
+    vif['vif'] = [variance_inflation_factor(
+        X.values, i) for i in range(X.shape[1])]
     vif['features'] = X.columns
     return vif
 
@@ -86,6 +87,9 @@ mmn_cdi_df = pd.merge(cdi_xls, mmn_xls, on='ParticipantId', how='inner',
 # Split data on SES and CDIAge
 ses_grouping = mmn_cdi_df.SES <= mmn_xls.SES.median()  # low SES True
 mmn_cdi_df['ses_group'] = ses_grouping.map({True: 'low', False: 'high'})
+mmn_cdi_df.drop(axis=1, columns=['BAD', 'ECG', 'SR(Hz)', 'complete', 'CDI',
+                                 'simms_inclusion']).to_csv(op.join(
+    params.static_dir, 'CDIdf_RM.csv'), sep='\t')
 print('\nDescriptive stats for Age(days) variable...\n',
       mmn_cdi_df['Age(days)'].describe())
 #  Some plots

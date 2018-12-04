@@ -33,21 +33,21 @@ library(emmeans)
 library(rcompanion)
 library(ggplot2)
 
-MMNdf <- read.csv(file = "/home/ktavabi/Projects/badbaby/badbaby/static/MMNdf_RM.csv",
-header=TRUE, sep="\t")
-MMNdf.mean <- aggregate(MMNdf$latencies,
-by=list(MMNdf$Subject_ID, MMNdf$ses_label,
-MMNdf$condition_label, MMNdf$hem_label),
-FUN='mean')
+CDIdf <- read.csv(file = "/home/ktavabi/Projects/badbaby/badbaby/static/CDIdf_RM.csv",
+                  header=TRUE, sep="\t")
+CDIdf$CDIAge <- as.factor(CDIdf$CDIAge)
+CDIdf.mean <- aggregate(CDIdf$M3L,by=list(CDIdf$Subject_ID, CDIdf$ses_group,
+                                          CDIdf$Sex, 
+                                          CDIdf$CDIAge), FUN='mean')
 
+summary(CDIdf.mean)
 # Order factors by the order in data frame, otherwise, R will alphabetize them
-MMNdf$Ses = factor(MMNdf$SES,
-levels = unique(MMNdf$SES))
+levels = unique(CDIdf$CDIAge)
 
 # Check the data frame
-headTail(MMNdf)
-str(MMNdf)
-summary(MMNdf)
+headTail(CDIdf)
+str(CDIdf)
+summary(CDIdf)
 
 ######################
 # Mixed effect model #
@@ -67,14 +67,14 @@ summary(MMNdf)
 # structures and compare the resulting models with a criterion like AIC,
 # AICc, or BIC to choose the structure that best models the data.
 
-fmla <- as.formula("latencies ~ ses_label + condition_label + hem_label +
-                    ses_label * condition_label + ses_label * hem_label +
-                    condition_label * hem_label + ses_label *
-                    condition_label * hem_label")
+fmla <- as.formula("M3L ~ CDIAge + ses_group + Sex + 
+                    CDIAge * ses_group + CDIAge * Sex +
+                    ses_group * Sex + CDIAge *
+                    ses_group * Sex")
 
 # Mixed effect model
 model.mixed = lme(fmla, random=~ 1 | Subject_ID,
-correlation=corAR1(form=~ 1 | Subject_ID), data=MMNdf, method="REML")
+correlation=corAR1(form=~ 1 | Subject_ID), data=CDIdf, method="REML")
 
 summary(model.mixed)
 Anova(model.mixed)
@@ -83,7 +83,7 @@ Anova(model.mixed)
 # Fixed effect model #
 ######################
 model.fixed = gls(fmla, correlation=corAR1(form=~1|Subject_ID),
-data=MMNdf, method='REML')
+                  data=CDIdf, method='REML')
 
 summary(model.fixed)
 Anova(model.fixed)
@@ -124,27 +124,34 @@ anova(model.mixed, model.fixed) # compares the reduction in the residual sum of 
 # model better predicts the outcome.
 # https://stats.idre.ucla.edu/other/mult-pkg/faq/general/faq-what-are-pseudo-r-squareds/
 
-model.null = lme(latencies ~ 1, random=~1|Subject_ID, data=MMNdf)
+model.null = lme(M3L ~ 1, random=~1|Subject_ID, data=CDIdf)
+nagelkerke(model.mixed, model.null)
 nagelkerke(model.fixed, model.null)
 
 #####################
 # Post-Hoc analysis #
 #####################
-marginal = emmeans(model.fixed, ~ ses_label : hem_label)
-cld(marginal, alpha=0.05, Letters=letters, ### Use lower-case letters for .group
-    adjust="tukey")     ###  Tukey-adjusted comparisons
+marginal = emmeans(model.fixed, ~ CDIAge : ses_group)
+cld(marginal, alpha=0.05, Letters=letters,  ### Use lower-case letters for .group
+    adjust="tukey",  ###  Tukey-adjusted comparisons
+    details=TRUE)
 
-Sum = groupwiseMean(latencies ~ ses_label + hem_label,
-    data=MMNdf, conf=0.95, digits=3, traditional=FALSE, percentile=TRUE)
+Sum = groupwiseMean(M3L ~ CDIAge + ses_group,
+                    data=CDIdf, conf=0.95, digits=3, traditional=FALSE, 
+                    percentile=TRUE)
 
 Sum
 
 pd = position_dodge(.2)
-ggplot(Sum, aes(x=hem_label, y=Mean, color=ses_label)) +
+ggplot(Sum, aes(x=CDIAge, y=Mean, color=ses_group)) +
     geom_errorbar(aes(ymin=Percentile.lower,
         ymax=Percentile.upper),
         width=.2, size=0.7, position=pd) +
-    geom_point(shape=15, size=4, position=pd) +
+    geom_point(shape=20, size=4, position=pd) +
     theme_bw() +
     theme(axis.title=element_text(face="bold")) +
-    ylab("Peak Latency")
+    ylab("M3L")
+
+# APA
+aov.fit <- aov(fmla, data=CDIdf)
+anova_apa(aov.fit, sph_corr = "hf", info = TRUE)
