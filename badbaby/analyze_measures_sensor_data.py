@@ -15,6 +15,7 @@ from sklearn.preprocessing import LabelEncoder
 from sklearn import linear_model
 from sklearn.metrics import mean_squared_error, r2_score
 import statsmodels.api as sm
+import statsmodels.graphics.api as smg
 from statsmodels.formula.api import ols
 import researchpy as rp
 from patsy import dmatrices
@@ -156,7 +157,7 @@ for nm, tt in zip(['M3L', 'VOCAB'],
         print(' Coefficient of determination R^2: %.2f' % r.score(X, y))
         print(' t-statistic = %6.3f pvalue = %6.4f'
               % (t, p))
-
+mmn_cdi_df.to_csv(op.join(params.static_dir, 'mmn-cdi_df.csv'), sep='\t')
 # OLS Regression F-tests (ANOVA)
 for nm, tt in zip(['M3L', 'VOCAB'],
                   ['Mean length of utterance', 'Words understood']):
@@ -166,7 +167,7 @@ for nm, tt in zip(['M3L', 'VOCAB'],
         # This automatically include the main effects for each factor
         formula = '%s ~ C(ses_group)' % nm
         model = ols(formula, df).fit()
-        print(f"Overall model p = {model.f_pvalue: .4f}")
+        print(f"    Overall model p = {model.f_pvalue: .4f}")
         if model.f_pvalue < .05:  # Fits the model with the interaction term
             print('\n====================================================',
                   ' Marginal means')
@@ -179,8 +180,8 @@ for nm, tt in zip(['M3L', 'VOCAB'],
                   % sm.stats.stattools.jarque_bera(model.resid)[1])
             # Seeing if the overall model is significant
             print(f"    \nOverall model F({model.df_model: .0f},"
-                  f"{model.df_resid: .0f}) = {model.fvalue: .3f}, "
-                  f"p = {model.f_pvalue: .4f}")
+                  f"    {model.df_resid: .0f}) = {model.fvalue: .3f}, "
+                  f"    p = {model.f_pvalue: .4f}")
             print('\n----------------------------------------------------')
             print('ANOVA Table')
             aov_table = sm.stats.anova_lm(model, typ=2, robust='hc3')
@@ -283,3 +284,43 @@ for nm, tt in zip(['auc', 'latencies'],
     else:
         print(' Go fish.\n')
 
+meg_cdi_df = mmn_df.merge(mmn_cdi_df, on='ParticipantId', how='inner',
+                          sort=True, validate='m:m').reindex()
+dff = meg_cdi_df[['latencies', 'M3L', 'VOCAB', 'CDIAge', 'condition_label',
+           'hem_label']]
+g = sns.jointplot(x='latencies', y='M3L', kind='reg', stat_func=r2,
+                  data=meg_cdi_df[(meg_cdi_df.condition_label == 'ba')
+                                  & (meg_cdi_df.CDIAge == 30)])
+ages = np.arange(21, 31, 3)
+for nm, tt in zip(['M3L', 'VOCAB'],
+                  ['Mean length of utterance', 'Words understood']):
+    fig, axs = plt.subplots(1, len(ages), figsize=(12, 6))
+    hs = list()
+    for fi, ax in enumerate(axs):
+        # response variable
+        mask = meg_cdi_df.CDIAge == ages[fi]
+        y = meg_cdi_df[mask][nm].values.reshape(-1, 1)
+        X = meg_cdi_df[mask].latencies.values.reshape(-1, 1)  # feature
+        assert (y.shape == X.shape)
+        hs.append(ax.scatter(X, y, c='CornFlowerBlue', s=50,
+                             zorder=5, marker='.', alpha=0.5))
+        ax.set(xlabel='latenices (sec)', title='%d Mos' % ages[fi])
+        if fi == 0:
+            ax.set(ylabel=tt)
+        r, y_mod, space = fit_sklearn_glm(X, y)
+        hs.append(ax.plot(space, y_mod, c="Grey", lw=2, alpha=0.5))
+        t, p = return_r_stats(r.score(X, y), X.shape[0])
+        ax.annotate('$\mathrm{r^{2}}=%.2f$''\n$\mathit{p = %.2f}$'
+                    % (r.score(X, y), p),
+                    xy=(0.05, 0.9), xycoords='axes fraction',
+                    bbox=dict(boxstyle='square', fc='w'))
+        # The coefficients ax+b
+        print(' Model Coefficients: \n', r.coef_)
+        # The mean squared error
+        print(' Mean squared error: %.2f'
+              % mean_squared_error(y, y_mod))
+        # Explained variance score: 1 is perfect prediction
+        print('Variance score: %.2f' % r2_score(y, y_mod))
+        print(' Coefficient of determination R^2: %.2f' % r.score(X, y))
+        print(' t-statistic = %6.3f pvalue = %6.4f'
+              % (t, p))
