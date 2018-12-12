@@ -15,8 +15,6 @@ from sklearn.preprocessing import LabelEncoder
 from sklearn import linear_model
 import statsmodels.graphics.api as smg
 
-
-from statsmodels.stats.outliers_influence import variance_inflation_factor
 import badbaby.defaults as params
 import badbaby.return_dataframes as rd
 
@@ -37,15 +35,16 @@ def fit_linear_reg(feature, response):
         Calculation of r-score stats on StackExchange
         https://tinyurl.com/yapl82m3
     """
-    prediction_space = np.linspace(min(feature), max(feature),
-                                   num=feature.shape[0]).reshape(-1, 1)
+    prediction_space = np.linspace(
+        min(feature), max(feature), num=feature.shape[0]).reshape(-1, 1)
     reg = linear_model.LinearRegression().fit(feature, response)
     y_pred = reg.predict(prediction_space)
-    r_val = reg.score(feature, response)  # equaivalent to Pearson r-value
+    r_val = reg.score(feature, response)  # equivalent to Pearson r-value
     n = feature.shape[0]
-    t_val = np.sqrt(r_val) / np.sqrt((1-r_val) / (n-2))
-    p_val = stats.t.sf(np.abs(t_val), n-1) * 2  # Two-sided pvalue as Prob(
-    # abs(t)>tt) using stats Survival Function (1-CDF — sometimes more accurate))  # noqa
+    t_val = np.sqrt(r_val) / np.sqrt((1 - r_val) / (n - 2))
+    p_val = stats.t.sf(np.abs(t_val), n - 1) * 2  # Two-sided pvalue as Prob(
+    # abs(t)>tt) using stats Survival Function (1-CDF — sometimes more
+    # accurate))
     return reg, y_pred, prediction_space, r_val, t_val, p_val
 
 
@@ -150,13 +149,13 @@ for nm, tt in zip(['M3L', 'VOCAB'],
             ax.set(ylabel=tt)
         slope, intercept, r_value, p_value, std_err = \
             stats.linregress(x_vals, y_vals)
-        hs.append(ax.plot(x_vals, intercept + slope*x_vals, label='fitted line',
+        hs.append(ax.plot(x_vals, intercept + slope * x_vals, label='fitted '
+                                                                    'line',
                           c="Grey", lw=2, alpha=0.5))
         ax.annotate('$\mathrm{r^{2}}=%.2f$''\n$\mathit{p = %.2f}$'
                     % (r_value ** 2, p_value),
                     xy=(0.05, 0.9), xycoords='axes fraction',
                     bbox=dict(boxstyle='square', fc='w'))
-
 
 # Create MEG measures dataframe
 sz = data['auc'].size // 2
@@ -170,21 +169,26 @@ c_levels = np.vstack((list(conditions.values()), list(conditions.values())) *
 sns_levels = np.vstack((list(ch_types.values()),
                         list(ch_types.values()))).reshape((-1,), order='F')
 hem_levels = np.vstack(list(hems.values())).reshape((-1,), order='F')
-meg_df = pd.DataFrame({'Subject_ID': subj_ids.tolist(),
-                       'conditions': c_levels.tolist() * len(subjects),
-                       'ch_type': sns_levels.tolist() * (sz // 2),
-                       'hemisphere': hem_levels.tolist() * sz,
-                       'auc': (data['auc'].reshape(-1, order='C')),
-                       'latencies': data['latencies'].reshape(-1, order='C'),
-                       'channels': data['channels'].reshape(-1, order='C')})
+meg_df = pd.DataFrame({
+    'Subject_ID': subj_ids.tolist(),
+    'conditions': c_levels.tolist() * len(subjects),
+    'ch_type': sns_levels.tolist() * (sz // 2),
+    'hemisphere': hem_levels.tolist() * sz,
+    'auc': (data['auc'].reshape(-1, order='C')),
+    'latencies': data['latencies'].reshape(-1,
+                                           order='C'),
+    'channels': data['channels'].reshape(-1, order='C')
+})
 naves = np.transpose(data['naves'], (1, 0))
 subj_ids = np.vstack([subjects] * len(conditions)).reshape((-1,), order='F')
 c_levels = np.vstack(list(conditions.values())).reshape((-1,), order='F')
 
 # Inspect number of averages for each stimulus condition
-erf_naves = pd.DataFrame({'Subject_ID': subj_ids.tolist(),
-                          'conditions': c_levels.tolist() * len(subjects),
-                          'naves': data['naves'].reshape(-1, order='C')})
+erf_naves = pd.DataFrame({
+    'Subject_ID': subj_ids.tolist(),
+    'conditions': c_levels.tolist() * len(subjects),
+    'naves': data['naves'].reshape(-1, order='C')
+})
 erf_naves.replace({'conditions': {vv: kk for kk, vv in conditions.items()}},
                   inplace=True)
 sns.catplot(x='conditions', y='naves', kind='swarm', palette='tab20',
@@ -235,7 +239,33 @@ df = mmn_df.merge(mmn_cdi_df, on='ParticipantId', sort='True', validate='m:m')
 g = sns.pairplot(df, vars=['M3L', 'VOCAB', 'latencies', 'auc'], diag_kind='kde',
                  hue='CDIAge', palette='tab20')
 plot_correlation_matrix(df[['M3L', 'VOCAB', 'latencies', 'auc']].corr())
-
+# Linear regression model fit between CDI measures and MEG latencies
+ages = np.arange(21, 31, 3)
+for nm, tt in zip(['M3L', 'VOCAB'],
+                  ['Mean length of utterance', 'Words understood']):
+    fig, axs = plt.subplots(1, len(ages), figsize=(12, 6))
+    hs = list()
+    for fi, ax in enumerate(axs):
+        # response variable
+        mask = df.CDIAge == ages[fi]
+        y_vals = np.squeeze(df[mask][nm].values.reshape(-1, 1))
+        # predictor
+        x_vals = np.squeeze(df[mask].latencies.values.reshape(-1, 1))
+        assert (y_vals.shape == x_vals.shape)
+        hs.append(ax.scatter(x_vals, y_vals, c='CornFlowerBlue', s=50,
+                             zorder=5, marker='.', alpha=0.5))
+        ax.set(xlabel='Latency (sec)', title='%d Mos' % ages[fi])
+        if fi == 0:
+            ax.set(ylabel=tt)
+        slope, intercept, r_value, p_value, std_err = \
+            stats.linregress(x_vals, y_vals)
+        hs.append(ax.plot(x_vals, intercept + slope * x_vals, label='fitted '
+                                                                    'line',
+                          c="Grey", lw=2, alpha=0.5))
+        ax.annotate('$\mathrm{r^{2}}=%.2f$''\n$\mathit{p = %.2f}$'
+                    % (r_value ** 2, p_value),
+                    xy=(0.05, 0.9), xycoords='axes fraction',
+                    bbox=dict(boxstyle='square', fc='w'))
 
 # Equivalent routine for GLM fit with Sklearn
 # from sklearn.metrics import mean_squared_error, r2_score
