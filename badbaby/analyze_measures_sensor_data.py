@@ -22,31 +22,31 @@ import badbaby.return_dataframes as rd
 
 
 def plot_correlation_matrix(data):
-    """Helper to return statsmodel correlation plot
-    Parameters:
-        data: pandas frame of pairwise correlation of columns in original data.
-    """
-    return smg.plot_corr(data.values, xnames=data.columns)
+	"""Helper to return statsmodel correlation plot
+	Parameters:
+		data: pandas frame of pairwise correlation of columns in original data.
+	"""
+	return smg.plot_corr(data.values, xnames=data.columns)
 
 
 def fit_linear_reg(feature, response):
-    """Helper to fit linear model with sklearn
-    Notes:
-        As implemnted here this routine yields same results as
-        scipy.stats.linregress
-        Calculation of r-score stats on StackExchange
-        https://tinyurl.com/yapl82m3
-    """
-    prediction_space = np.linspace(min(feature), max(feature),
-                                   num=feature.shape[0]).reshape(-1, 1)
-    reg = linear_model.LinearRegression().fit(feature, response)
-    y_pred = reg.predict(prediction_space)
-    r_val = reg.score(feature, response)  # equaivalent to Pearson r-value
-    n = feature.shape[0]
-    t_val = np.sqrt(r_val) / np.sqrt((1-r_val) / (n-2))
-    p_val = stats.t.sf(np.abs(t_val), n-1) * 2  # Two-sided pvalue as Prob(
-    # abs(t)>tt) using stats Survival Function (1-CDF — sometimes more accurate))  # noqa
-    return reg, y_pred, prediction_space, r_val, t_val, p_val
+	"""Helper to fit linear model with sklearn
+	Notes:
+		As implemnted here this routine yields same results as
+		scipy.stats.linregress
+		Calculation of r-score stats on StackExchange
+		https://tinyurl.com/yapl82m3
+	"""
+	prediction_space = np.linspace(min(feature), max(feature),
+	                               num=feature.shape[0]).reshape(-1, 1)
+	reg = linear_model.LinearRegression().fit(feature, response)
+	y_pred = reg.predict(prediction_space)
+	r_val = reg.score(feature, response)  # equaivalent to Pearson r-value
+	n = feature.shape[0]
+	t_val = np.sqrt(r_val) / np.sqrt((1-r_val) / (n-2))
+	p_val = stats.t.sf(np.abs(t_val), n-1) * 2  # Two-sided pvalue as Prob(
+	# abs(t)>tt) using stats Survival Function (1-CDF — sometimes more accurate))  # noqa
+	return reg, y_pred, prediction_space, r_val, t_val, p_val
 
 
 # Some parameters
@@ -70,7 +70,7 @@ data_dir = params.meg_dirs['mmn']
 fname = op.join(params.static_dir, '%s_%s-mos_%d_measures.npz'
                 % (analysis, age, lpf))
 if not op.isfile(fname):
-    raise RuntimeError('%s not found.' % fname)
+	raise RuntimeError('%s not found.' % fname)
 data = np.load(fname)
 mmn_xls, cdi_xls = rd.return_dataframes('mmn', age=age, bezos=True)
 
@@ -85,7 +85,7 @@ ses_grouping = mmn_cdi_df.SES <= mmn_xls.SES.median()  # low SES True
 mmn_cdi_df['ses_group'] = ses_grouping.map({True: 'low', False: 'high'})
 mmn_cdi_df.drop(axis=1, columns=['BAD', 'ECG', 'SR(Hz)', 'complete', 'CDI',
                                  'simms_inclusion']).to_csv(
-    op.join(params.static_dir, 'CDIdf_RM.csv'), sep='\t')
+	op.join(params.static_dir, 'CDIdf_RM.csv'), sep='\t')
 print('\nDescriptive stats for Age(days) variable...\n',
       mmn_cdi_df['Age(days)'].describe())
 
@@ -114,48 +114,48 @@ g.map(plt.scatter, "Age(days)", "HC", **scatter_kws).add_legend(title='SES')
 # CDI measure vs age regression & SES group within age distribution plots
 for nm, title in zip(['M3L', 'VOCAB'],
                      ['Mean length of utterance', 'Words understood']):
-    g = sns.lmplot(x="CDIAge", y=nm, truncate=True, data=mmn_cdi_df)
-    g.set_axis_labels("Age (months)", nm)
-    g.ax.set(title=title)
-    g.despine(offset=2, trim=True)
-    h = sns.catplot(x='CDIAge', y=nm, hue='ses_group',
-                    data=mmn_cdi_df[mmn_cdi_df.CDIAge > 18],
-                    kind='violin', scale_hue=True, bw=.2, linewidth=1,
-                    scale='count', split=True, dodge=True, inner='quartile',
-                    palette=sns.color_palette('pastel', n_colors=2, desat=.5),
-                    margin_titles=True, legend=False)
-    h.add_legend(title='SES')
-    h.fig.suptitle(title)
-    h.despine(offset=2, trim=True)
+	g = sns.lmplot(x="CDIAge", y=nm, truncate=True, data=mmn_cdi_df)
+	g.set_axis_labels("Age (months)", nm)
+	g.ax.set(title=title)
+	g.despine(offset=2, trim=True)
+	h = sns.catplot(x='CDIAge', y=nm, hue='ses_group',
+	                data=mmn_cdi_df[mmn_cdi_df.CDIAge > 18],
+	                kind='violin', scale_hue=True, bw=.2, linewidth=1,
+	                scale='count', split=True, dodge=True, inner='quartile',
+	                palette=sns.color_palette('pastel', n_colors=2, desat=.5),
+	                margin_titles=True, legend=False)
+	h.add_legend(title='SES')
+	h.fig.suptitle(title)
+	h.despine(offset=2, trim=True)
 
 # Linear regression model fit between CDI measures and SES scores
 ages = np.arange(21, 31, 3)
 for nm, tt in zip(['M3L', 'VOCAB'],
                   ['Mean length of utterance', 'Words understood']):
-    fig, axs = plt.subplots(1, len(ages), figsize=(12, 6))
-    hs = list()
-    for fi, ax in enumerate(axs):
-        # response variable
-        mask_y = mmn_cdi_df.CDIAge == ages[fi]
-        y_vals = np.squeeze(mmn_cdi_df[mask_y][nm].values.reshape(-1, 1))
-        mask_x = mmn_xls.Subject_ID.isin(
-            mmn_cdi_df[mmn_cdi_df.CDIAge == ages[fi]].Subject_ID)
-        # predictor
-        x_vals = np.squeeze(mmn_xls[mask_x].SES.values.reshape(-1, 1))
-        assert (y_vals.shape == x_vals.shape)
-        hs.append(ax.scatter(x_vals, y_vals, c='CornFlowerBlue', s=50,
-                             zorder=5, marker='.', alpha=0.5))
-        ax.set(xlabel='SES', title='%d Mos' % ages[fi])
-        if fi == 0:
-            ax.set(ylabel=tt)
-        slope, intercept, r_value, p_value, std_err = \
-            stats.linregress(x_vals, y_vals)
-        hs.append(ax.plot(x_vals, intercept + slope*x_vals, label='fitted line',
-                          c="Grey", lw=2, alpha=0.5))
-        ax.annotate('$\mathrm{r^{2}}=%.2f$''\n$\mathit{p = %.2f}$'
-                    % (r_value ** 2, p_value),
-                    xy=(0.05, 0.9), xycoords='axes fraction',
-                    bbox=dict(boxstyle='square', fc='w'))
+	fig, axs = plt.subplots(1, len(ages), figsize=(12, 6))
+	hs = list()
+	for fi, ax in enumerate(axs):
+		# response variable
+		mask_y = mmn_cdi_df.CDIAge == ages[fi]
+		y_vals = np.squeeze(mmn_cdi_df[mask_y][nm].values.reshape(-1, 1))
+		mask_x = mmn_xls.Subject_ID.isin(
+			mmn_cdi_df[mmn_cdi_df.CDIAge == ages[fi]].Subject_ID)
+		# predictor
+		x_vals = np.squeeze(mmn_xls[mask_x].SES.values.reshape(-1, 1))
+		assert (y_vals.shape == x_vals.shape)
+		hs.append(ax.scatter(x_vals, y_vals, c='CornFlowerBlue', s=50,
+		                     zorder=5, marker='.', alpha=0.5))
+		ax.set(xlabel='SES', title='%d Mos' % ages[fi])
+		if fi == 0:
+			ax.set(ylabel=tt)
+		slope, intercept, r_value, p_value, std_err = \
+			stats.linregress(x_vals, y_vals)
+		hs.append(ax.plot(x_vals, intercept + slope*x_vals, label='fitted line',
+		                  c="Grey", lw=2, alpha=0.5))
+		ax.annotate('$\mathrm{r^{2}}=%.2f$''\n$\mathit{p = %.2f}$'
+		            % (r_value ** 2, p_value),
+		            xy=(0.05, 0.9), xycoords='axes fraction',
+		            bbox=dict(boxstyle='square', fc='w'))
 
 
 # Create MEG measures dataframe
@@ -218,18 +218,18 @@ mmn_df = mmn_df[mmn_df.ch_type == 3]
 mmn_df.drop(axis=1, columns=['BAD', 'ECG', 'SR(Hz)', 'complete', 'CDI',
                              'simms_inclusion', 'ParticipantId',
                              'ch_type']).to_csv(
-    op.join(params.static_dir, 'MMNdf_RM.csv'), sep='\t')
+	op.join(params.static_dir, 'MMNdf_RM.csv'), sep='\t')
 
 # Plots
 #  Ball & stick plots of MEG measures for SES within condition
 for nm, tt in zip(['auc', 'latencies'],
                   ['Strength', 'Latency']):
-    h = sns.catplot(x='stimulus', y=nm, hue='ses_label',
-                    data=mmn_df[mmn_df.ch_type == 3],
-                    kind='point', ci='sd', dodge=True, legend=True,
-                    palette=sns.color_palette('pastel', n_colors=2, desat=.5))
-    h.fig.suptitle(tt)
-    h.despine(offset=2, trim=True)
+	h = sns.catplot(x='stimulus', y=nm, hue='ses_label',
+	                data=mmn_df[mmn_df.ch_type == 3],
+	                kind='point', ci='sd', dodge=True, legend=True,
+	                palette=sns.color_palette('pastel', n_colors=2, desat=.5))
+	h.fig.suptitle(tt)
+	h.despine(offset=2, trim=True)
 df = mmn_df.merge(mmn_cdi_df, on='ParticipantId', sort='True', validate='m:m')
 # Pairwise + density, and correlation matrix of all response variables
 g = sns.pairplot(df, vars=['M3L', 'VOCAB', 'latencies', 'auc'], diag_kind='kde',
