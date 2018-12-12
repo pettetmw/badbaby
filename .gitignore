@@ -40,5 +40,4 @@ pip-delete-this-directory.txt
 temp
 \.vscode/
 \.ropeproject/
-
-badbaby/static/MMNdf_RM\.csv
+*.Rhistory

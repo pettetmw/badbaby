@@ -33,7 +33,7 @@ library(emmeans)
 library(rcompanion)
 library(ggplot2)
 
-CDIdf <- read.csv(file = "/home/ktavabi/Projects/badbaby/badbaby/static/CDIdf_RM.csv",
+CDIdf <- read.csv(file = "CDIdf_RM.csv",
                   header=TRUE, sep="\t")
 CDIdf$CDIAge <- as.factor(CDIdf$CDIAge)
 CDIdf.mean <- aggregate(CDIdf$M3L,by=list(CDIdf$Subject_ID, CDIdf$ses_group,
@@ -140,8 +140,6 @@ Sum = groupwiseMean(M3L ~ CDIAge + ses_group,
                     data=CDIdf, conf=0.95, digits=3, traditional=FALSE, 
                     percentile=TRUE)
 
-Sum
-
 pd = position_dodge(.2)
 ggplot(Sum, aes(x=CDIAge, y=Mean, color=ses_group)) +
     geom_errorbar(aes(ymin=Percentile.lower,
@@ -154,4 +152,8 @@ ggplot(Sum, aes(x=CDIAge, y=Mean, color=ses_group)) +
 
 # APA
 aov.fit <- aov(fmla, data=CDIdf)
-anova_apa(aov.fit, sph_corr = "hf", info = TRUE)
+summary(aov.fit)
+predict(aov.fit, CDIdf)
+anova_apa(aov.fit, sph_corr = "gg", es = "petasq", info = TRUE, format = "latex")
+apa.aov.table(model.mixed, filename, table.number = NA, conf.level = 0.9,
+              type = 3)
