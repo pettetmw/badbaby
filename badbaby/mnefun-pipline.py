@@ -140,13 +140,14 @@ for sr, decim in zip([1200, 1800], [2, 3]):
         params.report_params.update(
             whitening=[
                 dict(analysis='All', name='All', cov=cov),
-                dict(analysis='Oddball', name='standard', cov=cov),
-                dict(analysis='Oddball', name='deviant', cov=cov)
+                dict(analysis='Oddball-matched', name='standard', cov=cov),
+                dict(analysis='Oddball-matched', name='deviant', cov=cov)
             ],
             sensor=[
                 dict(analysis='All', name='All', times='peaks'),
-                dict(analysis='Oddball', name='standard', times='peaks'),
-                dict(analysis='Oddball', name='deviant', times='peaks')
+                dict(analysis='Oddball-matched', name='standard',
+                     times='peaks'),
+                dict(analysis='Oddball-matched', name='deviant', times='peaks')
             ],
             source=None,
             psd=True,
@@ -166,6 +167,6 @@ for sr, decim in zip([1200, 1800], [2, 3]):
             gen_covs=default,
             gen_fwd=default,
             gen_inv=default,
-            gen_report=default,
+            gen_report=True,
             print_status=True
         )

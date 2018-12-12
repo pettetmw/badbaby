@@ -20,11 +20,11 @@ import badbaby.return_dataframes as rd
 
 
 def plot_correlation_matrix(data):
-    """Helper to return statsmodel correlation plot
-    Parameters:
-        data: pandas frame of pairwise correlation of columns in original data.
-    """
-    return smg.plot_corr(data.values, xnames=data.columns)
+	"""Helper to return statsmodel correlation plot
+	Parameters:
+		data: pandas frame of pairwise correlation of columns in original data.
+	"""
+	return smg.plot_corr(data.values, xnames=data.columns)
 
 
 def fit_linear_reg(feature, response):
@@ -69,7 +69,7 @@ data_dir = params.meg_dirs['mmn']
 fname = op.join(params.static_dir, '%s_%s-mos_%d_measures.npz'
                 % (analysis, age, lpf))
 if not op.isfile(fname):
-    raise RuntimeError('%s not found.' % fname)
+	raise RuntimeError('%s not found.' % fname)
 data = np.load(fname)
 mmn_xls, cdi_xls = rd.return_dataframes('mmn', age=age, bezos=True)
 
@@ -84,7 +84,7 @@ ses_grouping = mmn_cdi_df.SES <= mmn_xls.SES.median()  # low SES True
 mmn_cdi_df['ses_group'] = ses_grouping.map({True: 'low', False: 'high'})
 mmn_cdi_df.drop(axis=1, columns=['BAD', 'ECG', 'SR(Hz)', 'complete', 'CDI',
                                  'simms_inclusion']).to_csv(
-    op.join(params.static_dir, 'CDIdf_RM.csv'), sep='\t')
+	op.join(params.static_dir, 'CDIdf_RM.csv'), sep='\t')
 print('\nDescriptive stats for Age(days) variable...\n',
       mmn_cdi_df['Age(days)'].describe())
 
@@ -113,19 +113,19 @@ g.map(plt.scatter, "Age(days)", "HC", **scatter_kws).add_legend(title='SES')
 # CDI measure vs age regression & SES group within age distribution plots
 for nm, title in zip(['M3L', 'VOCAB'],
                      ['Mean length of utterance', 'Words understood']):
-    g = sns.lmplot(x="CDIAge", y=nm, truncate=True, data=mmn_cdi_df)
-    g.set_axis_labels("Age (months)", nm)
-    g.ax.set(title=title)
-    g.despine(offset=2, trim=True)
-    h = sns.catplot(x='CDIAge', y=nm, hue='ses_group',
-                    data=mmn_cdi_df[mmn_cdi_df.CDIAge > 18],
-                    kind='violin', scale_hue=True, bw=.2, linewidth=1,
-                    scale='count', split=True, dodge=True, inner='quartile',
-                    palette=sns.color_palette('pastel', n_colors=2, desat=.5),
-                    margin_titles=True, legend=False)
-    h.add_legend(title='SES')
-    h.fig.suptitle(title)
-    h.despine(offset=2, trim=True)
+	g = sns.lmplot(x="CDIAge", y=nm, truncate=True, data=mmn_cdi_df)
+	g.set_axis_labels("Age (months)", nm)
+	g.ax.set(title=title)
+	g.despine(offset=2, trim=True)
+	h = sns.catplot(x='CDIAge', y=nm, hue='ses_group',
+	                data=mmn_cdi_df[mmn_cdi_df.CDIAge > 18],
+	                kind='violin', scale_hue=True, bw=.2, linewidth=1,
+	                scale='count', split=True, dodge=True, inner='quartile',
+	                palette=sns.color_palette('pastel', n_colors=2, desat=.5),
+	                margin_titles=True, legend=False)
+	h.add_legend(title='SES')
+	h.fig.suptitle(title)
+	h.despine(offset=2, trim=True)
 
 # Linear regression model fit between CDI measures and SES scores
 ages = np.arange(21, 31, 3)
@@ -222,18 +222,18 @@ mmn_df = mmn_df[mmn_df.ch_type == 3]
 mmn_df.drop(axis=1, columns=['BAD', 'ECG', 'SR(Hz)', 'complete', 'CDI',
                              'simms_inclusion', 'ParticipantId',
                              'ch_type']).to_csv(
-    op.join(params.static_dir, 'MMNdf_RM.csv'), sep='\t')
+	op.join(params.static_dir, 'MMNdf_RM.csv'), sep='\t')
 
 # Plots
 #  Ball & stick plots of MEG measures for SES within condition
 for nm, tt in zip(['auc', 'latencies'],
                   ['Strength', 'Latency']):
-    h = sns.catplot(x='stimulus', y=nm, hue='ses_label',
-                    data=mmn_df[mmn_df.ch_type == 3],
-                    kind='point', ci='sd', dodge=True, legend=True,
-                    palette=sns.color_palette('pastel', n_colors=2, desat=.5))
-    h.fig.suptitle(tt)
-    h.despine(offset=2, trim=True)
+	h = sns.catplot(x='stimulus', y=nm, hue='ses_label',
+	                data=mmn_df[mmn_df.ch_type == 3],
+	                kind='point', ci='sd', dodge=True, legend=True,
+	                palette=sns.color_palette('pastel', n_colors=2, desat=.5))
+	h.fig.suptitle(tt)
+	h.despine(offset=2, trim=True)
 df = mmn_df.merge(mmn_cdi_df, on='ParticipantId', sort='True', validate='m:m')
 # Pairwise + density, and correlation matrix of all response variables
 g = sns.pairplot(df, vars=['M3L', 'VOCAB', 'latencies', 'auc'], diag_kind='kde',
