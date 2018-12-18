@@ -32,7 +32,7 @@ def return_dataframes(paradigm, age=None, bezos=False, simms=False):
         Pandas dataframes of available MEG and corresponding CDI datasets.
     """
     # Read excel sheets into pandas dataframes
-    xl_meg = pd.read_excel(op.join(static_dir, 'badbaby.xlsx'),
+    xl_meg = pd.read_excel(op.join(static_dir, 'badbaby_final_121818.xlsx'),
                            sheet_name=paradigm,
                            converters={'BAD': str})
     xl_meg = xl_meg[(xl_meg.complete == 1)]
@@ -45,9 +45,9 @@ def return_dataframes(paradigm, age=None, bezos=False, simms=False):
         xl_meg = xl_meg[xl_meg['simms_inclusion'] == 1]
     if age == 2:
         #  Filter by age
-        xl_meg = xl_meg[xl_meg['Age(days)'] < 80]
+        xl_meg = xl_meg[xl_meg['AgeDays'] < 80]
     elif age == 6:
-        xl_meg = xl_meg[xl_meg['Age(days)'] > 80]
+        xl_meg = xl_meg[xl_meg['AgeDays'] > 80]
 
     xl_meg = xl_meg.drop('Notes', axis=1, inplace=False)
     xl_cdi = pd.read_excel(

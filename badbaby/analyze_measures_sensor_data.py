@@ -85,8 +85,8 @@ mmn_cdi_df['ses_group'] = ses_grouping.map({True: 'low', False: 'high'})
 mmn_cdi_df.drop(axis=1, columns=['BAD', 'ECG', 'SR(Hz)', 'complete', 'CDI',
                                  'simms_inclusion']).to_csv(
     op.join(params.static_dir, 'CDIdf_RM.csv'), sep='\t')
-print('\nDescriptive stats for Age(days) variable...\n',
-      mmn_cdi_df['Age(days)'].describe())
+print('\nDescriptive stats for AgeDays variable...\n',
+      mmn_cdi_df['AgeDays'].describe())
 
 # Write out CSV for analysis in R
 mmn_cdi_df.to_csv(op.join(params.static_dir, 'mmn-cdi_df.csv'), sep='\t')
@@ -104,11 +104,17 @@ mmn_cdi_df.complete.groupby(mmn_cdi_df.Sex).sum().plot.pie(subplots=False,
 ax.set(title='Sex', ylabel='MEG-CDI data acquired')
 fig.tight_layout()
 
+ethno_keys = np.unique(mmn_cdi_df[['MomEth', 'DadEth']].values)
+ethno_vals = LabelEncoder().fit_transform(ethno_keys) + 1
+ethno_dict = dict(zip(ethno_keys, ethno_vals))
+
+# TODO pie charts of paternal ethncities
+
 # scatter head circumference vs. age
 scatter_kws = dict(s=50, linewidth=.5, edgecolor="w")
 g = sns.FacetGrid(mmn_cdi_df, hue="ses_group",
                   hue_kws=dict(marker=["v", "^"]))
-g.map(plt.scatter, "Age(days)", "HC", **scatter_kws).add_legend(title='SES')
+g.map(plt.scatter, "AgeDays", "HC", **scatter_kws).add_legend(title='SES')
 
 # CDI measure vs age regression & SES group within age distribution plots
 for nm, title in zip(['M3L', 'VOCAB'],
@@ -211,13 +217,22 @@ stim_grouping = mmn_df.conditions == 3
 mmn_df['stimulus'] = stim_grouping.map({True: 1, False: 2})  # 1:standard
 mmn_df['stim_label'] = mmn_df.stimulus
 mmn_df.replace({'stimulus': {1: 'standard', 2: 'deviant'}}, inplace=True)
+
 # Write out descriptives as csv
-cols = ['auc', 'latencies', 'channels', 'SES', 'Age(days)', 'HC']
-grpby = ['ses_label', 'stimulus', 'hem_label']
-desc = mmn_df.loc[:, cols + grpby].groupby(grpby).describe()
-desc.to_csv(op.join(params.static_dir, 'MMNdf_Descriptives'), sep='\t')
+# TODO write out demographic descriptives
+responses = ['SES', 'AgeDays', 'HC']
+grpby = ['ses_label']
+desc = mmn_cdi_df.loc[:, responses + grpby].groupby(grpby).describe()
+desc.to_csv(op.join(params.static_dir, 'Demographics_Descriptives.csv'),
+            sep='\t')
 print('\nDescriptives...\n', desc)
-# Write out channel specidfic data for R
+# MEG responses descriptives
+responses = ['auc', 'latencies', 'channels', 'Age(days)', 'HC']
+grpby = ['ses_label', 'stimulus', 'hem_label']
+desc = mmn_df.loc[:, responses + grpby].groupby(grpby).describe()
+desc.to_csv(op.join(params.static_dir, 'MMN_Descriptives.csv'), sep='\t')
+print('\nDescriptives...\n', desc)
+# Write out channel specific data for R
 mmn_df = mmn_df[mmn_df.ch_type == 3]
 mmn_df.drop(axis=1, columns=['BAD', 'ECG', 'SR(Hz)', 'complete', 'CDI',
                              'simms_inclusion', 'ParticipantId',
