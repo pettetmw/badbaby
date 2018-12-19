@@ -99,8 +99,8 @@ plot_correlation_matrix(mmn_cdi_df[['CDIAge', 'M3L', 'VOCAB']].corr())
 
 # pie chart of gender
 fig, ax = plt.subplots(1, 1, figsize=(2, 2))
-mmn_cdi_df.complete.groupby(mmn_cdi_df.Sex).sum().plot.pie(subplots=False,
-                                                           ax=ax)
+mmn_cdi_df.complete.groupby(mmn_cdi_df.Sex).sum().plot.pie(subplots=False, 
+                           ax=ax)
 ax.set(title='Sex', ylabel='MEG-CDI data acquired')
 fig.tight_layout()
 
@@ -108,7 +108,18 @@ ethno_keys = np.unique(mmn_cdi_df[['MomEth', 'DadEth']].values)
 ethno_vals = LabelEncoder().fit_transform(ethno_keys) + 1
 ethno_dict = dict(zip(ethno_keys, ethno_vals))
 
-# TODO pie charts of paternal ethncities
+# TODO pie charts of parental ethncities
+fig, ax = plt.subplots(1, 1, figsize=(2, 2))
+mmn_cdi_df.complete.groupby(mmn_cdi_df.MomEth).sum().plot.pie(subplots=False,
+                                                           ax=ax)
+ax.set(title='Mom Ethnicity')
+fig.tight_layout()
+
+fig, ax = plt.subplots(1, 1, figsize=(2, 2))
+mmn_cdi_df.complete.groupby(mmn_cdi_df.DadEth).sum().plot.pie(subplots=False,
+                                                           ax=ax)
+ax.set(title='Dad Ethnicity')
+fig.tight_layout()
 
 # scatter head circumference vs. age
 scatter_kws = dict(s=50, linewidth=.5, edgecolor="w")
@@ -220,12 +231,14 @@ mmn_df.replace({'stimulus': {1: 'standard', 2: 'deviant'}}, inplace=True)
 
 # Write out descriptives as csv
 # TODO write out demographic descriptives
-responses = ['SES', 'AgeDays', 'HC']
-grpby = ['ses_label']
-desc = mmn_cdi_df.loc[:, responses + grpby].groupby(grpby).describe()
+responses = ['MomEduYrs','MomHscore', 'DadEduYrs', 'DadHscore', 'Nsibs','Bwoz']
+desc = mmn_cdi_df.groupby(['ses_group'])[responses].describe()
 desc.to_csv(op.join(params.static_dir, 'Demographics_Descriptives.csv'),
             sep='\t')
-print('\nDescriptives...\n', desc)
+print('\nDemographic Descriptives...\n', desc)
+
+#stats.ttest_ind(high,low)
+
 # MEG responses descriptives
 responses = ['auc', 'latencies', 'channels', 'Age(days)', 'HC']
 grpby = ['ses_label', 'stimulus', 'hem_label']
