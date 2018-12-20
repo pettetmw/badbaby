@@ -1,5 +1,5 @@
 # Title     : Repeated Measures ANOVA
-# Objective : Model selection for MMN-Dataset
+# Objective : Model selection for MMN-Dataset - 2 mos CDI responses
 # Created by: ktavabi
 # Created on: 11/5/18
 
@@ -37,22 +37,26 @@ library(ggplot2)
 library(apa)
 library(ezANOVA)
 
-setwd("~/Projects/Work/badbaby/badbaby/static")
-CDIdf <- read.csv(file = "CDIdf_RM.csv",
+home_dir <- setwd(Sys.getenv('HOME'))
+input_file <- paste(home_dir, 'Projects/badbaby/badbaby/static/CDIdf_RM.csv',
+                    sep = "/")
+CDIdf <- read.csv(file = input_file,
                   header=TRUE, sep="\t")
 CDIdf$CDIAge <- as.factor(CDIdf$CDIAge)
-CDIdf.mean <- aggregate(CDIdf$M3L,by=list(CDIdf$Subject_ID, CDIdf$ses_group,
-                                          CDIdf$Sex, 
-                                          CDIdf$CDIAge), FUN='mean')
+CDIdf.mean <- aggregate(CDIdf$M3L,
+                        by=list(CDIdf$Subject_ID, CDIdf$ses_group,
+                                          CDIdf$Sex, CDIdf$CDIAge),
+                        FUN='mean')
 
-summary(CDIdf.mean)
 # Order factors by the order in data frame, otherwise, R will alphabetize them
-levels = unique(CDIdf$CDIAge)
+CDIdf$Ses = factor(CDIdf$M3L, 
+                   levels = unique(MMNdf$M3L))
 
 # Check the data frame
 headTail(CDIdf)
 str(CDIdf)
 summary(CDIdf)
+summary(CDIdf.mean)
 
 ######################
 # Mixed effect model #
@@ -91,6 +95,7 @@ summary(model.null)
 model.fixed = gls(fmla, data=CDIdf, method='REML')
 summary(model.fixed)
 
+
 ######################
 # Mixed effect model #
 ######################
@@ -100,6 +105,7 @@ summary(model.fixed)
 # in the nlme package is used to fit this model.
 model.mixed = lme(fmla, random=~ 1 | Subject_ID, data=CDIdf, method="REML")
 summary(model.mixed)
+
 
 ##############################
 # Model comparison/selection #
@@ -139,10 +145,10 @@ nagelkerke(model.fixed, model.null)
 #####################
 # Post-Hoc analysis #
 #####################
-Anova(model.fixed)
+Anova(model.mixed)
 marginal = emmeans(model.fixed, ~ CDIAge : ses_group)
 cld(marginal, alpha=0.05, Letters=letters,  ### Use lower-case letters for .group
-    adjust="tukey",  ###  Tukey-adjusted comparisons
+    adjust="tukey",  ### Tukey-adjusted comparisons
     details=TRUE)
 
 Sum = groupwiseMean(M3L ~ CDIAge + ses_group,
@@ -162,20 +168,20 @@ ggplot(Sum, aes(x=CDIAge, y=Boot.mean, color=ses_group)) +
     ylab("M3L")
 
 
-
 # APA
 ezDesign(data = CDIdf[CDIdf$CDIAge==30,],
          x = M3L,
-         y = ParticipantId,
+         y = Subject_ID,
          col = ses_group)
-m3l_anova = ezANOVA(data = CDIdf[CDIdf$CDIAge==30,], 
-                    dv = M3L, 
-                    wid = ParticipantId, 
-                    within_full = Sex,
-                    between = ses_group,
-                    within_covariates = .(HC, SES, Age.days.))
-print(m3l_anova)
+m3l = ezMixed(data = CDIdf, 
+                      dv = M3L, 
+                      family = gaussian,
+                      random = Subject_ID, 
+                      fixed = .(CDIAge, ses_group))
+print(m3l$summary)
+
 aov.fit <- aov(fmla, data=CDIdf)
+
 summary(aov.fit)
 predict(aov.fit, CDIdf)
 anova_apa(aov.fit, sph_corr = "gg", es = "petasq", info = TRUE, format = "markdown")
