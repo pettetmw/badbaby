@@ -48,6 +48,7 @@ def fit_linear_reg(feature, response):
     return reg, y_pred, prediction_space, r_val, t_val, p_val
 
 
+pd.set_option('display.max_columns', None)
 # Some parameters
 analysis = 'Individual-matched'
 # encoding grouping variables
@@ -60,6 +61,7 @@ ch_types = dict(zip(ch_keys, ch_vals))
 hem_keys = ['lh', 'rh']
 hem_vals = LabelEncoder().fit_transform(hem_keys) + 1
 hems = dict(zip(hem_keys, hem_vals))
+
 
 lpf = 30
 age = 2
@@ -82,14 +84,26 @@ mmn_cdi_df = pd.merge(cdi_xls, mmn_xls, on='ParticipantId', how='inner',
 # Split data on SES and CDIAge
 ses_grouping = mmn_cdi_df.SES <= mmn_xls.SES.median()  # low SES True
 mmn_cdi_df['ses_group'] = ses_grouping.map({True: 'low', False: 'high'})
-mmn_cdi_df.drop(axis=1, columns=['BAD', 'ECG', 'SR(Hz)', 'complete', 'CDI',
-                                 'simms_inclusion']).to_csv(
-    op.join(params.static_dir, 'CDIdf_RM.csv'), sep='\t')
-print('\nDescriptive stats for AgeDays variable...\n',
-      mmn_cdi_df['AgeDays'].describe())
+hh_scores = np.unique(np.asarray([mmn_cdi_df.MomHscore.values,
+                                  mmn_cdi_df.DadHscore.values])).tolist()
+
+#  Hollingshead Scoring Scheme
+# 1	through 6th grade
+# 2	through 9th grade
+# 3	through 10 or 11th grade
+# 4	through 12th grade (regardless of type of school)
+# 5	> 13 years partial college (at least one year) or specialized training
+# 6	16 years college or university graduate
+# 7	> 19 years graduate professional training (with graduate degree)
+
+hh = {1: 6, 2: 9, 3: 11, 4: 12, 5: 13, 6: 16, 7: 20}
+hh_dict = {k: hh[k] for k in hh_scores}
+mmn_cdi_df.replace({'MomHscore': hh_dict}, inplace=True)
+mmn_cdi_df.replace({'DadHscore': hh_dict}, inplace=True)
 
 # Write out CSV for analysis in R
-mmn_cdi_df.to_csv(op.join(params.static_dir, 'mmn-cdi_df.csv'), sep='\t')
+mmn_cdi_df.select_dtypes(include=['int64', 'float64']).\
+    to_csv(op.join(params.static_dir, 'dataset-mmn-2mos_cdi_df.csv'), sep='\t')
 
 # Plots
 # Pairwise + density, and correlation matrix of CDI response variables
@@ -99,8 +113,8 @@ plot_correlation_matrix(mmn_cdi_df[['CDIAge', 'M3L', 'VOCAB']].corr())
 
 # pie chart of gender
 fig, ax = plt.subplots(1, 1, figsize=(2, 2))
-mmn_cdi_df.complete.groupby(mmn_cdi_df.Sex).sum().plot.pie(subplots=False, 
-                           ax=ax)
+mmn_cdi_df.complete.groupby(mmn_cdi_df.Sex).sum().plot.pie(subplots=False,
+                                                           ax=ax)
 ax.set(title='Sex', ylabel='MEG-CDI data acquired')
 fig.tight_layout()
 
@@ -111,13 +125,13 @@ ethno_dict = dict(zip(ethno_keys, ethno_vals))
 # TODO pie charts of parental ethncities
 fig, ax = plt.subplots(1, 1, figsize=(2, 2))
 mmn_cdi_df.complete.groupby(mmn_cdi_df.MomEth).sum().plot.pie(subplots=False,
-                                                           ax=ax)
+                                                              ax=ax)
 ax.set(title='Mom Ethnicity')
 fig.tight_layout()
 
 fig, ax = plt.subplots(1, 1, figsize=(2, 2))
 mmn_cdi_df.complete.groupby(mmn_cdi_df.DadEth).sum().plot.pie(subplots=False,
-                                                           ax=ax)
+                                                              ax=ax)
 ax.set(title='Dad Ethnicity')
 fig.tight_layout()
 
@@ -231,20 +245,21 @@ mmn_df.replace({'stimulus': {1: 'standard', 2: 'deviant'}}, inplace=True)
 
 # Write out descriptives as csv
 # TODO write out demographic descriptives
-responses = ['MomEduYrs','MomHscore', 'DadEduYrs', 'DadHscore', 'Nsibs','Bwoz']
+responses = ['MomEduYrs', 'MomHscore', 'DadEduYrs', 'DadHscore', 'Nsibs',
+             'Bwoz']
 desc = mmn_cdi_df.groupby(['ses_group'])[responses].describe()
-desc.to_csv(op.join(params.static_dir, 'Demographics_Descriptives.csv'),
-            sep='\t')
 print('\nDemographic Descriptives...\n', desc)
-
-#stats.ttest_ind(high,low)
+desc.to_csv(op.join(params.static_dir,
+                    'dataset-mmn-2mos_demographic-desc.csv'),
+            sep='\t')
 
 # MEG responses descriptives
 responses = ['auc', 'latencies', 'channels', 'Age(days)', 'HC']
 grpby = ['ses_label', 'stimulus', 'hem_label']
 desc = mmn_df.loc[:, responses + grpby].groupby(grpby).describe()
-desc.to_csv(op.join(params.static_dir, 'MMN_Descriptives.csv'), sep='\t')
 print('\nDescriptives...\n', desc)
+desc.to_csv(op.join(params.static_dir, 'MMN_Descriptives.csv'), sep='\t')
+
 # Write out channel specific data for R
 mmn_df = mmn_df[mmn_df.ch_type == 3]
 mmn_df.drop(axis=1, columns=['BAD', 'ECG', 'SR(Hz)', 'complete', 'CDI',
