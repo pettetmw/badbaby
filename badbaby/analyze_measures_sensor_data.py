@@ -114,8 +114,8 @@ plot_correlation_matrix(mmn_cdi_df[['CDIAge', 'M3L', 'VOCAB']].corr())
 
 # pie chart of gender
 fig, ax = plt.subplots(1, 1, figsize=(2, 2))
-mmn_cdi_df.complete.groupby(mmn_cdi_df.Sex).sum().plot.pie(subplots=False,
-                                                           ax=ax)
+mmn_cdi_df.complete.groupby(mmn_cdi_df.Sex).sum().plot.pie(subplots=False, 
+                           ax=ax)
 ax.set(title='Sex', ylabel='MEG-CDI data acquired')
 fig.tight_layout()
 
@@ -125,14 +125,14 @@ ethno_dict = dict(zip(ethno_keys, ethno_vals))
 
 # TODO pie charts of parental ethncities
 fig, ax = plt.subplots(1, 1, figsize=(2, 2))
-mmn_cdi_df.complete.groupby(mmn_cdi_df.MomEth).sum().plot.pie(subplots=False,
-                                                              ax=ax)
+mmn_cdi_df.complete.groupby(mmn_cdi_df.MomEth).sum().plot.pie(autopct='%1.0f%%', pctdistance=1.1, labeldistance=1.2, subplots=False,
+                                                          ax=ax)
 ax.set(title='Mom Ethnicity')
 fig.tight_layout()
 
 fig, ax = plt.subplots(1, 1, figsize=(2, 2))
-mmn_cdi_df.complete.groupby(mmn_cdi_df.DadEth).sum().plot.pie(subplots=False,
-                                                              ax=ax)
+mmn_cdi_df.complete.groupby(mmn_cdi_df.DadEth).sum().plot.pie(autopct='%1.0f%%', pctdistance=1.1, labeldistance=1.2, subplots=False,
+                                                          ax=ax)
 ax.set(title='Dad Ethnicity')
 fig.tight_layout()
 
