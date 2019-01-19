@@ -152,7 +152,7 @@ cld(marginal, alpha=0.05, Letters=letters, ### Use lower-case letters for .group
     details=TRUE)
 
 Sum = groupwiseMean(latencies ~ ses_label + hem_label,
-                    data=CDIdf, conf=0.95, digits=3, boot = TRUE, bca = TRUE,
+                    data=MMNdf, conf=0.95, digits=3, boot = TRUE, bca = TRUE,
                     traditional = FALSE,
                     percentile=TRUE)
 print(Sum)
