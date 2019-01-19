@@ -36,27 +36,27 @@ def return_dataframes(paradigm, age=None, bezos=False, simms=False):
                            sheet_name=paradigm,
                            converters={'BAD': str})
     xl_meg = xl_meg[(xl_meg.complete == 1)]
-    xl_meg.drop(['Exam date', 'ACQ', 'MC-SVD',
-                 'Artifact rej', 'Epochs'], axis=1, inplace=True)
+    xl_meg.drop(['examDate', 'acq', 'sss',
+                 'rejection', 'epoching'], axis=1, inplace=True)
     # Subselect by cohort
     if bezos:
-        xl_meg = xl_meg[xl_meg['SES'] > 0]
+        xl_meg = xl_meg[xl_meg['ses'] > 0]
     if simms:
-        xl_meg = xl_meg[xl_meg['simms_inclusion'] == 1]
+        xl_meg = xl_meg[xl_meg['simmInclude'] == 1]
     if age == 2:
         #  Filter by age
-        xl_meg = xl_meg[xl_meg['AgeDays'] < 80]
+        xl_meg = xl_meg[xl_meg['age'] < 80]
     elif age == 6:
-        xl_meg = xl_meg[xl_meg['AgeDays'] > 80]
+        xl_meg = xl_meg[xl_meg['age'] > 80]
 
-    xl_meg = xl_meg.drop('Notes', axis=1, inplace=False)
+    xl_meg = xl_meg.drop('notes', axis=1, inplace=False)
     xl_cdi = pd.read_excel(
         op.join(static_dir, 'cdi_report_final_08292018.xlsx'),
         sheet_name='Data')
-    xl_cdi.drop(['DOB', 'Gender', 'Language', 'CDIForm',
-                 'CDIAgeCp', 'CDIDate', 'VOCPER', 'HOWUSE', 'UPSTPER',
-                 'UFUTPER', 'UMISPER', 'UCMPPER', 'UPOSPER', 'WORDEND',
-                 'PLURPER',
-                 'POSSPER', 'INGPER', 'EDPER', 'IRWORDS', 'IRWDPER', 'OGWORDS',
-                 'COMBINE', 'COMBPER', 'CPLXPER'], axis=1, inplace=True)
+    xl_cdi.drop(['dob', 'gender', 'language', 'cdiForm',
+                 'examDate', 'vocabper', 'howuse', 'upstper',
+                 'ufutper', 'umisper', 'ucmpper', 'uposper', 'wordend',
+                 'plurper',
+                 'possper', 'ingper', 'edper', 'irwords', 'irwdper', 'ogwords',
+                 'combine', 'combper', 'cplxper'], axis=1, inplace=True)
     return xl_meg, xl_cdi

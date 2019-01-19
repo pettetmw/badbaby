@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
-
-"""Write dependent measures for oddball sensor space data"""
+#TODO Docstr
+""""""
 
 # Authors: Kambiz Tavabi <ktavabi@gmail.com>
 # License: MIT
@@ -102,6 +102,7 @@ mmn_cdi_df.replace({'MomHscore': hh_dict}, inplace=True)
 mmn_cdi_df.replace({'DadHscore': hh_dict}, inplace=True)
 
 # Write out CSV for analysis in R
+# TODO confirm categorical covar labels are not numeric
 mmn_cdi_df.select_dtypes(include=['int64', 'float64']).\
     to_csv(op.join(params.static_dir, 'dataset-mmn-2mos_cdi_df.csv'), sep='\t')
 
@@ -158,7 +159,7 @@ for nm, title in zip(['M3L', 'VOCAB'],
     h.fig.suptitle(title)
     h.despine(offset=2, trim=True)
 
-# Linear regression model fit between CDI measures and SES scores
+# Linear regression fit between CDI measures and SES scores
 ages = np.arange(21, 31, 3)
 for nm, tt in zip(['M3L', 'VOCAB'],
                   ['Mean length of utterance', 'Words understood']):
@@ -282,7 +283,7 @@ df = mmn_df.merge(mmn_cdi_df, on='ParticipantId', sort='True', validate='m:m')
 g = sns.pairplot(df, vars=['M3L', 'VOCAB', 'latencies', 'auc'], diag_kind='kde',
                  hue='CDIAge', palette='tab20')
 plot_correlation_matrix(df[['M3L', 'VOCAB', 'latencies', 'auc']].corr())
-# Linear regression model fit between CDI measures and MEG latencies
+# Linear regression fit between CDI measures and MEG latencies
 ages = np.arange(21, 31, 3)
 for nm, tt in zip(['M3L', 'VOCAB'],
                   ['Mean length of utterance', 'Words understood']):
@@ -290,10 +291,11 @@ for nm, tt in zip(['M3L', 'VOCAB'],
     hs = list()
     for fi, ax in enumerate(axs):
         # response variable
-        mask = df.CDIAge == ages[fi]
-        y_vals = np.squeeze(df[mask][nm].values.reshape(-1, 1))
+        deviants_df = df[(df.CDIAge == ages[fi]) &
+                         (df.stimulus == 'deviant')]
+        y_vals = np.squeeze(deviants_df[nm].values.reshape(-1, 1))
         # predictor
-        x_vals = np.squeeze(df[mask].latencies.values.reshape(-1, 1))
+        x_vals = np.squeeze(deviants_df.latencies.values.reshape(-1, 1))
         assert (y_vals.shape == x_vals.shape)
         hs.append(ax.scatter(x_vals, y_vals, c='CornFlowerBlue', s=50,
                              zorder=5, marker='.', alpha=0.5))

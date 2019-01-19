@@ -1,6 +1,31 @@
 # -*- coding: utf-8 -*-
 
-"""Write dependent measures for oddball sensor space data"""
+"""Write dependent measures for oddball sensor space data.
+
+    Script developed to extract peak ERF components AUC and latency for oddball
+    responses to CV stimuli.
+        1. Yield filtered dataframes for behavioral and MEG data.
+        2. plot MEG covariate histograms.
+        3. Extract evoked arrays for selected subjects.
+        4. Write out ERF data in numpy array.
+        5. Compute grand averaged ERF data.
+        6. Plot group ERF timeseries and topography at peak (grad)
+        latency between 150-400ms.
+        7. Plot group ERF timecourse at peak location for each condition.
+        8. Plot frequency of maximally responsive channels for latencies.
+        9. Yield ND arrays of ERF peak latency & location from L-R selection
+        of sensors.
+        10. Plot PD of overall peak latencies.
+        11. Plot ranked histogram of maximally responsive channels.
+        12. Plot montage of maximally responsive channels.
+        13. Compute area under the curve along "rising" slope (100 ms) to
+        peak latency for intersection of L-R MEG sensors and montage of
+        maximally responsive channels and storing as ND array.
+        14. Plot PD of overall AUC.
+        15. Write out ERF measurements as NPZ file.
+        16. Plot group ERF timecourse average across channels in montage.
+
+"""
 
 # Authors: Kambiz Tavabi <ktavabi@gmail.com>
 # License: MIT
@@ -40,11 +65,11 @@ data_dir = params.meg_dirs['mmn']
 
 meg_df, cdi_df = rd.return_dataframes('mmn', age=age, bezos=True)
 print('\nDescriptive stats for Age(days) variable...\n',
-      meg_df['Age(days)'].describe())
-meg_df.hist(column=['SES', 'HC', 'Age(days)'], layout=(3, 1),
+      meg_df['age'].describe())
+meg_df.hist(column=['ses', 'headSize', 'age'], layout=(3, 1),
             figsize=(8, 10), bins=50)
 # Loop over subjects & plot grand average ERFs
-subjects = meg_df.Subject_ID.values
+subjects = meg_df.subjId.values
 tmin, tmax = (.15, .4)      # peak ERF latency window
 evoked_dict = dict()
 picks_dict = dict()
@@ -82,6 +107,7 @@ for ci, cond in enumerate(conditions):
     hs = grandavr.plot_joint(title=cond, times=timing,
                              ts_args=params.ts_args,
                              topomap_args=params.topomap_args)
+
 #  compare group ERF time courses at peak locations
 for pick in [grandavr.ch_names.index(kk) for kk in set(picks_dict.values())]:
     mne.viz.plot_compare_evokeds(evoked_dict, picks=pick,
@@ -111,7 +137,7 @@ for ci, cond in enumerate(conditions):
                 latencies[ei, ci, ii, jj] = lat
                 channels[ei, ci, ii, jj] = ch
 
-# Plot frequency of maximally responsive channels
+# Plots
 # latencies
 # An "interface" to matplotlib.axes.Axes.hist() method
 # https://realpython.com/python-histograms/
@@ -131,7 +157,7 @@ ax.set_xlabel('Latency (AU)')
 ax.set_ylabel('Probability density')
 ax.set_title(r'Histogram of Latencies: $\mu=%.3f, \sigma=%.3f$' % (mu, sigma))
 
-# channels
+# frequency of maximally responsive channels
 scores = Counter(channels.flat)
 ch_names = np.array(list(scores.keys()))
 counts = np.array(list(scores.values()))

@@ -22,8 +22,9 @@ if(!require(multcompView)){install.packages("multcompView")}
 if(!require(lsmeans)){install.packages("lsmeans")}
 if(!require(ggplot2)){install.packages("ggplot2")}
 if(!require(rcompanion)){install.packages("rcompanion")}
-if(!require(rcompanion)){install.packages("apa")}
-if(!require(rcompanion)){install.packages("ez")}
+if(!require(apa)){install.packages("apa")}
+if(!require(ez)){install.packages("ez")}
+if(!require(lme4)){install.packages("lme4")}
 
 # Imports
 library(psych)
@@ -35,7 +36,7 @@ library(emmeans)
 library(rcompanion)
 library(ggplot2)
 library(apa)
-library(ezANOVA)
+library(ez)
 
 home_dir <- setwd(Sys.getenv('HOME'))
 input_file <- paste(home_dir, 'Projects/badbaby/badbaby/static/CDIdf_RM.csv',
