@@ -11,11 +11,12 @@ from os.path import expanduser
 home = expanduser("~")
 parent = op.realpath(__file__)
 parent = op.dirname(parent)
-static_dir = op.join(home, parent, 'static')
-data_dir = '/media/ktavabi/ALAYA/data/ilabs/badbaby'
-meg_dirs = {kk: op.join(data_dir, vv)
-            for kk, vv in zip(['mmn', 'assr', 'ids'],
-                              ['mismatch', 'tone', 'speech'])}
+static_dataDir = op.join(home, parent, 'static', 'data_files')
+dataDir = op.join(home, parent, 'data')
+megData_dir = '/media/ktavabi/ALAYA/data/ilabs/badbaby'
+megPdg_dirs = {kk: op.join(megData_dir, vv)
+               for kk, vv in zip(['mmn', 'assr', 'ids'],
+                                 ['mismatch', 'tone', 'speech'])}
 # evoked topoplot viz params
 ts_args = {'gfp': True}
 topomap_args = {'outlines': 'skirt', 'sensors': False}

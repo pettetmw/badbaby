@@ -1,5 +1,0 @@
-1	inForest_part-5-rms
-2	inForest_part-4-rms
-3	inForest_part-1-rms
-4	inForest_part-2-rms
-5	inForest_part-3-rms

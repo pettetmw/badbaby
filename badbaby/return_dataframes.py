@@ -9,10 +9,10 @@ import os.path as op
 import pandas as pd
 from badbaby import defaults as params
 
-static_dir = params.static_dir
+static_dataDir = params.static_dataDir
 
 
-def return_dataframes(paradigm, age=None, bezos=False, simms=False):
+def return_dataframes(paradigm, age=None, ses=False, longitudinal=False):
     """
     Return available MEG and corresponding CDI datasets.
     Parameters
@@ -21,9 +21,9 @@ def return_dataframes(paradigm, age=None, bezos=False, simms=False):
     Name of project paradigm. Can be mmn, tone, or ids.
     age:int
     If not None (default) filter cohort data based on age.
-    simms:bool
+    longitudinal:bool
     Default False. If True then include only Simms-Mann longitudinal cohort.
-    bezos:bool
+    ses:bool
     Default False. If True then include only Bezos SES cohort.
 
     Returns
@@ -32,26 +32,27 @@ def return_dataframes(paradigm, age=None, bezos=False, simms=False):
         Pandas dataframes of available MEG and corresponding CDI datasets.
     """
     # Read excel sheets into pandas dataframes
-    xl_meg = pd.read_excel(op.join(static_dir, 'badbaby_final_121818.xlsx'),
+    xl_meg = pd.read_excel(op.join(static_dataDir, 'meg_covariates.xlsx'),
                            sheet_name=paradigm,
                            converters={'BAD': str})
-    xl_meg = xl_meg[(xl_meg.complete == 1)]
+    xl_meg = xl_meg[(xl_meg.complete == 1)]  # only Ss w complete MEG data
+    xl_meg = xl_meg[(xl_meg.behavioral == 1)]  # only Ss w CDI data
     xl_meg.drop(['examDate', 'acq', 'sss',
                  'rejection', 'epoching'], axis=1, inplace=True)
     # Subselect by cohort
-    if bezos:
+    if ses:
         xl_meg = xl_meg[xl_meg['ses'] > 0]
-    if simms:
+    if longitudinal:
         xl_meg = xl_meg[xl_meg['simmInclude'] == 1]
+    #  Filter by age
     if age == 2:
-        #  Filter by age
-        xl_meg = xl_meg[xl_meg['age'] < 80]
+        xl_meg = xl_meg[xl_meg['age'] < 100]
     elif age == 6:
-        xl_meg = xl_meg[xl_meg['age'] > 80]
+        xl_meg = xl_meg[xl_meg['age'] > 150]
 
     xl_meg = xl_meg.drop('notes', axis=1, inplace=False)
     xl_cdi = pd.read_excel(
-        op.join(static_dir, 'cdi_report_final_08292018.xlsx'),
+        op.join(static_dataDir, 'behavioral_data.xlsx'),
         sheet_name='Data')
     xl_cdi.drop(['dob', 'gender', 'language', 'cdiForm',
                  'examDate', 'vocabper', 'howuse', 'upstper',
