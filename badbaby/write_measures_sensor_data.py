@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-"""Write dependent measures for oddball sensor space data.
+"""Write response variable data for oddball sensor space data.
 
     Script developed to extract peak ERF components AUC and latency for oddball
     responses to CV stimuli.
@@ -10,7 +10,7 @@
         4. Write out ERF data in numpy array.
         5. Compute grand averaged ERF data.
         6. Plot group ERF timeseries and topography at peak (grad)
-        latency between 150-400ms.
+        latency between 150-510ms.
         7. Plot group ERF timecourse at peak location for each condition.
         8. Plot frequency of maximally responsive channels for latencies.
         9. Yield ND arrays of ERF peak latency & location from L-R selection
@@ -61,27 +61,27 @@ analysis = 'Individual-matched'
 conditions = ['standard', 'Ba', 'Wa']
 lpf = 30
 age = 2
-data_dir = params.meg_dirs['mmn']
+meg_dataDir = params.megPdg_dirs['mmn']
 
-meg_df, cdi_df = rd.return_dataframes('mmn', age=age, bezos=True)
+meg_df, cdi_df = rd.return_dataframes('mmn', age=age, ses=True)
 print('\nDescriptive stats for Age(days) variable...\n',
       meg_df['age'].describe())
 meg_df.hist(column=['ses', 'headSize', 'age'], layout=(3, 1),
             figsize=(8, 10), bins=50)
 # Loop over subjects & plot grand average ERFs
 subjects = meg_df.subjId.values
-tmin, tmax = (.15, .4)      # peak ERF latency window
+tmin, tmax = (.15, .51)      # peak ERF latency window
 evoked_dict = dict()
 picks_dict = dict()
 for ci, cond in enumerate(conditions):
     print('     Loading data for %s / %s' % (analysis, cond))
-    file_out = op.join(data_dir, '%s_%s_%s-mos_%d_grand-ave.fif'
+    file_out = op.join(meg_dataDir, '%s_%s_%s-mos_%d_grand-ave.fif'
                        % (analysis, cond, age, lpf))
     print('      Doing averaging...')
     evokeds = list()
     for si, subj in enumerate(subjects):
         print('       %s' % subj)
-        evoked_file = op.join(data_dir, 'bad_%s' % subj, 'inverse',
+        evoked_file = op.join(meg_dataDir, 'bad_%s' % subj, 'inverse',
                               '%s_%d-sss_eq_bad_%s-ave.fif'
                               % (analysis, lpf, subj))
         evoked = read_in_evoked(evoked_file, condition=cond)
@@ -90,7 +90,7 @@ for ci, cond in enumerate(conditions):
             erf_data = np.zeros((len(subjects), len(evoked.info['chs']),
                                  len(evoked.times)))
         erf_data[si] = evoked.data
-    np.savez(op.join(data_dir, '%s_%s_%s-mos_%d_evoked-arrays.npz'
+    np.savez(op.join(meg_dataDir, '%s_%s_%s-mos_%d_evoked-arrays.npz'
                      % (analysis, cond, age, lpf)), erf_data=erf_data)
     # do grand averaging
     grandavr = grand_average(evokeds)
@@ -218,7 +218,7 @@ ax.set_ylabel('Probability density')
 ax.set_title(r'Histogram of Area under curve: $\mu=%.3f, \sigma=%.3f$'
              % (mu, sigma))
 # Write out ERF measurements
-np.savez(op.join(params.static_dir,
+np.savez(op.join(params.dataDir,
                  '%s_%s-mos_%d_measures.npz' % (analysis, age, lpf)),
          auc=auc, latencies=latencies, channels=channels, naves=naves)
 
