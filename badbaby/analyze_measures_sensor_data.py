@@ -235,7 +235,7 @@ cdi_df.drop(columns=['subjId', 'badCh', 'ecg', 'samplingRate', 'complete',
                      'sib2dob', 'sib2gender', 'sib3dob', 'sib3gender',
                      'birthWeight(lbs)'],
             axis=1).to_csv(op.join(params.dataDir,
-                                   'dataset-mmn-2mos_cdi_df.csv'),
+                                   'Ds-mmn-2mos_cdi_df.csv'),
                            sep='\t')
 # Descriptives @ 30Mos CDI time point
 responses = ['m3l', 'vocab', 'ses', 'age', 'headSize',
@@ -245,7 +245,7 @@ grpby = ['sesGroup', 'gender']
 desc = cdi_df[cdi_df.cdiAge == 'e'].loc[:, responses + grpby].groupby(
     grpby).describe()
 print('\nDemographic Descriptives...\n', desc)
-desc.to_csv(op.join(params.dataDir, 'dataset-mmn-2mos_30mosCdi_covar-desc.csv'),
+desc.to_csv(op.join(params.dataDir, 'Ds-mmn-2mos_cdi@30-desc.csv'),
             sep='\t')
 
 #################################################
@@ -258,7 +258,7 @@ subjId = mmn_xls.subjId.values
 nsubj = subjId.shape[0]
 nstim = len(stimuli)
 nsens = len(ch_types)
-nhems = len(hemisphere)
+nhems = len(hems)
 # interleave list --> tiled vector of levels for factors:
 subjId = np.vstack((subjId, subjId) * (nstim * nsens * nhems // 2)).\
     reshape((-1,), order='F')
@@ -277,6 +277,7 @@ meg_df = pd.DataFrame({
                                            order='C'),
     'channels': data['channels'].reshape(-1, order='C')
 })
+assert meg_df.shape[0] == nsubj * nstim * nsens * nhems
 naves = np.transpose(data['naves'], (1, 0))
 subjId = np.vstack([mmn_xls.subjId.values] * len(stimuli)).reshape((-1,),
                                                                    order='F')
@@ -287,6 +288,7 @@ erf_naves = pd.DataFrame({
     'stimulus': stimulus.tolist() * nsubj,
     'naves': data['naves'].reshape(-1, order='C')
 })
+assert erf_naves.shape[0] == nsubj * nstim
 sns.catplot(x='stimulus', y='naves', kind='swarm', palette='tab20',
             data=erf_naves)
 
@@ -323,7 +325,7 @@ plot_correlation_matrix(meg_df[['m3l', 'vocab', 'ses',
 # Pairwise + density
 df = meg_df.copy()
 df.cdiAge = df.cdiAge.map(dict((k, v) for v, k in cdiAge.items()))
-g = sns.pairplot(df, vars=['m3l', 'vocab', 'latencies', 'auc'],
+g = sns.pairplot(df, vars=['m3l', 'vocab', 'ses', 'latencies', 'auc'],
                  diag_kind='kde', hue='cdiAge', palette='tab20')
 
 # Linear regression fit between CDI measures and MEG latencies
@@ -338,6 +340,7 @@ for nm, tt in zip(['m3l', 'vocab'],
         y_vals = np.squeeze(deviants[nm].values.reshape(-1, 1))
         # predictor
         x_vals = np.squeeze(deviants.latencies.values.reshape(-1, 1))
+        assert x_vals.shape[0] == nsubj * nhems * 2  # 2-groups
         assert (y_vals.shape == x_vals.shape)
         hs.append(ax.scatter(x_vals, y_vals, c='CornFlowerBlue', s=50,
                              zorder=5, marker='.', alpha=0.5))
@@ -354,20 +357,23 @@ for nm, tt in zip(['m3l', 'vocab'],
                     xy=(0.05, 0.9), xycoords='axes fraction',
                     bbox=dict(boxstyle='square', fc='w'))
 
-# Write out descriptives as csv
-responses = ['auc', 'latencies', 'channels', 'age', 'headSize', 'ses']
-grpby = ['sesGroup', 'stimulus', 'hemisphere']
-desc = meg_df.loc[:, responses + grpby].groupby(grpby).describe()
+# Descriptives MEG data and CDI @ 30Mos
+responses = ['age', 'headSize', 'ses',
+             'birthWeight', 'maternalEdu', 'maternalHscore',
+             'paternalEdu', 'paternalHscore',
+             'auc', 'latencies', 'm3l', 'vocab']
+grpby = ['sesGroup', 'oddballCond', 'hemisphere']
+desc = df[df.cdiAge == 30].loc[:, responses + grpby].groupby(grpby).describe()
 print('\nDescriptives...\n', desc)
-desc.to_csv(op.join(params.dataDir, 'dataset-mmne-2mos_meg-desc'), sep='\t')
+desc.to_csv(op.join(params.dataDir, 'Ds-mmn-2mos_cdi@30-meg-desc'), sep='\t')
 
 # Write out data for R
 meg_df.drop(axis=1, columns=['BAD', 'ECG', 'SR(Hz)', 'complete', 'CDI',
                              'simms_inclusion', 'ParticipantId',
                              'ch_type']).to_csv(
-    op.join(params.dataDir, 'MMNdf_RM.csv'), sep='\t')
+    op.join(params.dataDir, 'Ds-mmn-2mos_meg_df.csv'), sep='\t')
 
-#Equivalent routine for GLM fit with Sklearn
+# Equivalent routine for GLM fit with Sklearn
 # from sklearn.metrics import mean_squared_error, r2_score
 # import statsmodels.api as sm
 # from statsmodels.formula.api import ols
