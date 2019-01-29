@@ -1,10 +1,10 @@
 # -*- coding: utf-8 -*-
-"""Write out repeated measures MEG & CDI data files (.csv).
+"""Write out repeated measures MEG & CDI data files (.tsv).
     Script developed to visualize and export tidy ("long-form")
     each CDI & MEG dataframes.
         1. Combine filtered dataframes for behavioral and MEG data
         2. Visualize SES median split data
-        3. Write out encoded files (.csv) for R
+        3. Write out encoded files (.tsv) for R
     Dummy variables:
         CDI Age
             A->18 mos
@@ -235,17 +235,16 @@ cdi_df.drop(columns=['subjId', 'badCh', 'ecg', 'samplingRate', 'complete',
                      'sib2dob', 'sib2gender', 'sib3dob', 'sib3gender',
                      'birthWeight(lbs)'],
             axis=1).to_csv(op.join(params.dataDir,
-                                   'Ds-mmn-2mos_cdi_df.csv'),
+                                   'Ds-mmn-2mos_cdi_df.tsv'),
                            sep='\t')
 # Descriptives @ 30Mos CDI time point
 responses = ['m3l', 'vocab', 'ses', 'age', 'headSize',
              'maternalEdu', 'maternalHscore', 'paternalEdu',
              'paternalHscore', 'nSibs', 'birthWeight']
-grpby = ['sesGroup', 'gender']
-desc = cdi_df[cdi_df.cdiAge == 'e'].loc[:, responses + grpby].groupby(
-    grpby).describe()
+grpby = ['cdiAge', 'sesGroup', 'gender']
+desc = cdi_df[responses + grpby].groupby(grpby).describe()
 print('\nDemographic Descriptives...\n', desc)
-desc.to_csv(op.join(params.dataDir, 'Ds-mmn-2mos_cdi@30-desc.csv'),
+desc.to_csv(op.join(params.dataDir, 'Ds-mmn-2mos-desc.tsv'),
             sep='\t')
 
 #################################################
@@ -253,7 +252,7 @@ desc.to_csv(op.join(params.dataDir, 'Ds-mmn-2mos_cdi@30-desc.csv'),
 #################################################
 # Create MEG measures dataframe
 # subjs x conds x sensors x hemisphere
-sz = data['auc'].size // 2
+sz = data['auc'].size
 subjId = mmn_xls.subjId.values
 nsubj = subjId.shape[0]
 nstim = len(stimuli)
@@ -262,6 +261,7 @@ nhems = len(hems)
 # interleave list --> tiled vector of levels for factors:
 subjId = np.vstack((subjId, subjId) * (nstim * nsens * nhems // 2)).\
     reshape((-1,), order='F')
+assert subjId.shape[0] == nsubj * nstim * nsens * nhems
 stimulus = np.vstack((list(stimuli.values()), list(stimuli.values())) *
                      len(ch_types)).reshape((-1,), order='F')
 channel = np.vstack((list(ch_types.values()),
@@ -270,8 +270,8 @@ hemisphere = np.vstack(list(hems.values())).reshape((-1,), order='F')
 meg_df = pd.DataFrame({
     'subjId': subjId.tolist(),
     'stimulus': stimulus.tolist() * nsubj,
-    'channel': channel.tolist() * (sz // 2),
-    'hemisphere': hemisphere.tolist() * sz,
+    'channel': channel.tolist() * (sz // (nsens * nhems)),
+    'hemisphere': hemisphere.tolist() * (sz // nhems),
     'auc': (data['auc'].reshape(-1, order='C')),
     'latencies': data['latencies'].reshape(-1,
                                            order='C'),
@@ -289,27 +289,50 @@ erf_naves = pd.DataFrame({
     'naves': data['naves'].reshape(-1, order='C')
 })
 assert erf_naves.shape[0] == nsubj * nstim
-sns.catplot(x='stimulus', y='naves', kind='swarm', palette='tab20',
-            data=erf_naves)
 
-#######################################
-# Visualize SES median split CDI data #
-#######################################
+##############################
+# Write out encoded CDI data #
+##############################
 # select gradiometer data
 meg_df = meg_df[meg_df.channel == 'grad']
 # Merge MEG with covariate dataframe
 meg_df = meg_df.merge(mmn_xls, on='subjId', validate='m:1')
+assert meg_df.shape[0] == sz // 2
 # Split data on SES
 sesGrouping = meg_df.ses <= meg_df.ses.median()  # low ses True
 meg_df['sesGroup'] = sesGrouping.map({True: 'low', False: 'high'})
+
+# dummy variables
 # Combine stimuli for oddball conditioning
 stim_grouping = meg_df.stimulus == 'standard'
 meg_df['oddballCond'] = stim_grouping.map({True: 'standard', False: 'deviant'})
-# merge MEG & CDI dataframes
-meg_df = meg_df.merge(cdi_df[['subjId', 'cdiAge', 'm3l', 'vocab']],
-                      on='subjId', sort='True', validate='m:m')
-# Plots
-#  Ball & stick plots of MEG measures for SES within condition
+
+# Descriptives MEG data
+responses = ['age', 'headSize', 'ses',
+             'birthWeight', 'maternalEdu', 'maternalHscore',
+             'paternalEdu', 'paternalHscore',
+             'auc', 'latencies']
+grpby = ['sesGroup', 'oddballCond', 'hemisphere']
+desc = meg_df[responses + grpby].groupby(grpby).describe()
+print('\nDescriptives...\n', desc)
+desc.to_csv(op.join(params.dataDir, 'Ds-mmn-2mos_meg-desc.tsv'), sep='\t')
+
+# Write out data for R
+meg_df.drop(axis=1, columns=['channel', 'channels', 'badCh', 'ecg',
+                             'samplingRate', 'complete', 'behavioral',
+                             'simmInclude', 'sib1dob', 'sib1gender',
+                             'sib2dob', 'sib2gender', 'sib3dob',
+                             'sib3gender', 'birthWeight(lbs)']).to_csv(
+    op.join(params.dataDir, 'Ds-mmn-2mos_meg_df.tsv'), sep='\t')
+
+#######################################
+# Visualize SES median split CDI data #
+#######################################
+# naves category plot
+sns.catplot(x='stimulus', y='naves', kind='swarm', palette='tab20',
+            data=erf_naves)
+
+# Ball & stick plots of MEG measures for SES within condition
 for nm, tt in zip(['auc', 'latencies'],
                   ['Strength', 'Latency']):
     h = sns.catplot(x='oddballCond', y=nm, hue='sesGroup',
@@ -320,6 +343,10 @@ for nm, tt in zip(['auc', 'latencies'],
     h.despine(offset=2, trim=True)
 
 # Correlation matrix for all response variables
+# merge MEG & CDI dataframes
+meg_df = meg_df.merge(cdi_df[['subjId', 'cdiAge', 'm3l', 'vocab']],
+                      on='subjId', sort='True', validate='m:m')
+
 plot_correlation_matrix(meg_df[['m3l', 'vocab', 'ses',
                                 'latencies', 'auc']].corr())
 # Pairwise + density
@@ -356,22 +383,6 @@ for nm, tt in zip(['m3l', 'vocab'],
                     % (r_value ** 2, p_value),
                     xy=(0.05, 0.9), xycoords='axes fraction',
                     bbox=dict(boxstyle='square', fc='w'))
-
-# Descriptives MEG data and CDI @ 30Mos
-responses = ['age', 'headSize', 'ses',
-             'birthWeight', 'maternalEdu', 'maternalHscore',
-             'paternalEdu', 'paternalHscore',
-             'auc', 'latencies', 'm3l', 'vocab']
-grpby = ['sesGroup', 'oddballCond', 'hemisphere']
-desc = df[df.cdiAge == 30].loc[:, responses + grpby].groupby(grpby).describe()
-print('\nDescriptives...\n', desc)
-desc.to_csv(op.join(params.dataDir, 'Ds-mmn-2mos_cdi@30-meg-desc'), sep='\t')
-
-# Write out data for R
-meg_df.drop(axis=1, columns=['BAD', 'ECG', 'SR(Hz)', 'complete', 'CDI',
-                             'simms_inclusion', 'ParticipantId',
-                             'ch_type']).to_csv(
-    op.join(params.dataDir, 'Ds-mmn-2mos_meg_df.csv'), sep='\t')
 
 # Equivalent routine for GLM fit with Sklearn
 # from sklearn.metrics import mean_squared_error, r2_score
