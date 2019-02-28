@@ -42,8 +42,8 @@ from sklearn.preprocessing import LabelEncoder as le
 from sklearn import linear_model
 import statsmodels.graphics.api as smg
 
-import badbaby.defaults as params
-import badbaby.return_dataframes as rd
+import badbaby.pythonScripts.defaults as params
+import badbaby.pythonScripts.return_dataframes as rd
 
 
 def plot_correlation_matrix(data):
