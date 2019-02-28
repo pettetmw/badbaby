@@ -7,7 +7,7 @@
 
 import os.path as op
 import pandas as pd
-from badbaby import defaults as params
+from badbaby.pythonScripts import defaults as params
 
 static_dataDir = params.static_dataDir
 

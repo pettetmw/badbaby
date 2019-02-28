@@ -9,8 +9,9 @@ from __future__ import print_function
 import os.path as op
 import numpy as np
 import mnefun
-import badbaby.return_dataframes as rd
-from badbaby import defaults
+import badbaby.pythonScripts.return_dataframes as rd
+from badbaby.pythonScripts import defaults
+
 # from score import score
 
 try:
