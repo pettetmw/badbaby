@@ -13,19 +13,23 @@
             D->27
             E->30
         parental yrs of edu
-            A->9
+            A->10
             B->12
-            C->14
-            D->16
-            E->17
-            F->18
-            G->19
-            H->20
+            C->13
+            D->14
+            E->15
+            F->16
+            G->17
+            H->18
+            I->19
+            J->20
+            K->22
         parental Hollingshead scores
-            A->4 GED
-            B->5 college
-            C->6 Bachelors
-            D->7 > graduate
+            A->3 HS
+            B->4 GED
+            C->5 College
+            D->6 BS
+            E->7 Graduate
 
 """
 
