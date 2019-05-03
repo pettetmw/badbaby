@@ -1,15 +1,21 @@
-# -*- coding: utf-8 -*-
+#!/usr/bin/env python
 
-"""Helpers to return cohort specific dataframes """
+"""Helper to return cohort specific dataframes """
 
-# Authors: Kambiz Tavabi <ktavabi@gmail.com>
-# License: MIT
+__author__ = "Kambiz Tavabi"
+__copyright__ = "Copyright 2018, Seattle, Washington"
+__credits__ = ["Goedel", "Escher", "Bach"]
+__license__ = "MIT"
+__version__ = "0.1.0"
+__maintainer__ = "Kambiz Tavabi"
+__email__ = "ktavabi@uw.edu"
+__status__ = "Development"
 
 import os.path as op
 import pandas as pd
-from badbaby.pythonScripts import defaults as params
+from badbaby.python import defaults as params
 
-static_dataDir = params.static_dataDir
+static = params.static
 
 
 def return_dataframes(paradigm, age=None, ses=False, longitudinal=False):
@@ -32,7 +38,7 @@ def return_dataframes(paradigm, age=None, ses=False, longitudinal=False):
         Pandas dataframes of available MEG and corresponding CDI datasets.
     """
     # Read excel sheets into pandas dataframes
-    xl_meg = pd.read_excel(op.join(static_dataDir, 'meg_covariates.xlsx'),
+    xl_meg = pd.read_excel(op.join(static, 'meg_covariates.xlsx'),
                            sheet_name=paradigm,
                            converters={'BAD': str})
     xl_meg = xl_meg[(xl_meg.complete == 1)]  # only Ss w complete MEG data
@@ -52,7 +58,7 @@ def return_dataframes(paradigm, age=None, ses=False, longitudinal=False):
 
     xl_meg = xl_meg.drop('notes', axis=1, inplace=False)
     xl_cdi = pd.read_excel(
-        op.join(static_dataDir, 'behavioral_data.xlsx'),
+        op.join(static, 'behavioral_data.xlsx'),
         sheet_name='Data')
     xl_cdi.drop(['dob', 'gender', 'language', 'cdiForm',
                  'examDate', 'vocabper', 'howuse', 'upstper',
