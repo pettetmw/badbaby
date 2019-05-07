@@ -24,7 +24,7 @@ def return_dataframes(paradigm, age=None, ses=False, longitudinal=False):
     Parameters
     ----------
     paradigm:str
-    Name of project paradigm. Can be mmn, tone, or ids.
+    Name of project paradigm. Can be mmn, assr, or ids.
     age:int
     If not None (default) filter cohort data based on age.
     longitudinal:bool

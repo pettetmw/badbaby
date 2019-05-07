@@ -4,7 +4,6 @@
 
 __author__ = "Kambiz Tavabi"
 __copyright__ = "Copyright 2018, Seattle, Washington"
-__credits__ = ["Goedel", "Escher", "Bach"]
 __license__ = "MIT"
 __version__ = "0.1.0"
 __maintainer__ = "Kambiz Tavabi"
@@ -20,6 +19,13 @@ datapath = "/media/ktavabi/ALAYA/data/ilabs/badbaby"
 paradigms = {kk: op.join(datapath, vv)
              for kk, vv in zip(["mmn", "assr", "ids"],
                                ["mismatch", "tone", "speech"])}
+paradigms["exclusion"] = dict()
+paradigms["exclusion"]["assr"] = ["209b", "311b", "921a"]
+paradigms["exclusion"]["mmn"] = []
+paradigms["exclusion"]["ids"] = []
+paradigms["run_nms"] = {kk: vv for kk, vv in zip(["mmn", "assr", "ids"],
+                                                 ["mmn", "am",
+                                                  "ids"])}
 # evoked topoplot viz params
 ts_args = {"gfp": True}
 topomap_args = {"outlines": "skirt", "sensors": False}

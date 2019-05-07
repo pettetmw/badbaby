@@ -1,8 +1,14 @@
-# -*- coding: utf-8 -*-
+#!/usr/bin/env python
 
-"""Use median absolute deviation to identify outliers in head position obs"""
+"""Plot subject head positions."""
 
-# Authors: Kambiz Tavabi <ktavabi@uw.edu>
+__author__ = "Kambiz Tavabi"
+__copyright__ = "Copyright 2018, Seattle, Washington"
+__license__ = "MIT"
+__version__ = "0.1.0"
+__maintainer__ = "Kambiz Tavabi"
+__email__ = "ktavabi@uw.edu"
+__status__ = "Development"
 
 import os.path as op
 import glob
@@ -14,25 +20,28 @@ import mne
 from matplotlib.lines import Line2D
 from matplotlib.patches import Rectangle
 from statsmodels.robust import mad
-from paradigm import mismatch_subjects as pickedSubjects
+import badbaby.python.return_dataframes as rd
+from badbaby.python import defaults
 
-study_dir = '/media/ktavabi/ALAYA/data/ilabs/badbaby/mismatch'
-subjects = list()
-for lst in [k for k in pickedSubjects.iterkeys() if k.startswith('sr')]:
-    subjects += pickedSubjects[lst]
+# Get cohort
+df = rd.return_dataframes("assr", age=2)[0]  # could be "mmn", "assr", "ids"
+exclude = defaults.paradigms["exclusion"]["assr"]
+df.drop(df[df.subjId.isin(exclude)].index, inplace=True)
+study_dir = defaults.paradigms["assr"]
+run_name = defaults.paradigms["run_nms"]["assr"]
+subjects = ["bad_%s" % ss for ss in df.subjId.values]
 
+# Read in head positions from fifs
 poss = np.zeros((len(subjects), 3))
 for ii, subj in enumerate(subjects):
-    raw_file = glob.glob(op.join(study_dir, 'bad_%s' % subj,
-                                 'raw_fif', '*mmn_raw.fif'))[0]
+    raw_file = glob.glob(op.join(study_dir, subj,
+                                 'raw_fif', '*%s_raw.fif' % run_name))[0]
     raw = mne.io.read_raw_fif(raw_file, allow_maxshield='yes')
     poss[ii] = raw.info['dev_head_t']['trans'][:3, 3]
-np.savez_compressed(op.join(study_dir, 'initial_head_poss.npz'), poss=poss,
-                    subjects=subjects)
-poss = np.load(op.join(study_dir, 'initial_head_poss.npz'))['poss']
-poss_norm = LA.norm(poss, axis=1)
+# np.savez_compressed(op.join(study_dir, 'initial_head_poss.npz'), poss=poss,
+#                     subjects=subjects)
+# poss = np.load(op.join(study_dir, 'initial_head_poss.npz'))['poss']
 
-mad_poss_norm = mad(poss_norm)
 '''
     Median Absolute deviation
     R-blboggers - Absolute Deviation Around the Median
@@ -42,9 +51,12 @@ mad_poss_norm = mad(poss_norm)
     Handle Outliers", The ASQC Basic References in Quality Control:
     Statistical Techniques, Edward F. Mykytka, Ph.D., Editor.
 '''
+poss_norm = LA.norm(poss, axis=1)
+mad_poss_norm = mad(poss_norm)
 # Outliers defined as >/< +/- 3 * MAD
 mask = ~np.logical_or(poss_norm > np.median(poss_norm) + 2.5 * mad_poss_norm,
                       poss_norm < np.median(poss_norm) - 2.5 * mad_poss_norm)
+
 # Figure window dressing
 sns.set(style="white", palette="colorblind", color_codes=True)
 colors = sns.color_palette()
@@ -57,7 +69,7 @@ flierprops = dict(marker='d', markersize=5, color=rgb[0])
 f, axes = plt.subplots(1, 2, figsize=(14, 7), sharex=True)
 f.suptitle('Head positions relative to device origin', size=14)
 sns.distplot(poss_norm * 1000, color=rgb[0], ax=axes[0])
-axes[0].set(xlabel='Distance (mm)', ylabel='Frequency')
+axes[0].set(xlabel='Distance (mm)', ylabel='density')
 sns.boxplot(poss_norm * 1000, ax=axes[1], color=rgb[0],
             flierprops=flierprops, **box_kwargs)
 h = sns.swarmplot(poss_norm[mask] * 1000, ax=axes[1], color=rgb[3])
