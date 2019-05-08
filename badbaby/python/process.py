@@ -23,9 +23,7 @@ try:
     from niprov.mnefunsupport import handler
 except ImportError:
     handler = None
-df = rd.return_dataframes("assr")[0]  # could be "mmn", "assr", "ids"
-exclude = defaults.paradigms["exclusion"]["assr"]
-df.drop(df[df.subjId.isin(exclude)].index, inplace=True)
+df = rd.return_dataframes("mmn")[0]
 ecg_chs = np.unique(df["ecg"].tolist())
 work_dir = defaults.paradigms["assr"]  # could be "mmn", "assr", "ids"
 
@@ -40,11 +38,11 @@ for sr, decim in zip([1200, 1800], [2, 3]):
         print("    \nUsing %d Hz as sampling rate and\n"
               "    %s as ECG surrogate..." % (sr, ch))
         print("    %d " % len(subjects), "Subjects: ", subjects)
-        params = mnefun.Params(tmin=-0.2, tmax=1.1, n_jobs=18,
+        params = mnefun.Params(tmin=-0.1, tmax=0.6, n_jobs=18,
                                n_jobs_fir="cuda", n_jobs_resample="cuda",
-                               proj_sfreq=250, decim=decim,
-                               hp_trans="auto", lp_cut=100.,
-                               lp_trans="auto", bmin=-0.2,
+                               proj_sfreq=200, decim=decim,
+                               filter_length="30s", hp_cut=.1, hp_trans="auto",
+                               lp_cut=30., lp_trans="auto", bmin=-0.1,
                                ecg_channel=ch)
         params.subjects = ["bad_%s" % ss for ss in subjects]
         # write prebad
@@ -121,19 +119,53 @@ for sr, decim in zip([1200, 1800], [2, 3]):
         params.inv_runs = [np.arange(1)]
         params.runs_empty = []
         # Conditioning
-        params.in_names = ["tone"]
-        params.in_numbers = [1]
-        params.analyses = ["All"]
-        params.out_names = [["Tone"]]
-        params.out_numbers = [[1]]  # Combine all trials
-        params.must_match = [[]]
+        params.in_names = ["standard", "ba", "wa"]
+        params.in_numbers = [103, 104, 105]
+        params.analyses = [
+            "All",
+            "Individual",
+            "Oddball",
+            "Individual-matched",
+            "Oddball-matched"
+        ]
+        params.out_names = [
+            ["All"],
+            ["standard", "Ba", "Wa"],
+            ["standard", "deviant"],
+            ["standard", "Ba", "Wa"],
+            ["standard", "deviant"]
+        ]
+        params.out_numbers = [
+            [1, 1, 1],  # Combine all trials
+            [1, 2, 3],  # All conditions
+            [1, 2, 2],  # oddball
+            [1, 2, 3],
+            [1, 2, 2]
+        ]
+        params.must_match = [
+            [],
+            [],
+            [],
+            [0, 1, 2],
+            [0, 1]
+        ]
+        default = False
         cov = params.inv_names[0] + "-%.0f-sss-cov.fif" % params.lp_cut
         params.report_params.update(
-                whitening=[dict(analysis="All", name="All", cov=cov)],
-                sensor=[dict(analysis="All", name="All", times="peaks")],
-                source=None,
-                psd=True,
-                )
+            whitening=[
+                dict(analysis="All", name="All", cov=cov),
+                dict(analysis="Oddball-matched", name="standard", cov=cov),
+                dict(analysis="Oddball-matched", name="deviant", cov=cov)
+            ],
+            sensor=[
+                dict(analysis="All", name="All", times="peaks"),
+                dict(analysis="Oddball-matched", name="standard",
+                     times="peaks"),
+                dict(analysis="Oddball-matched", name="deviant", times="peaks")
+            ],
+            source=None,
+            psd=True,
+        )
         # Set what will run
         default = False
         mnefun.do_processing(
