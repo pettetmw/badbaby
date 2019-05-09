@@ -10,7 +10,7 @@ import os.path as op
 import numpy as np
 import mnefun
 import badbaby.pythonScripts.return_dataframes as rd
-from badbaby.pythonScripts import defaults
+from badbaby import defaults
 
 # from score import score
 

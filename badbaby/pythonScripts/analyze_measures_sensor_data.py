@@ -7,29 +7,29 @@
         3. Write out encoded files (.tsv) for R
     Dummy variables:
         CDI Age
-            A->18 mos
-            B->21
-            C->24
-            D->27
-            E->30
+            1->18 mos
+            2->21
+            3->24
+            4->27
+            5->30
         parental yrs of edu
-            A->10
-            B->12
-            C->13
-            D->14
-            E->15
-            F->16
-            G->17
-            H->18
-            I->19
-            J->20
-            K->22
+            1->10
+            2->12
+            3->13
+            4->14
+            5->15
+            6->16
+            7->17
+            8->18
+            9->19
+            10->20
+            11->22
         parental Hollingshead scores
-            A->3 HS
-            B->4 GED
-            C->5 College
-            D->6 BS
-            E->7 Graduate
+            1->3 HS
+            2->4 GED
+            3->5 College
+            4->6 BS
+            5->7 Graduate
 
 """
 
@@ -43,10 +43,10 @@ import seaborn as sns
 import pandas as pd
 import matplotlib.pyplot as plt
 from sklearn.preprocessing import LabelEncoder as le
-from sklearn import linear_model
+# from sklearn import linear_model
 import statsmodels.graphics.api as smg
 
-import badbaby.pythonScripts.defaults as params
+import badbaby.defaults as params
 import badbaby.pythonScripts.return_dataframes as rd
 
 
@@ -93,10 +93,7 @@ if not op.isfile(fname):
     raise RuntimeError('%s not found.' % fname)
 data = np.load(fname)
 
-#################################################
-# Combine filtered dataframes for CDI dataframe #
-#################################################
-# Get dataframes
+# Combine filtered dataframes
 mmn_xls, cdi_xls = rd.return_dataframes('mmn', age=age, ses=True)
 assert cdi_xls.subjId.unique().shape[0] == 71
 assert mmn_xls.subjId.values.shape[0] == 25
@@ -107,13 +104,10 @@ cdi_df = pd.merge(cdi_xls, mmn_xls, on='subjId', how='inner',
                   sort=True, validate='m:1').reindex()
 assert cdi_df.subjId.unique().shape[0] == 25
 
-#######################################
-# Visualize SES median split CDI data #
-#######################################
-# Split data on SES
-sesGrouping = cdi_df.ses <= cdi_df.ses.median()  # low ses True
+sesGrouping = cdi_df.ses <= cdi_df.ses.median()  # SES median split
 cdi_df['sesGroup'] = sesGrouping.map({True: 'low', False: 'high'})
 
+# Visualize
 # Pairwise + density, and correlation matrix of CDI response variables
 g = sns.pairplot(cdi_df, vars=['m3l', 'vocab'], diag_kind='kde',
                  hue='cdiAge', palette='tab20')
@@ -195,65 +189,47 @@ for nm, tt in zip(['m3l', 'vocab'],
                     xy=(0.05, 0.9), xycoords='axes fraction',
                     bbox=dict(boxstyle='square', fc='w'))
 
-##############################
-# Write out encoded CDI data #
-##############################
-# dummy variables
-# Subjects
+# factor encode
+# subjects
 subjects = cdi_df.subjId
 subjects = dict(zip(subjects, le().fit_transform(subjects) + 1))
 cdi_df.insert(0, 'subject', cdi_df.subjId.replace(subjects))
-# Stimuli
-stimuli = dict(zip(le().fit_transform(stimuli), stimuli))
-# Channels
-ch_types = dict(zip(le().fit_transform(['grad', 'mag']), ['grad', 'mag']))
-# Hemisphere
-hems = dict(zip(le().fit_transform(['lh', 'rh']), ['lh', 'rh']))
 # Paternal yrs of edu
-paternalEdu_vals = list(set(cdi_df.paternalEdu.values.astype(int)).
-                        union(cdi_df.maternalEdu.values.astype(int)))
-paternalEdu_keys = list(map(chr, range(ord('a'),
-                                       ord('z')+1)))[:len(paternalEdu_vals)]
-paternalEdu = dict(zip(paternalEdu_vals, paternalEdu_keys))
+eduVals = list(set(cdi_df.paternalEdu.values.astype(np.int64)).
+               union(cdi_df.maternalEdu.values.astype(np.int64)))
+eduScores = dict(zip(eduVals, le().fit_transform(eduVals) + 1))
 for col in ['maternalEdu', 'paternalEdu']:
-    cdi_df[col] = cdi_df[col].astype(int).map(paternalEdu)
+    cdi_df[col] = cdi_df[col].map(eduScores)
 # Paternal Hollingshead score
-hhScores_vals = list(set(cdi_df.paternalHscore.values.astype(int)).
-                     union(cdi_df.maternalHscore.values.astype(int)))
-hhScore_keys = list(map(chr, range(ord('a'),
-                                   ord('z')+1)))[:len(hhScores_vals)]
-hhScores = dict(zip(hhScores_vals, hhScore_keys))
+hhScores_vals = list(set(cdi_df.paternalHscore.values).
+                     union(cdi_df.maternalHscore.values))
+hhScores = dict(zip(hhScores_vals, le().fit_transform(hhScores_vals) + 1))
 for col in ['maternalHscore', 'paternalHscore']:
-    cdi_df[col] = cdi_df[col].astype(int).map(hhScores)
+    cdi_df[col] = cdi_df[col].map(hhScores)
 # CDI age
-cdiAge_vals = cdi_xls.cdiAge.unique()
-cdiAge_keys = list(map(chr, range(ord('a'), ord('z')+1)))[:len(cdiAge_vals)]
-cdiAge = dict(zip(cdiAge_vals, cdiAge_keys))
-cdi_df.cdiAge = cdi_df.cdiAge.astype(int).map(cdiAge)
+# cdiAge_vals = cdi_xls.cdiAge.unique()
+# cdiAge = dict(zip(cdiAge_vals, le().fit_transform(cdiAge_vals) + 1))
+# cdi_df.cdiAge = cdi_df.cdiAge.map(cdiAge)
+# # gender
+# cdi_df.gender = cdi_df.gender.map({'M': 1, 'F': 2})
+# Stimuli
+stimuli = dict(zip(stimuli, le().fit_transform(stimuli) + 1))
+# Channels
+ch_types = dict(zip(['grad', 'mag'], le().fit_transform(['grad', 'mag']) + 1))
+# Hemisphere
+hems = dict(zip(['lh', 'rh'], le().fit_transform(['lh', 'rh']) + 1))
 
 # Write out CSVs for R
-cdi_df.drop(columns=['subjId', 'badCh', 'ecg', 'samplingRate', 'complete',
+cdi_df.drop(columns=['badCh', 'ecg', 'samplingRate', 'complete',
                      'behavioral', 'simmInclude',
                      'maternalEthno', 'paternalEthno',
                      'sib1dob', 'sib1gender',
                      'sib2dob', 'sib2gender', 'sib3dob', 'sib3gender',
                      'birthWeight(lbs)'],
             axis=1).to_csv(op.join(params.dataDir,
-                                   'Ds-mmn-2mos_cdi_df.tsv'),
-                           sep='\t')
-# Descriptives @ 30Mos CDI time point
-responses = ['m3l', 'vocab', 'ses', 'age', 'headSize',
-             'maternalEdu', 'maternalHscore', 'paternalEdu',
-             'paternalHscore', 'nSibs', 'birthWeight']
-grpby = ['cdiAge', 'sesGroup', 'gender']
-desc = cdi_df[responses + grpby].groupby(grpby).describe()
-print('\nDemographic Descriptives...\n', desc)
-desc.to_csv(op.join(params.dataDir, 'Ds-mmn-2mos-desc.tsv'),
-            sep='\t')
+                                   'Ds-mmn-2mos_cdi_df.csv'), sep=',')
 
-#################################################
-# Combine filtered dataframes for CDI dataframe #
-#################################################
+
 # Create MEG measures dataframe
 # subjs x conds x sensors x hemisphere
 sz = data['auc'].size
@@ -266,11 +242,11 @@ nhems = len(hems)
 subjId = np.vstack((subjId, subjId) * (nstim * nsens * nhems // 2)).\
     reshape((-1,), order='F')
 assert subjId.shape[0] == nsubj * nstim * nsens * nhems
-stimulus = np.vstack((list(stimuli.values()), list(stimuli.values())) *
+stimulus = np.vstack((list(stimuli.keys()), list(stimuli.keys())) *
                      len(ch_types)).reshape((-1,), order='F')
-channel = np.vstack((list(ch_types.values()),
-                     list(ch_types.values()))).reshape((-1,), order='F')
-hemisphere = np.vstack(list(hems.values())).reshape((-1,), order='F')
+channel = np.vstack((list(ch_types.keys()),
+                     list(ch_types.keys()))).reshape((-1,), order='F')
+hemisphere = np.vstack(list(hems.keys())).reshape((-1,), order='F')
 meg_df = pd.DataFrame({
     'subjId': subjId.tolist(),
     'stimulus': stimulus.tolist() * nsubj,
@@ -285,7 +261,7 @@ assert meg_df.shape[0] == nsubj * nstim * nsens * nhems
 naves = np.transpose(data['naves'], (1, 0))
 subjId = np.vstack([mmn_xls.subjId.values] * len(stimuli)).reshape((-1,),
                                                                    order='F')
-stimulus = np.vstack(list(stimuli.values())).reshape((-1,), order='F')
+stimulus = np.vstack(list(stimuli.keys())).reshape((-1,), order='F')
 # Inspect number of averages for each stimulus condition
 erf_naves = pd.DataFrame({
     'subjId': subjId.tolist(),
@@ -294,19 +270,20 @@ erf_naves = pd.DataFrame({
 })
 assert erf_naves.shape[0] == nsubj * nstim
 
-##############################
-# Write out encoded CDI data #
-##############################
+# factor encode
+# subjects
+subjects = meg_df.subjId
+subjects = dict(zip(subjects, le().fit_transform(subjects) + 1))
+meg_df.insert(0, 'subject', meg_df.subjId.replace(subjects))
+
 # select gradiometer data
 meg_df = meg_df[meg_df.channel == 'grad']
 # Merge MEG with covariate dataframe
 meg_df = meg_df.merge(mmn_xls, on='subjId', validate='m:1')
 assert meg_df.shape[0] == sz // 2
 # Split data on SES
-sesGrouping = meg_df.ses <= meg_df.ses.median()  # low ses True
+sesGrouping = meg_df.ses <= meg_df.ses.median()
 meg_df['sesGroup'] = sesGrouping.map({True: 'low', False: 'high'})
-
-# dummy variables
 # Combine stimuli for oddball conditioning
 stim_grouping = meg_df.stimulus == 'standard'
 meg_df['oddballCond'] = stim_grouping.map({True: 'standard', False: 'deviant'})
@@ -316,10 +293,9 @@ responses = ['age', 'headSize', 'ses',
              'birthWeight', 'maternalEdu', 'maternalHscore',
              'paternalEdu', 'paternalHscore',
              'auc', 'latencies']
-grpby = ['sesGroup', 'oddballCond', 'hemisphere']
+grpby = ['oddballCond', 'hemisphere']
 desc = meg_df[responses + grpby].groupby(grpby).describe()
 print('\nDescriptives...\n', desc)
-desc.to_csv(op.join(params.dataDir, 'Ds-mmn-2mos_meg-desc.tsv'), sep='\t')
 
 # Write out data for R
 meg_df.drop(axis=1, columns=['channel', 'channels', 'badCh', 'ecg',
@@ -327,7 +303,7 @@ meg_df.drop(axis=1, columns=['channel', 'channels', 'badCh', 'ecg',
                              'simmInclude', 'sib1dob', 'sib1gender',
                              'sib2dob', 'sib2gender', 'sib3dob',
                              'sib3gender', 'birthWeight(lbs)']).to_csv(
-    op.join(params.dataDir, 'Ds-mmn-2mos_meg_df.tsv'), sep='\t')
+    op.join(params.dataDir, 'Ds-mmn-2mos_meg_df.csv'), sep=',')
 
 #######################################
 # Visualize SES median split CDI data #
@@ -340,7 +316,7 @@ sns.catplot(x='stimulus', y='naves', kind='swarm', palette='tab20',
 for nm, tt in zip(['auc', 'latencies'],
                   ['Strength', 'Latency']):
     h = sns.catplot(x='oddballCond', y=nm, hue='sesGroup',
-                    data=meg_df[meg_df.channel == 'grad'],  # gradiometer data
+                    data=meg_df,  # gradiometer data
                     kind='point', ci='sd', dodge=True, legend=True,
                     palette=sns.color_palette('pastel', n_colors=2, desat=.5))
     h.fig.suptitle(tt)
@@ -355,7 +331,7 @@ plot_correlation_matrix(meg_df[['m3l', 'vocab', 'ses',
                                 'latencies', 'auc']].corr())
 # Pairwise + density
 df = meg_df.copy()
-df.cdiAge = df.cdiAge.map(dict((k, v) for v, k in cdiAge.items()))
+# df.cdiAge = df.cdiAge.map(dict((k, v) for v, k in cdiAge.items()))
 g = sns.pairplot(df, vars=['m3l', 'vocab', 'ses', 'latencies', 'auc'],
                  diag_kind='kde', hue='cdiAge', palette='tab20')
 
