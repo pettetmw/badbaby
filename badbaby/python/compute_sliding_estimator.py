@@ -1,15 +1,15 @@
 #!/usr/bin/env python
 
-"""Compute sliding estimator for conditions."""
+"""Compute temporal sliding estimator for oddball conditions."""
 
 """
-=================
-Sliding estimator
-=================
+===============================
+Decoding (ML) across time (MEG)
+===============================
 Adapted from mne-python tutorial sliding_estimator.py
-A sliding estimator fits a logistic legression model for every time point.
-In this example, we contrast the condition "famous" against "scrambled"
-using this approach. The end result is an averaging effect across sensors.
+A sliding estimator fits a logistic regression model for every time point.
+This script contrasts the oddball condition "standard" against "standard", 
+resulting in an averaging effect across sensors.
 The contrast across different sensors are combined into a single plot.
 """
 
@@ -23,22 +23,22 @@ __email__ = "ktavabi@uw.edu"
 __status__ = "Development"
 
 import os
-import numpy as np
-from scipy.io import savemat
+
 import mne
-from mne.epochs import combine_event_ids
+import numpy as np
 from mne.decoding import SlidingEstimator, cross_val_multiscore
-from sklearn.preprocessing import StandardScaler
+from mne.epochs import combine_event_ids
+from scipy.io import savemat
+from sklearn.linear_model import LogisticRegression
 from sklearn.model_selection import StratifiedKFold
 from sklearn.pipeline import make_pipeline
-from sklearn.linear_model import LogisticRegression
+from sklearn.preprocessing import StandardScaler
+
 import badbaby.python.return_dataframes as rd
 from badbaby.python import defaults
 
 df = rd.return_dataframes("mmn")[0]
-ecg_chs = np.unique(df["ecg"].tolist())
-study_dir = defaults.paradigms["mmn"]  # could be "mmn", "assr", "ids"
-run_name = defaults.paradigms["run_nms"]["mmn"]
+study_dir = defaults.paradigms["mmn"]
 subjects = ["bad_%s" % ss for ss in df.subjId.values]
 l_freq = "30"
 n_jobs = 18
@@ -49,7 +49,7 @@ def run_time_decoding(subject_id, epochs, condition1, condition2):
     print("processing subject: %s (%s vs %s)"
           % (subject_id, condition1, condition2))
 
-    data_path = os.path.join(study_dir, subject_id, "epochs")
+    datapath = os.path.join(study_dir, subject_id, "epochs")
     
     # We define the epochs and the labels
     epochs = mne.concatenate_epochs([epochs[condition1],
@@ -77,7 +77,7 @@ def run_time_decoding(subject_id, epochs, condition1, condition2):
     # let"s save the scores now
     a_vs_b = "%s_vs_%s" % (os.path.basename(condition1),
                            os.path.basename(condition2))
-    fname_td = os.path.join(data_path, "%s_lowpass-%sHz-td-auc-%s.mat"
+    fname_td = os.path.join(datapath, "%s_lowpass-%sHz-td-auc-%s.mat"
                             % (subject_id, l_freq, a_vs_b))
     savemat(fname_td, {"scores": scores, "times": epochs.times})
 
