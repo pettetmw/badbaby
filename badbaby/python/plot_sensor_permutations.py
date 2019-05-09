@@ -9,7 +9,7 @@ from os import path as op
 import numpy as np
 import mne
 from mne.stats import permutation_t_test
-import badbaby.defaults as params
+import badbaby.python.defaults as params
 
 # Some parameters
 analysis = 'Individual-matched'

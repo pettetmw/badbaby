@@ -38,8 +38,8 @@ import mne
 from mne import (read_evokeds, grand_average)
 from mne.utils import _time_mask
 from huma import defaults
-import badbaby.defaults as params
-import badbaby.pythonScripts.return_dataframes as rd
+import badbaby.python.defaults as params
+import badbaby.python.return_dataframes as rd
 
 
 def read_in_evoked(filename, condition):

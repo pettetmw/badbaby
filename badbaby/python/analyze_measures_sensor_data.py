@@ -7,29 +7,29 @@
         3. Write out encoded files (.tsv) for R
     Dummy variables:
         CDI Age
-            1->18 mos
-            2->21
-            3->24
-            4->27
-            5->30
+            A->18 mos
+            B->21
+            C->24
+            D->27
+            E->30
         parental yrs of edu
-            1->10
-            2->12
-            3->13
-            4->14
-            5->15
-            6->16
-            7->17
-            8->18
-            9->19
-            10->20
-            11->22
+            A->10
+            B->12
+            C->13
+            D->14
+            E->15
+            F->16
+            G->17
+            H->18
+            I->19
+            J->20
+            K->22
         parental Hollingshead scores
-            1->3 HS
-            2->4 GED
-            3->5 College
-            4->6 BS
-            5->7 Graduate
+            A->3 HS
+            B->4 GED
+            C->5 College
+            D->6 BS
+            E->7 Graduate
 
 """
 
@@ -43,11 +43,11 @@ import seaborn as sns
 import pandas as pd
 import matplotlib.pyplot as plt
 from sklearn.preprocessing import LabelEncoder as le
-# from sklearn import linear_model
+from sklearn import linear_model
 import statsmodels.graphics.api as smg
 
-import badbaby.defaults as params
-import badbaby.pythonScripts.return_dataframes as rd
+import badbaby.python.defaults as params
+import badbaby.python.return_dataframes as rd
 
 
 def plot_correlation_matrix(data):
@@ -93,7 +93,10 @@ if not op.isfile(fname):
     raise RuntimeError('%s not found.' % fname)
 data = np.load(fname)
 
-# Combine filtered dataframes
+#################################################
+# Combine filtered dataframes for CDI dataframe #
+#################################################
+# Get dataframes
 mmn_xls, cdi_xls = rd.return_dataframes('mmn', age=age, ses=True)
 assert cdi_xls.subjId.unique().shape[0] == 71
 assert mmn_xls.subjId.values.shape[0] == 25
@@ -104,10 +107,13 @@ cdi_df = pd.merge(cdi_xls, mmn_xls, on='subjId', how='inner',
                   sort=True, validate='m:1').reindex()
 assert cdi_df.subjId.unique().shape[0] == 25
 
-sesGrouping = cdi_df.ses <= cdi_df.ses.median()  # SES median split
+#######################################
+# Visualize SES median split CDI data #
+#######################################
+# Split data on SES
+sesGrouping = cdi_df.ses <= cdi_df.ses.median()  # low ses True
 cdi_df['sesGroup'] = sesGrouping.map({True: 'low', False: 'high'})
 
-# Visualize
 # Pairwise + density, and correlation matrix of CDI response variables
 g = sns.pairplot(cdi_df, vars=['m3l', 'vocab'], diag_kind='kde',
                  hue='cdiAge', palette='tab20')
