@@ -75,7 +75,7 @@ histogram(~mag|mag_type, dfs_long, breaks = "Scott", type = "density",
               panel.lines(xn, yn, col = "red")
           })
 histogram(~ latencies, data = dfs, type = "density", breaks = "Scott",
-          xlab = "Time (s)",
+          xlab = "Latency (s)",
           panel = function(x, ...) {
               panel.histogram(x, ...)
               xn <- seq(min(x), max(x), length.out = 100)
@@ -176,6 +176,8 @@ xyplot(latencies_mean ~ hemisphere:oddballCond|sesGroup.y, agg_p2,
 dfs.s <- dfs %>% filter(vocab > 0 & m3l > 0) %>%
     select('auc', 'latencies', 'm3l', 'vocab', 'ses.y')
 ## https://procomun.wordpress.com/2011/03/18/splomr/
+library(solaR)
+library(hexbin)
 splom(dfs.s,
       #panel=panel.hexbinplot,
       pch = 8, cex = .2,
