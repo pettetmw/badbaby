@@ -20,7 +20,8 @@ paradigms = {kk: op.join(datapath, vv)
              for kk, vv in zip(["mmn", "assr", "ids"],
                                ["mismatch", "tone", "speech"])}
 paradigms["exclusion"] = dict()
-paradigms["exclusion"]["assr"] = ["209b", "311b", "921a"]
+paradigms["exclusion"]["assr"] = ["108", "209b", "229a",
+                                  "311b", "316a", "921a"]
 paradigms["exclusion"]["mmn"] = []
 paradigms["exclusion"]["ids"] = []
 paradigms["run_nms"] = {kk: vv for kk, vv in zip(["mmn", "assr", "ids"],

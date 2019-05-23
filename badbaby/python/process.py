@@ -25,15 +25,22 @@ except ImportError:
     handler = None
 df = rd.return_dataframes("assr")[0]  # could be "mmn", "assr", "ids"
 exclude = defaults.paradigms["exclusion"]["assr"]
-df.drop(df[df.subjId.isin(exclude)].index, inplace=True)
 ecg_chs = np.unique(df["ecg"].tolist())
 work_dir = defaults.paradigms["assr"]  # could be "mmn", "assr", "ids"
+
+for si, subj in enumerate(df.subjId.values):
+    r = op.join(work_dir, subj, 'sss_fif',
+                'bad_%s_am_raw_sss.fif' % subj)
+    if op.isfile(r):
+        exclude.append(subj)
+df.drop(df[df.subjId.isin(exclude)].index, inplace=True)
 
 for sr, decim in zip([1200, 1800], [2, 3]):
     for ch in ecg_chs:
         subjects = \
-            df[(df["samplingRate"] == sr) & (df["ecg"] == ch)][
-                "subjId"].tolist()
+            df[(df["samplingRate"] == sr) &
+               (df["ecg"] == ch) &
+               (df["subjId"] == "101")]["subjId"].tolist()
         if len(subjects) == 0:
             continue
         # noinspection PyTypeChecker
@@ -45,7 +52,7 @@ for sr, decim in zip([1200, 1800], [2, 3]):
                                proj_sfreq=250, decim=decim,
                                hp_trans="auto", lp_cut=100.,
                                lp_trans="auto", bmin=-0.2,
-                               ecg_channel=ch)
+                               ecg_channel=ch, auto_bad=.1)
         params.subjects = ["bad_%s" % ss for ss in subjects]
         # write prebad
         for si, subj in enumerate(subjects):
@@ -104,16 +111,18 @@ for sr, decim in zip([1200, 1800], [2, 3]):
         params.autoreject_thresholds = True
         params.autoreject_types = ("mag", "grad")
         params.flat = dict(grad=1e-13, mag=1e-15)
+        params.auto_bad_reject = dict(grad=100.0e-12, mag=90.0e-10)
+        params.auto_bad_flat = params.flat
         # Proj
         params.get_projs_from = np.arange(1)
         params.proj_ave = True
-        params.proj_meg = 'combined'
+        # params.proj_meg = 'combined'
         params.inv_names = ['%s']
         params.inv_runs = [np.arange(1)]
-        params.ecg_t_lims = (-0.04, 0.04)
-        params.proj_nums = [[1, 1, 0],  # ECG: grad/mag/eeg
+        # params.ecg_t_lims = (-0.04, 0.04)
+        params.proj_nums = [[0, 0, 0],  # ECG: grad/mag/eeg
                             [0, 0, 0],  # EOG
-                            [1, 1, 0]]  # Continuous (from ERM)
+                            [2, 2, 0]]  # Continuous (from ERM)
         # Inverse options
         params.run_names = ["%s_am"]
         params.get_projs_from = np.arange(1)
@@ -129,9 +138,9 @@ for sr, decim in zip([1200, 1800], [2, 3]):
         params.must_match = [[]]
         cov = params.inv_names[0] + "-%.0f-sss-cov.fif" % params.lp_cut
         params.report_params.update(
-                whitening=[dict(analysis="All", name="All", cov=cov)],
-                sensor=[dict(analysis="All", name="All", times="peaks")],
+                sensor=[dict(analysis="All", name="Tone", times="peaks")],
                 source=None,
+                source_alignment=False,
                 psd=True,
                 )
         # Set what will run
@@ -144,7 +153,7 @@ for sr, decim in zip([1200, 1800], [2, 3]):
                 do_score=default,
                 fetch_sss=default,
                 do_ch_fix=default,
-                gen_ssp=default,
+                gen_ssp=True,
                 apply_ssp=default,
                 write_epochs=default,
                 gen_covs=default,
