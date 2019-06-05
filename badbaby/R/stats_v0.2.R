@@ -1,22 +1,4 @@
-library("afex") # needed for mixed() and attaches lme4 automatically.
-afex_options(emmeans_model = "multivariate")  # ANOVAs involving RM factors, follow-up tests based on the multivariate model are generally preferred to univariate follow-up tests.
-set_sum_contrasts()  # orthogonal sum-to-zero contrasts
-library("emmeans") # emmeans is needed for follow-up tests (and not anymore loaded automatically).
-library("multcomp") # for advanced control for multiple testing/Type 1 errors.
-library("coefplot")
-library("tidyverse")
-library("lattice") # for plots
-library("latticeExtra") # for combining lattice plots, etc.
-lattice.options(default.theme = standard.theme(color = FALSE)) # black and white
-lattice.options(default.args = list(as.table = TRUE)) # better ordering
-# Change some of the default lattice settings
-my.settings <- canonical.theme(color=FALSE)
-my.settings[['strip.background']]$col <- "black"
-my.settings[['strip.border']]$col<- "black"
-library("ggplot2")
-library("ggthemes")
-library("cowplot")
-
+library(tidyverse)
 
 # Read in data
 dfs <- merge(read_csv("Ds-mmn-2mos_meg_df.csv"),
@@ -37,7 +19,7 @@ sum(sapply(dfs, is.character)) # 2
 dfs <- dfs %>%
     mutate_if(sapply(dfs, is.character), as.factor)
 sapply(dfs, class)
-dfs$cdiAge <- as.factor(dfs$cdiAge)
+# dfs$cdiAge <- as.factor(dfs$cdiAge)
 str(dfs) # structure of the data
 
 ## participants per condition:
@@ -57,6 +39,16 @@ dfs %>% group_by(subjId) %>%
 dfs_long <- dfs %>% gather("mag_type", "mag", auc, logauc)
 dfs_long <- dfs_long %>% gather("cdi_type", "cdi", vocab, m3l)
 
+library(lattice) # for plots
+library(latticeExtra) # for combining lattice plots, etc.
+lattice.options(default.theme = standard.theme(color = FALSE)) # black and white
+lattice.options(default.args = list(as.table = TRUE)) # better ordering
+# Change some of the default lattice settings
+my.settings <- canonical.theme(color=FALSE)
+my.settings[['strip.background']]$col <- "black"
+my.settings[['strip.border']]$col<- "black"
+
+## Density plots of responses
 histogram(~cdi|cdi_type, dfs_long, breaks = "Scott", type = "density",
           scale = list(x = list(relation = "free"), y = list(relation = "free")),
           panel = function(x, ...) {
@@ -82,6 +74,22 @@ histogram(~ latencies, data = dfs, type = "density", breaks = "Scott",
               yn <- dnorm(xn, mean(x), sd(x))
               panel.lines(xn, yn, col = "red")
           })
+
+## CDI spaghetti plots
+p <- ggplot(data = dfs %>% filter(vocab > 0 & m3l > 0), 
+            aes(x = cdiAge, y = vocab, group = subjId))
+p + geom_line() +
+    stat_smooth(aes(group = 1)) + 
+    stat_summary(aes(group = 1),
+                 geom = "point", fun.y = mean, 
+                 shape = 17, size = 3) + 
+    facet_grid(cols = vars(sesGroup.y))
+p + geom_line() + 
+    stat_smooth(aes(group = 1), method = "lm", 
+                formula = y ~ x * I(x > 1), se = FALSE) + 
+    stat_summary(aes(group = 1), fun.y = mean, 
+                 geom = "point",  shape = 17, size = 3) + 
+    facet_grid(cols = vars(sesGroup.y))
 
 ## plot data aggregated across subjects
 ## CDI ~ cdiAge:sesGroup.y
@@ -172,12 +180,12 @@ xyplot(latencies_mean ~ hemisphere:oddballCond|sesGroup.y, agg_p2,
     bwplot(latencies_mean ~ hemisphere:oddballCond|sesGroup.y, agg_p2, 
            pch="|", do.out = T)
 
+
+library("hexbin")
 ## SPLOM
 dfs.s <- dfs %>% filter(vocab > 0 & m3l > 0) %>%
-    select('auc', 'latencies', 'm3l', 'vocab', 'ses.y')
+    select('auc', 'latencies', 'm3l', 'vocab', 'cses')
 ## https://procomun.wordpress.com/2011/03/18/splomr/
-library(solaR)
-library(hexbin)
 splom(dfs.s,
       #panel=panel.hexbinplot,
       pch = 8, cex = .2,
@@ -198,85 +206,184 @@ splom(dfs.s,
       pscale=0, varname.cex=0.7
 )
 
-# Mixed Modeling
+########################################################################################## Mixed Modeling
 ## https://cran.r-project.org/web/packages/afex/vignettes/afex_mixed_example.html
 ## centering with 'scale()'
 ## http://www.gastonsanchez.com/visually-enforced/how-to/2014/01/15/Center-data-in-R/
-center_scale <- function(x) {
-    scale(x, scale = FALSE)
-}
-dfs <- mutate(dfs, cses=center_scale(ses.y))
-dfs <- mutate(dfs, clauc=center_scale(log10(auc)))
+########################################################################################
+library("afex") # needed for mixed() and attaches lme4 automatically.
+afex_options(emmeans_model = "multivariate")  # ANOVAs involving RM factors, follow-up tests based on the multivariate model are generally preferred to univariate follow-up tests.
+set_sum_contrasts()  # orthogonal sum-to-zero contrasts
 
 ## https://rpubs.com/bbolker/4619
 pr <- function(m) printCoefmat(coef(summary(m)),digits=3,signif.stars=T)
-## by-s random intercepts and by-s random slopes for a plus their correlation
-(m1s <- mixed(vocab ~ cdiAge*gender.x*cses + (cdiAge*cses|subjId), 
-             dfs, method = "S", 
-             control = lmerControl(optCtrl = list(maxfun = 1e6))))
-## by-s random intercepts and by-s random slopes for a, but no correlation
-(m2s <- mixed(vocab ~ cdiAge*gender.x*cses + (cdiAge*cses||subjId), 
-              dfs, method = "S", 
-              control = lmerControl(optCtrl = list(maxfun = 1e6))))
+# center/scale 
+dfs <- mutate(dfs, cses=scale(ses.y, scale = FALSE))
+dfs <- mutate(dfs, cmatH=scale(maternalHscore.y, scale = FALSE))
+dfs <- mutate(dfs, clauc=scale(log10(auc), scale = FALSE))
+dfs <- mutate(dfs, c_cdiAge = cdiAge - 18) 
+dfs.f <- filter(dfs, cdiAge  %in% c("18", "21", "24", "27"))
+# VOCAB
+# by-s random intercepts
+pr(vocab.null.is <- mixed(vocab ~ 1 + (1|subjId), 
+                          dfs.f, method = "S", 
+                          control = lmerControl(optCtrl = list(maxfun = 1e6)),
+                          expand_re = TRUE))
+# by-s random intercepts and by-s random slopes for a plus their correlation
+pr(vocab.null.isa <- mixed(vocab ~ 1 + (c_cdiAge|subjId), 
+                           dfs.f, method = "S", 
+                           control = lmerControl(optCtrl = list(maxfun = 1e6)),
+                           expand_re = TRUE))
+# by-s random intercepts and by-s random slopes without their correlation
+pr(vocab.null.isa1 <- mixed(vocab ~ 1 + (c_cdiAge|subjId), 
+                          dfs.f, method = "S", 
+                          control = lmerControl(optCtrl = list(maxfun = 1e6)),
+                          expand_re = TRUE))
+# Unconditional growth model conveying Age is the best predictor of measure i.e. one way Anova
+pr(vocab.isa <- mixed(vocab ~ c_cdiAge + (c_cdiAge|subjId), 
+                      dfs.f, method = "S", 
+                      control = lmerControl(optCtrl = list(maxfun = 1e6)),
+                      expand_re = TRUE))
+# Maximal model with by-s random intercepts and by-s random slopes with their correlation
+pr(vocab.isa1 <- mixed(vocab ~ c_cdiAge + gender.x + 
+                           latencies * oddballCond * hemisphere +
+                           logauc * oddballCond * hemisphere +
+                           cses * gender.x +
+                           cmatH * gender.x +
+                           (c_cdiAge|subjId) + 
+                           (latencies * oddballCond * hemisphere|subjId), 
+                       dfs.f, method = "S", 
+                       control = lmerControl(optCtrl = list(maxfun = 1e6)),
+                       expand_re = TRUE))
 
-## by-s random intercepts
-### vocab
-pr(m3s <- mixed(vocab ~ cdiAge*cses + (1|subjId), 
-                dfs, method = "S", 
-                control = lmerControl(optCtrl = list(maxfun = 1e6))))
-pr(m3sg <- mixed(vocab ~ cdiAge*sesGroup.y + (1|subjId), 
-                 dfs, method = "S", 
-                 control = lmerControl(optCtrl = list(maxfun = 1e6))))
-coefplot.rxLinMod(m3sg, cex = .5, sort = c("magnitude"))
+anova(vocab.null.isa1, vocab.isa1, test="F")
+
+library("emmeans") # emmeans is needed for follow-up tests (and not anymore loaded automatically).
+library("multcomp") # for advanced control for multiple testing/Type 1 errors.
+library("coefplot")
+
+coefplot.rxLinMod(vocab.lmm2, cex = .5, sort = c("natural"))
 emm_options(lmer.df = "asymptotic") # also possible: 'satterthwaite', 'kenward-roger'
-### vocab ~ cdiAge:sesGroup.y post-hoc
-emm_i1 <- emmeans(m3sg, ~ cdiAge*sesGroup.y)
-update(pairs(emm_i1), by = NULL, adjust = "holm")
-summary(as.glht(update(pairs(emm_i1), by = NULL)), test = adjusted("free"))
-emm_i1b <- summary(contrast(emm_i1, by = NULL))
-(emm_i1b[,c("estimate", "SE")] <- exp(emm_i1b[,c("estimate", "SE")]))
-p1 <- afex_plot(m3sg, x = "cdiAge", trace = "sesGroup.y", 
-                dodge = 0.3,
-                data_arg = list(
-                    position = 
-                        ggplot2::position_jitterdodge(
-                            jitter.width = 0, 
-                            jitter.height = 10, 
-                            dodge.width = 0.3  ## needs to be same as dodge
-                        ),
-                    color = "darkgrey"))
+### vocab ~ cdiAge
+vocab.emm <- emmeans(vocab.lmm2, ~ cdiAge)
+update(pairs(vocab.emm), by = NULL, adjust = "holm")
+summary(as.glht(update(pairs(vocab.emm), by = NULL)), test = adjusted("holm"))
+cdiAge.ht <- as.data.frame(confint(as.glht(update(pairs(vocab.emm), 
+                                                  by = NULL)))$confint)
+cdiAge.ht$Comparison <- rownames(cdiAge.ht)
 
-### m3l
-pr(m4s <- mixed(m3l ~ cdiAge*gender.x*cses + (1|subjId), 
-                dfs, method = "S", 
-                control = lmerControl(optCtrl = list(maxfun = 1e6))))
-pr(m4sg <- mixed(m3l ~ cdiAge*gender.x*sesGroup.y + (1|subjId), 
-                dfs, method = "S", 
-                control = lmerControl(optCtrl = list(maxfun = 1e6))))
-coefplot.rxLinMod(m4sg, cex = .5, sort = c("magnitude"))
-### m3l ~ cdiAge:gender.x:sesGroup.y post-hoc
-emm_i2 <- emmeans(m4sg, ~ cdiAge*gender.x*sesGroup.y)
-update(pairs(emm_i2), by = NULL, adjust = "holm")
-summary(as.glht(update(pairs(emm_i2), by = NULL)), test = adjusted("free"))
-emm_i2b <- summary(contrast(emm_i2, by = NULL))
-(emm_i2b[,c("estimate", "SE")] <- exp(emm_i2b[,c("estimate", "SE")]))
-p2 <- afex_plot(m4sg, "cdiAge", "gender.x", "sesGroup.y", 
-                id = "subjId",
-                dodge = 0.65,
-                data_arg = list(
-                    position = 
-                        ggplot2::position_jitterdodge(
-                            jitter.width = 0, 
-                            jitter.height = 10, 
-                            dodge.width = 0.65  ## needs to be same as dodge
-                        ),
-                    color = "darkgrey"),
-                emmeans_arg = list(model = "multivariate"))
+library("ggthemes")
+library("cowplot")
+library("ggbeeswarm")
+library("ggpubr")
+ggplot(cdiAge.ht, 
+       aes(x = Comparison, y = Estimate, ymin = lwr, ymax = upr)) +
+    geom_errorbar() + geom_point()
+cdiAge_emm <- as.data.frame(summary(contrast(vocab.emm, by = NULL)))
+cdiAge_emm$Effect <- rownames(cdiAge_emm)
+(cdiAge_emm[,c("estimate", "SE")] <- exp(cdiAge_emm[,c("estimate", "SE")]))
+(p1 <- afex_plot(vocab.lmm2, x = "cdiAge",
+                 dodge = 0.3, 
+                 data_geom = ggbeeswarm::geom_beeswarm,
+                 data_arg = list(
+                     dodge.width = 0.3,  ## needs to be same as dodge
+                     cex = 0.2,
+                     color = "darkgrey")) +
+        labs(x = "Age (mo)", y = "EMM ± 95% ci",
+             tag = "A", title = "Vocabulary size",
+             subtitle = "Esimated marginal means"))
+# Vocab v SES
+# Shapiro-Wilk normality tests
+shapiro.test(ses <- as.numeric(unlist(select_at(cdi, vars(ses.y)))))
+ggqqplot((ses), ylab = "SES")
 
-### latency
-(m4s <- mixed(latencies ~ hemisphere*stimulus*gender.x*cses + (1|subjId), 
-              dfs, method = "S", 
-              control = lmerControl(optCtrl = list(maxfun = 1e6))))
+shapiro.test(vocab <- as.numeric(unlist(select_at(cdi, vars(vocab)))))
+ggqqplot(log(vocab), ylab = "Vocabulary size")
+
+ggscatter(cdi, x = "ses.y", y = "vocab", 
+          color = "black", shape = 21, size = 1, # Points color, shape and size
+          add = "reg.line", conf.int = TRUE,
+          add.params = list(color = "blue", fill = "lightgray"), # Customize reg. line
+          cor.coef = TRUE, 
+          cor.coeff.args = list(method = "spearman"),
+          xlab = "SES", ylab = "Vocabulary size",
+          title = "Spearman's rank correlation rho")
+cor.test(vocab, ses,  method = "spearman")
+
+## M3L by-s random intercepts
+pr(m3l.null <- mixed(m3l ~ 1 + (1|subjId), 
+                     cdi, method = "S", 
+                     control = lmerControl(optCtrl = list(maxfun = 1e6)),
+                     expand_re = TRUE))
+pr(m3l.lmm1 <- mixed(m3l ~ cses * cdiAge + (1|subjId), 
+                     cdi, method = "S", 
+                     control = lmerControl(optCtrl = list(maxfun = 1e6)),
+                     expand_re = TRUE))
+anova(m3l.null, m3l.lmm1, test="F")
+AIC(m3l.lmm1[["full_model"]])
+pr(m3l.lmm2 <- mixed(m3l ~ gender.x + cses * cdiAge + (1|subjId), 
+                       cdi, method = "S", 
+                       control = lmerControl(optCtrl = list(maxfun = 1e6)),
+                       expand_re = TRUE))
+anova(m3l.lmm1, m3l.lmm2, test="F")
+AIC(m3l.lmm2[["full_model"]])
+anova(m3l.lmm2)
+coefplot.rxLinMod(m3l.lmm2, cex = .5, sort = c("natural"))
+### m3l ~ cdiAge
+m3l.emm <- emmeans(m3l.lmm2, ~ cdiAge)
+update(pairs(m3l.emm), by = NULL, adjust = "holm")
+summary(as.glht(update(pairs(m3l.emm), by = NULL)), test = adjusted("holm"))
+cdiAge.ht <- as.data.frame(confint(as.glht(update(pairs(m3l.emm), 
+                                                  by = NULL)))$confint)
+cdiAge.ht$Comparison <- rownames(cdiAge.ht)
+ggplot(cdiAge.ht, 
+       aes(x = Comparison, y = Estimate, ymin = lwr, ymax = upr)) +
+    geom_errorbar() + geom_point()
+cdiAge_emm <- as.data.frame(summary(contrast(m3l.emm, by = NULL)))
+cdiAge_emm$Effect <- rownames(cdiAge_emm)
+(cdiAge_emm[,c("estimate", "SE")] <- exp(cdiAge_emm[,c("estimate", "SE")]))
+(p1 <- afex_plot(m3l.lmm2, x = "cdiAge",
+                 dodge = 0.3, 
+                 data_geom = ggbeeswarm::geom_beeswarm,
+                 data_arg = list(
+                     dodge.width = 0.3,  ## needs to be same as dodge
+                     cex = 0.2,
+                     color = "darkgrey")) +
+        labs(x = "Age (mo)", y = "EMM ± 95% ci",
+             tag = "A", title = "M3L",
+             subtitle = "Esimated marginal means"))
+# m3l v SES
+# Shapiro-Wilk normality tests
+shapiro.test(ses <- as.numeric(unlist(cdi  %>% select(ses.y))))
+ggqqplot((ses), ylab = "SES")
+
+shapiro.test(m3l <- as.numeric(unlist(cdi %>% select(m3l))))
+ggqqplot(log(m3l), ylab = "M3L")
+
+ggscatter(cdi, x = "ses.y", y = "m3l", 
+          color = "black", shape = 21, size = 1, # Points color, shape and size
+          add = "reg.line", conf.int = TRUE,
+          add.params = list(color = "blue", fill = "lightgray"), # Customize reg. line
+          cor.coef = TRUE, 
+          cor.coeff.args = list(method = "spearman"),
+          xlab = "SES", ylab = "M3L",
+          title = "Spearman's rank correlation rho")
+cor.test(m3l, ses,  method = "spearman")
+
+### latency by-s random intercepts
+(latency.null <- mixed(latencies ~ 1 + (1|subjId), 
+                       dfs, method = "S", 
+                       control = lmerControl(optCtrl = list(maxfun = 1e6)),
+                       expand_re = True))
+(latency.lmm1 <- mixed(latencies ~ gender.x + cses + hemisphere * oddballCond + (1|subjId), 
+                       dfs, method = "S", 
+                       control = lmerControl(optCtrl = list(maxfun = 1e6)),
+                       expand_re = TRUE))
+anova(latency.null, latency.lmm1, test="F")
+AIC(latency.lmm1[["full_model"]])
+anova(latency.lmm1)
+coefplot.rxLinMod(latency.lmm1, cex = .5, sort = c("natural"))
+
 ### magnitude
 (m4s <- mixed(clauc ~ hemisphere*stimulus*gender.x*cses + (1|subjId), 
               dfs, method = "S", 
