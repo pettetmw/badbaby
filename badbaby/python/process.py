@@ -19,8 +19,6 @@ import pandas as pd
 import badbaby.python.return_dataframes as rd
 from badbaby.python import defaults
 
-# from score import score
-
 try:
     # Use niprov as handler for events, or if it's not installed, ignore
     from niprov.mnefunsupport import handler
