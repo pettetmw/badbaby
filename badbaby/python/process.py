@@ -26,12 +26,10 @@ except ImportError:
     handler = None
 df = rd.return_dataframes('assr')[0]  # could be 'mmn', 'assr', 'ids'
 exclude = defaults.paradigms['exclusion']['assr']
-exclude += ['209a', '925a', '116a', '220b', '224b', '226b', '319b',
-            '112']
+df.drop(df[df.subjId.isin(pd.Series(exclude))].index, inplace=True)
 ecg_chs = np.unique(df['ecg'].tolist())
 work_dir = defaults.paradigms['assr']  # could be 'mmn', 'assr', 'ids'
 
-df.drop(df[df.subjId.isin(pd.Series(exclude))].index, inplace=True)
 for sr, decim in zip([1200, 1800], [2, 3]):
     for ch in ecg_chs:
         subjects = \
@@ -80,7 +78,7 @@ for sr, decim in zip([1200, 1800], [2, 3]):
         params.acq_dir = ['/data101/bad_baby', '/sinuhe/data01/bad_baby',
                           '/sinuhe/data03/bad_baby', '/sinuhe_data01/bad_baby']
         params.sws_ssh = 'kam@kasga.ilabs.uw.edu'  # kasga
-        params.sws_dir = '/data07/kam/bad_baby'
+        params.sws_dir = '/data07/kam/sss_work'
         # Set the parameters for head position estimation:
         params.coil_dist_limit = 0.01
         params.coil_t_window = 'auto'  # use the smallest reasonable window size
@@ -91,7 +89,6 @@ for sr, decim in zip([1200, 1800], [2, 3]):
         params.translation_limit = 0.01  # m/s
         # Do MF autobad
         params.mf_autobad = True
-        params.mf_badlimit = 5
         # Maxwell filter with mne-python
         params.sss_type = 'python'
         params.sss_regularize = 'in'
@@ -101,7 +98,7 @@ for sr, decim in zip([1200, 1800], [2, 3]):
         params.trans_to = (0., 0., 0.06)
         # Covariance
         params.runs_empty = ['%s_erm_01']  # Define empty room runs
-        params.cov_method = 'shrunk'
+        params.cov_method = 'ledoit_wolf'
         params.compute_rank = True  # compute rank of the noise covar matrix
         params.force_erm_cov_rank_full = False  # compute and use the
         # empty-room rank
@@ -120,10 +117,10 @@ for sr, decim in zip([1200, 1800], [2, 3]):
         # params.proj_meg = 'combined'
         params.inv_names = ['%s']
         params.inv_runs = [np.arange(1)]
-        # params.ecg_t_lims = (-0.04, 0.04)
-        params.proj_nums = [[0, 0, 0],  # ECG: grad/mag/eeg
+        params.ecg_t_lims = (-0.04, 0.04)
+        params.proj_nums = [[1, 1, 0],  # ECG: grad/mag/eeg
                             [0, 0, 0],  # EOG
-                            [2, 2, 0]]  # Continuous (from ERM)
+                            [1, 1, 0]]  # Continuous (from ERM)
         # Inverse options
         params.run_names = ['%s_am']
         params.get_projs_from = np.arange(1)
@@ -150,14 +147,14 @@ for sr, decim in zip([1200, 1800], [2, 3]):
                 params,
                 fetch_raw=default,
                 push_raw=default,
-                do_sss=True,
+                do_sss=default,
                 do_score=default,
                 fetch_sss=default,
                 do_ch_fix=default,
                 gen_ssp=default,
                 apply_ssp=default,
-                write_epochs=default,
-                gen_covs=default,
+                write_epochs=True,
+                gen_covs=True,
                 gen_fwd=default,
                 gen_inv=default,
                 gen_report=default,

@@ -44,9 +44,7 @@ def return_dataframes(paradigm, age=None, cdi=False,
     xl_meg = pd.read_excel(op.join(static, 'meg_covariates.xlsx'),
                            sheet_name=paradigm,
                            converters={'BAD': str})
-    xl_meg = xl_meg[(xl_meg.acq == 1)]  # only Ss w complete MEG Acq
-    xl_meg.drop(['examDate', 'acq', 'sss',
-                 'rejection', 'epoching'], axis=1, inplace=True)
+    xl_meg = xl_meg[(xl_meg.acq == 1)]  # only Ss w MEG Acq
     # Subselect by cohort
     if ses:
         xl_meg = xl_meg[xl_meg['ses'] > 0]

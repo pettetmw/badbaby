@@ -35,7 +35,7 @@ picks = mne.pick_types(raw.info, meg=True)
 epochs = mne.Epochs(raw, events, event_id, tmin, tmax, picks=picks,
                     baseline=(None, 0), reject=dict(grad=4000e-13),
                     preload=True)
-epochs.average().plot()
+epochs.average().plot_topo(merge_grads=True)
 # signal_cov = mne.compute_covariance(epochs, tmin=0, tmax=1.5)
 # signal_cov = mne.cov.regularize(signal_cov, raw.info)
 signal_cov = mne.compute_covariance(epochs, method='oas', n_jobs=18)
