@@ -20,7 +20,23 @@ paradigms = {kk: op.join(datapath, vv)
              for kk, vv in zip(['mmn', 'assr', 'ids'],
                                ['mismatch', 'tone', 'speech'])}
 paradigms['exclusion'] = dict()
-paradigms['exclusion']['assr'] = ['108', '925b']
+paradigms['exclusion']['assr'] = ['108',
+                                  '925b',
+                                  '130a',  # Noisy sensors MF autobad
+                                  '304a',  # Noisy sensors MF autobad
+                                  '311a',  # Noisy sensors MF autobad
+                                  '318a',  # Noisy sensors MF autobad
+                                  '117b',  # Noisy sensors MF autobad
+                                  '209b',  # Noisy sensors MF autobad
+                                  '921a',  # No ECG surrogate
+                                  '925a',  # Noisy sensors Autoreject
+                                  '208b',  # Noisy sensors Autoreject
+                                  '311b',  # No ECG surrogate
+                                  '127a',  # Noisy sensors Autoreject
+                                  '134a',  # Noisy sensors Autoreject
+                                  '229a',   # No events
+                                  '316a'
+                                  ]
 paradigms['exclusion']['mmn'] = []
 paradigms['exclusion']['ids'] = []
 paradigms['run_nms'] = {kk: vv for kk, vv in zip(['mmn', 'assr', 'ids'],
