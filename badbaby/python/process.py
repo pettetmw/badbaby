@@ -67,7 +67,7 @@ for sr, decim in zip([1200, 1800], [2, 3]):
                             for ch_name in bads:
                                 output.write('%s\n' % ch_name)
         # Set the niprov handler to deal with events:
-        params.on_process = None
+        params.on_process = handler
         params.structurals = [None] * len(params.subjects)
         # params.score = score
         params.dates = [None] * len(params.subjects)
@@ -123,10 +123,8 @@ for sr, decim in zip([1200, 1800], [2, 3]):
                             [1, 1, 0]]  # Continuous (from ERM)
         # Inverse options
         params.run_names = ['%s_am']
-        params.get_projs_from = np.arange(1)
         params.inv_names = ['%s']
         params.inv_runs = [np.arange(1)]
-        params.runs_empty = []
         # Conditioning
         params.in_names = ['tone']
         params.in_numbers = [1]
