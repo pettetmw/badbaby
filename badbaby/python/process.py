@@ -27,6 +27,7 @@ except ImportError:
 df = rd.return_dataframes('assr')[0]  # could be 'mmn', 'assr', 'ids'
 exclude = defaults.paradigms['exclusion']['assr']
 df.drop(df[df.subjId.isin(pd.Series(exclude))].index, inplace=True)
+# df = df[df.subjId.isin(pd.Series(['226b']))]
 ecg_chs = np.unique(df['ecg'].tolist())
 work_dir = defaults.paradigms['assr']  # could be 'mmn', 'assr', 'ids'
 
@@ -73,7 +74,6 @@ for sr, decim in zip([1200, 1800], [2, 3]):
         params.dates = [None] * len(params.subjects)
         params.work_dir = work_dir
         params.subject_indices = np.arange(len(params.subjects))
-        
         params.acq_ssh = 'kambiz@minea.ilabs.uw.edu'  # minea
         params.acq_dir = ['/data101/bad_baby', '/sinuhe/data01/bad_baby',
                           '/sinuhe/data03/bad_baby', '/sinuhe_data01/bad_baby']
@@ -97,7 +97,7 @@ for sr, decim in zip([1200, 1800], [2, 3]):
         params.st_correlation = .9
         params.trans_to = (0., 0., 0.06)
         # Covariance
-        params.runs_empty = ['%s_erm_01']  # Define empty room runs
+        params.runs_empty = ['%s_erm']  # Define empty room runs
         params.cov_method = 'ledoit_wolf'
         params.compute_rank = True  # compute rank of the noise covar matrix
         params.force_erm_cov_rank_full = False  # compute and use the
@@ -151,8 +151,8 @@ for sr, decim in zip([1200, 1800], [2, 3]):
                 do_ch_fix=default,
                 gen_ssp=default,
                 apply_ssp=default,
-                write_epochs=True,
-                gen_covs=True,
+                write_epochs=default,
+                gen_covs=default,
                 gen_fwd=default,
                 gen_inv=default,
                 gen_report=default,

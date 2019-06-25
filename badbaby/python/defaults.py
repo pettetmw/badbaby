@@ -34,14 +34,14 @@ paradigms['exclusion']['assr'] = ['108',
                                   '311b',  # No ECG surrogate
                                   '127a',  # Noisy sensors Autoreject
                                   '134a',  # Noisy sensors Autoreject
-                                  '229a',   # No events
-                                  '316a'
+                                  '229a',  # No events
+                                  '316a',
+                                  '218a'   # No ECG surrogate
                                   ]
 paradigms['exclusion']['mmn'] = []
 paradigms['exclusion']['ids'] = []
 paradigms['run_nms'] = {kk: vv for kk, vv in zip(['mmn', 'assr', 'ids'],
-                                                 ['mmn', 'am',
-                                                  'ids'])}
+                                                 ['mmn', 'am', 'ids'])}
 # evoked topoplot viz params
 ts_args = {'gfp': True}
 topomap_args = {'outlines': 'skirt', 'sensors': False}
