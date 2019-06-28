@@ -30,14 +30,16 @@
 # Authors: Kambiz Tavabi <ktavabi@gmail.com>
 # License: MIT
 
-from os import path as op
-import numpy as np
 from collections import Counter
+from os import path as op
+
 import matplotlib.pyplot as plt
 import mne
+import numpy as np
+from huma import defaults
 from mne import (read_evokeds, grand_average)
 from mne.utils import _time_mask
-from huma import defaults
+
 import badbaby.python.defaults as params
 import badbaby.python.return_dataframes as rd
 
@@ -70,7 +72,7 @@ meg_df.hist(column=['ses', 'headSize', 'age'], layout=(3, 1),
             figsize=(8, 10), bins=50)
 # Loop over subjects & plot grand average ERFs
 subjects = meg_df.subjId.values
-tmin, tmax = (.15, .51)      # peak ERF latency window
+tmin, tmax = (.15, .51)  # peak ERF latency window
 evoked_dict = dict()
 picks_dict = dict()
 for ci, cond in enumerate(conditions):
@@ -149,7 +151,7 @@ n, bins, patches = ax.hist(x=latencies.flat, bins='auto', color='#0504aa',
 sigma = latencies.std()
 mu = latencies.mean()
 y = ((1 / (np.sqrt(2 * np.pi) * sigma)) *
-     np.exp(-0.5 * (1 / sigma * (bins - mu))**2))
+     np.exp(-0.5 * (1 / sigma * (bins - mu)) ** 2))
 ax.plot(bins, y, 'y', lw=2)
 # Set a clean upper y-axis limit.
 ax.grid(axis='y', alpha=0.3, ls=':')
@@ -168,9 +170,11 @@ picks = mne.pick_channels(dummy_info['ch_names'], layout)
 fig, ax = plt.subplots()
 ax.bar(x, counts[order], color='#0504aa', width=.8)
 ax.set_xticks(x)
-ax.set_xticklabels(ch_names[order], fontdict={'fontsize': 6,
-                                              'rotation': 90,
-                                              'ha': 'right'})
+ax.set_xticklabels(ch_names[order], fontdict={
+        'fontsize': 6,
+        'rotation': 90,
+        'ha': 'right'
+        })
 ax.tick_params(axis='x', which='major', labelsize=10)
 ax.grid(axis='y', alpha=0.75)
 ax.set_xlabel('Channel')
@@ -179,7 +183,7 @@ ax.set_title('Maximally responsive channels')
 maxfreq = counts.max()
 # Set a clean upper y-axis limit.
 ax.set_ylim(
-    ymax=np.ceil(maxfreq / 10) * 10 if maxfreq % 10 else maxfreq + 10)
+        ymax=np.ceil(maxfreq / 10) * 10 if maxfreq % 10 else maxfreq + 10)
 ax.axhline(.5 * maxfreq, color='r', lw=2, zorder=2)
 mne.viz.plot_sensors(dummy_info, ch_type='grad',
                      ch_groups=picks[:, np.newaxis].T)
@@ -209,7 +213,7 @@ n, bins, patches = ax.hist(x=x.flat, bins='auto', color='#0504aa',
 sigma = x.std()
 mu = x.mean()
 y = ((1 / (np.sqrt(2 * np.pi) * sigma)) *
-     np.exp(-0.5 * (1 / sigma * (bins - mu))**2))
+     np.exp(-0.5 * (1 / sigma * (bins - mu)) ** 2))
 ax.plot(bins, y, 'y', lw=2)
 # Set a clean upper y-axis limit.
 ax.grid(axis='y', alpha=0.3, ls=':')
@@ -228,4 +232,3 @@ mne.viz.plot_compare_evokeds(evoked_dict, picks=picks,
                              truncate_yaxis=True,
                              vlines=[0, tmin, tmax],
                              show_sensors=True, ci=True)
-

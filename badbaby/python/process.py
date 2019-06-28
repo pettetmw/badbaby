@@ -25,10 +25,10 @@ try:
 except ImportError:
     handler = None
 df = rd.return_dataframes('mmn')[0]
-exclude = defaults.paradigms['exclusion']['mmn']
+exclude = defaults.exclude
 df.drop(df[df.subjId.isin(pd.Series(exclude))].index, inplace=True)
 ecg_chs = np.unique(df['ecg'].tolist())
-work_dir = defaults.paradigms['mmn']  # could be 'mmn', 'assr', 'ids'
+work_dir = defaults.datapath
 
 for sr, decim in zip([1200, 1800], [2, 3]):
     for ch in ecg_chs:
@@ -41,12 +41,13 @@ for sr, decim in zip([1200, 1800], [2, 3]):
         print('    \nUsing %d Hz as sampling rate and\n'
               '    %s as ECG surrogate...' % (sr, ch))
         print('    %d ' % len(subjects), 'Subjects: ', subjects)
-        params = mnefun.Params(tmin=-0.1, tmax=0.6, n_jobs=18,
+        tmin, tmax = defaults.epoching
+        params = mnefun.Params(tmin=tmin, tmax=tmax, n_jobs=18,
                                n_jobs_fir='cuda', n_jobs_resample='cuda',
                                proj_sfreq=250, decim=decim,
-                               hp_cut=.1, hp_trans='auto',
-                               lp_cut=55., lp_trans='auto', bmin=-0.1,
-                               ecg_channel=ch)
+                               hp_cut=defaults.highpass, hp_trans='auto',
+                               lp_cut=defaults.lowpass, lp_trans='auto',
+                               bmin=tmin, ecg_channel=ch)
         params.subjects = ['bad_%s' % ss for ss in subjects]
         # write prebad
         for si, subj in enumerate(subjects):
@@ -95,7 +96,7 @@ for sr, decim in zip([1200, 1800], [2, 3]):
         params.st_correlation = .9
         params.trans_to = (0., 0., 0.06)
         # Covariance
-        params.runs_empty = ['%s_erm_01']  # Define empty room runs
+        params.runs_empty = ['%s_erm']  # Define empty room runs
         params.cov_method = 'ledoit_wolf'
         params.compute_rank = True  # compute rank of the noise covar matrix
         params.force_erm_cov_rank_full = False  # compute and use the
@@ -119,7 +120,7 @@ for sr, decim in zip([1200, 1800], [2, 3]):
                             [0, 0, 0],  # EOG
                             [1, 1, 0]]  # Continuous (from ERM)
         # Inverse options
-        params.run_names = ['%s_am']
+        params.run_names = ['%s_' + defaults.run_name]
         params.get_projs_from = np.arange(1)
         params.inv_names = ['%s']
         params.inv_runs = [np.arange(1)]
@@ -130,47 +131,38 @@ for sr, decim in zip([1200, 1800], [2, 3]):
         params.analyses = [
             'All',
             'Individual',
-            'Oddball',
-            'Individual-matched',
-            'Oddball-matched'
+            'Oddball'
         ]
         params.out_names = [
             ['All'],
-            ['standard', 'Ba', 'Wa'],
-            ['standard', 'deviant'],
-            ['standard', 'Ba', 'Wa'],
+            ['standard', 'ba', 'wa'],
             ['standard', 'deviant']
         ]
         params.out_numbers = [
             [1, 1, 1],  # Combine all trials
             [1, 2, 3],  # All conditions
-            [1, 2, 2],  # oddball
-            [1, 2, 3],
-            [1, 2, 2]
+            [1, 2, 2]   # oddball
         ]
         params.must_match = [
             [],
-            [],
-            [],
             [0, 1, 2],
-            [0, 1]
+            [0, 1, 2]
         ]
         cov = params.inv_names[0] + '-%.0f-sss-cov.fif' % params.lp_cut
         params.report_params.update(
             whitening=[
                 dict(analysis='All', name='All', cov=cov),
-                dict(analysis='Oddball-matched', name='standard', cov=cov),
-                dict(analysis='Oddball-matched', name='deviant', cov=cov)
+                dict(analysis='Oddball', name='standard', cov=cov),
+                dict(analysis='Oddball', name='deviant', cov=cov)
             ],
             sensor=[
                 dict(analysis='All', name='All', times='peaks'),
-                dict(analysis='Oddball-matched', name='standard',
-                     times='peaks'),
-                dict(analysis='Oddball-matched', name='deviant', times='peaks')
+                dict(analysis='Oddball', name='standard', times='peaks'),
+                dict(analysis='Oddball', name='deviant', times='peaks')
             ],
             source=None,
-            psd=True,
-        )
+            psd=True
+                )
         # Set what will run
         default = False
         mnefun.do_processing(
@@ -183,7 +175,7 @@ for sr, decim in zip([1200, 1800], [2, 3]):
                 do_ch_fix=default,
                 gen_ssp=default,
                 apply_ssp=default,
-                write_epochs=default,
+                write_epochs=True,
                 gen_covs=default,
                 gen_fwd=default,
                 gen_inv=default,
