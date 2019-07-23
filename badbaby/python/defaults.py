@@ -24,6 +24,7 @@ run_name = 'mmn'
 epoching = (-0.1, 0.6)
 lowpass = 55.
 highpass = 0.1
+peak_window = (.235, .53)
 
 
 

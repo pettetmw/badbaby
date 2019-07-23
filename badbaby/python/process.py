@@ -26,15 +26,14 @@ except ImportError:
     handler = None
 df = rd.return_dataframes('mmn')[0]
 exclude = defaults.exclude
-df.drop(df[df.subjId.isin(pd.Series(exclude))].index, inplace=True)
+df.drop(df[df.index.isin(pd.Series(exclude))].index, inplace=True)
 ecg_chs = np.unique(df['ecg'].tolist())
 work_dir = defaults.datapath
 
 for sr, decim in zip([1200, 1800], [2, 3]):
     for ch in ecg_chs:
         subjects = \
-            df[(df['samplingRate'] == sr) & (df['ecg'] == ch)][
-                'subjId'].tolist()
+            df[(df['samplingRate'] == sr) & (df['ecg'] == ch)].index.tolist()
         if len(subjects) == 0:
             continue
         # noinspection PyTypeChecker
@@ -51,7 +50,7 @@ for sr, decim in zip([1200, 1800], [2, 3]):
         params.subjects = ['bad_%s' % ss for ss in subjects]
         # write prebad
         for si, subj in enumerate(subjects):
-            bad_channels = df[df['subjId'] == subj]['badCh'].tolist()
+            bad_channels = df[df.index == subj]['badCh'].tolist()
             if op.exists(op.join(work_dir, params.subjects[si],
                                  'raw_fif')):
                 prebad_file = op.join(work_dir, params.subjects[si],
@@ -97,9 +96,9 @@ for sr, decim in zip([1200, 1800], [2, 3]):
         params.trans_to = (0., 0., 0.06)
         # Covariance
         params.runs_empty = ['%s_erm']  # Define empty room runs
-        params.cov_method = 'ledoit_wolf'
-        params.compute_rank = True  # compute rank of the noise covar matrix
-        params.force_erm_cov_rank_full = False  # compute and use the
+        # params.cov_method = 'ledoit_wolf'
+        # params.compute_rank = True  # compute rank of the noise covar matrix
+        # params.force_erm_cov_rank_full = False  # compute and use the
         # empty-room rank
         # Trial/CH rejection criteria
         params.ssp_ecg_reject = dict(grad=np.inf, mag=np.inf)
@@ -176,7 +175,7 @@ for sr, decim in zip([1200, 1800], [2, 3]):
                 gen_ssp=default,
                 apply_ssp=default,
                 write_epochs=True,
-                gen_covs=default,
+                gen_covs=True,
                 gen_fwd=default,
                 gen_inv=default,
                 gen_report=default,

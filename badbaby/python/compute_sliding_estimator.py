@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 
 """compute_sliding_estimator.py: MVPA using samplewise logit to classify
-oddball stimuli."""
+oddball stimuli. Writes out xxx_cvscores.h5 files to disk"""
 """Notes:
     https://martinos.org/mne/stable/auto_tutorials/machine-learning
     /plot_sensors_decoding.html?highlight=mvp
@@ -28,6 +28,7 @@ from mne import read_epochs, EvokedArray, grand_average
 from mne.decoding import (
     SlidingEstimator, cross_val_multiscore, LinearModel, get_coef
     )
+from mne.externals.h5io import write_hdf5
 from sklearn.linear_model import LogisticRegression
 from sklearn.metrics import roc_auc_score
 from sklearn.model_selection import StratifiedKFold
@@ -42,21 +43,21 @@ plt.style.use('ggplot')
 age = [2, 6]
 lp = defaults.lowpass
 condition1, condition2 = 'standard', 'deviant'
-window = .235, .53
+window = defaults.peak_window
 n_splits = 5  # how many folds to use for cross-validation
 for aix in age:
     rstate = np.random.RandomState(42)
     df = rd.return_dataframes('mmn', age=aix)[0]
-    subjects = ['bad_%s' % ss for ss in df.subjId.values]
+    subjects = ['bad_%s' % ss for ss in df.index]
     scores = []
     auc = []
     evokeds = []
+    hf_fname = op.join(defaults.datadir, '%smos_%d_cvscores.h5' % (aix, lp))
     for subject in subjects:
         ep_fname = op.join(workdir, subject, 'epochs',
                            'All_%d-sss_%s-epo.fif' % (lp, subject))
         epochs = read_epochs(ep_fname)
         epochs.apply_baseline()
-        epochs.pick_types(meg=True)
         epochs = combine_events(epochs, ['ba', 'wa'], {'deviant': 23})
         epochs.equalize_event_counts(epochs.event_id.keys())
         epochs.drop_bad()
@@ -85,13 +86,13 @@ for aix in age:
                               axis=0))
         auc.append(scores[-1][ix[0]:ix[1]].mean())  # windowed AUC
         print("Subject %s : AUC cross val score : %.3f" % (
-        subject, auc[-1].mean()))
+                subject, auc[-1].mean()))
         clf = make_pipeline(StandardScaler(),
                             LinearModel(LogisticRegression(solver='liblinear',
                                                            penalty='l2',
                                                            max_iter=4000,
                                                            multi_class='auto',
-                                                           random_state=rstate)))
+                                                           random_state=rstate)))  # noqa
         time_decode = SlidingEstimator(clf, n_jobs=config.N_JOBS,
                                        scoring=roc_auc_score,
                                        verbose=True)
@@ -163,7 +164,6 @@ for aix in age:
     # plot & write out AUC measures
     auc = pd.DataFrame(data=auc, index=subjects,
                        columns=['auc'])
-    auc.to_csv(op.join(defaults.resultsdir, 'auc_lp-%d_%d-mos.csv' % (aix, lp)))
     fig, ax = plt.subplots(1, 1, figsize=(12, 16))
     auc.plot(kind='bar', y='auc', ax=ax)
     ax.axhline(.5, color='k', linestyle='--', label='chance')
@@ -173,3 +173,11 @@ for aix in age:
     plt.legend()
     plt.savefig(op.join(defaults.figsdir, 'auc_lp-%d_%d-mos.pdf' % (aix, lp)),
                 bbox_inches='tight')
+    
+    # Write logit data to disk
+    write_hdf5(hf_fname,
+               dict(subjects=subjects,
+                    scores=scores,
+                    auc=auc,
+                    evokeds=evokeds),
+               title='logit', overwrite=True)

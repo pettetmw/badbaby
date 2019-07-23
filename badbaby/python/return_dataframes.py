@@ -39,6 +39,7 @@ def return_dataframes(paradigm, age=None, ses=False, longitudinal=False):
     """
     # Read excel sheets into pandas dataframes
     xl_meg = pd.read_excel(op.join(static, 'meg_covariates.xlsx'),
+                           index_col='subjId',
                            sheet_name=paradigm,
                            converters={'BAD': str})
     xl_meg = xl_meg[(xl_meg.complete == 1)]  # only Ss w complete MEG data

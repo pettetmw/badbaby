@@ -27,8 +27,12 @@
 
 """
 
-# Authors: Kambiz Tavabi <ktavabi@gmail.com>
-# License: MIT
+__author__ = "Kambiz Tavabi"
+__copyright__ = "Copyright 2019, Seattle, Washington"
+__license__ = "MIT"
+__version__ = "0.2"
+__maintainer__ = "Kambiz Tavabi"
+__email__ = "ktavabi@uw.edu"
 
 from collections import Counter
 from os import path as op
@@ -36,12 +40,31 @@ from os import path as op
 import matplotlib.pyplot as plt
 import mne
 import numpy as np
-from huma import defaults
-from mne import (read_evokeds, grand_average)
+from meeg_preprocessing import config
+from meeg_preprocessing.utils import combine_events
+from mne import (
+    read_epochs, read_evokeds, EvokedArray, grand_average,
+    create_info
+    )
+from mne.epochs import combine_event_ids
+from mne.viz import plot_compare_evokeds
 from mne.utils import _time_mask
+from pandas.plotting import scatter_matrix
 
-import badbaby.python.defaults as params
-import badbaby.python.return_dataframes as rd
+from badbaby.python import defaults
+from badbaby.python import return_dataframes as rd
+
+
+def compute_xdf(epochs, n_components=1, signal_cov=None, method='ledoit_wolf'):
+    """helper to compute xdawan filters"""
+    print('     Fitting Xdawn')
+    epochs.apply_baseline()
+    epochs.drop_bad()
+    xd = mne.preprocessing.Xdawn(n_components=n_components,
+                                 signal_cov=signal_cov,
+                                 correct_overlap=False,
+                                 reg=method)
+    return xd.fit(epochs)
 
 
 def read_in_evoked(filename, condition):
@@ -52,18 +75,49 @@ def read_in_evoked(filename, condition):
         raise ValueError('bad_%s - %dHz Wrong sampling rate!'
                          % (subj, erf.info['sfreq']))
     chs = np.asarray(erf.info['ch_names'])
-    assert (all(chs == np.asarray(defaults.vv_all_ch_order)))
+    assert (all(chs == np.asarray(config.VV_ALL)))
     if len(erf.info['bads']) > 0:
         erf.interpolate_bads()
     return erf
 
 
-# Some parameters
-analysis = 'Individual-matched'
+# parameters
+workdir = defaults.datapath
+plt.style.use('ggplot')
+analysis = 'Individual'
 conditions = ['standard', 'Ba', 'Wa']
-lpf = 30
-age = 2
-meg_dataDir = params.megPdg_dirs['mmn']
+tmin, tmax = defaults.epoching
+lp = defaults.lowpass
+age = [2, 6]
+window = defaults.peak_window  # peak ERF latency window
+for aix in age:
+    rstate = np.random.RandomState(42)
+    df = rd.return_dataframes('mmn', age=aix)[0]
+    subjects = ['bad_%s' % ss for ss in df.index]
+    print(df.info())
+    scatter_matrix(df[['age', 'ses', 'headSize']], alpha=.8, grid=False)
+    signals = list()
+    topographies = list()
+    for subject in subjects:
+        print('    Subject: %s' % subject)
+        ep_fname = op.join(workdir, subject, 'epochs',
+                           'All_%d-sss_%s-epo.fif' % (lp, subject))
+        eps = read_epochs(ep_fname)
+        eps_copy = combine_event_ids(eps.copy(),
+                                     [k for k in eps.event_id.keys()],
+                                     {'All': 123})
+        xd = compute_xdf(eps_copy)
+        event_ = list(xdf.event_id_.keys())[0]
+        eps = combine_events(eps, ['ba', 'wa'], {'deviant': 23})
+        eps.equalize_event_counts(['standard', 'deviant'])
+        evokeds = [eps[cond].average(method='median') for cond in
+                   eps.event_id.keys()]
+        xd_sigs = [xd.transform(evo) for evo in evokeds]
+        xd_patterns = [EvokedArray(xd.patterns_[event_].dot(evo.data),
+                                   info=evo.info,
+                                   tmin=tmin,
+                                   comment=evo.comment) for evo in evokeds]
+       
 
 meg_df, cdi_df = rd.return_dataframes('mmn', age=age, ses=True)
 print('\nDescriptive stats for Age(days) variable...\n',
@@ -72,20 +126,20 @@ meg_df.hist(column=['ses', 'headSize', 'age'], layout=(3, 1),
             figsize=(8, 10), bins=50)
 # Loop over subjects & plot grand average ERFs
 subjects = meg_df.subjId.values
-tmin, tmax = (.15, .51)  # peak ERF latency window
+window[0], window[1] = (.15, .51)  # peak ERF latency window
 evoked_dict = dict()
 picks_dict = dict()
 for ci, cond in enumerate(conditions):
     print('     Loading data for %s / %s' % (analysis, cond))
     file_out = op.join(meg_dataDir, '%s_%s_%s-mos_%d_grand-ave.fif'
-                       % (analysis, cond, age, lpf))
+                       % (analysis, cond, age, lp))
     print('      Doing averaging...')
     evokeds = list()
     for si, subj in enumerate(subjects):
         print('       %s' % subj)
         evoked_file = op.join(meg_dataDir, 'bad_%s' % subj, 'inverse',
                               '%s_%d-sss_eq_bad_%s-ave.fif'
-                              % (analysis, lpf, subj))
+                              % (analysis, lp, subj))
         evoked = read_in_evoked(evoked_file, condition=cond)
         evokeds.append(evoked)
         if subj == subjects[0]:
@@ -93,13 +147,14 @@ for ci, cond in enumerate(conditions):
                                  len(evoked.times)))
         erf_data[si] = evoked.data
     np.savez(op.join(meg_dataDir, '%s_%s_%s-mos_%d_evoked-arrays.npz'
-                     % (analysis, cond, age, lpf)), erf_data=erf_data)
+                     % (analysis, cond, age, lp)), erf_data=erf_data)
     # do grand averaging
     grandavr = grand_average(evokeds)
     grandavr.save(file_out)
     evoked_dict[cond] = evokeds
     # Grand average peak ERF gradiometer activity
-    ch, lat = grandavr.get_peak(ch_type='grad', tmin=tmin, tmax=tmax)
+    ch, lat = grandavr.get_peak(ch_type='grad', tmin=window[0], window[1] =
+    window[1])
     picks_dict[cond] = ch
     if cond in ['all', 'deviant']:
         print('     Peak latency for %s at:\n'
@@ -114,7 +169,7 @@ for ci, cond in enumerate(conditions):
 for pick in [grandavr.ch_names.index(kk) for kk in set(picks_dict.values())]:
     mne.viz.plot_compare_evokeds(evoked_dict, picks=pick,
                                  truncate_yaxis=True,
-                                 vlines=[0, tmin, tmax],
+                                 vlines=[0, window[0], window[1]],
                                  show_sensors=True, ci=True)
 
 # Get ERF magnitudes and latencies...
@@ -135,7 +190,7 @@ for ci, cond in enumerate(conditions):
                 ev = evoked.copy().pick_channels(these_sensors)
                 # Find ERF peaks from L-R selection of sensors
                 ch, lat = ev.get_peak(ch_type=ch_type,
-                                      tmin=tmin, tmax=tmax)
+                                      tmin=window[0], tmax=window[1])
                 latencies[ei, ci, ii, jj] = lat
                 channels[ei, ci, ii, jj] = ch
 
@@ -223,12 +278,12 @@ ax.set_title(r'Histogram of Area under curve: $\mu=%.3f, \sigma=%.3f$'
              % (mu, sigma))
 # Write out ERF measurements
 np.savez(op.join(params.dataDir,
-                 '%s_%s-mos_%d_measures.npz' % (analysis, age, lpf)),
+                 '%s_%s-mos_%d_measures.npz' % (analysis, age, lp)),
          auc=auc, latencies=latencies, channels=channels, naves=naves)
 
 # Compare ERF datasets for subset of maximally responsive channels
 picks = [evoked.ch_names.index(kk) for kk in layout]
 mne.viz.plot_compare_evokeds(evoked_dict, picks=picks,
                              truncate_yaxis=True,
-                             vlines=[0, tmin, tmax],
+                             vlines=[0, window[0], window[1]],
                              show_sensors=True, ci=True)
