@@ -1,7 +1,14 @@
 #!/usr/bin/env python
 
-"""compute_sliding_estimator.py: MVPA using samplewise logit to classify
-oddball stimuli. Writes out xxx_cvscores.h5 files to disk"""
+"""compute_sliding_estimator.py: samplewise classification of oddball stimuli.
+    Per ages per subject
+    1. combine CV deviant trials into deviant condition
+    2. Run logistic regression
+    3. K-fold cross val using area under curve as score
+    4. Write xxx_cv-scores.h5 files to disk
+    5. Plots
+    6. Evaluate AUC difference between 2- and 6-months
+"""
 """Notes:
     https://martinos.org/mne/stable/auto_tutorials/machine-learning
     /plot_sensors_decoding.html?highlight=mvp
@@ -16,19 +23,21 @@ __maintainer__ = "Kambiz Tavabi"
 __email__ = "ktavabi@uw.edu"
 __status__ = "Production"
 
-import os.path as op  # noqa: E402
+import os.path as op
+import re
 
 import matplotlib.pyplot as plt
 import numpy as np
-from scipy.stats import sem
 import pandas as pd
+import seaborn as sns
 from meeg_preprocessing import config
 from meeg_preprocessing.utils import combine_events
 from mne import read_epochs, EvokedArray, grand_average
 from mne.decoding import (
     SlidingEstimator, cross_val_multiscore, LinearModel, get_coef
     )
-from mne.externals.h5io import write_hdf5
+from mne.externals.h5io import write_hdf5, read_hdf5
+from scipy import stats
 from sklearn.linear_model import LogisticRegression
 from sklearn.metrics import roc_auc_score
 from sklearn.model_selection import StratifiedKFold
@@ -40,28 +49,29 @@ from badbaby.python import defaults
 
 workdir = defaults.datapath
 plt.style.use('ggplot')
-age = [2, 6]
+ages = [2, 6]
 lp = defaults.lowpass
 condition1, condition2 = 'standard', 'deviant'
 window = defaults.peak_window
-n_splits = 5  # how many folds to use for cross-validation
-for aix in age:
+n_splits = 7  # how many folds to use for cross-validation
+for aix in ages:
     rstate = np.random.RandomState(42)
-    df = rd.return_dataframes('mmn', age=aix)[0]
+    df = rd.return_dataframes('mmn', ages=aix)[0]
     subjects = ['bad_%s' % ss for ss in df.index]
     scores = []
     auc = []
-    evokeds = []
-    hf_fname = op.join(defaults.datadir, '%smos_%d_cvscores.h5' % (aix, lp))
+    evokeds = dict()
+    hf_fname = op.join(defaults.datadir, '%smos_%d_cv-scores.h5' % (aix, lp))
     for subject in subjects:
         ep_fname = op.join(workdir, subject, 'epochs',
                            'All_%d-sss_%s-epo.fif' % (lp, subject))
         epochs = read_epochs(ep_fname)
         epochs.apply_baseline()
+        # Combine trials into deviant condition
         epochs = combine_events(epochs, ['ba', 'wa'], {'deviant': 23})
         epochs.equalize_event_counts(epochs.event_id.keys())
         epochs.drop_bad()
-        # Get the data and labels
+        # Get the data and label
         le = LabelEncoder()
         X = epochs.get_data()
         y = le.fit_transform(epochs.events[:, -1])
@@ -98,10 +108,11 @@ for aix in age:
                                        verbose=True)
         coef = get_coef(time_decode.fit(X, y), 'patterns_',
                         inverse_transform=True)
-        evokeds.append(EvokedArray(coef, epochs.info, tmin=epochs.times[0]))
+        evokeds[subject] = EvokedArray(coef, epochs.info,
+                                       tmin=epochs.times[0])
     
     # Plot
-    # scores for individual subjects
+    # Individual cv-score timeseries
     tmin, tmax = defaults.epoching
     n_axs = len(subjects) + 1
     n_rows = int(np.ceil(n_axs / 4.))
@@ -130,21 +141,22 @@ for aix in age:
     fig.savefig(op.join(defaults.figsdir,
                         'ind-auc_lp-%d_%d-mos.pdf' % (lp, aix)),
                 bbox_to_inches='tight')
-    # spatial patterns across subjects
+    # Group averaged (ages) cv-score topomaps
     joint_kwargs = dict(ts_args=dict(gfp=True, time_unit='s'),
                         topomap_args=dict(sensors=False, time_unit='s'))
-    hs = grand_average(evokeds).plot_joint(times=np.arange(window[0],
-                                                           window[1], .05),
-                                           title='patterns', **joint_kwargs)
+    hs = grand_average(list(evokeds.values())).plot_joint(
+            times=np.arange(window[0],
+                            window[1], .05),
+            title='patterns', **joint_kwargs)
     for hx, ch in zip(hs, ['mag', 'grad']):
         hx.savefig(op.join(defaults.figsdir,
                            'grp-estimator-%s-topo_%d-mos.pdf' %
                            (ch, aix)),
                    bbox_inches='tight')
     
-    # cv scores across subjects
+    # Group averaged (ages) cv-score timeseries
     score = np.asarray(scores).mean(axis=0)
-    score_sem = sem(np.asarray(scores))
+    score_sem = stats.sem(np.asarray(scores))
     fig, ax = plt.subplots(1, figsize=(6.6, 5))
     ax.plot(epochs.times, score, label='score')
     ax.set(xlabel='Time (s)', ylabel='Area under curve (AUC)')
@@ -161,7 +173,7 @@ for aix in age:
                 bbox_to_inches='tight')
     plt.show()
     
-    # plot & write out AUC measures
+    # Individual AUC values
     auc = pd.DataFrame(data=auc, index=subjects,
                        columns=['auc'])
     fig, ax = plt.subplots(1, 1, figsize=(12, 16))
@@ -173,11 +185,36 @@ for aix in age:
     plt.legend()
     plt.savefig(op.join(defaults.figsdir, 'auc_lp-%d_%d-mos.pdf' % (aix, lp)),
                 bbox_inches='tight')
-    
-    # Write logit data to disk
+    # Write out
     write_hdf5(hf_fname,
                dict(subjects=subjects,
                     scores=scores,
                     auc=auc,
-                    evokeds=evokeds),
+                    patterns=np.array([vv.data for vv in evokeds.values()])),
                title='logit', overwrite=True)
+
+# combine 2- & 6-months RM into Pandas DF
+sns.set_style('ticks')
+sns.set_palette('colorblind')
+dfs = list()
+for aix, age in enumerate(ages):
+    hf = read_hdf5(op.join(defaults.datadir,
+                           '%smos_%d_cv-scores.h5' % (age, lp)),
+                   title='logit')
+    vars = {
+            'ids': [re.findall(r'\d+', ll)[0] for ll in hf['subjects']],
+            'age': np.ones((len(hf['subjects']))) * age
+            }
+    dfs.append(pd.concat([pd.DataFrame(data=vars), hf['auc'].reset_index()],
+                         sort=False, axis=1))
+df = pd.concat(dfs)
+# Plot & evaluate difference between AUC at 2- vs. 6-months ages
+ax = sns.barplot(x='age', y='auc', data=df)
+df.pivot(index='ids', columns='age',
+         values='auc').dropna().plot.bar(figsize=(10, 7))
+# Wilcoxon signed-rank test Alt H0 2- < 6-months
+compare = df[df.age == 2].merge(df[df.age == 6], on='ids')
+stat, pval = stats.wilcoxon(compare.auc_x, compare.auc_y, alternative='less')
+print(pval)
+
+

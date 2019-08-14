@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-"""Write to disk XDAWN ERF sensor data for oddball stimuli."""
+"""Compute XDAWN components for oddball stimuli ERF sensor data."""
 
 __author__ = "Kambiz Tavabi"
 __copyright__ = "Copyright 2019, Seattle, Washington"
