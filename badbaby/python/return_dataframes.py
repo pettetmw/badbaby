@@ -18,22 +18,19 @@ from badbaby.python import defaults as params
 static = params.static
 
 
-def return_dataframes(paradigm, age=None, cdi=False,
-                      ses=False, longitudinal=False):
+def return_dataframes(paradigm, age=None, ses=False, longitudinal=False):
     """
     Return available MEG and corresponding CDI datasets.
     Parameters
     ----------
     paradigm:str
-        Name of project paradigm. Can be mmn, assr, or ids.
+    Name of project paradigm. Can be mmn, assr, or ids.
     age:int
-        If not None (default) filter cohort data based on age.
+    If not None (default) filter cohort data based on age.
     longitudinal:bool
-        Default False. If True then include only Simms-Mann longitudinal cohort.
-    cdi:bool
-        Default False, If True then include if CDI data is available.
+    Default False. If True then include only Simms-Mann longitudinal cohort.
     ses:bool
-        Default False. If True then include only Bezos SES cohort.
+    Default False. If True then include only Bezos SES cohort.
 
     Returns
     -------
@@ -42,16 +39,18 @@ def return_dataframes(paradigm, age=None, cdi=False,
     """
     # Read excel sheets into pandas dataframes
     xl_meg = pd.read_excel(op.join(static, 'meg_covariates.xlsx'),
+                           index_col='subjId',
                            sheet_name=paradigm,
                            converters={'BAD': str})
-    xl_meg = xl_meg[(xl_meg.acq == 1)]  # only Ss w MEG Acq
+    xl_meg = xl_meg[(xl_meg.complete == 1)]  # only Ss w complete MEG data
+    xl_meg = xl_meg[(xl_meg.behavioral == 1)]  # only Ss w CDI data
+    xl_meg.drop(['examDate', 'acq', 'sss',
+                 'rejection', 'epoching'], axis=1, inplace=True)
     # Subselect by cohort
     if ses:
         xl_meg = xl_meg[xl_meg['ses'] > 0]
     if longitudinal:
         xl_meg = xl_meg[xl_meg['simmInclude'] == 1]
-    if cdi:
-        xl_meg = xl_meg[(xl_meg.behavioral == 1)]  # only Ss w CDI data
     #  Filter by age
     if age == 2:
         xl_meg = xl_meg[xl_meg['age'] < 100]
