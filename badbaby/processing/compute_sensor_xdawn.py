@@ -1,6 +1,11 @@
-# -*- coding: utf-8 -*-
+#!/usr/bin/env python
 
-"""Compute XDAWN components for oddball stimuli ERF sensor data."""
+"""Compute XDAWN components for oddball stimuli ERF sensor data.
+    Per age x condition x subject:
+        1. Compute XDAWN filter for auditory ERF
+        2. Apply XDAWN filter to oddball ERFs
+        3. Write out XDAWN TS and topographies to xxx_xdawn.h5 files
+"""
 
 __author__ = "Kambiz Tavabi"
 __copyright__ = "Copyright 2019, Seattle, Washington"
@@ -25,8 +30,7 @@ from mne.externals.h5io import write_hdf5
 from mne.preprocessing import Xdawn
 from pandas.plotting import scatter_matrix
 
-from badbaby.python import defaults
-from badbaby.python import return_dataframes as rd
+from badbaby import return_dataframes as rd, defaults
 
 # parameters
 workdir = defaults.datapath
@@ -35,9 +39,9 @@ conditions = ['standard', 'deviant']
 plt.style.use('ggplot')
 tmin, tmax = defaults.epoching
 lp = defaults.lowpass
-age = [2, 6]
+ages = [2, 6]
 window = defaults.peak_window  # peak ERF latency window
-for aix in age:
+for aix in ages:
     df = rd.return_dataframes('mmn', age=aix)[0]
     subjects = ['bad_%s' % ss for ss in df.index.values]
     print(df.info())
@@ -56,25 +60,31 @@ for aix in age:
                                'All_%d-sss_%s-epo.fif' % (lp, subject))
             cov_fname = op.join(workdir, subject, 'covariance',
                                 '%s-%d-sss-cov.fif' % (subject, lp))
+            # load trial data
             eps = read_epochs(ep_fname)
             times = eps.times
             assert eps.baseline is not None
             eps.pick_types(meg=True)
+            # combine oddball ERFs into auditory ERF
             eps_copy = combine_event_ids(eps.copy(),
                                          [k for k in eps.event_id.keys()],
                                          {'All': 123})
+            # Covariance
             signal_cov = compute_covariance(eps_copy, n_jobs=config.N_JOBS,
                                             rank='full', method='oas')
             rank = compute_rank(signal_cov, rank='full', info=eps_copy.info)
             signal_cov = regularize(signal_cov, eps_copy.info, rank=rank)
+            # fit XDAWN on auditory ERF
             xd = Xdawn(signal_cov=signal_cov)
             xd.fit(eps_copy)
             event_ = list(xd.event_id_.keys())[0]
+            # comtine deviant stimuli into single event
             eps = combine_events(eps, ['ba', 'wa'], {'deviant': 23})
             eps.equalize_event_counts(['standard', 'deviant'])
             if ii == jj == 0:
                 signals = np.zeros((len(conditions), len(subjects),
                                     len(eps.times)))
+            # apply XDAWN filters to oddball stimuli
             signals[ii, jj] = xd.transform(eps[cond])[0, 0]
             evo = eps[cond].average(method='median')
             patterns.append(xd.filters_[event_].dot(evo.data))
@@ -84,6 +94,3 @@ for aix in age:
                             topographies=patterns,
                             times=times),
                        title='xdawn', overwrite=True)
-
-
-

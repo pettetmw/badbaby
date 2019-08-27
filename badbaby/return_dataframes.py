@@ -13,7 +13,7 @@ __status__ = "Development"
 
 import os.path as op
 import pandas as pd
-from badbaby.python import defaults as params
+from badbaby import defaults as params
 
 static = params.static
 

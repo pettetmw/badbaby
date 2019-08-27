@@ -46,8 +46,8 @@ from sklearn.preprocessing import LabelEncoder as le
 from sklearn import linear_model
 import statsmodels.graphics.api as smg
 
-import badbaby.python.defaults as params
-import badbaby.python.return_dataframes as rd
+import badbaby.defaults as params
+import badbaby.return_dataframes as rd
 
 
 def plot_correlation_matrix(data):
@@ -113,87 +113,6 @@ assert cdi_df.subjId.unique().shape[0] == 25
 # Split data on SES
 sesGrouping = cdi_df.ses <= cdi_df.ses.median()  # low ses True
 cdi_df['sesGroup'] = sesGrouping.map({True: 'low', False: 'high'})
-
-# Pairwise + density, and correlation matrix of CDI response variables
-g = sns.pairplot(cdi_df, vars=['m3l', 'vocab'], diag_kind='kde',
-                 hue='cdiAge', palette='tab20')
-plot_correlation_matrix(cdi_df[['cdiAge', 'm3l', 'vocab']].corr())
-
-# pie chart of gender
-fig, ax = plt.subplots(1, 1, figsize=(2, 2))
-cdi_df.complete.groupby(cdi_df.gender).sum().plot.\
-    pie(autopct='%1.0f%%', pctdistance=1.15, labeldistance=1.35,
-        subplots=False, ax=ax)
-ax.set(title='Gender', ylabel='MEG-CDI data acquired')
-fig.tight_layout()
-
-# pie chart of parental ethnicities
-fig, ax = plt.subplots(1, 1, figsize=(2, 2))
-cdi_df.complete.groupby(cdi_df.maternalEthno).sum().plot.\
-    pie(autopct='%1.0f%%', pctdistance=1.15, labeldistance=1.35,
-        subplots=False, ax=ax)
-ax.set(title='Mom Ethnicity')
-fig.tight_layout()
-
-fig, ax = plt.subplots(1, 1, figsize=(2, 2))
-cdi_df.complete.groupby(cdi_df.paternalEthno).sum().plot.\
-    pie(autopct='%1.0f%%', pctdistance=1.15, labeldistance=1.35,
-        subplots=False, ax=ax)
-ax.set(title='Dad Ethnicity')
-fig.tight_layout()
-
-# scatter head circumference vs. age
-scatter_kws = dict(s=50, linewidth=.5, edgecolor="w")
-g = sns.FacetGrid(cdi_df, hue="sesGroup",
-                  hue_kws=dict(marker=["v", "^"]))
-g.map(plt.scatter, "age", "headSize", **scatter_kws).add_legend(title='SES')
-
-# CDI measure vs age regression & SES group within age distribution plots
-for nm, title in zip(['m3l', 'vocab'],
-                     ['Mean length of utterance', 'Words understood']):
-    g = sns.lmplot(x="cdiAge", y=nm, truncate=True, data=cdi_df)
-    g.set_axis_labels("Age (months)", nm)
-    g.ax.set(title=title)
-    g.despine(offset=2, trim=True)
-    h = sns.catplot(x='cdiAge', y=nm, hue='sesGroup',
-                    data=cdi_df[cdi_df.cdiAge > 18],
-                    kind='violin', scale_hue=True, bw=.2, linewidth=1,
-                    scale='count', split=True, dodge=True, inner='quartile',
-                    palette=sns.color_palette('pastel', n_colors=2, desat=.5),
-                    margin_titles=True, legend=False)
-    h.add_legend(title='SES')
-    h.fig.suptitle(title)
-    h.despine(offset=2, trim=True)
-
-# Linear regression fit between CDI measures and SES scores
-ages = np.arange(21, 31, 3)
-for nm, tt in zip(['m3l', 'vocab'],
-                  ['Mean length of utterance', 'Words understood']):
-    fig, axs = plt.subplots(1, len(ages), figsize=(12, 6))
-    hs = list()
-    for fi, ax in enumerate(axs):
-        # response variable
-        mask_y = cdi_df.cdiAge == ages[fi]
-        y_vals = np.squeeze(cdi_df[mask_y][nm].values.reshape(-1, 1))
-        mask_x = mmn_xls.subjId.isin(
-            cdi_df[cdi_df.cdiAge == ages[fi]].subjId)
-        # predictor
-        x_vals = np.squeeze(mmn_xls[mask_x].ses.values.reshape(-1, 1))
-        assert (y_vals.shape == x_vals.shape)
-        hs.append(ax.scatter(x_vals, y_vals, c='CornFlowerBlue', s=50,
-                             zorder=5, marker='.', alpha=0.5))
-        ax.set(xlabel='SES', title='%d Mos' % ages[fi])
-        if fi == 0:
-            ax.set(ylabel=tt)
-        slope, intercept, r_value, p_value, std_err = \
-            stats.linregress(x_vals, y_vals)
-        hs.append(ax.plot(x_vals, intercept + slope * x_vals, label='fitted '
-                                                                    'line',
-                          c="Grey", lw=2, alpha=0.5))
-        ax.annotate('$\mathrm{r^{2}}=%.2f$''\n$\mathit{p = %.2f}$'
-                    % (r_value ** 2, p_value),
-                    xy=(0.05, 0.9), xycoords='axes fraction',
-                    bbox=dict(boxstyle='square', fc='w'))
 
 # factor encode
 # subjects

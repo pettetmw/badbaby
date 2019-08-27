@@ -20,8 +20,8 @@ import mne
 from matplotlib.lines import Line2D
 from matplotlib.patches import Rectangle
 from statsmodels.robust import mad
-import badbaby.python.return_dataframes as rd
-from badbaby.python import defaults
+import badbaby.return_dataframes as rd
+from badbaby import defaults
 
 # Get cohort
 df = rd.return_dataframes("assr", age=2)[0]  # could be "mmn", "assr", "ids"

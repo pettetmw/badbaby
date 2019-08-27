@@ -16,7 +16,7 @@ import xarray as xr
 from mne.externals.h5io import read_hdf5
 from scipy import stats
 
-from badbaby.python import defaults
+from badbaby import defaults
 
 # parameters
 workdir = defaults.datapath

@@ -13,10 +13,9 @@ __status__ = 'Development'
 import os.path as op
 from pathlib import Path
 
-static = op.join(Path(__file__).parents[1], 'static')
-datadir = op.join(Path(__file__).parents[1], 'data')
-figsdir = op.join(Path(__file__).parents[1], 'figures')
-resultsdir = op.join(Path(__file__).parents[1], 'results')
+static = op.join(Path(__file__).parents[0], 'static')
+datadir = op.join(Path(__file__).parents[0], 'data')
+figsdir = op.join(Path(__file__).parents[0], 'figures')
 
 datapath = '/media/ktavabi/ALAYA/data/ilabs/badbaby/mismatch'
 exclude = []

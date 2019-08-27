@@ -1,17 +1,15 @@
 #!/usr/bin/env python
 
 """compute_sliding_estimator.py: samplewise classification of oddball stimuli.
-    Per ages per subject
-    1. combine CV deviant trials into deviant condition
-    2. Run logistic regression
-    3. K-fold cross val using area under curve as score
-    4. Write xxx_cv-scores.h5 files to disk
-    5. Plots
-    6. Evaluate AUC difference between 2- and 6-months
-"""
-"""Notes:
-    https://martinos.org/mne/stable/auto_tutorials/machine-learning
-    /plot_sensors_decoding.html?highlight=mvp
+    Per age x subject:
+        1. combine CV deviant trials into deviant condition
+        2. Run logistic regression
+        3. K-fold cross val using area under curve as score
+        4. Write xxx_cv-scores.h5 files to disk
+        5. Generate & write plots to disk
+        6. Evaluate AUC difference between 2- and 6-months
+    Notes:
+        https://martinos.org/mne/stable/auto_tutorials/machine-learning/plot_sensors_decoding.html?highlight=mvp
 """
 
 __author__ = "Kambiz Tavabi"
@@ -44,8 +42,8 @@ from sklearn.model_selection import StratifiedKFold
 from sklearn.pipeline import make_pipeline
 from sklearn.preprocessing import LabelEncoder, StandardScaler
 
-import badbaby.python.return_dataframes as rd
-from badbaby.python import defaults
+import badbaby.return_dataframes as rd
+from badbaby import defaults
 
 workdir = defaults.datapath
 plt.style.use('ggplot')

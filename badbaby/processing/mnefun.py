@@ -16,8 +16,8 @@ import mnefun
 import numpy as np
 import pandas as pd
 
-import badbaby.python.return_dataframes as rd
-from badbaby.python import defaults
+import badbaby.return_dataframes as rd
+from badbaby import defaults
 
 try:
     # Use niprov as handler for events, or if it's not installed, ignore

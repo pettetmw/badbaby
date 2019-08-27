@@ -1,30 +1,10 @@
-# -*- coding: utf-8 -*-
+#!/usr/bin/env python
 
-"""Write response variable data for oddball sensor space data.
-
-    Script developed to extract peak ERF components AUC and latency for oddball
-    responses to CV stimuli.
-        1. Yield filtered dataframes for behavioral and MEG data.
-        2. plot MEG covariate histograms.
-        3. Extract evoked arrays for selected subjects.
-        4. Write out ERF data in numpy array.
-        5. Compute grand averaged ERF data.
-        6. Plot group ERF timeseries and topography at peak (grad)
-        latency between 150-510ms.
-        7. Plot group ERF timecourse at peak location for each condition.
-        8. Plot frequency of maximally responsive channels for latencies.
-        9. Yield ND arrays of ERF peak latency & location from L-R selection
-        of sensors.
-        10. Plot PD of overall peak latencies.
-        11. Plot ranked histogram of maximally responsive channels.
-        12. Plot montage of maximally responsive channels.
-        13. Compute area under the curve along "rising" slope (100 ms) to
-        peak latency for intersection of L-R MEG sensors and montage of
-        maximally responsive channels and storing as ND array.
-        14. Plot PD of overall AUC.
-        15. Write out ERF measurements as NPZ file.
-        16. Plot group ERF timecourse average across channels in montage.
-
+"""Compute XDAWN components for oddball stimuli ERF sensor data.
+    Per age x condition x subject:
+        1. Compute XDAWN filter for auditory ERF
+        2. Apply XDAWN filter to oddball ERFs
+        3. Write out XDAWN TS and topographies to xxx_xdawn.h5 files
 """
 
 __author__ = "Kambiz Tavabi"
@@ -41,30 +21,12 @@ import matplotlib.pyplot as plt
 import mne
 import numpy as np
 from meeg_preprocessing import config
-from meeg_preprocessing.utils import combine_events
 from mne import (
-    read_epochs, read_evokeds, EvokedArray, grand_average,
-    create_info
+    read_evokeds, grand_average
     )
-from mne.epochs import combine_event_ids
-from mne.viz import plot_compare_evokeds
 from mne.utils import _time_mask
-from pandas.plotting import scatter_matrix
 
-from badbaby.python import defaults
-from badbaby.python import return_dataframes as rd
-
-
-def compute_xdf(epochs, n_components=1, signal_cov=None, method='ledoit_wolf'):
-    """helper to compute xdawan filters"""
-    print('     Fitting Xdawn')
-    epochs.apply_baseline()
-    epochs.drop_bad()
-    xd = mne.preprocessing.Xdawn(n_components=n_components,
-                                 signal_cov=signal_cov,
-                                 correct_overlap=False,
-                                 reg=method)
-    return xd.fit(epochs)
+from badbaby import return_dataframes as rd, defaults
 
 
 def read_in_evoked(filename, condition):
@@ -81,96 +43,71 @@ def read_in_evoked(filename, condition):
     return erf
 
 
+plt.style.use('ggplot')
+
 # parameters
 workdir = defaults.datapath
-plt.style.use('ggplot')
-analysis = 'Individual'
-conditions = ['standard', 'Ba', 'Wa']
+analysis = 'oddball'
+conditions = ['standard', 'deviant']
 tmin, tmax = defaults.epoching
 lp = defaults.lowpass
-age = [2, 6]
+ages = [2, 6]
 window = defaults.peak_window  # peak ERF latency window
-for aix in age:
+
+for aix in ages:
     rstate = np.random.RandomState(42)
     df = rd.return_dataframes('mmn', age=aix)[0]
     subjects = ['bad_%s' % ss for ss in df.index]
     print(df.info())
-    scatter_matrix(df[['age', 'ses', 'headSize']], alpha=.8, grid=False)
-    signals = list()
-    topographies = list()
-    for subject in subjects:
-        print('    Subject: %s' % subject)
-        ep_fname = op.join(workdir, subject, 'epochs',
-                           'All_%d-sss_%s-epo.fif' % (lp, subject))
-        eps = read_epochs(ep_fname)
-        eps_copy = combine_event_ids(eps.copy(),
-                                     [k for k in eps.event_id.keys()],
-                                     {'All': 123})
-        xd = compute_xdf(eps_copy)
-        event_ = list(xdf.event_id_.keys())[0]
-        eps = combine_events(eps, ['ba', 'wa'], {'deviant': 23})
-        eps.equalize_event_counts(['standard', 'deviant'])
-        evokeds = [eps[cond].average(method='median') for cond in
-                   eps.event_id.keys()]
-        xd_sigs = [xd.transform(evo) for evo in evokeds]
-        xd_patterns = [EvokedArray(xd.patterns_[event_].dot(evo.data),
-                                   info=evo.info,
-                                   tmin=tmin,
-                                   comment=evo.comment) for evo in evokeds]
-       
-
-meg_df, cdi_df = rd.return_dataframes('mmn', age=age, ses=True)
-print('\nDescriptive stats for Age(days) variable...\n',
-      meg_df['age'].describe())
-meg_df.hist(column=['ses', 'headSize', 'age'], layout=(3, 1),
-            figsize=(8, 10), bins=50)
+    evoked_dict = dict()
+    picks_dict = dict()
+    for ci, cond in enumerate(conditions):
+        print('     Loading data for %s / %s' % (analysis, cond))
+        file_out = op.join(workdir, '%s_%s_%s-mos_%d_grand-ave.fif'
+                           % (analysis, cond, aix, lp))
+        print('      Doing averaging...')
+        evokeds = list()
+        for si, subj in enumerate(subjects):
+            print('       %s' % subj)
+            evoked_file = op.join(workdir, 'bad_%s' % subj, 'inverse',
+                                  '%s_%d-sss_eq_bad_%s-ave.fif'
+                                  % (analysis, lp, subj))
+            evoked = read_in_evoked(evoked_file, condition=cond)
+            evokeds.append(evoked)
+            if subj == subjects[0]:
+                erf_data = np.zeros((len(subjects), len(evoked.info['chs']),
+                                     len(evoked.times)))
+            erf_data[si] = evoked.data
+        np.savez(op.join(workdir, '%s_%s_%s-mos_%d_evoked-arrays.npz'
+                         % (analysis, cond, age, lp)), erf_data=erf_data)
+        # do grand averaging
+        grandavr = grand_average(evokeds)
+        grandavr.save(file_out)
+        evoked_dict[cond] = evokeds
+        # Grand average peak ERF gradiometer activity
+        ch, lat = grandavr.get_peak(ch_type='grad', tmin=window[0], window[1] =
+        window[1])
+        picks_dict[cond] = ch
+        if cond in ['all', 'deviant']:
+            print('     Peak latency for %s at:\n'
+                  '         %s at %0.3fms' % (cond, ch, lat))
+        # plot group ERF topography
+        timing = [lat - .1, lat]
+        hs = grandavr.plot_joint(title=cond, times=timing,
+                                 ts_args=params.ts_args,
+                                 topomap_args=params.topomap_args)
+    # scatter_matrix(df[['age', 'ses', 'headSize']], alpha=.8, grid=False)
+    # meg_df, cdi_df = rd.return_dataframes('mmn', age=age, ses=True)
+    # print('\nDescriptive stats for Age(days) variable...\n',
+    #      meg_df['age'].describe())
+    # meg_df.hist(column=['ses', 'headSize', 'age'], layout=(3, 1),
+    #            figsize=(8, 10), bins=50)
 # Loop over subjects & plot grand average ERFs
 subjects = meg_df.subjId.values
 window[0], window[1] = (.15, .51)  # peak ERF latency window
-evoked_dict = dict()
-picks_dict = dict()
-for ci, cond in enumerate(conditions):
-    print('     Loading data for %s / %s' % (analysis, cond))
-    file_out = op.join(meg_dataDir, '%s_%s_%s-mos_%d_grand-ave.fif'
-                       % (analysis, cond, age, lp))
-    print('      Doing averaging...')
-    evokeds = list()
-    for si, subj in enumerate(subjects):
-        print('       %s' % subj)
-        evoked_file = op.join(meg_dataDir, 'bad_%s' % subj, 'inverse',
-                              '%s_%d-sss_eq_bad_%s-ave.fif'
-                              % (analysis, lp, subj))
-        evoked = read_in_evoked(evoked_file, condition=cond)
-        evokeds.append(evoked)
-        if subj == subjects[0]:
-            erf_data = np.zeros((len(subjects), len(evoked.info['chs']),
-                                 len(evoked.times)))
-        erf_data[si] = evoked.data
-    np.savez(op.join(meg_dataDir, '%s_%s_%s-mos_%d_evoked-arrays.npz'
-                     % (analysis, cond, age, lp)), erf_data=erf_data)
-    # do grand averaging
-    grandavr = grand_average(evokeds)
-    grandavr.save(file_out)
-    evoked_dict[cond] = evokeds
-    # Grand average peak ERF gradiometer activity
-    ch, lat = grandavr.get_peak(ch_type='grad', tmin=window[0], window[1] =
-    window[1])
-    picks_dict[cond] = ch
-    if cond in ['all', 'deviant']:
-        print('     Peak latency for %s at:\n'
-              '         %s at %0.3fms' % (cond, ch, lat))
-    # plot group ERF topography
-    timing = [lat - .1, lat]
-    hs = grandavr.plot_joint(title=cond, times=timing,
-                             ts_args=params.ts_args,
-                             topomap_args=params.topomap_args)
 
-#  compare group ERF time courses at peak locations
-for pick in [grandavr.ch_names.index(kk) for kk in set(picks_dict.values())]:
-    mne.viz.plot_compare_evokeds(evoked_dict, picks=pick,
-                                 truncate_yaxis=True,
-                                 vlines=[0, window[0], window[1]],
-                                 show_sensors=True, ci=True)
+
+
 
 # Get ERF magnitudes and latencies...
 # obs x conditions x sensor types x hemisphere
