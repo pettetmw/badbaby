@@ -1,6 +1,17 @@
 #!/usr/bin/env python
 
-"""Infant auditory MEG data MNEFUN processing pipeline."""
+"""mnefun.py: MNEFUN preprocessing pipeline.
+    Does per subject:
+        1. Determine ACQ sampling rate and ECG channel.
+        2. Write ACQ prebad channel to disk.
+        3. Score.
+        4. HP estimation yeilding annotation parameters.
+        5. MF and move comp.
+        6. Data & ERM covariances.
+        7. Use Autoreject to threshold noisy trials
+        8. Compute ECG & ERM projectors
+        9. Epoching & writing evoked data to disk.
+"""
 
 __author__ = 'Kambiz Tavabi'
 __copyright__ = 'Copyright 2018, Seattle, Washington'

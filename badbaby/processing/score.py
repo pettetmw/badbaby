@@ -1,8 +1,14 @@
-# -*- coding: utf-8 -*-
+#!/usr/bin/env python
 
-""" Scores trials of SPS experiment and do trial EQ """
+"""score.py: MNEFUN stimulus event scoring functions."""
 
-# Authors: Kambiz Tavabi <ktavabi@uw.edu>
+__author__ = 'Kambiz Tavabi'
+__copyright__ = 'Copyright 2018, Seattle, Washington'
+__license__ = 'MIT'
+__version__ = '0.1.0'
+__maintainer__ = 'Kambiz Tavabi'
+__email__ = 'ktavabi@uw.edu'
+__status__ = 'Development'
 
 from __future__ import print_function
 
@@ -15,7 +21,11 @@ from paradigm.expyfun.io import read_tab
 
 
 def score(p, subjects):
-    """Scoring function"""
+    """Scoring function
+        Does per subject:
+        1. use expyfun routine to extract events
+        2. write MNE events file to disk.
+    """
     for subj in subjects:
         print('  Running subject %s... ' % subj, end='')
 

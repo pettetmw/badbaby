@@ -1,10 +1,13 @@
 #!/usr/bin/env python
 
-"""Plot descriptives for demographic and covariates."""
+"""plot_demographic_data.py: Viz descriptives for covariates.
+    Does per age:
+        1. use PANDAS to read in covariate data.
+        2. use SEABORN to plot distributions.
+        3. use SCIPY to fit regression line for CDI & SES scores."""
 
 __author__ = "Kambiz Tavabi"
 __copyright__ = "Copyright 2019, Seattle, Washington"
-__credits__ = ["Goedel", "Escher", "Bach"]
 __license__ = "MIT"
 __version__ = "1.0.1"
 __maintainer__ = "Kambiz Tavabi"
@@ -12,13 +15,13 @@ __email__ = "ktavabi@uw.edu"
 __status__ = "Production"
 
 import re
+
 import matplotlib.pyplot as plt
 import numpy as np
 import pandas as pd
 import seaborn as sns
 import statsmodels.graphics.api as smg
 from scipy import stats
-from sklearn import linear_model
 
 import badbaby.return_dataframes as rd
 from badbaby import defaults

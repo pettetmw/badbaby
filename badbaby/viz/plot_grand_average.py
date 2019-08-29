@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 
-"""Plot grand averaged evoked data.
-    Per age:
+"""plot_grand_average.py: viz grand averaged ERF data.
+    Does per age:
         1. plot topographic maps of odball ERFs
         2. plot compare oddball ERFs GFP
 """

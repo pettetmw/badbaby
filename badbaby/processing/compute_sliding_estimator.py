@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 
-"""compute_sliding_estimator.py: samplewise classification of oddball stimuli.
-    Per age x subject:
+"""compute_sliding_estimator.py: temporal logit classification of oddball ERFs.
+    Does per age x subject:
         1. combine CV deviant trials into deviant condition
         2. Run logistic regression
         3. K-fold cross val using area under curve as score

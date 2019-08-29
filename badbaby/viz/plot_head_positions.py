@@ -1,6 +1,11 @@
 #!/usr/bin/env python
 
-"""Plot subject head positions."""
+"""plot_head_positions: viz distrubtion of individual subject HPs in raw data.
+    Does:
+        1. Get translation vector for SSS target HP for each subject.
+        2. Compute median absolute deviation and define outliers.
+        3. Visualize distribution of HP data.
+"""
 
 __author__ = "Kambiz Tavabi"
 __copyright__ = "Copyright 2018, Seattle, Washington"
@@ -10,16 +15,18 @@ __maintainer__ = "Kambiz Tavabi"
 __email__ = "ktavabi@uw.edu"
 __status__ = "Development"
 
-import os.path as op
 import glob
-import numpy as np
-import seaborn as sns
+import os.path as op
+
 import matplotlib.pyplot as plt
-import scipy.linalg as LA
 import mne
+import numpy as np
+import scipy.linalg as LA
+import seaborn as sns
 from matplotlib.lines import Line2D
 from matplotlib.patches import Rectangle
 from statsmodels.robust import mad
+
 import badbaby.return_dataframes as rd
 from badbaby import defaults
 
@@ -31,7 +38,7 @@ study_dir = defaults.paradigms["assr"]
 run_name = defaults.paradigms["run_nms"]["assr"]
 subjects = ["bad_%s" % ss for ss in df.subjId.values]
 
-# Read in head positions from fifs
+# Read in dev_head_t translation mat from fif nfo
 poss = np.zeros((len(subjects), 3))
 for ii, subj in enumerate(subjects):
     raw_file = glob.glob(op.join(study_dir, subj,
@@ -53,7 +60,7 @@ for ii, subj in enumerate(subjects):
 '''
 poss_norm = LA.norm(poss, axis=1)
 mad_poss_norm = mad(poss_norm)
-# Outliers defined as >/< +/- 3 * MAD
+# Outliers defined as >/< +/- x * MAD
 mask = ~np.logical_or(poss_norm > np.median(poss_norm) + 2.5 * mad_poss_norm,
                       poss_norm < np.median(poss_norm) - 2.5 * mad_poss_norm)
 

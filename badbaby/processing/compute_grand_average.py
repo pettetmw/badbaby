@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 
-"""Compute grand averaged evoked data.
+"""compute_grand_average.py: Compute grand average evoked data.
     Per age x condition:
         1. Compute grand average ERF
         2. Write evoked data arrays to disk
@@ -52,7 +52,6 @@ ages = [2, 6]
 window = defaults.peak_window  # peak ERF latency window
 
 for aix in ages:
-    rstate = np.random.RandomState(42)
     df = rd.return_dataframes('mmn', age=aix)[0]
     subjects = ['bad_%s' % ss for ss in df.index]
     print(df.info())

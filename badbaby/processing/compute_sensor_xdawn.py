@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 
-"""Compute XDAWN components for oddball stimuli ERF sensor data.
+"""compute_sensor_xdawn.py: XDAWN components for ERF to oddball stimuli.
     Per age x condition x subject:
         1. Compute XDAWN filter for auditory ERF
         2. Apply XDAWN filter to oddball ERFs
@@ -41,6 +41,7 @@ tmin, tmax = defaults.epoching
 lp = defaults.lowpass
 ages = [2, 6]
 window = defaults.peak_window  # peak ERF latency window
+
 for aix in ages:
     df = rd.return_dataframes('mmn', age=aix)[0]
     subjects = ['bad_%s' % ss for ss in df.index.values]

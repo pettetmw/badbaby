@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 
-"""Helper to return cohort specific dataframes """
+"""PANDAS wrapper to return cohort specific covariates data frames."""
 
 __author__ = "Kambiz Tavabi"
 __copyright__ = "Copyright 2018, Seattle, Washington"

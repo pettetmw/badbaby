@@ -1,11 +1,22 @@
-"""Plot XDAWN ERF sensor data for oddball stimuli."""
+#!/usr/bin/env python
 
-__author__ = 'Kambiz Tavabi'
-__copyright__ = 'Copyright 2019, Seattle, Washington'
-__license__ = 'MIT'
-__version__ = '0.2'
-__maintainer__ = 'Kambiz Tavabi'
-__email__ = 'ktavabi@uw.edu'
+"""plot_sensor_xdawn_data: viz XDAWN solution timeseries.
+    Does per age:
+        1. read in XDAWN data into PANDAS dataframes.
+        2. compute grand average XDAWN component timeseries and plot with
+        SEABORN.
+        3. compute grand average MMN timeseries from oddball XDAWN components.
+        4. plot MMN timeseries with SEABORN.
+"""
+
+__author__ = "Kambiz Tavabi"
+__copyright__ = "Copyright 2018, Seattle, Washington"
+__license__ = "MIT"
+__version__ = "0.1.0"
+__maintainer__ = "Kambiz Tavabi"
+__email__ = "ktavabi@uw.edu"
+__status__ = "Development"
+
 
 from os import path as op
 
@@ -14,7 +25,6 @@ import pandas as pd
 import seaborn as sns
 import xarray as xr
 from mne.externals.h5io import read_hdf5
-from scipy import stats
 
 from badbaby import defaults
 
@@ -46,7 +56,7 @@ for aix in ds.keys():
                                ds[aix]['subjects'],
                                ds[aix]['times']],
                        dims=['condition', 'subject', 'time'])
-    
+
     dfx.append(pd.concat([dsx.to_dataframe(name='amplitude')],
                          keys=[str(aix)],
                          names=['age']))
@@ -57,7 +67,7 @@ dfs_tidy = pd.DataFrame(dfs.to_records())
 fig = sns.relplot(x='time', y='amplitude', hue='condition',
                   col='age', kind='line', data=dfs_tidy)
 fig.savefig(op.join(defaults.figsdir,
-                    '%s_lp-%d_%d-mos.pdf' % (analysis, lp, aix)),
+                    '%s-xd_lp-%d_%d-mos.pdf' % (analysis, lp, aix)),
             bbox_inches='tight')
 # slice oddball data and merge into new (mmn) df
 idx = pd.IndexSlice
@@ -68,9 +78,5 @@ mmn = right.merge(dfs.loc(axis=0)[idx[:, 'deviant']],
 mmn['amplitude'] = mmn.amplitude_deviant - mmn.amplitude_standard
 fig = sns.relplot(x='time', y='amplitude', col='age', kind='line',
                   data=pd.DataFrame(mmn.to_records()))
-fig.savefig(op.join(defaults.figsdir, 'mmn_lp-%d_%d-mos.pdf' % (lp, aix)),
+fig.savefig(op.join(defaults.figsdir, 'mmn-xd_lp-%d_%d-mos.pdf' % (lp, aix)),
             bbox_inches='tight')
-
-arr_2 = mmn.amplitude.unstack().xs('2').values
-arr_6 = mmn.amplitude.unstack().xs('6').values
-t_stat, p_val = stats.ttest_ind(arr_2, arr_6, axis=0)
