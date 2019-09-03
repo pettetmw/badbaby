@@ -54,7 +54,7 @@ window = defaults.peak_window
 n_splits = 7  # how many folds to use for cross-validation
 for aix in ages:
     rstate = np.random.RandomState(42)
-    df = rd.return_dataframes('mmn', ages=aix)[0]
+    df = rd.return_dataframes('mmn', age=aix)[0]
     subjects = ['bad_%s' % ss for ss in df.index]
     scores = []
     auc = []
@@ -137,7 +137,7 @@ for aix in ages:
     fig.subplots_adjust()
     plt.show()
     fig.savefig(op.join(defaults.figsdir,
-                        'ind-auc_lp-%d_%d-mos.pdf' % (lp, aix)),
+                        'ind-auc_lp-%d_%d-mos.png' % (lp, aix)),
                 bbox_to_inches='tight')
     # Group averaged (ages) cv-score topomaps
     joint_kwargs = dict(ts_args=dict(gfp=True, time_unit='s'),
@@ -148,7 +148,7 @@ for aix in ages:
             title='patterns', **joint_kwargs)
     for hx, ch in zip(hs, ['mag', 'grad']):
         hx.savefig(op.join(defaults.figsdir,
-                           'grp-estimator-%s-topo_%d-mos.pdf' %
+                           'grp-estimator-%s-topo_%d-mos.png' %
                            (ch, aix)),
                    bbox_inches='tight')
     
@@ -167,7 +167,7 @@ for aix in ages:
     ax.set(xlim=[tmin, tmax])
     fig.tight_layout(pad=0.5)
     fig.savefig(op.join(defaults.figsdir,
-                        'grp-auc_%s-mos_lp-%d_cv-score.pdf' % (aix, lp)),
+                        'grp-auc_%smos_%d_cv-score.png' % (aix, lp)),
                 bbox_to_inches='tight')
     plt.show()
     
@@ -181,7 +181,7 @@ for aix in ages:
     plt.ylabel('AUC')
     plt.title('%s Vs. %s' % (condition1, condition2))
     plt.legend()
-    plt.savefig(op.join(defaults.figsdir, 'auc_lp-%d_%d-mos.pdf' % (aix, lp)),
+    plt.savefig(op.join(defaults.figsdir, 'auc_%d_%dmos.png' % (lp, aix)),
                 bbox_inches='tight')
     # Write out
     write_hdf5(hf_fname,
