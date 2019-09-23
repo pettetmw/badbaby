@@ -27,87 +27,138 @@ Created on Fri Jun 28 07:27:29 2019
 
 import mne
 import glob
+import os
+from pathlib import Path
+# some useful Path object idioms:
+# use Path( aPathString ) to make Path object from pathname string
+# use str( aPathObject ) to convert back to pathname string
+# use Path( aString1 ) / Path( aString2 ) to join paths
+# use also, e.g.: str( Path() / aString )
+# cf. def PathGlob(...) below
+from defaults import paradigms
+
+def IfMkDir(aPath):
+    if not Path(aPath).exists():
+        Path(aPath).mkdir()
+
+# helper function to make a (unsorted) list of
+# subdir content in aPath found using aGlobStr:
+def PathGlob(aPath, aGlobStr):
+    return [str(p) for p in Path(aPath).glob(aGlobStr)]
+
+def ParentDir(aPath):
+    return str(Path(aPath).parent)
+
+## e.g.,
+#sbjSsnID = 'bad_116b'
+## assuming prior "from defaults import paradigms" from /badbaby/python
+#sbjSsnPath = str( Path( paradigms['assr'] ) / sbjSsnID )
+#epoPath = PathGlob( sbjSsnPath, 'epochs/*-epo.fif')[0]
+#sssPath = PathGlob( sbjSsnPath, 'sss_fif/*_am_raw_sss.fif')[0]
+#pcaPath = PathGlob( sbjSsnPath, 'sss_pca_fif/*_am_*_raw_sss.fif')[0]
+#listPath = PathGlob( sbjSsnPath, 'lists/*am-eve.fif')[0]
 
 
-event_id = {'Auditory': 1}
-tmin, tmax = -0.5, 2.
+# make a list of paths to epoch data for all subjects and sessions;
+# (this glob str will find any sbj id with 3 digits followed by "a" or "b")
+#sbjSsnEpoPaths = PathGlob( tonePath, 'bad_????/epochs/*-epo.fif' )
+
+# e.g., sbjSsnEpoPaths[16] == bad_316b/epochs/All_100-sss_bad_316b-epo.fif
+# now, e.g., mne.read_epochs( sbjSsnEpoPaths[16] ).get_data().shape
+# will be (106, 306, 781)
+
+# verified these are not the same as what's obtained from
+# sss_pca_fif
+
+#aPFNm = 'bad_116b_am_allclean_fil100_raw_sss.fif' # in /sss_pca_fif
+#raw = mne.io.read_raw_fif(aPFNm, allow_maxshield='yes')
+#events = mne.read_events('ALL_bad_116b_am-eve.lst') # in /lists
+#epochs = mne.Epochs( raw, events, preload=True )
+#epochs.get_data().shape
+# will be: (339, 306, 1261)
 
 
-def GetSsnData(aPFNm):
+
+def Sss2Epo(sssPath):
+    sss = mne.io.read_raw_fif(sssPath, allow_maxshield='yes')
+    events = mne.find_events(sss)
+    picks = mne.pick_types(sss.info, meg=True)
+    event_id = {'Auditory': 1} # is 'Auditory' correctly saved for use by Epo2Xdawn?
+    tmin, tmax = -0.5, 2.
+    epochs = mne.Epochs(sss, events, event_id, tmin, tmax, picks=picks,
+        baseline=(None, 0), reject=dict(grad=4000e-13),
+        preload=True)
+    assrResPath = ParentDir(sssPath).replace('sss_fif', 'assr_results')
+    IfMkDir(assrResPath)
+    assrEpoPath = str(Path(assrResPath) / 'assr_epo.fif')
+    epochs.save(assrEpoPath)
+
+
+def Epo2Xdawn(epoPath):
     # Given "a P(ath)F(ile) N(a)m(e)" to raw_sss.fif,
     # plot/return XDAWN responses to signal and noise
-    try:
-        raw = mne.io.read_raw_fif(aPFNm, allow_maxshield='yes')
+    epochs = mne.read_epochs(epoPath)
+    signal_cov = mne.compute_covariance(epochs, method='oas', n_jobs=18)
+    signal_cov = mne.cov.regularize(signal_cov, epochs.info, rank='full')
+    xd = mne.preprocessing.Xdawn(n_components=1, signal_cov=signal_cov,
+                                 correct_overlap=False, reg='ledoit_wolf')
+    xd.fit(epochs)
 
-        events = mne.find_events(raw)
-        picks = mne.pick_types(raw.info, meg=True)
-        tNCh = picks.size  # number of channels
-        epochs = mne.Epochs(raw, events, event_id, tmin, tmax, picks=picks,
-                            baseline=(None, 0), reject=dict(grad=4000e-13),
-                            preload=True)
-        # epochs.average().plot()
+    # fit() creates decomposition matrix called filters_ (or "unmixing")
+    # and the inverse, called "patterns_" for remixing responses after
+    # supressing contribution of selected filters_ components
 
-        # signal_cov = mne.compute_covariance(epochs, tmin=0, tmax=1.5)
-        # signal_cov = mne.cov.regularize(signal_cov, raw.info)
-        signal_cov = mne.compute_covariance(epochs, method='oas', n_jobs=18)
-        signal_cov = mne.cov.regularize(signal_cov, epochs.info, rank='full')
+    # apply() method restricts the reponse to those projected on the
+    # filters_ components specified in the "include" arg.  The first tNFC
+    # components are the "signal" for purposes of SSNR optimization.
 
-        print('Fitting Xdawn')
-        tNFC = 1  # number of xdawn filter components
-        xd = mne.preprocessing.Xdawn(n_components=tNFC, signal_cov=signal_cov,
-                                     correct_overlap=False, reg='ledoit_wolf')
-        xd.fit(epochs)
+    # calc the signal reponses, as Evoked object
+    # (by default, include=list(arange(0,1)), i.e., includes only one
+    # "signal" component)
+    signal = xd.apply(epochs)['Auditory'].average() # is 'Auditory' correctly saved by Sss2Epo?
 
-        # fit() creates decomposition matrix called filters_ (or "unmixing")
-        # and the inverse, called "patterns_" for remixing responses after
-        # supressing contribution of selected filters_ components
+    # calc the noise responses, as Evoked object
+    noiseinclude = list(arange(1, epochs.info['nchan']))  # a range excluding signal "0"
+    noise = xd.apply(epochs, include=noiseinclude)['Auditory'].average()
 
-        # apply() method restricts the reponse to those projected on the
-        # filters_ components specified in the "include" arg.  The first tNFC
-        # components are the "signal" for purposes of SSNR optimization.
+    ## create arg to force both plots to have same fixed scaling
+    #ts_args = dict(ylim=dict(grad=[-100, 100], mag=[-500, 500]))
+    #signal.plot_joint(ts_args=ts_args)
+    #noise.plot_joint(ts_args=ts_args)
 
-        # calc "t(he) F(iltered) Evo(ked)" reponses
-        # (by default, include=list(arange(0,tNFC)), i.e., the "signal")
-        tFEvo = xd.apply(epochs)['Auditory'].average()
+    ## fit() also computes xd.evokeds_ which seems to be the same as
+    ## epochs.average(), but it's calculated in a complicated way that
+    ## compensates for overlap (when present).
+    ## Keep this handy to compare with xdawn results.
+    #xd.evokeds_['Auditory'].average().plot_joint(ts_args=ts_args)
+    #epochs.average().plot_joint(ts_args=ts_args)
 
-        noiseinclude = list(arange(tNFC, tNCh))  # a range to include
-        # calc "t(he) Noi(se)"
-        tNoi = xd.apply(epochs, include=noiseinclude)['Auditory'].average()
-        
-        # create arg to force both plots to have same fixed scaling
-        ts_args = dict(ylim=dict(grad=[-100, 100], mag=[-500, 500]))
-        tFEvo.plot_joint(ts_args=ts_args)
-        tNoi.plot_joint(ts_args=ts_args)
+    # save signal and noise
+    # parent dir should be 'assr_results/' created by Sss2EPo above
+    assrResPath = ParentDir(epoPath)
 
-#        # fit() also computes xd.evokeds_ which seems to be the same as
-#        # epochs.average(), but it's calculated in a complicated way that
-#        # compensates for overlap (when present).
-#        # Keep this handy to compare with xdawn results.
-#        xd.evokeds_['Auditory'].average().plot_joint(ts_args=ts_args)
-#        epochs.average().plot_joint(ts_args=ts_args)
+    xdawnEpoPath = str(Path(assrResPath) / 'xdawn_signal_epo.fif')
+    signal.save(xdawnEpoPath)
 
-    except:
-        tFEvo = None
-        tNoi = None
-
-    return tFEvo, tNoi
+    xdawnEpoPath = str(Path(assrResPath) / 'xdawn_noise_epo.fif')
+    noise.save(xdawnEpoPath)
 
 
-# With this above function defined, we can use a glob expression to
-# to specify list of path-file name ("PFNm") strings
-
-# this glob gets all a's and b's in bash, but not python:
-#    bad_*{a,b}/sss_fif/*_am_raw_sss.fif
-
-#aPFNmPattern = '/media/ktavabi/ALAYA/data/ilabs/badbaby/tone/bad_*b/sss_fif/*_am_raw_sss.fif'
-
-aPFNmPattern = '/media/ktavabi/ALAYA/data/ilabs/badbaby/larson_eric_tone_raw_sss.fif'
-
-# Additional code needed here to check exclusion list in defaults.py
-
-# Start with second visits, labeled "B"
-tPFNmsB = glob.glob(aPFNmPattern)
-
-tTest = GetSsnData(tPFNmsB[0])
-tFEvo = tTest[0]
-tNoi = tTest[1]
+## With this above function defined, we can use a glob expression to
+## to specify list of path-file name ("PFNm") strings
+#
+## this glob gets all a's and b's in bash, but not python:
+##    bad_*{a,b}/sss_fif/*_am_raw_sss.fif
+#
+##aPFNmPattern = '/media/ktavabi/ALAYA/data/ilabs/badbaby/tone/bad_*b/sss_fif/*_am_raw_sss.fif'
+#
+#aPFNmPattern = '/media/ktavabi/ALAYA/data/ilabs/badbaby/larson_eric_tone_raw_sss.fif'
+#
+## Additional code needed here to check exclusion list in defaults.py
+#
+## Start with second visits, labeled "B"
+#tPFNmsB = glob.glob(aPFNmPattern)
+#
+#tTest = GetSsnData(tPFNmsB[0])
+#tFEvo = tTest[0]
+#tNoi = tTest[1]
