@@ -15,7 +15,9 @@ import mne
 datapath = '/media/ktavabi/ALAYA/data/ilabs/badbaby/'
 event_id = {'Auditory': 1}
 raw_fname = datapath + 'larson_eric_tone_raw.fif'
-tmin, tmax = -0.5, 2.
+#tmin, tmax = -0.5, 2.
+tmin, tmax = -0.2, 1.1 # from process.py
+decim = 3 # from process.py
 
 
 #   Setup for reading the raw data
@@ -32,7 +34,7 @@ print('Loading ASSR')
 raw = preproc_raw(raw_fname)
 events = mne.find_events(raw)
 picks = mne.pick_types(raw.info, meg=True)
-epochs = mne.Epochs(raw, events, event_id, tmin, tmax, picks=picks,
+epochs = mne.Epochs(raw, events, event_id, tmin, tmax, decim=decim, picks=picks,
                     baseline=(None, 0), reject=dict(grad=4000e-13),
                     preload=True)
 epochs.average().plot_topo(merge_grads=True)

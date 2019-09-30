@@ -26,6 +26,7 @@ Created on Fri Jun 28 07:27:29 2019
 # __status__ = "Production"
 
 import mne
+import mnefun
 import glob
 import os
 from pathlib import Path
@@ -67,31 +68,20 @@ def ParentDir(aPath):
 # now, e.g., mne.read_epochs( sbjSsnEpoPaths[16] ).get_data().shape
 # will be (106, 306, 781)
 
-# verified these are not the same as what's obtained from
-# sss_pca_fif
-
-#aPFNm = 'bad_116b_am_allclean_fil100_raw_sss.fif' # in /sss_pca_fif
-#raw = mne.io.read_raw_fif(aPFNm, allow_maxshield='yes')
-#events = mne.read_events('ALL_bad_116b_am-eve.lst') # in /lists
-#epochs = mne.Epochs( raw, events, preload=True )
-#epochs.get_data().shape
-# will be: (339, 306, 1261)
-
-
 
 def Sss2Epo(sssPath):
+    # needed to handle pilot 'bad_000' (larson_eric)
     sss = mne.io.read_raw_fif(sssPath, allow_maxshield='yes')
     events = mne.find_events(sss)
     picks = mne.pick_types(sss.info, meg=True)
     event_id = {'Auditory': 1} # is 'Auditory' correctly saved for use by Epo2Xdawn?
-    tmin, tmax = -0.5, 2.
+    tmin, tmax = -0.2, 1.1 # from process.py
+    decim = 3 # from process.py
     epochs = mne.Epochs(sss, events, event_id, tmin, tmax, picks=picks,
-        baseline=(None, 0), reject=dict(grad=4000e-13),
+        decim=decim, baseline=(None, 0), reject=dict(grad=4000e-13),
         preload=True)
-    assrResPath = ParentDir(sssPath).replace('sss_fif', 'assr_results')
-    IfMkDir(assrResPath)
-    assrEpoPath = str(Path(assrResPath) / 'assr_epo.fif')
-    epochs.save(assrEpoPath)
+    epoPath = sssPath.replace('sss_fif','epochs').replace('_raw_sss.fif','_epo.fif')
+    epochs.save(epoPath)
 
 
 def Epo2Xdawn(epoPath):
@@ -121,10 +111,10 @@ def Epo2Xdawn(epoPath):
     noiseinclude = list(arange(1, epochs.info['nchan']))  # a range excluding signal "0"
     noise = xd.apply(epochs, include=noiseinclude)['Auditory'].average()
 
-    ## create arg to force both plots to have same fixed scaling
-    #ts_args = dict(ylim=dict(grad=[-100, 100], mag=[-500, 500]))
-    #signal.plot_joint(ts_args=ts_args)
-    #noise.plot_joint(ts_args=ts_args)
+    # create arg to force both plots to have same fixed scaling
+    ts_args = dict(ylim=dict(grad=[-100, 100], mag=[-500, 500]))
+    signal.plot_joint(ts_args=ts_args)
+    noise.plot_joint(ts_args=ts_args)
 
     ## fit() also computes xd.evokeds_ which seems to be the same as
     ## epochs.average(), but it's calculated in a complicated way that
