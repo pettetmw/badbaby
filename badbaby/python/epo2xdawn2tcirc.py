@@ -12,19 +12,23 @@ import mne
 import mnefun
 import os
 from numpy import arange
+from mne.externals.h5io import write_hdf5
 
 def Sss2Epo(sssPath):
     # needed to handle pilot 'bad_000' (larson_eric)
     sss = mne.io.read_raw_fif(sssPath, allow_maxshield='yes')
     events = mne.find_events(sss)
     picks = mne.pick_types(sss.info, meg=True)
-    event_id = {'Auditory': 1} # is 'Auditory' correctly saved for use by Epo2Xdawn?
+    event_id = {'Auditory': 1} # 'Auditory' only for bad_000; babies are 'tone'; cf Epo2Xdawn
     tmin, tmax = -0.2, 1.1 # from process.py
     decim = 3 # from process.py
     epochs = mne.Epochs(sss, events, event_id, tmin, tmax, picks=picks,
         decim=decim, baseline=(None, 0), reject=dict(grad=4000e-13),
         preload=True)
     epoPath = sssPath.replace('sss_fif','epochs').replace('_raw_sss.fif','_epo.fif')
+    # if find/replace fails, prevent overwriting the input file
+    # this needs better solution
+    assert sssPath == epoPath 
     epochs.save(epoPath)
 
 
@@ -54,7 +58,8 @@ def Epo2Xdawn(epoPath):
     # calc the signal reponses, as Evoked object
     # (by default, include=list(arange(0,1)), i.e., includes only one
     # "signal" component)
-    signal = xd.apply(epochs)['tone'].average() # is 'Auditory' correctly saved by Sss2Epo?
+    signal = xd.apply(epochs)['tone'].average() # 'tone' is for babies;
+                                                # use 'Auditory' for bad_000 pilot
 
     # calc the noise responses, as Evoked object
     noiseinclude = list(arange(1, epochs.info['nchan']))  # a range excluding signal "0"
@@ -77,5 +82,55 @@ def Epo2Xdawn(epoPath):
     signal.comment = 'signal'
     noise.comment = 'noise'
     xdawnPath = epoPath.replace('-epo.fif','_xdawn_ave.fif')
+    # if find/replace fails, prevent overwriting the input file
+    # this needs better solution
+    assert epoPath == xdawnPath
     mne.write_evokeds( xdawnPath, [ signal, noise ] )
+
+def Xdawn2Tcirc(xdawnPath,tmin=None,tmax=None,fundfreqhz=None):
+    # create tcirc stats from xdawn 'signal' and 'noise' that have been
+    # saved into xdawnPath by Epo2Xdawn
+    
+    signal = mne.read_evokeds(data,allow_maxshield=True)[0].get_data() # "[0]" is 'signal'
+    signalTcirc=Tcirc(signal,tmin=0.5,tmax=1.0,fundfreqhz=20.) # signal t-circ stats
+    noise = mne.read_evokeds(data,allow_maxshield=True)[1].get_data() # "[1]" is 'noise'
+    noiseTcirc=Tcirc(noise,tmin=0.5,tmax=1.0,fundfreqhz=20.) # noise t-circ stats
+    
+    signalFtzs=None # fisher transformed z-score stats,
+                    # for estimating within-subject longitudinal significance
+    noiseFtzs=None
+    sfreqhz=None # sampling frequency in Hz (from Evoked.info['sfreq']?)
+    
+    # save the results
+    tcircPath = xdawnPath.replace('_xdawn_ave.fif','_tcirc.h5')
+    # if find/replace fails, prevent overwriting the input file
+    # this needs better solution
+    assert xdawnPath == tcircPath
+    write_hdf5(tcircPath,
+               dict(signaltcirc=signalTcirc,
+                    signalftzs=signalFtzs,
+                    noisetcirc=noiseTcirc,
+                    noiseftzs=noiseFtzs,
+                    sfreqhz=sfreqhz),
+               title='tcirc', overwrite=True)
+
+def Tcirc(data,tmin=None,tmax=None,fundfreqhz=None):
+    # create tcirc stats from data N-D array
+    
+    # if tmin==None, tmin= 0
+    # if tmax==None, tmax= end of data along time dim
+    # if fundfreqhz == None, fundfreqhz = 1 / (tmax-tmin), an appropriate
+    #   default if tcirc to be estimated from epoch data
+    #   For evokeds, use fundfreqhz = N / (tmax-tmin) to divide into N epochs
+    
+    # e.g., for ASSR: ... = Tcirc(...,tmin=0.5,tmax=1.0,fundfreqhz=20.),
+    # will divide the 0.5 second epoch into ten epochs each 1/20.==0.05 sec duration
+    
+    # Be careful about trailing samples when converting from time to array
+    # index values
+    
+    tcirc = None
+    return tcirc # sampling frequency in Hz (from Evoked objects)
+    
+    
 
