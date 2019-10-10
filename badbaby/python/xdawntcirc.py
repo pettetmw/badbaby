@@ -24,13 +24,28 @@ from os.path import exists, basename
 
 
 bPaths = sorted(glob(dataPath + 'bad*b/epochs/*epo.fif')) # get the existing b's
-aPaths = [ p.replace('b/epochs','a/epochs') for p in bPaths ] # rename to create a's
-aPaths = [ p.replace('b-epo','a-epo') for p in aPaths ]
+aPaths = [ p.replace('b/epochs','a/epochs').replace('b-epo','a-epo') for p in bPaths ] # rename to create a's
 aPaths = [ p for p in aPaths if exists(p) ] # cull to existing a's
-bPaths = [ p.replace('a/epochs','b/epochs') for p in aPaths ] # rename to create matching b's
-bPaths = [ p.replace('a-epo','b-epo') for p in bPaths ]
+bPaths = [ p.replace('a/epochs','b/epochs').replace('a-epo','b-epo') for p in aPaths ] # rename to create matching b's
 epoPaths = aPaths + bPaths
+
 all([ exists(p) for p in epoPaths ]) # test whether all exist
+
+xdawnPaths = [ p.replace('-epo.fif','_xdawn_ave.fif') for p in epoPaths ]
+
+# if replace fails, xdawnPath == epoPath, which we don't want to overwrite; so,
+for epoPath, xdawnPath in zip( epoPaths, xdawnPaths ):
+    assert xdawnPath != epoPath
+
+tcircPaths = [ p.replace('_xdawn_ave.fif','_tcirc.h5') for p in xdawnPaths ]
+
+# if replace fails, xdawnPath == epoPath, which we don't want to overwrite; so,
+for xdawnPath, tcircPath in zip( xdawnPaths, tcircPaths ):
+    assert tcircPath != xdawnPath
+
+print( 'The following transformations will be performed:' )
+for e,x,t in zip( epoPaths, xdawnPaths, tcircPaths ):
+    print( e.replace(dataPath,'') + ' --> ' + x.replace(dataPath,'')+ ' --> ' + t.replace(dataPath,''))
 
 
 # ###### So, all of these are valid input arguments for epo2xdawn2tcirc.Epo2XDawn

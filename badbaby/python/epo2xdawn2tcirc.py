@@ -32,8 +32,21 @@ def Sss2Epo(sssPath):
     epochs.save(epoPath)
 
 
-def Epo2Xdawn(epoPath):
-    # plot/return XDAWN responses to signal and noise
+def Epo2Xdawn(epoPath,xdawnPath=None):
+    # Compute and save (into xdawnPath) XDAWN responses to signal and noise,
+    # given epoch data in epoPath; returns status string
+    
+    # Determine destination path
+    if xdawnPath == None:
+        # try to derive destination file name from source file name
+        xdawnPath = epoPath.replace('-epo.fif','_xdawn_ave.fif')
+        
+    if xdawnPath == epoPath: # e.g., if find/replace fails, or if incorrect args
+        # prevent overwriting epoPath
+        errMsg = basename(epoPath) + ' --> error: xdawnPath would overwrite epoPath'
+        print( errMsg )
+        return errMsg
+    
     epochs = mne.read_epochs(epoPath)
     epochs.pick_types(meg=True)
     signal_cov = mne.compute_covariance(epochs, method='oas', n_jobs=18)
@@ -81,11 +94,16 @@ def Epo2Xdawn(epoPath):
     # first, replace "Auditory" tag with "signal" and "noise"
     signal.comment = 'signal'
     noise.comment = 'noise'
-    xdawnPath = epoPath.replace('-epo.fif','_xdawn_ave.fif')
-    # if find/replace fails, prevent overwriting the input file
-    # this needs better solution
-    assert epoPath == xdawnPath
-    mne.write_evokeds( xdawnPath, [ signal, noise ] )
+    
+    try:
+        mne.write_evokeds( xdawnPath, [ signal, noise ] )
+    except:
+        errMsg = basename(epoPath) + ' --> error writing ' + xdawnPath
+        print( errMsg )
+        return errMsg
+    
+    # Everything worked, so return status string
+    return basename(epoPath) + ' --> ' + basename(xdawnPath)
 
 def Xdawn2Tcirc(xdawnPath,tmin=None,tmax=None,fundfreqhz=None):
     # create tcirc stats from xdawn 'signal' and 'noise' that have been
@@ -115,7 +133,9 @@ def Xdawn2Tcirc(xdawnPath,tmin=None,tmax=None,fundfreqhz=None):
                title='tcirc', overwrite=True)
 
 def Tcirc(data,tmin=None,tmax=None,fundfreqhz=None):
-    # create tcirc stats from data N-D array
+    # create tcirc stats from data N-D array (n_epochs, n_channels, n_times)
+    # note that np.fft.fft "axis" 
+    
     
     # if tmin==None, tmin= 0
     # if tmax==None, tmax= end of data along time dim
@@ -128,8 +148,27 @@ def Tcirc(data,tmin=None,tmax=None,fundfreqhz=None):
     
     # Be careful about trailing samples when converting from time to array
     # index values
+
+    tY = data[ :, :, :-1 ] # remove odd sample (make this conditional)
+    #plt.plot(np.mean(tY,axis=-1),'r-')
+    if tY.ndim == 2:
+        tNCh = tY.shape
+        tNEp = 5; # compute from fundfreqhz
+        tY = np.reshape( tD, [ tNCh, -1, tNEp ] )
+        
+    tNCh, tNS, tNTrl = tY.shape
     
-    tcirc = None
+    tSR = # maybe needs argument
+    
+    tXFrq = np.round( np.fft.fftfreq( tNS, 1.0/tSR ), 2 ) # X Freq values for horizontal axis of plot
+    
+    tMYFFT = np.fft.fft( np.mean( tY, axis=1 ) ) / tNS # FFT of mean over trials of tY, Chan-by-Freq
+    tYFFT = np.fft.fft( tY, axis=1 ) / tNS # FFT of tY along time sample dim, Chan-by-Freq-by-Trials
+    
+    tYFFTV = np.mean( np.stack( ( np.var( np.real(tYFFT), 0 ), np.var( np.imag(tYFFT), 0 ) ) ), 0 )
+    #tYFFTV = np.var( abs(tYFFT), 0 )
+    tcirc = abs(tMYFFT) / np.sqrt( tYFFTV / ( tNTrl - 1 ) )
+    
     return tcirc # sampling frequency in Hz (from Evoked objects)
     
     
