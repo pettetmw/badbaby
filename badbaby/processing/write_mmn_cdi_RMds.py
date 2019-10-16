@@ -17,8 +17,17 @@ datadir = defaults.datadir
 
 ages = [2, 6]
 lp = defaults.lowpass
+regex = r"[abc]$"
 
-cdi_df = rd.return_dataframes('mmn', ses=True)[1]
+meg, cdi = rd.return_dataframes('mmn', ses=True)
+ids = [re.split(regex, ss)[0] for ss in meg.index]
+meg.reset_index(inplace=True)
+meg['subjId'] = ['BAD_%s' % xx for xx in ids]
+
+results = pd.merge(meg[['ses', 'age', 'gender', 'headSize', 'maternalEdu',
+                        'maternalHscore', 'paternalEdu', 'paternalHscore',
+                        'maternalEthno', 'paternalEthno', 'birthWeight',
+                        'subjId']], cdi, on='subjId', validate='m:m')
 dfs = list()
 for age in ages:
     df_ = pd.read_hdf(op.join(datadir, '%dmos_%d_cv-scores.h5' % (age, lp)))
@@ -26,8 +35,6 @@ for age in ages:
     dfs.append(df_)
 
 df = pd.concat(dfs, sort=False)
-
-regex = r"[abc]$"
 df['subjId'] = [re.split(regex, ss)[0].upper() for ss in df.index.values]
-results = pd.merge(df, cdi_df, on='subjId')
+results = pd.merge(df, results, on='subjId', validate='m:m')
 results.to_csv(op.join(datadir, 'mmn-%d_cdi_RMds.csv' % lp))
