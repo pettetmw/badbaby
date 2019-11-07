@@ -11,8 +11,9 @@ Created on Mon Sep 30 15:05:05 2019
 import mne
 import mnefun
 import os
-from numpy import arange
+import numpy as np
 from mne.externals.h5io import write_hdf5
+import matplotlib.pyplot as plt
 
 def Sss2Epo(sssPath):
     # needed to handle pilot 'bad_000' (larson_eric)
@@ -69,13 +70,13 @@ def Epo2Xdawn(epoPath,xdawnPath=None):
     # components are the "signal" for purposes of SSNR optimization.
 
     # calc the signal reponses, as Evoked object
-    # (by default, include=list(arange(0,1)), i.e., includes only one
+    # (by default, include=list(np.arange(0,1)), i.e., includes only one
     # "signal" component)
     signal = xd.apply(epochs)['tone'].average() # 'tone' is for babies;
                                                 # use 'Auditory' for bad_000 pilot
 
     # calc the noise responses, as Evoked object
-    noiseinclude = list(arange(1, epochs.info['nchan']))  # a range excluding signal "0"
+    noiseinclude = list(np.arange(1, epochs.info['nchan']))  # a range excluding signal "0"
     noise = xd.apply(epochs, include=noiseinclude)['tone'].average()
 
     ## create arg to force both plots to have same fixed scaling
@@ -109,10 +110,10 @@ def Xdawn2Tcirc(xdawnPath,tmin=None,tmax=None,fundfreqhz=None):
     # create tcirc stats from xdawn 'signal' and 'noise' that have been
     # saved into xdawnPath by Epo2Xdawn
     
-    signal = mne.read_evokeds(data,allow_maxshield=True)[0].get_data() # "[0]" is 'signal'
-    signalTcirc=Tcirc(signal,tmin=0.5,tmax=1.0,fundfreqhz=20.) # signal t-circ stats
-    noise = mne.read_evokeds(data,allow_maxshield=True)[1].get_data() # "[1]" is 'noise'
-    noiseTcirc=Tcirc(noise,tmin=0.5,tmax=1.0,fundfreqhz=20.) # noise t-circ stats
+    signal = mne.read_evokeds(xdawnPath,allow_maxshield=True)[0] # "[0]" is 'signal'
+    signalTcirc=Tcirc(signal.data,signal.info['sfreq'],tmin=0.5,tmax=1.0,fundfreqhz=20.) # signal t-circ stats
+    noise = mne.read_evokeds(xdawnPath,allow_maxshield=True)[1] # "[1]" is 'noise'
+    noiseTcirc=Tcirc(noise.data,noise.info['sfreq'],tmin=0.5,tmax=1.0,fundfreqhz=20.) # noise t-circ stats
     
     signalFtzs=None # fisher transformed z-score stats,
                     # for estimating within-subject longitudinal significance
@@ -132,15 +133,15 @@ def Xdawn2Tcirc(xdawnPath,tmin=None,tmax=None,fundfreqhz=None):
                     sfreqhz=sfreqhz),
                title='tcirc', overwrite=True)
 
-def Tcirc(data,tmin=None,tmax=None,fundfreqhz=None):
-    # create tcirc stats from data N-D array (n_epochs, n_channels, n_times)
-    # note that np.fft.fft "axis" 
+def Tcirc(epoOrAve,tmin=None,tmax=None,fundfreqhz=None):
+    # create tcirc stats from epoched or evoked file epoOrAve
+    # note that np.fft.fft "axis" parameter defaults to -1
     
-    
+    # # untested implicit logic for special parameter values
     # if tmin==None, tmin= 0
     # if tmax==None, tmax= end of data along time dim
     # if fundfreqhz == None, fundfreqhz = 1 / (tmax-tmin), an appropriate
-    #   default if tcirc to be estimated from epoch data
+    #   default if tcirc is to be estimated from epoch data
     #   For evokeds, use fundfreqhz = N / (tmax-tmin) to divide into N epochs
     
     # e.g., for ASSR: ... = Tcirc(...,tmin=0.5,tmax=1.0,fundfreqhz=20.),
@@ -149,27 +150,62 @@ def Tcirc(data,tmin=None,tmax=None,fundfreqhz=None):
     # Be careful about trailing samples when converting from time to array
     # index values
 
-    tY = data[ :, :, :-1 ] # remove odd sample (make this conditional)
     #plt.plot(np.mean(tY,axis=-1),'r-')
-    if tY.ndim == 2:
-        tNCh = tY.shape
-        tNEp = 5; # compute from fundfreqhz
-        tY = np.reshape( tD, [ tNCh, -1, tNEp ] )
-        
-    tNCh, tNS, tNTrl = tY.shape
     
-    tSR = # maybe needs argument
+    sfreq = epoOrAve.info['sfreq'] # to compute location of tmin,tmax
+    imn = int( sfreq * tmin )
+    imx = int( sfreq * tmax )
     
-    tXFrq = np.round( np.fft.fftfreq( tNS, 1.0/tSR ), 2 ) # X Freq values for horizontal axis of plot
     
-    tMYFFT = np.fft.fft( np.mean( tY, axis=1 ) ) / tNS # FFT of mean over trials of tY, Chan-by-Freq
-    tYFFT = np.fft.fft( tY, axis=1 ) / tNS # FFT of tY along time sample dim, Chan-by-Freq-by-Trials
+    # if evoked, reshape it into fakey epochs, based on fundfreqhz
+    if type(epoOrAve) == mne.evoked.Evoked:
+        tY = epoOrAve.data[ :, imn:imx ] # 
+        tNCh = tY.shape[0]
+        tNTrl = int( ( tmax - tmin ) * fundfreqhz ) # the number of "trials"
+        tY = np.reshape( tY, (tNCh, tNTrl, -1 ) )
+        tY = np.transpose(tY,(1,0,2)) # Trials-by-Chan-by-Freq
+#        plt.plot(np.mean(tY,axis=0).T,'r-')
+    else:
+        tY = epoOrAve.get_data()[ :, :, imn:imx ] # remove odd sample (make this conditional)
+        # more needed here to select time window
+
+    tNTrl, tNCh, tNS = tY.shape # number of trials, channels, and time samples
     
+    tMYFFT = np.fft.fft( np.mean( tY, axis=0 ) ) / tNS # FFT of mean over trials of tY, Chan-by-Freq
+    tYFFT = np.fft.fft( tY ) / tNS # FFT of tY , Trials-by-Chan-by-Freq
+    
+    # compute the mean of the variances along real and imaginary axis
     tYFFTV = np.mean( np.stack( ( np.var( np.real(tYFFT), 0 ), np.var( np.imag(tYFFT), 0 ) ) ), 0 )
     #tYFFTV = np.var( abs(tYFFT), 0 )
-    tcirc = abs(tMYFFT) / np.sqrt( tYFFTV / ( tNTrl - 1 ) )
+    numerator = abs(tMYFFT);
+    denominator = np.sqrt( tYFFTV / ( tNTrl - 1 ) )
+    #tcirc = abs(tMYFFT) / np.sqrt( tYFFTV / ( tNTrl - 1 ) )
+    tcirc = numerator / denominator
     
-    return tcirc # sampling frequency in Hz (from Evoked objects)
+    return tcirc 
     
     
+#xdawnPath = 'bad_000_tone_xdawn_ave.fif'
+#signal = mne.read_evokeds(xdawnPath,allow_maxshield=True,condition='signal') # or 'noise'
+
+xdawnPath = 'bad_000_tone_epo.fif'
+signal = mne.read_epochs(xdawnPath)
+
+signalTcirc=Tcirc(signal,tmin=0.5,tmax=1.0,fundfreqhz=20.)
+
+
+## this pattern can be used for plotting
+## borrowed (from https://github.com/ktavabi/badbaby/blob/master/badbaby/Notebooks/SIMMS_tone.ipynb)
+## yet to be tested...
+#       evoked = read_evokeds(evoked_file,
+#        ...
+#        evoked.data, evoked.times = calc_plv(good_epochs,
+#                                             freq_picks=(39, 40, 41))
+#        evokeds.append(evoked)
+#    grndavr_fft = grand_average(evokeds)
+#    print(name)    
+#    fig = grndavr_fft.plot_topomap(times=evoked.times, vmin=0, vmax=1, 
+#                                   scale=4, scale_time=1, unit='PLV',
+#                                   cmap = 'seismic', res=128, size=2,
+#                                   time_format='%d Hz')
 

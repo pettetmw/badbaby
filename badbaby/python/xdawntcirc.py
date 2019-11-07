@@ -83,6 +83,12 @@ mne.set_log_level(verbose='INFO')
 
 # In[ ]:
 
+#    # from SSVEF.py
+#    info = mne.io.read_info('....fif')
+#    info['sfreq']=20;
+#    tYFFTT = mne.EvokedArray( tYFFTT, info )
+#    
+#    #tYFFTT.plot_joint(times=[5.95,6.00,6.05],ts_args=dict(xlim=(5.75,6.25),scalings=dict(grad=1, mag=1),units=dict(grad='Tcirc', mag='Tcirc')))
 
 
 
