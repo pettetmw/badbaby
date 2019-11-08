@@ -1,19 +1,9 @@
 #!/usr/bin/env python
 
-"""plot_demographic_data.py: Viz descriptives for covariates.
-    Does per age:
-        1. use PANDAS to read in covariate data.
-        2. use SEABORN to plot distributions.
-        3. use SCIPY to fit regression line for CDI & SES scores."""
+"""plot_demographic_data.py: EDA gists for demographic descriptives."""
 
-__author__ = "Kambiz Tavabi"
-__copyright__ = "Copyright 2019, Seattle, Washington"
-__license__ = "MIT"
-__version__ = "1.0.1"
-__maintainer__ = "Kambiz Tavabi"
-__email__ = "ktavabi@uw.edu"
-__status__ = "Production"
-
+import itertools
+import os.path as op
 import re
 
 import matplotlib.pyplot as plt
@@ -21,6 +11,7 @@ import numpy as np
 import pandas as pd
 import seaborn as sns
 import statsmodels.graphics.api as smg
+from mne.externals.h5io import read_hdf5
 from scipy import stats
 
 import badbaby.return_dataframes as rd
@@ -37,26 +28,56 @@ def plot_correlation_matrix(data):
 
 pd.set_option('display.max_columns', None)
 plt.style.use('ggplot')
-
-analysis = 'oddball'
-conditions = ['standard', 'deviant']
-tmin, tmax = defaults.epoching
-lp = defaults.lowpass
-window = defaults.peak_window  # peak ERF latency window
 workdir = defaults.datapath
+plt.style.use('ggplot')
 ages = [2, 6]
-meg_dependents = ['auc', 'latencies', 'naves']
+solver = 'liblinear'
+tag = '2v'
+if tag is '2v':
+    combos = list(itertools.combinations(['standard', 'deviant'], 2))
+else:
+    combos = list(itertools.combinations(defaults.oddball_stimuli, 2))
+lp = defaults.lowpass
 
-for age in ages:
-    mmn_df, cdi_df = rd.return_dataframes('mmn', age=age, ses=True)
-    # assert cdi_df.subjId.unique().shape[0] == 71
-    # assert mmn_df.shape[0] == 25
-    # merge MEG & CDI frames
-    re.split('_|-|', ll)
-    mmn_df['merge_on'] = ['BAD_%s' % re.findall(r'\d+', ll)[0] for ll in
-                          mmn_df.index]
-    df = cdi_df.merge(mmn_df, left_on='subjId',
-                      right_on='merge_on', sort=True, validate='m:1')
+rm_sample = list()
+for aix, age in enumerate([2, 6]):
+    hf_fname = op.join(defaults.datadir,
+                       '%smos_%d_%s_%s-cv-scores.h5' % (age, lp, solver, tag))
+    subjs = read_hdf5(hf_fname, title=solver)['subjects']
+    rm_sample.append([re.findall(r'\d+', idx)[0] for idx in subjs])
+rm_sample = list(set(rm_sample[0]).intersection(rm_sample[1]))
+rm_sample = ['BAD_%s' % idx for idx in rm_sample]
+
+df_x, df_y = rd.return_dataframes('mmn', ses=True)
+df_x.reset_index(inplace=True)
+ids_x = [re.findall(r'\d+', idx)[0] for idx in df_x['subjId']]
+df_x['subjId'] = ['BAD_%s' % idx for idx in ids_x]
+df_x.drop(['badCh', 'ecg', 'samplingRate', 'sib1dob', 'sib1gender',
+           'sib2dob', 'sib2gender', 'sib3dob', 'sib3gender',
+           'birthWeight(lbs)'],
+          axis=1, inplace=True)
+for col in ['gender', 'maternalEdu', 'maternalHscore',
+            'paternalEdu', 'paternalHscore',
+            'maternalEthno', 'paternalEthno']:
+    df_x[col] = df_x[col].astype('category')
+split = (df_x.age.max() - df_x.age.min()) // 2
+df_x['group'] = np.where(df_x['age'] < split, 'Two', 'Six')
+df_x.info()
+df_rm = df_x[df_x.subjId.isin(rm_sample)]
+df_rm_grpby = df_rm[['group', 'gender', 'age',
+                     'headSize', 'birthWeight',
+                     'nSibs']].groupby(['group', 'gender'])
+df_rm_grpby.describe()
+df_rm_grpby.describe().to_csv(op.join(defaults.datadir,
+                                      'RM-sample_demographic_desc.csv'))
+df = df_x.merge(df_y, on='subjId', sort=True, validate='m:m')
+
+
+
+
+sns.boxplot(x="contrast", y="auc", hue="group", notch=True, data=df)
+sns.despine(left=True)
+
     # Split data on SES
     sesGrouping = df.ses <= df.ses.median()  # low ses True
     df['sesGroup'] = sesGrouping.map({True: 'low', False: 'high'})
