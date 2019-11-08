@@ -14,6 +14,7 @@ import os
 import numpy as np
 from mne.externals.h5io import write_hdf5
 import matplotlib.pyplot as plt
+from glob import glob
 
 def Sss2Epo(sssPath):
     # needed to handle pilot 'bad_000' (larson_eric)
@@ -183,15 +184,41 @@ def Tcirc(epoOrAve,tmin=None,tmax=None,fundfreqhz=None):
     tcirc = numerator / denominator
     
     return tcirc 
-    
-    
+
+dataPath = '/mnt/scratch/badbaby/tone/'
+
+#tPaths = sorted(glob(dataPath + 'bad*a/epochs/*epo.fif')) # get the existing a's
+tPaths = sorted(glob(dataPath + 'bad*b/epochs/*epo.fif')) # get the existing a's
+#tPaths = tPaths[5:8] # quickie test
+
+## for comparison, the adult pilot
+#tPaths = sorted(glob(dataPath + 'bad_000/epochs/bad_000_tone_epo.fif')) # Adult pilot (E Larson)
+
+tcircs = [ Tcirc(mne.read_epochs(p),tmin=0.5,tmax=1.0) for p in tPaths ]
+tcircavg = np.mean( np.stack( tcircs, 2 ), 2 )
+#
+info = mne.io.read_info(tPaths[0])
+info['sfreq']=0.5;
+tcircave = mne.EvokedArray( tcircavg, info )
+tcircave.plot_joint(times=[2.0,4.0,6.0,38.0,40.0,42.0],ts_args=dict(xlim=(0,60),ylim=(0,4),scalings=dict(grad=1, mag=1),units=dict(grad='Tcirc', mag='Tcirc')))
+
+## for evokeds, you must supply fundfreqhz
 #xdawnPath = 'bad_000_tone_xdawn_ave.fif'
 #signal = mne.read_evokeds(xdawnPath,allow_maxshield=True,condition='signal') # or 'noise'
+#signalTcirc=Tcirc(signal,tmin=0.5,tmax=1.0,fundfreqhz=20.)
 
-xdawnPath = 'bad_000_tone_epo.fif'
-signal = mne.read_epochs(xdawnPath)
-
-signalTcirc=Tcirc(signal,tmin=0.5,tmax=1.0,fundfreqhz=20.)
+## for epoched, fundfreqhz argument ignored, implicitly 1 /(tmax-tmin) Hz
+#epoPath = 'bad_000_tone_epo.fif'
+#signal = mne.read_epochs(epoPath)
+#signalTcirc=Tcirc(signal,tmin=0.5,tmax=1.0)
+#
+##info = signal.info;
+#info = mne.io.read_info(tPaths[0])
+#info['sfreq']=0.5;
+#tYFFTT = mne.EvokedArray( signalTcirc, info )
+#tYFFTT = mne.EvokedArray( signalTcirc, info )
+#
+#tYFFTT.plot_joint(times=[38.0,40.0,42.0],ts_args=dict(xlim=(0,60),scalings=dict(grad=1, mag=1),units=dict(grad='Tcirc', mag='Tcirc')))
 
 
 ## this pattern can be used for plotting
