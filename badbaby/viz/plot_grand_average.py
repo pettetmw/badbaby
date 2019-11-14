@@ -1,18 +1,6 @@
 #!/usr/bin/env python
 
-"""plot_grand_average.py: viz grand averaged ERF data.
-    Does per age:
-        1. plot topographic maps of odball ERFs
-        2. plot compare oddball ERFs GFP
-"""
-
-__author__ = "Kambiz Tavabi"
-__copyright__ = "Copyright 2019, Seattle, Washington"
-__license__ = "MIT"
-__version__ = "1.0.1"
-__maintainer__ = "Kambiz Tavabi"
-__email__ = "ktavabi@uw.edu"
-__status__ = "Production"
+"""plot_grand_average.py: viz grand averaged ERF data."""
 
 import os
 from os import path as op
@@ -67,7 +55,7 @@ for aix in ages:
     pick = [grandavr.ch_names.index(kk) for kk in
             set(list(picks_dict[aix].values()))]
     hs = mne.viz.plot_compare_evokeds(evoked_dict[aix],
-                                      show_sensors=True, gfp=True)
+                                      show_sensors=True)
     for hh, kind in zip(hs, ['grad', 'mag']):
         hh.savefig(op.join(defaults.figsdir,
                            '%s_%d_%s_grp-ave.png' % (analysis, lp, kind)),

@@ -56,16 +56,13 @@ df_x.drop(['badCh', 'ecg', 'samplingRate', 'sib1dob', 'sib1gender',
            'sib2dob', 'sib2gender', 'sib3dob', 'sib3gender',
            'birthWeight(lbs)'],
           axis=1, inplace=True)
-for col in ['gender', 'maternalEdu', 'maternalHscore',
-            'paternalEdu', 'paternalHscore',
-            'maternalEthno', 'paternalEthno']:
-    df_x[col] = df_x[col].astype('category')
 split = (df_x.age.max() - df_x.age.min()) // 2
 df_x['group'] = np.where(df_x['age'] < split, 'Two', 'Six')
-df_x.info()
 df_rm = df_x[df_x.subjId.isin(rm_sample)]
+df_rm.info()
 df_rm_grpby = df_rm[['group', 'gender', 'age',
                      'headSize', 'birthWeight',
+                     'ses', 'maternalEdu', 'paternalEdu',
                      'nSibs']].groupby(['group', 'gender'])
 df_rm_grpby.describe()
 df_rm_grpby.describe().to_csv(op.join(defaults.datadir,
@@ -74,6 +71,10 @@ df = df_x.merge(df_y, on='subjId', sort=True, validate='m:m')
 
 
 
+for col in ['gender', 'maternalEdu', 'maternalHscore',
+            'paternalEdu', 'paternalHscore',
+            'maternalEthno', 'paternalEthno']:
+    df_x[col] = df_x[col].astype('category')
 
 sns.boxplot(x="contrast", y="auc", hue="group", notch=True, data=df)
 sns.despine(left=True)

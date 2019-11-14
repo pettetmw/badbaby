@@ -132,11 +132,16 @@ dff = pd.concat(AA, ignore_index=True)
 dff.age = dff.age.map({2: 'Two', 6: 'Six'})
 for col in ['ids', 'age', 'contrast']:
     dff[col] = dff[col].astype('category')
-sns.boxplot(x="contrast", y="auc", hue="age", notch=True, data=dff)
+fig, ax = plt.subplots(1, 1, figsize=(12, 16))
+sns.boxplot(x="contrast", y="auc", hue="age",
+            hue_order=['Two', 'Six'], notch=True,
+            data=dff, ax=ax)
 sns.despine(left=True)
+fig.savefig(op.join(defaults.figsdir,
+                    'RM_%s-%s_AUC_boxplt.png' % (solver, tag)))
 for cci, cc in enumerate(combos):
     this = '_vs_'.join(cc)
-     compare = dff[dff.contrast == this]
+    compare = dff[dff.contrast == this]
     # compare = dff[(dff.contrast == this) & (
     #            dff.ids != '309')]  # rm 1.5 IQR outlier  # noqa
     # Wilcoxon signed-rank test Alt H0 2- < 6-months
