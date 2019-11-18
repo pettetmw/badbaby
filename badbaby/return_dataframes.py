@@ -1,15 +1,6 @@
 #!/usr/bin/env python
 
-"""PANDAS wrapper to return cohort specific covariates data frames."""
-
-__author__ = "Kambiz Tavabi"
-__copyright__ = "Copyright 2018, Seattle, Washington"
-__credits__ = ["Goedel", "Escher", "Bach"]
-__license__ = "MIT"
-__version__ = "0.1.0"
-__maintainer__ = "Kambiz Tavabi"
-__email__ = "ktavabi@uw.edu"
-__status__ = "Development"
+"""PANDAS wrapper to return cohort specific data frames."""
 
 import os.path as op
 import pandas as pd
@@ -18,19 +9,17 @@ from badbaby import defaults as params
 static = params.static
 
 
-def return_dataframes(paradigm, age=None, ses=False, longitudinal=False):
+def return_dataframes(paradigm, ses=False, longitudinal=False):
     """
     Return available MEG and corresponding CDI datasets.
     Parameters
     ----------
     paradigm:str
-    Name of project paradigm. Can be mmn, assr, or ids.
-    age:int
-    If not None (default) filter cohort data based on age.
+        Name of project paradigm. Can be mmn, assr, or ids.
     longitudinal:bool
-    Default False. If True then include only Simms-Mann longitudinal cohort.
+        Default False. If True then include only Simms-Mann longitudinal cohort.
     ses:bool
-    Default False. If True then include only Bezos SES cohort.
+        Default False. If True then include only Bezos SES cohort.
 
     Returns
     -------
@@ -48,14 +37,9 @@ def return_dataframes(paradigm, age=None, ses=False, longitudinal=False):
                  'rejection', 'epoching'], axis=1, inplace=True)
     # Subselect by cohort
     if ses:
-        xl_meg = xl_meg[xl_meg['ses'] > 0]
+        xl_meg = xl_meg[xl_meg['ses'] > 0]  # Bezos cohort
     if longitudinal:
-        xl_meg = xl_meg[xl_meg['simmInclude'] == 1]
-    #  Filter by age
-    if age == 2:
-        xl_meg = xl_meg[xl_meg['age'] < 100]
-    elif age == 6:
-        xl_meg = xl_meg[xl_meg['age'] > 150]
+        xl_meg = xl_meg[xl_meg['simmInclude'] == 1]  # SIMMS cohort
 
     xl_meg = xl_meg.drop('notes', axis=1, inplace=False)
     xl_cdi = pd.read_excel(

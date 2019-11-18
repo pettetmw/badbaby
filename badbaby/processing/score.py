@@ -2,14 +2,6 @@
 
 """score.py: MNEFUN stimulus event scoring functions."""
 
-__author__ = 'Kambiz Tavabi'
-__copyright__ = 'Copyright 2018, Seattle, Washington'
-__license__ = 'MIT'
-__version__ = '0.1.0'
-__maintainer__ = 'Kambiz Tavabi'
-__email__ = 'ktavabi@uw.edu'
-__status__ = 'Development'
-
 from __future__ import print_function
 
 import os
@@ -21,11 +13,7 @@ from paradigm.expyfun.io import read_tab
 
 
 def score(p, subjects):
-    """Scoring function
-        Does per subject:
-        1. use expyfun routine to extract events
-        2. write MNE events file to disk.
-    """
+    """Use expyfun to extract events write MNE events file to disk."""
     for subj in subjects:
         print('  Running subject %s... ' % subj, end='')
 

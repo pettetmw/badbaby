@@ -1,25 +1,16 @@
 #!/usr/bin/env python
 
-"""mnefun.py: MNEFUN preprocessing pipeline.
-    Does per subject:
+"""mnefun.py: MNEFUN preprocessing pipeline:
         1. Determine ACQ sampling rate and ECG channel.
         2. Write ACQ prebad channel to disk.
         3. Score.
         4. HP estimation yeilding annotation parameters.
         5. MF and move comp.
         6. Data & ERM covariances.
-        7. Use Autoreject to threshold noisy trials
+        7. Autoreject to threshold & reject noisy trials
         8. Compute ECG & ERM projectors
         9. Epoching & writing evoked data to disk.
 """
-
-__author__ = 'Kambiz Tavabi'
-__copyright__ = 'Copyright 2018, Seattle, Washington'
-__license__ = 'MIT'
-__version__ = '0.1.0'
-__maintainer__ = 'Kambiz Tavabi'
-__email__ = 'ktavabi@uw.edu'
-__status__ = 'Development'
 
 import os.path as op
 
@@ -142,53 +133,53 @@ for sr, decim in zip([1200, 1800], [2, 3]):
             'All',
             'Individual',
             'Oddball'
-        ]
+            ]
         params.out_names = [
             ['All'],
             ['standard', 'ba', 'wa'],
             ['standard', 'deviant']
-        ]
+            ]
         params.out_numbers = [
             [1, 1, 1],  # Combine all trials
             [1, 2, 3],  # All conditions
-            [1, 2, 2]   # oddball
-        ]
+            [1, 2, 2]  # oddball
+            ]
         params.must_match = [
             [],
             [0, 1, 2],
             [0, 1, 2]
-        ]
+            ]
         cov = params.inv_names[0] + '-%.0f-sss-cov.fif' % params.lp_cut
         params.report_params.update(
             whitening=[
                 dict(analysis='All', name='All', cov=cov),
                 dict(analysis='Oddball', name='standard', cov=cov),
                 dict(analysis='Oddball', name='deviant', cov=cov)
-            ],
+                ],
             sensor=[
                 dict(analysis='All', name='All', times='peaks'),
                 dict(analysis='Oddball', name='standard', times='peaks'),
                 dict(analysis='Oddball', name='deviant', times='peaks')
-            ],
+                ],
             source=None,
             psd=True
-                )
+            )
         # Set what will run
         default = False
         mnefun.do_processing(
-                params,
-                fetch_raw=default,
-                push_raw=default,
-                do_sss=default,
-                do_score=default,
-                fetch_sss=default,
-                do_ch_fix=default,
-                gen_ssp=default,
-                apply_ssp=default,
-                write_epochs=True,
-                gen_covs=True,
-                gen_fwd=default,
-                gen_inv=default,
-                gen_report=default,
-                print_status=True
-                )
+            params,
+            fetch_raw=default,
+            push_raw=default,
+            do_sss=default,
+            do_score=default,
+            fetch_sss=default,
+            do_ch_fix=default,
+            gen_ssp=default,
+            apply_ssp=default,
+            write_epochs=True,
+            gen_covs=True,
+            gen_fwd=default,
+            gen_inv=default,
+            gen_report=default,
+            print_status=True
+            )
