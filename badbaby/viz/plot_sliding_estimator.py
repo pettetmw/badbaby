@@ -16,17 +16,20 @@ from scipy import stats
 
 from badbaby import defaults
 
-workdir = defaults.datapath
 plt.style.use('ggplot')
+
+# parameters
+workdir = defaults.datapath
+analysese = ['Individual', 'Oddball']
+lp = defaults.lowpass
+window = defaults.peak_window
 ages = [2, 6]
 solver = 'liblinear'
-tag = '2v'
+tag = '3v'
 if tag is '2v':
     combos = list(itertools.combinations(['standard', 'deviant'], 2))
 else:
     combos = list(itertools.combinations(defaults.oddball_stimuli, 2))
-lp = defaults.lowpass
-window = defaults.peak_window
 
 for aix in ages:
     hf_fname = op.join(defaults.datadir,
@@ -64,8 +67,8 @@ for aix in ages:
                  ha='center', va='center', fontsize=16)
         fig.subplots_adjust()
         fig.savefig(op.join(defaults.figsdir,
-                            'ind-%s-%s-auc_lp-%d_%d-mos.png' % (tag, this, lp,
-                                                                aix)),
+                            '%smos_%d_%s_%s_%s-scores.png' % (aix, lp, solver,
+                                                              this, tag)),
                     bbox_to_inches='tight')
 
         # Group averaged (ages) cv-score timeseries
@@ -82,8 +85,9 @@ for aix in ages:
         ax.set(xlim=[tmin, tmax])
         fig.tight_layout(pad=0.5)
         fig.savefig(op.join(defaults.figsdir,
-                            '%dmos-avr_%s-%s-auc_%d.png' % (aix, tag, this,
-                                                            lp)),
+                            '%smos_%d_%s_%s_%s-scores-avr.png' % (aix, lp,
+                                                                  solver,
+                                                                  this, tag)),
                     bbox_to_inches='tight')
         # Individual AUC values
         ds = pd.DataFrame(data=auc[cci], index=subjects, columns=['auc'])
@@ -95,7 +99,8 @@ for aix in ages:
         plt.title('%s' % this)
         plt.legend()
         plt.savefig(op.join(defaults.figsdir,
-                            '%dmos_%s-%s-auc_%d.png' % (aix, tag, this, lp)),
+                            '%smos_%d_%s_%s_%s-auc.png' % (aix, lp, solver,
+                                                           this, tag)),
                     bbox_inches='tight')
 
 sns.set_style('ticks')
@@ -138,7 +143,7 @@ sns.boxplot(x="contrast", y="auc", hue="age",
             data=dff, ax=ax)
 sns.despine(left=True)
 fig.savefig(op.join(defaults.figsdir,
-                    'RM_%s-%s_AUC_boxplt.png' % (solver, tag)))
+                    'RM_%d_%s_%s-auc-avr.png' % (lp, solver, tag)))
 for cci, cc in enumerate(combos):
     this = '_vs_'.join(cc)
     compare = dff[dff.contrast == this]
@@ -149,5 +154,5 @@ for cci, cc in enumerate(combos):
                                                           'Six'],
                                                   on='ids')
     stat, pval = stats.wilcoxon(compare.auc_x, compare.auc_y,
-                                alternative='less')
+                                alternative='greater')
     print('%s (W, P-value): (%f, %f)' % (this, stat, pval))
