@@ -32,7 +32,7 @@ workdir = defaults.datapath
 analysese = ['Individual', 'Oddball']
 plt.style.use('ggplot')
 ages = [2, 6]
-solver = 'liblinear'
+solver = 'lbfgs'
 lp = defaults.lowpass
 window = defaults.peak_window
 n_splits = 10  # how many folds to use for cross-validation
@@ -49,6 +49,7 @@ for iii, analysis in enumerate(analysese):
         conditions = ['standard', 'deviant']
         combine = True
     combos = list(itertools.combinations(conditions, 2))
+    contrast = ['_vs_'.join(xx) for xx in combos]
     for aix in ages:
         scores = {kk: list() for kk in combos}
         auc = {kk: list() for kk in combos}
@@ -56,12 +57,15 @@ for iii, analysis in enumerate(analysese):
         patterns = {kk: list() for kk in combos}
         df = rd.return_dataframes('mmn')[0]
         subjects = ['bad_%s' % ss for ss in df.index]
-        fi_out = op.join(defaults.datadir,
-                         '%smos_%d_%s_%s-slidingEstimator.nc'
+        auc_fi = op.join(defaults.datadir,
+                         '%smos_%d_%s_%s_AUC.nc'
                          % (aix, lp, solver, analysis))
+        scores_fi = op.join(defaults.datadir,
+                            '%smos_%d_%s_%s_SCORES.nc'
+                            % (aix, lp, solver, analysis))
         for cii, cs in enumerate(combos):
-            contrast = '_vs_'.join(cs)
-            print('Fitting estimator for %s: ' % contrast)
+            this = '_vs_'.join(cs)
+            print('Fitting estimator for %s: ' % this)
             for si, subject in enumerate(subjects):
                 ep_fname = op.join(workdir, subject, 'epochs',
                                    'All_%d-sss_%s-epo.fif' % (lp, subject))
@@ -125,14 +129,17 @@ for iii, analysis in enumerate(analysese):
             for hx, ch in zip(hs, ['mag', 'grad']):
                 hx.savefig(op.join(defaults.figsdir,
                                    '%dmos-avr-%s-%s-%s-topo_.png' %
-                                   (aix, solver, contrast, ch)),
+                                   (aix, solver, this, ch)),
                            bbox_inches='tight')
         
         # Write logit results to disk
-        print('     ...writing %s: ' % op.basename(fi_out))
+        print('     ...writing %s: ' % op.basename(auc_fi))
         assert len(list(auc.values())) == len(combos)
         foo = xr.DataArray(np.array((list(auc.values()))),
-                           coords=[['_vs_'.join(cc) for cc in combos],
-                                   subjects],
+                           coords=[contrast, subjects],
                            dims=['contrast', 'subject'])
-        foo.to_netcdf(fi_out)
+        foo.to_netcdf(auc_fi)
+        bar = xr.DataArray(np.array((list(scores.values()))),
+                           coords=[contrast, subjects, time],
+                           dims=['contrast', 'subject', 'time'])
+        bar.to_netcdf(scores_fi)
