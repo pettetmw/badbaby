@@ -1,0 +1,526 @@
+,subject_2mos,auc_2mos,ses,age,gender,headSize,maternalEdu,maternalHscore,paternalEdu,paternalHscore,maternalEthno,paternalEthno,birthWeight,subjId,group,cdiAge,m3l,vocab,complex,ids,subject_6mos,auc_6mos
+0,bad_116a,0.5359737827715356,41.5,65,M,37.0,16.0,6.0,14.0,6.0,Asian/Pacific Islander,"White-Not Hispanic/Latino, Native American/Eskimo",102,BAD_116,2mos,18,2.0,80,0,116,bad_116b,0.4897815867920201
+1,bad_116a,0.5359737827715356,41.5,65,M,37.0,16.0,6.0,14.0,6.0,Asian/Pacific Islander,"White-Not Hispanic/Latino, Native American/Eskimo",102,BAD_116,2mos,18,2.0,80,0,116,bad_116b,0.4897815867920201
+2,bad_116a,0.5359737827715356,41.5,65,M,37.0,16.0,6.0,14.0,6.0,Asian/Pacific Islander,"White-Not Hispanic/Latino, Native American/Eskimo",102,BAD_116,2mos,18,2.0,80,0,116,bad_116b,0.4897815867920201
+3,bad_116a,0.5359737827715356,41.5,65,M,37.0,16.0,6.0,14.0,6.0,Asian/Pacific Islander,"White-Not Hispanic/Latino, Native American/Eskimo",102,BAD_116,2mos,18,2.0,80,0,116,bad_116b,0.4897815867920201
+4,bad_116a,0.5359737827715356,41.5,65,M,37.0,16.0,6.0,14.0,6.0,Asian/Pacific Islander,"White-Not Hispanic/Latino, Native American/Eskimo",102,BAD_116,2mos,18,2.0,80,0,116,bad_116b,0.4897815867920201
+5,bad_116a,0.5359737827715356,41.5,65,M,37.0,16.0,6.0,14.0,6.0,Asian/Pacific Islander,"White-Not Hispanic/Latino, Native American/Eskimo",102,BAD_116,2mos,21,2.0,306,1,116,bad_116b,0.4897815867920201
+6,bad_116a,0.5359737827715356,41.5,65,M,37.0,16.0,6.0,14.0,6.0,Asian/Pacific Islander,"White-Not Hispanic/Latino, Native American/Eskimo",102,BAD_116,2mos,21,2.0,306,1,116,bad_116b,0.4897815867920201
+7,bad_116a,0.5359737827715356,41.5,65,M,37.0,16.0,6.0,14.0,6.0,Asian/Pacific Islander,"White-Not Hispanic/Latino, Native American/Eskimo",102,BAD_116,2mos,21,2.0,306,1,116,bad_116b,0.4897815867920201
+8,bad_116a,0.5359737827715356,41.5,65,M,37.0,16.0,6.0,14.0,6.0,Asian/Pacific Islander,"White-Not Hispanic/Latino, Native American/Eskimo",102,BAD_116,2mos,21,2.0,306,1,116,bad_116b,0.4897815867920201
+9,bad_116a,0.5359737827715356,41.5,65,M,37.0,16.0,6.0,14.0,6.0,Asian/Pacific Islander,"White-Not Hispanic/Latino, Native American/Eskimo",102,BAD_116,2mos,21,2.0,306,1,116,bad_116b,0.4897815867920201
+10,bad_116a,0.5359737827715356,41.5,65,M,37.0,16.0,6.0,14.0,6.0,Asian/Pacific Islander,"White-Not Hispanic/Latino, Native American/Eskimo",102,BAD_116,2mos,24,3.3,445,0,116,bad_116b,0.4897815867920201
+11,bad_116a,0.5359737827715356,41.5,65,M,37.0,16.0,6.0,14.0,6.0,Asian/Pacific Islander,"White-Not Hispanic/Latino, Native American/Eskimo",102,BAD_116,2mos,24,3.3,445,0,116,bad_116b,0.4897815867920201
+12,bad_116a,0.5359737827715356,41.5,65,M,37.0,16.0,6.0,14.0,6.0,Asian/Pacific Islander,"White-Not Hispanic/Latino, Native American/Eskimo",102,BAD_116,2mos,24,3.3,445,0,116,bad_116b,0.4897815867920201
+13,bad_116a,0.5359737827715356,41.5,65,M,37.0,16.0,6.0,14.0,6.0,Asian/Pacific Islander,"White-Not Hispanic/Latino, Native American/Eskimo",102,BAD_116,2mos,24,3.3,445,0,116,bad_116b,0.4897815867920201
+14,bad_116a,0.5359737827715356,41.5,65,M,37.0,16.0,6.0,14.0,6.0,Asian/Pacific Islander,"White-Not Hispanic/Latino, Native American/Eskimo",102,BAD_116,2mos,24,3.3,445,0,116,bad_116b,0.4897815867920201
+15,bad_116a,0.5359737827715356,41.5,65,M,37.0,16.0,6.0,14.0,6.0,Asian/Pacific Islander,"White-Not Hispanic/Latino, Native American/Eskimo",102,BAD_116,2mos,27,2.0,485,5,116,bad_116b,0.4897815867920201
+16,bad_116a,0.5359737827715356,41.5,65,M,37.0,16.0,6.0,14.0,6.0,Asian/Pacific Islander,"White-Not Hispanic/Latino, Native American/Eskimo",102,BAD_116,2mos,27,2.0,485,5,116,bad_116b,0.4897815867920201
+17,bad_116a,0.5359737827715356,41.5,65,M,37.0,16.0,6.0,14.0,6.0,Asian/Pacific Islander,"White-Not Hispanic/Latino, Native American/Eskimo",102,BAD_116,2mos,27,2.0,485,5,116,bad_116b,0.4897815867920201
+18,bad_116a,0.5359737827715356,41.5,65,M,37.0,16.0,6.0,14.0,6.0,Asian/Pacific Islander,"White-Not Hispanic/Latino, Native American/Eskimo",102,BAD_116,2mos,27,2.0,485,5,116,bad_116b,0.4897815867920201
+19,bad_116a,0.5359737827715356,41.5,65,M,37.0,16.0,6.0,14.0,6.0,Asian/Pacific Islander,"White-Not Hispanic/Latino, Native American/Eskimo",102,BAD_116,2mos,27,2.0,485,5,116,bad_116b,0.4897815867920201
+20,bad_116a,0.5359737827715356,41.5,65,M,37.0,16.0,6.0,14.0,6.0,Asian/Pacific Islander,"White-Not Hispanic/Latino, Native American/Eskimo",102,BAD_116,2mos,30,4.3,667,9,116,bad_116b,0.4897815867920201
+21,bad_116a,0.5359737827715356,41.5,65,M,37.0,16.0,6.0,14.0,6.0,Asian/Pacific Islander,"White-Not Hispanic/Latino, Native American/Eskimo",102,BAD_116,2mos,30,4.3,667,9,116,bad_116b,0.4897815867920201
+22,bad_116a,0.5359737827715356,41.5,65,M,37.0,16.0,6.0,14.0,6.0,Asian/Pacific Islander,"White-Not Hispanic/Latino, Native American/Eskimo",102,BAD_116,2mos,30,4.3,667,9,116,bad_116b,0.4897815867920201
+23,bad_116a,0.5359737827715356,41.5,65,M,37.0,16.0,6.0,14.0,6.0,Asian/Pacific Islander,"White-Not Hispanic/Latino, Native American/Eskimo",102,BAD_116,2mos,30,4.3,667,9,116,bad_116b,0.4897815867920201
+24,bad_116a,0.5359737827715356,41.5,65,M,37.0,16.0,6.0,14.0,6.0,Asian/Pacific Islander,"White-Not Hispanic/Latino, Native American/Eskimo",102,BAD_116,2mos,30,4.3,667,9,116,bad_116b,0.4897815867920201
+25,bad_119a,0.4888377028714107,63.0,67,M,40.0,17.0,6.0,16.0,6.0,"Hispanic/Latino, White",White-Not Hispanic/Latino,115,BAD_119,2mos,18,0.0,30,0,119,bad_119b,0.5387589376915219
+26,bad_119a,0.4888377028714107,63.0,67,M,40.0,17.0,6.0,16.0,6.0,"Hispanic/Latino, White",White-Not Hispanic/Latino,115,BAD_119,2mos,18,0.0,30,0,119,bad_119b,0.5387589376915219
+27,bad_119a,0.4888377028714107,63.0,67,M,40.0,17.0,6.0,16.0,6.0,"Hispanic/Latino, White",White-Not Hispanic/Latino,115,BAD_119,2mos,18,0.0,30,0,119,bad_119b,0.5387589376915219
+28,bad_119a,0.4888377028714107,63.0,67,M,40.0,17.0,6.0,16.0,6.0,"Hispanic/Latino, White",White-Not Hispanic/Latino,115,BAD_119,2mos,18,0.0,30,0,119,bad_119b,0.5387589376915219
+29,bad_119a,0.4888377028714107,63.0,67,M,40.0,17.0,6.0,16.0,6.0,"Hispanic/Latino, White",White-Not Hispanic/Latino,115,BAD_119,2mos,18,0.0,30,0,119,bad_119b,0.5387589376915219
+30,bad_119a,0.4888377028714107,63.0,67,M,40.0,17.0,6.0,16.0,6.0,"Hispanic/Latino, White",White-Not Hispanic/Latino,115,BAD_119,2mos,21,2.7,50,4,119,bad_119b,0.5387589376915219
+31,bad_119a,0.4888377028714107,63.0,67,M,40.0,17.0,6.0,16.0,6.0,"Hispanic/Latino, White",White-Not Hispanic/Latino,115,BAD_119,2mos,21,2.7,50,4,119,bad_119b,0.5387589376915219
+32,bad_119a,0.4888377028714107,63.0,67,M,40.0,17.0,6.0,16.0,6.0,"Hispanic/Latino, White",White-Not Hispanic/Latino,115,BAD_119,2mos,21,2.7,50,4,119,bad_119b,0.5387589376915219
+33,bad_119a,0.4888377028714107,63.0,67,M,40.0,17.0,6.0,16.0,6.0,"Hispanic/Latino, White",White-Not Hispanic/Latino,115,BAD_119,2mos,21,2.7,50,4,119,bad_119b,0.5387589376915219
+34,bad_119a,0.4888377028714107,63.0,67,M,40.0,17.0,6.0,16.0,6.0,"Hispanic/Latino, White",White-Not Hispanic/Latino,115,BAD_119,2mos,21,2.7,50,4,119,bad_119b,0.5387589376915219
+35,bad_119a,0.4888377028714107,63.0,67,M,40.0,17.0,6.0,16.0,6.0,"Hispanic/Latino, White",White-Not Hispanic/Latino,115,BAD_119,2mos,24,3.7,105,11,119,bad_119b,0.5387589376915219
+36,bad_119a,0.4888377028714107,63.0,67,M,40.0,17.0,6.0,16.0,6.0,"Hispanic/Latino, White",White-Not Hispanic/Latino,115,BAD_119,2mos,24,3.7,105,11,119,bad_119b,0.5387589376915219
+37,bad_119a,0.4888377028714107,63.0,67,M,40.0,17.0,6.0,16.0,6.0,"Hispanic/Latino, White",White-Not Hispanic/Latino,115,BAD_119,2mos,24,3.7,105,11,119,bad_119b,0.5387589376915219
+38,bad_119a,0.4888377028714107,63.0,67,M,40.0,17.0,6.0,16.0,6.0,"Hispanic/Latino, White",White-Not Hispanic/Latino,115,BAD_119,2mos,24,3.7,105,11,119,bad_119b,0.5387589376915219
+39,bad_119a,0.4888377028714107,63.0,67,M,40.0,17.0,6.0,16.0,6.0,"Hispanic/Latino, White",White-Not Hispanic/Latino,115,BAD_119,2mos,24,3.7,105,11,119,bad_119b,0.5387589376915219
+40,bad_119a,0.4888377028714107,63.0,67,M,40.0,17.0,6.0,16.0,6.0,"Hispanic/Latino, White",White-Not Hispanic/Latino,115,BAD_119,2mos,27,3.7,182,10,119,bad_119b,0.5387589376915219
+41,bad_119a,0.4888377028714107,63.0,67,M,40.0,17.0,6.0,16.0,6.0,"Hispanic/Latino, White",White-Not Hispanic/Latino,115,BAD_119,2mos,27,3.7,182,10,119,bad_119b,0.5387589376915219
+42,bad_119a,0.4888377028714107,63.0,67,M,40.0,17.0,6.0,16.0,6.0,"Hispanic/Latino, White",White-Not Hispanic/Latino,115,BAD_119,2mos,27,3.7,182,10,119,bad_119b,0.5387589376915219
+43,bad_119a,0.4888377028714107,63.0,67,M,40.0,17.0,6.0,16.0,6.0,"Hispanic/Latino, White",White-Not Hispanic/Latino,115,BAD_119,2mos,27,3.7,182,10,119,bad_119b,0.5387589376915219
+44,bad_119a,0.4888377028714107,63.0,67,M,40.0,17.0,6.0,16.0,6.0,"Hispanic/Latino, White",White-Not Hispanic/Latino,115,BAD_119,2mos,27,3.7,182,10,119,bad_119b,0.5387589376915219
+45,bad_119a,0.4888377028714107,63.0,67,M,40.0,17.0,6.0,16.0,6.0,"Hispanic/Latino, White",White-Not Hispanic/Latino,115,BAD_119,2mos,30,5.7,488,9,119,bad_119b,0.5387589376915219
+46,bad_119a,0.4888377028714107,63.0,67,M,40.0,17.0,6.0,16.0,6.0,"Hispanic/Latino, White",White-Not Hispanic/Latino,115,BAD_119,2mos,30,5.7,488,9,119,bad_119b,0.5387589376915219
+47,bad_119a,0.4888377028714107,63.0,67,M,40.0,17.0,6.0,16.0,6.0,"Hispanic/Latino, White",White-Not Hispanic/Latino,115,BAD_119,2mos,30,5.7,488,9,119,bad_119b,0.5387589376915219
+48,bad_119a,0.4888377028714107,63.0,67,M,40.0,17.0,6.0,16.0,6.0,"Hispanic/Latino, White",White-Not Hispanic/Latino,115,BAD_119,2mos,30,5.7,488,9,119,bad_119b,0.5387589376915219
+49,bad_119a,0.4888377028714107,63.0,67,M,40.0,17.0,6.0,16.0,6.0,"Hispanic/Latino, White",White-Not Hispanic/Latino,115,BAD_119,2mos,30,5.7,488,9,119,bad_119b,0.5387589376915219
+50,bad_122a,0.5187578027465668,43.0,60,M,39.0,14.0,5.0,12.0,5.0,White-Not Hispanic/Latino,Black-Not hispanic/Latino,111,BAD_122,2mos,18,0.0,65,0,122,bad_122b,0.5483267443473436
+51,bad_122a,0.5187578027465668,43.0,60,M,39.0,14.0,5.0,12.0,5.0,White-Not Hispanic/Latino,Black-Not hispanic/Latino,111,BAD_122,2mos,18,0.0,65,0,122,bad_122b,0.5483267443473436
+52,bad_122a,0.5187578027465668,43.0,60,M,39.0,14.0,5.0,12.0,5.0,White-Not Hispanic/Latino,Black-Not hispanic/Latino,111,BAD_122,2mos,18,0.0,65,0,122,bad_122b,0.5483267443473436
+53,bad_122a,0.5187578027465668,43.0,60,M,39.0,14.0,5.0,12.0,5.0,White-Not Hispanic/Latino,Black-Not hispanic/Latino,111,BAD_122,2mos,18,0.0,65,0,122,bad_122b,0.5483267443473436
+54,bad_122a,0.5187578027465668,43.0,60,M,39.0,14.0,5.0,12.0,5.0,White-Not Hispanic/Latino,Black-Not hispanic/Latino,111,BAD_122,2mos,18,0.0,65,0,122,bad_122b,0.5483267443473436
+55,bad_122a,0.5187578027465668,43.0,60,M,39.0,14.0,5.0,12.0,5.0,White-Not Hispanic/Latino,Black-Not hispanic/Latino,111,BAD_122,2mos,21,2.0,112,1,122,bad_122b,0.5483267443473436
+56,bad_122a,0.5187578027465668,43.0,60,M,39.0,14.0,5.0,12.0,5.0,White-Not Hispanic/Latino,Black-Not hispanic/Latino,111,BAD_122,2mos,21,2.0,112,1,122,bad_122b,0.5483267443473436
+57,bad_122a,0.5187578027465668,43.0,60,M,39.0,14.0,5.0,12.0,5.0,White-Not Hispanic/Latino,Black-Not hispanic/Latino,111,BAD_122,2mos,21,2.0,112,1,122,bad_122b,0.5483267443473436
+58,bad_122a,0.5187578027465668,43.0,60,M,39.0,14.0,5.0,12.0,5.0,White-Not Hispanic/Latino,Black-Not hispanic/Latino,111,BAD_122,2mos,21,2.0,112,1,122,bad_122b,0.5483267443473436
+59,bad_122a,0.5187578027465668,43.0,60,M,39.0,14.0,5.0,12.0,5.0,White-Not Hispanic/Latino,Black-Not hispanic/Latino,111,BAD_122,2mos,21,2.0,112,1,122,bad_122b,0.5483267443473436
+60,bad_122a,0.5187578027465668,43.0,60,M,39.0,14.0,5.0,12.0,5.0,White-Not Hispanic/Latino,Black-Not hispanic/Latino,111,BAD_122,2mos,24,3.3,307,10,122,bad_122b,0.5483267443473436
+61,bad_122a,0.5187578027465668,43.0,60,M,39.0,14.0,5.0,12.0,5.0,White-Not Hispanic/Latino,Black-Not hispanic/Latino,111,BAD_122,2mos,24,3.3,307,10,122,bad_122b,0.5483267443473436
+62,bad_122a,0.5187578027465668,43.0,60,M,39.0,14.0,5.0,12.0,5.0,White-Not Hispanic/Latino,Black-Not hispanic/Latino,111,BAD_122,2mos,24,3.3,307,10,122,bad_122b,0.5483267443473436
+63,bad_122a,0.5187578027465668,43.0,60,M,39.0,14.0,5.0,12.0,5.0,White-Not Hispanic/Latino,Black-Not hispanic/Latino,111,BAD_122,2mos,24,3.3,307,10,122,bad_122b,0.5483267443473436
+64,bad_122a,0.5187578027465668,43.0,60,M,39.0,14.0,5.0,12.0,5.0,White-Not Hispanic/Latino,Black-Not hispanic/Latino,111,BAD_122,2mos,24,3.3,307,10,122,bad_122b,0.5483267443473436
+65,bad_122a,0.5187578027465668,43.0,60,M,39.0,14.0,5.0,12.0,5.0,White-Not Hispanic/Latino,Black-Not hispanic/Latino,111,BAD_122,2mos,27,2.3,449,10,122,bad_122b,0.5483267443473436
+66,bad_122a,0.5187578027465668,43.0,60,M,39.0,14.0,5.0,12.0,5.0,White-Not Hispanic/Latino,Black-Not hispanic/Latino,111,BAD_122,2mos,27,2.3,449,10,122,bad_122b,0.5483267443473436
+67,bad_122a,0.5187578027465668,43.0,60,M,39.0,14.0,5.0,12.0,5.0,White-Not Hispanic/Latino,Black-Not hispanic/Latino,111,BAD_122,2mos,27,2.3,449,10,122,bad_122b,0.5483267443473436
+68,bad_122a,0.5187578027465668,43.0,60,M,39.0,14.0,5.0,12.0,5.0,White-Not Hispanic/Latino,Black-Not hispanic/Latino,111,BAD_122,2mos,27,2.3,449,10,122,bad_122b,0.5483267443473436
+69,bad_122a,0.5187578027465668,43.0,60,M,39.0,14.0,5.0,12.0,5.0,White-Not Hispanic/Latino,Black-Not hispanic/Latino,111,BAD_122,2mos,27,2.3,449,10,122,bad_122b,0.5483267443473436
+70,bad_122a,0.5187578027465668,43.0,60,M,39.0,14.0,5.0,12.0,5.0,White-Not Hispanic/Latino,Black-Not hispanic/Latino,111,BAD_122,2mos,30,6.7,658,31,122,bad_122b,0.5483267443473436
+71,bad_122a,0.5187578027465668,43.0,60,M,39.0,14.0,5.0,12.0,5.0,White-Not Hispanic/Latino,Black-Not hispanic/Latino,111,BAD_122,2mos,30,6.7,658,31,122,bad_122b,0.5483267443473436
+72,bad_122a,0.5187578027465668,43.0,60,M,39.0,14.0,5.0,12.0,5.0,White-Not Hispanic/Latino,Black-Not hispanic/Latino,111,BAD_122,2mos,30,6.7,658,31,122,bad_122b,0.5483267443473436
+73,bad_122a,0.5187578027465668,43.0,60,M,39.0,14.0,5.0,12.0,5.0,White-Not Hispanic/Latino,Black-Not hispanic/Latino,111,BAD_122,2mos,30,6.7,658,31,122,bad_122b,0.5483267443473436
+74,bad_122a,0.5187578027465668,43.0,60,M,39.0,14.0,5.0,12.0,5.0,White-Not Hispanic/Latino,Black-Not hispanic/Latino,111,BAD_122,2mos,30,6.7,658,31,122,bad_122b,0.5483267443473436
+75,bad_124a,0.474932584269663,42.0,75,M,39.0,18.0,6.0,12.0,4.0,White-Not Hispanic/Latino,White-Not Hispanic/Latino,112,BAD_124,2mos,18,2.5,89,0,124,bad_124b,0.45006242197253443
+76,bad_124a,0.474932584269663,42.0,75,M,39.0,18.0,6.0,12.0,4.0,White-Not Hispanic/Latino,White-Not Hispanic/Latino,112,BAD_124,2mos,18,2.5,89,0,124,bad_124b,0.45006242197253443
+77,bad_124a,0.474932584269663,42.0,75,M,39.0,18.0,6.0,12.0,4.0,White-Not Hispanic/Latino,White-Not Hispanic/Latino,112,BAD_124,2mos,18,2.5,89,0,124,bad_124b,0.45006242197253443
+78,bad_124a,0.474932584269663,42.0,75,M,39.0,18.0,6.0,12.0,4.0,White-Not Hispanic/Latino,White-Not Hispanic/Latino,112,BAD_124,2mos,18,2.5,89,0,124,bad_124b,0.45006242197253443
+79,bad_124a,0.474932584269663,42.0,75,M,39.0,18.0,6.0,12.0,4.0,White-Not Hispanic/Latino,White-Not Hispanic/Latino,112,BAD_124,2mos,18,2.5,89,0,124,bad_124b,0.45006242197253443
+80,bad_124a,0.474932584269663,42.0,75,M,39.0,18.0,6.0,12.0,4.0,White-Not Hispanic/Latino,White-Not Hispanic/Latino,112,BAD_124,2mos,21,1.5,183,0,124,bad_124b,0.45006242197253443
+81,bad_124a,0.474932584269663,42.0,75,M,39.0,18.0,6.0,12.0,4.0,White-Not Hispanic/Latino,White-Not Hispanic/Latino,112,BAD_124,2mos,21,1.5,183,0,124,bad_124b,0.45006242197253443
+82,bad_124a,0.474932584269663,42.0,75,M,39.0,18.0,6.0,12.0,4.0,White-Not Hispanic/Latino,White-Not Hispanic/Latino,112,BAD_124,2mos,21,1.5,183,0,124,bad_124b,0.45006242197253443
+83,bad_124a,0.474932584269663,42.0,75,M,39.0,18.0,6.0,12.0,4.0,White-Not Hispanic/Latino,White-Not Hispanic/Latino,112,BAD_124,2mos,21,1.5,183,0,124,bad_124b,0.45006242197253443
+84,bad_124a,0.474932584269663,42.0,75,M,39.0,18.0,6.0,12.0,4.0,White-Not Hispanic/Latino,White-Not Hispanic/Latino,112,BAD_124,2mos,21,1.5,183,0,124,bad_124b,0.45006242197253443
+85,bad_124a,0.474932584269663,42.0,75,M,39.0,18.0,6.0,12.0,4.0,White-Not Hispanic/Latino,White-Not Hispanic/Latino,112,BAD_124,2mos,24,4.7,398,2,124,bad_124b,0.45006242197253443
+86,bad_124a,0.474932584269663,42.0,75,M,39.0,18.0,6.0,12.0,4.0,White-Not Hispanic/Latino,White-Not Hispanic/Latino,112,BAD_124,2mos,24,4.7,398,2,124,bad_124b,0.45006242197253443
+87,bad_124a,0.474932584269663,42.0,75,M,39.0,18.0,6.0,12.0,4.0,White-Not Hispanic/Latino,White-Not Hispanic/Latino,112,BAD_124,2mos,24,4.7,398,2,124,bad_124b,0.45006242197253443
+88,bad_124a,0.474932584269663,42.0,75,M,39.0,18.0,6.0,12.0,4.0,White-Not Hispanic/Latino,White-Not Hispanic/Latino,112,BAD_124,2mos,24,4.7,398,2,124,bad_124b,0.45006242197253443
+89,bad_124a,0.474932584269663,42.0,75,M,39.0,18.0,6.0,12.0,4.0,White-Not Hispanic/Latino,White-Not Hispanic/Latino,112,BAD_124,2mos,24,4.7,398,2,124,bad_124b,0.45006242197253443
+90,bad_124a,0.474932584269663,42.0,75,M,39.0,18.0,6.0,12.0,4.0,White-Not Hispanic/Latino,White-Not Hispanic/Latino,112,BAD_124,2mos,27,8.3,587,21,124,bad_124b,0.45006242197253443
+91,bad_124a,0.474932584269663,42.0,75,M,39.0,18.0,6.0,12.0,4.0,White-Not Hispanic/Latino,White-Not Hispanic/Latino,112,BAD_124,2mos,27,8.3,587,21,124,bad_124b,0.45006242197253443
+92,bad_124a,0.474932584269663,42.0,75,M,39.0,18.0,6.0,12.0,4.0,White-Not Hispanic/Latino,White-Not Hispanic/Latino,112,BAD_124,2mos,27,8.3,587,21,124,bad_124b,0.45006242197253443
+93,bad_124a,0.474932584269663,42.0,75,M,39.0,18.0,6.0,12.0,4.0,White-Not Hispanic/Latino,White-Not Hispanic/Latino,112,BAD_124,2mos,27,8.3,587,21,124,bad_124b,0.45006242197253443
+94,bad_124a,0.474932584269663,42.0,75,M,39.0,18.0,6.0,12.0,4.0,White-Not Hispanic/Latino,White-Not Hispanic/Latino,112,BAD_124,2mos,27,8.3,587,21,124,bad_124b,0.45006242197253443
+95,bad_124a,0.474932584269663,42.0,75,M,39.0,18.0,6.0,12.0,4.0,White-Not Hispanic/Latino,White-Not Hispanic/Latino,112,BAD_124,2mos,30,10.3,656,26,124,bad_124b,0.45006242197253443
+96,bad_124a,0.474932584269663,42.0,75,M,39.0,18.0,6.0,12.0,4.0,White-Not Hispanic/Latino,White-Not Hispanic/Latino,112,BAD_124,2mos,30,10.3,656,26,124,bad_124b,0.45006242197253443
+97,bad_124a,0.474932584269663,42.0,75,M,39.0,18.0,6.0,12.0,4.0,White-Not Hispanic/Latino,White-Not Hispanic/Latino,112,BAD_124,2mos,30,10.3,656,26,124,bad_124b,0.45006242197253443
+98,bad_124a,0.474932584269663,42.0,75,M,39.0,18.0,6.0,12.0,4.0,White-Not Hispanic/Latino,White-Not Hispanic/Latino,112,BAD_124,2mos,30,10.3,656,26,124,bad_124b,0.45006242197253443
+99,bad_124a,0.474932584269663,42.0,75,M,39.0,18.0,6.0,12.0,4.0,White-Not Hispanic/Latino,White-Not Hispanic/Latino,112,BAD_124,2mos,30,10.3,656,26,124,bad_124b,0.45006242197253443
+100,bad_127a,0.47662297128589265,35.0,57,F,40.0,17.0,6.0,16.0,5.0,White-Not Hispanic/Latino,White-Not Hispanic/Latino,127,BAD_127,2mos,18,2.0,116,2,127,bad_127b,0.5118714107365794
+101,bad_127a,0.47662297128589265,35.0,57,F,40.0,17.0,6.0,16.0,5.0,White-Not Hispanic/Latino,White-Not Hispanic/Latino,127,BAD_127,2mos,18,2.0,116,2,127,bad_127b,0.5118714107365794
+102,bad_127a,0.47662297128589265,35.0,57,F,40.0,17.0,6.0,16.0,5.0,White-Not Hispanic/Latino,White-Not Hispanic/Latino,127,BAD_127,2mos,18,2.0,116,2,127,bad_127b,0.5118714107365794
+103,bad_127a,0.47662297128589265,35.0,57,F,40.0,17.0,6.0,16.0,5.0,White-Not Hispanic/Latino,White-Not Hispanic/Latino,127,BAD_127,2mos,18,2.0,116,2,127,bad_127b,0.5118714107365794
+104,bad_127a,0.47662297128589265,35.0,57,F,40.0,17.0,6.0,16.0,5.0,White-Not Hispanic/Latino,White-Not Hispanic/Latino,127,BAD_127,2mos,18,2.0,116,2,127,bad_127b,0.5118714107365794
+105,bad_127a,0.47662297128589265,35.0,57,F,40.0,17.0,6.0,16.0,5.0,White-Not Hispanic/Latino,White-Not Hispanic/Latino,127,BAD_127,2mos,21,5.0,277,12,127,bad_127b,0.5118714107365794
+106,bad_127a,0.47662297128589265,35.0,57,F,40.0,17.0,6.0,16.0,5.0,White-Not Hispanic/Latino,White-Not Hispanic/Latino,127,BAD_127,2mos,21,5.0,277,12,127,bad_127b,0.5118714107365794
+107,bad_127a,0.47662297128589265,35.0,57,F,40.0,17.0,6.0,16.0,5.0,White-Not Hispanic/Latino,White-Not Hispanic/Latino,127,BAD_127,2mos,21,5.0,277,12,127,bad_127b,0.5118714107365794
+108,bad_127a,0.47662297128589265,35.0,57,F,40.0,17.0,6.0,16.0,5.0,White-Not Hispanic/Latino,White-Not Hispanic/Latino,127,BAD_127,2mos,21,5.0,277,12,127,bad_127b,0.5118714107365794
+109,bad_127a,0.47662297128589265,35.0,57,F,40.0,17.0,6.0,16.0,5.0,White-Not Hispanic/Latino,White-Not Hispanic/Latino,127,BAD_127,2mos,21,5.0,277,12,127,bad_127b,0.5118714107365794
+110,bad_127a,0.47662297128589265,35.0,57,F,40.0,17.0,6.0,16.0,5.0,White-Not Hispanic/Latino,White-Not Hispanic/Latino,127,BAD_127,2mos,24,6.0,456,26,127,bad_127b,0.5118714107365794
+111,bad_127a,0.47662297128589265,35.0,57,F,40.0,17.0,6.0,16.0,5.0,White-Not Hispanic/Latino,White-Not Hispanic/Latino,127,BAD_127,2mos,24,6.0,456,26,127,bad_127b,0.5118714107365794
+112,bad_127a,0.47662297128589265,35.0,57,F,40.0,17.0,6.0,16.0,5.0,White-Not Hispanic/Latino,White-Not Hispanic/Latino,127,BAD_127,2mos,24,6.0,456,26,127,bad_127b,0.5118714107365794
+113,bad_127a,0.47662297128589265,35.0,57,F,40.0,17.0,6.0,16.0,5.0,White-Not Hispanic/Latino,White-Not Hispanic/Latino,127,BAD_127,2mos,24,6.0,456,26,127,bad_127b,0.5118714107365794
+114,bad_127a,0.47662297128589265,35.0,57,F,40.0,17.0,6.0,16.0,5.0,White-Not Hispanic/Latino,White-Not Hispanic/Latino,127,BAD_127,2mos,24,6.0,456,26,127,bad_127b,0.5118714107365794
+115,bad_127a,0.47662297128589265,35.0,57,F,40.0,17.0,6.0,16.0,5.0,White-Not Hispanic/Latino,White-Not Hispanic/Latino,127,BAD_127,2mos,27,8.3,544,26,127,bad_127b,0.5118714107365794
+116,bad_127a,0.47662297128589265,35.0,57,F,40.0,17.0,6.0,16.0,5.0,White-Not Hispanic/Latino,White-Not Hispanic/Latino,127,BAD_127,2mos,27,8.3,544,26,127,bad_127b,0.5118714107365794
+117,bad_127a,0.47662297128589265,35.0,57,F,40.0,17.0,6.0,16.0,5.0,White-Not Hispanic/Latino,White-Not Hispanic/Latino,127,BAD_127,2mos,27,8.3,544,26,127,bad_127b,0.5118714107365794
+118,bad_127a,0.47662297128589265,35.0,57,F,40.0,17.0,6.0,16.0,5.0,White-Not Hispanic/Latino,White-Not Hispanic/Latino,127,BAD_127,2mos,27,8.3,544,26,127,bad_127b,0.5118714107365794
+119,bad_127a,0.47662297128589265,35.0,57,F,40.0,17.0,6.0,16.0,5.0,White-Not Hispanic/Latino,White-Not Hispanic/Latino,127,BAD_127,2mos,27,8.3,544,26,127,bad_127b,0.5118714107365794
+120,bad_127a,0.47662297128589265,35.0,57,F,40.0,17.0,6.0,16.0,5.0,White-Not Hispanic/Latino,White-Not Hispanic/Latino,127,BAD_127,2mos,30,11.0,633,33,127,bad_127b,0.5118714107365794
+121,bad_127a,0.47662297128589265,35.0,57,F,40.0,17.0,6.0,16.0,5.0,White-Not Hispanic/Latino,White-Not Hispanic/Latino,127,BAD_127,2mos,30,11.0,633,33,127,bad_127b,0.5118714107365794
+122,bad_127a,0.47662297128589265,35.0,57,F,40.0,17.0,6.0,16.0,5.0,White-Not Hispanic/Latino,White-Not Hispanic/Latino,127,BAD_127,2mos,30,11.0,633,33,127,bad_127b,0.5118714107365794
+123,bad_127a,0.47662297128589265,35.0,57,F,40.0,17.0,6.0,16.0,5.0,White-Not Hispanic/Latino,White-Not Hispanic/Latino,127,BAD_127,2mos,30,11.0,633,33,127,bad_127b,0.5118714107365794
+124,bad_127a,0.47662297128589265,35.0,57,F,40.0,17.0,6.0,16.0,5.0,White-Not Hispanic/Latino,White-Not Hispanic/Latino,127,BAD_127,2mos,30,11.0,633,33,127,bad_127b,0.5118714107365794
+125,bad_128a,0.49001346457424083,22.0,54,M,39.0,12.0,4.0,12.0,4.0,Trinidad American,"Black-Not Hispanic/Latino, Native American/Eskimo, White",108,BAD_128,2mos,18,0.0,46,0,128,bad_128b,0.5100473581576749
+126,bad_128a,0.49001346457424083,22.0,54,M,39.0,12.0,4.0,12.0,4.0,Trinidad American,"Black-Not Hispanic/Latino, Native American/Eskimo, White",108,BAD_128,2mos,18,0.0,46,0,128,bad_128b,0.5100473581576749
+127,bad_128a,0.49001346457424083,22.0,54,M,39.0,12.0,4.0,12.0,4.0,Trinidad American,"Black-Not Hispanic/Latino, Native American/Eskimo, White",108,BAD_128,2mos,18,0.0,46,0,128,bad_128b,0.5100473581576749
+128,bad_128a,0.49001346457424083,22.0,54,M,39.0,12.0,4.0,12.0,4.0,Trinidad American,"Black-Not Hispanic/Latino, Native American/Eskimo, White",108,BAD_128,2mos,18,0.0,46,0,128,bad_128b,0.5100473581576749
+129,bad_128a,0.49001346457424083,22.0,54,M,39.0,12.0,4.0,12.0,4.0,Trinidad American,"Black-Not Hispanic/Latino, Native American/Eskimo, White",108,BAD_128,2mos,18,0.0,46,0,128,bad_128b,0.5100473581576749
+130,bad_128a,0.49001346457424083,22.0,54,M,39.0,12.0,4.0,12.0,4.0,Trinidad American,"Black-Not Hispanic/Latino, Native American/Eskimo, White",108,BAD_128,2mos,21,0.0,88,0,128,bad_128b,0.5100473581576749
+131,bad_128a,0.49001346457424083,22.0,54,M,39.0,12.0,4.0,12.0,4.0,Trinidad American,"Black-Not Hispanic/Latino, Native American/Eskimo, White",108,BAD_128,2mos,21,0.0,88,0,128,bad_128b,0.5100473581576749
+132,bad_128a,0.49001346457424083,22.0,54,M,39.0,12.0,4.0,12.0,4.0,Trinidad American,"Black-Not Hispanic/Latino, Native American/Eskimo, White",108,BAD_128,2mos,21,0.0,88,0,128,bad_128b,0.5100473581576749
+133,bad_128a,0.49001346457424083,22.0,54,M,39.0,12.0,4.0,12.0,4.0,Trinidad American,"Black-Not Hispanic/Latino, Native American/Eskimo, White",108,BAD_128,2mos,21,0.0,88,0,128,bad_128b,0.5100473581576749
+134,bad_128a,0.49001346457424083,22.0,54,M,39.0,12.0,4.0,12.0,4.0,Trinidad American,"Black-Not Hispanic/Latino, Native American/Eskimo, White",108,BAD_128,2mos,21,0.0,88,0,128,bad_128b,0.5100473581576749
+135,bad_128a,0.49001346457424083,22.0,54,M,39.0,12.0,4.0,12.0,4.0,Trinidad American,"Black-Not Hispanic/Latino, Native American/Eskimo, White",108,BAD_128,2mos,24,2.0,136,7,128,bad_128b,0.5100473581576749
+136,bad_128a,0.49001346457424083,22.0,54,M,39.0,12.0,4.0,12.0,4.0,Trinidad American,"Black-Not Hispanic/Latino, Native American/Eskimo, White",108,BAD_128,2mos,24,2.0,136,7,128,bad_128b,0.5100473581576749
+137,bad_128a,0.49001346457424083,22.0,54,M,39.0,12.0,4.0,12.0,4.0,Trinidad American,"Black-Not Hispanic/Latino, Native American/Eskimo, White",108,BAD_128,2mos,24,2.0,136,7,128,bad_128b,0.5100473581576749
+138,bad_128a,0.49001346457424083,22.0,54,M,39.0,12.0,4.0,12.0,4.0,Trinidad American,"Black-Not Hispanic/Latino, Native American/Eskimo, White",108,BAD_128,2mos,24,2.0,136,7,128,bad_128b,0.5100473581576749
+139,bad_128a,0.49001346457424083,22.0,54,M,39.0,12.0,4.0,12.0,4.0,Trinidad American,"Black-Not Hispanic/Latino, Native American/Eskimo, White",108,BAD_128,2mos,24,2.0,136,7,128,bad_128b,0.5100473581576749
+140,bad_128a,0.49001346457424083,22.0,54,M,39.0,12.0,4.0,12.0,4.0,Trinidad American,"Black-Not Hispanic/Latino, Native American/Eskimo, White",108,BAD_128,2mos,27,2.7,195,12,128,bad_128b,0.5100473581576749
+141,bad_128a,0.49001346457424083,22.0,54,M,39.0,12.0,4.0,12.0,4.0,Trinidad American,"Black-Not Hispanic/Latino, Native American/Eskimo, White",108,BAD_128,2mos,27,2.7,195,12,128,bad_128b,0.5100473581576749
+142,bad_128a,0.49001346457424083,22.0,54,M,39.0,12.0,4.0,12.0,4.0,Trinidad American,"Black-Not Hispanic/Latino, Native American/Eskimo, White",108,BAD_128,2mos,27,2.7,195,12,128,bad_128b,0.5100473581576749
+143,bad_128a,0.49001346457424083,22.0,54,M,39.0,12.0,4.0,12.0,4.0,Trinidad American,"Black-Not Hispanic/Latino, Native American/Eskimo, White",108,BAD_128,2mos,27,2.7,195,12,128,bad_128b,0.5100473581576749
+144,bad_128a,0.49001346457424083,22.0,54,M,39.0,12.0,4.0,12.0,4.0,Trinidad American,"Black-Not Hispanic/Latino, Native American/Eskimo, White",108,BAD_128,2mos,27,2.7,195,12,128,bad_128b,0.5100473581576749
+145,bad_128a,0.49001346457424083,22.0,54,M,39.0,12.0,4.0,12.0,4.0,Trinidad American,"Black-Not Hispanic/Latino, Native American/Eskimo, White",108,BAD_128,2mos,30,0.0,254,0,128,bad_128b,0.5100473581576749
+146,bad_128a,0.49001346457424083,22.0,54,M,39.0,12.0,4.0,12.0,4.0,Trinidad American,"Black-Not Hispanic/Latino, Native American/Eskimo, White",108,BAD_128,2mos,30,0.0,254,0,128,bad_128b,0.5100473581576749
+147,bad_128a,0.49001346457424083,22.0,54,M,39.0,12.0,4.0,12.0,4.0,Trinidad American,"Black-Not Hispanic/Latino, Native American/Eskimo, White",108,BAD_128,2mos,30,0.0,254,0,128,bad_128b,0.5100473581576749
+148,bad_128a,0.49001346457424083,22.0,54,M,39.0,12.0,4.0,12.0,4.0,Trinidad American,"Black-Not Hispanic/Latino, Native American/Eskimo, White",108,BAD_128,2mos,30,0.0,254,0,128,bad_128b,0.5100473581576749
+149,bad_128a,0.49001346457424083,22.0,54,M,39.0,12.0,4.0,12.0,4.0,Trinidad American,"Black-Not Hispanic/Latino, Native American/Eskimo, White",108,BAD_128,2mos,30,0.0,254,0,128,bad_128b,0.5100473581576749
+150,bad_131a,0.5142359550561798,36.5,54,F,39.0,12.0,4.0,12.0,4.0,Asian/Pacific Islander,Hispanic/Latino and Black Hispanic/Latino,106,BAD_131,2mos,18,0.0,3,0,131,bad_131b,0.4585153217568948
+151,bad_131a,0.5142359550561798,36.5,54,F,39.0,12.0,4.0,12.0,4.0,Asian/Pacific Islander,Hispanic/Latino and Black Hispanic/Latino,106,BAD_131,2mos,18,0.0,3,0,131,bad_131b,0.4585153217568948
+152,bad_131a,0.5142359550561798,36.5,54,F,39.0,12.0,4.0,12.0,4.0,Asian/Pacific Islander,Hispanic/Latino and Black Hispanic/Latino,106,BAD_131,2mos,18,0.0,3,0,131,bad_131b,0.4585153217568948
+153,bad_131a,0.5142359550561798,36.5,54,F,39.0,12.0,4.0,12.0,4.0,Asian/Pacific Islander,Hispanic/Latino and Black Hispanic/Latino,106,BAD_131,2mos,18,0.0,3,0,131,bad_131b,0.4585153217568948
+154,bad_131a,0.5142359550561798,36.5,54,F,39.0,12.0,4.0,12.0,4.0,Asian/Pacific Islander,Hispanic/Latino and Black Hispanic/Latino,106,BAD_131,2mos,18,0.0,3,0,131,bad_131b,0.4585153217568948
+155,bad_131a,0.5142359550561798,36.5,54,F,39.0,12.0,4.0,12.0,4.0,Asian/Pacific Islander,Hispanic/Latino and Black Hispanic/Latino,106,BAD_131,2mos,21,0.0,8,0,131,bad_131b,0.4585153217568948
+156,bad_131a,0.5142359550561798,36.5,54,F,39.0,12.0,4.0,12.0,4.0,Asian/Pacific Islander,Hispanic/Latino and Black Hispanic/Latino,106,BAD_131,2mos,21,0.0,8,0,131,bad_131b,0.4585153217568948
+157,bad_131a,0.5142359550561798,36.5,54,F,39.0,12.0,4.0,12.0,4.0,Asian/Pacific Islander,Hispanic/Latino and Black Hispanic/Latino,106,BAD_131,2mos,21,0.0,8,0,131,bad_131b,0.4585153217568948
+158,bad_131a,0.5142359550561798,36.5,54,F,39.0,12.0,4.0,12.0,4.0,Asian/Pacific Islander,Hispanic/Latino and Black Hispanic/Latino,106,BAD_131,2mos,21,0.0,8,0,131,bad_131b,0.4585153217568948
+159,bad_131a,0.5142359550561798,36.5,54,F,39.0,12.0,4.0,12.0,4.0,Asian/Pacific Islander,Hispanic/Latino and Black Hispanic/Latino,106,BAD_131,2mos,21,0.0,8,0,131,bad_131b,0.4585153217568948
+160,bad_131a,0.5142359550561798,36.5,54,F,39.0,12.0,4.0,12.0,4.0,Asian/Pacific Islander,Hispanic/Latino and Black Hispanic/Latino,106,BAD_131,2mos,24,0.0,41,0,131,bad_131b,0.4585153217568948
+161,bad_131a,0.5142359550561798,36.5,54,F,39.0,12.0,4.0,12.0,4.0,Asian/Pacific Islander,Hispanic/Latino and Black Hispanic/Latino,106,BAD_131,2mos,24,0.0,41,0,131,bad_131b,0.4585153217568948
+162,bad_131a,0.5142359550561798,36.5,54,F,39.0,12.0,4.0,12.0,4.0,Asian/Pacific Islander,Hispanic/Latino and Black Hispanic/Latino,106,BAD_131,2mos,24,0.0,41,0,131,bad_131b,0.4585153217568948
+163,bad_131a,0.5142359550561798,36.5,54,F,39.0,12.0,4.0,12.0,4.0,Asian/Pacific Islander,Hispanic/Latino and Black Hispanic/Latino,106,BAD_131,2mos,24,0.0,41,0,131,bad_131b,0.4585153217568948
+164,bad_131a,0.5142359550561798,36.5,54,F,39.0,12.0,4.0,12.0,4.0,Asian/Pacific Islander,Hispanic/Latino and Black Hispanic/Latino,106,BAD_131,2mos,24,0.0,41,0,131,bad_131b,0.4585153217568948
+165,bad_131a,0.5142359550561798,36.5,54,F,39.0,12.0,4.0,12.0,4.0,Asian/Pacific Islander,Hispanic/Latino and Black Hispanic/Latino,106,BAD_131,2mos,30,2.7,201,12,131,bad_131b,0.4585153217568948
+166,bad_131a,0.5142359550561798,36.5,54,F,39.0,12.0,4.0,12.0,4.0,Asian/Pacific Islander,Hispanic/Latino and Black Hispanic/Latino,106,BAD_131,2mos,30,2.7,201,12,131,bad_131b,0.4585153217568948
+167,bad_131a,0.5142359550561798,36.5,54,F,39.0,12.0,4.0,12.0,4.0,Asian/Pacific Islander,Hispanic/Latino and Black Hispanic/Latino,106,BAD_131,2mos,30,2.7,201,12,131,bad_131b,0.4585153217568948
+168,bad_131a,0.5142359550561798,36.5,54,F,39.0,12.0,4.0,12.0,4.0,Asian/Pacific Islander,Hispanic/Latino and Black Hispanic/Latino,106,BAD_131,2mos,30,2.7,201,12,131,bad_131b,0.4585153217568948
+169,bad_131a,0.5142359550561798,36.5,54,F,39.0,12.0,4.0,12.0,4.0,Asian/Pacific Islander,Hispanic/Latino and Black Hispanic/Latino,106,BAD_131,2mos,30,2.7,201,12,131,bad_131b,0.4585153217568948
+170,bad_131a,0.5142359550561798,36.5,54,F,39.0,12.0,4.0,12.0,4.0,Asian/Pacific Islander,Hispanic/Latino and Black Hispanic/Latino,106,BAD_131,2mos,27,0.0,88,0,131,bad_131b,0.4585153217568948
+171,bad_131a,0.5142359550561798,36.5,54,F,39.0,12.0,4.0,12.0,4.0,Asian/Pacific Islander,Hispanic/Latino and Black Hispanic/Latino,106,BAD_131,2mos,27,0.0,88,0,131,bad_131b,0.4585153217568948
+172,bad_131a,0.5142359550561798,36.5,54,F,39.0,12.0,4.0,12.0,4.0,Asian/Pacific Islander,Hispanic/Latino and Black Hispanic/Latino,106,BAD_131,2mos,27,0.0,88,0,131,bad_131b,0.4585153217568948
+173,bad_131a,0.5142359550561798,36.5,54,F,39.0,12.0,4.0,12.0,4.0,Asian/Pacific Islander,Hispanic/Latino and Black Hispanic/Latino,106,BAD_131,2mos,27,0.0,88,0,131,bad_131b,0.4585153217568948
+174,bad_131a,0.5142359550561798,36.5,54,F,39.0,12.0,4.0,12.0,4.0,Asian/Pacific Islander,Hispanic/Latino and Black Hispanic/Latino,106,BAD_131,2mos,27,0.0,88,0,131,bad_131b,0.4585153217568948
+175,bad_209a,0.4864273824386183,66.0,54,F,40.0,18.0,7.0,19.0,7.0,White-Not Hispanic/Latino,White-Not Hispanic/Latino,124,BAD_209,2mos,18,0.0,147,0,209,bad_209b,0.4818753344034243
+176,bad_209a,0.4864273824386183,66.0,54,F,40.0,18.0,7.0,19.0,7.0,White-Not Hispanic/Latino,White-Not Hispanic/Latino,124,BAD_209,2mos,18,0.0,147,0,209,bad_209b,0.4818753344034243
+177,bad_209a,0.4864273824386183,66.0,54,F,40.0,18.0,7.0,19.0,7.0,White-Not Hispanic/Latino,White-Not Hispanic/Latino,124,BAD_209,2mos,18,0.0,147,0,209,bad_209b,0.4818753344034243
+178,bad_209a,0.4864273824386183,66.0,54,F,40.0,18.0,7.0,19.0,7.0,White-Not Hispanic/Latino,White-Not Hispanic/Latino,124,BAD_209,2mos,18,0.0,147,0,209,bad_209b,0.4818753344034243
+179,bad_209a,0.4864273824386183,66.0,54,F,40.0,18.0,7.0,19.0,7.0,White-Not Hispanic/Latino,White-Not Hispanic/Latino,124,BAD_209,2mos,18,0.0,147,0,209,bad_209b,0.4818753344034243
+180,bad_209a,0.4864273824386183,66.0,54,F,40.0,18.0,7.0,19.0,7.0,White-Not Hispanic/Latino,White-Not Hispanic/Latino,124,BAD_209,2mos,21,3.7,302,7,209,bad_209b,0.4818753344034243
+181,bad_209a,0.4864273824386183,66.0,54,F,40.0,18.0,7.0,19.0,7.0,White-Not Hispanic/Latino,White-Not Hispanic/Latino,124,BAD_209,2mos,21,3.7,302,7,209,bad_209b,0.4818753344034243
+182,bad_209a,0.4864273824386183,66.0,54,F,40.0,18.0,7.0,19.0,7.0,White-Not Hispanic/Latino,White-Not Hispanic/Latino,124,BAD_209,2mos,21,3.7,302,7,209,bad_209b,0.4818753344034243
+183,bad_209a,0.4864273824386183,66.0,54,F,40.0,18.0,7.0,19.0,7.0,White-Not Hispanic/Latino,White-Not Hispanic/Latino,124,BAD_209,2mos,21,3.7,302,7,209,bad_209b,0.4818753344034243
+184,bad_209a,0.4864273824386183,66.0,54,F,40.0,18.0,7.0,19.0,7.0,White-Not Hispanic/Latino,White-Not Hispanic/Latino,124,BAD_209,2mos,21,3.7,302,7,209,bad_209b,0.4818753344034243
+185,bad_209a,0.4864273824386183,66.0,54,F,40.0,18.0,7.0,19.0,7.0,White-Not Hispanic/Latino,White-Not Hispanic/Latino,124,BAD_209,2mos,24,7.0,412,15,209,bad_209b,0.4818753344034243
+186,bad_209a,0.4864273824386183,66.0,54,F,40.0,18.0,7.0,19.0,7.0,White-Not Hispanic/Latino,White-Not Hispanic/Latino,124,BAD_209,2mos,24,7.0,412,15,209,bad_209b,0.4818753344034243
+187,bad_209a,0.4864273824386183,66.0,54,F,40.0,18.0,7.0,19.0,7.0,White-Not Hispanic/Latino,White-Not Hispanic/Latino,124,BAD_209,2mos,24,7.0,412,15,209,bad_209b,0.4818753344034243
+188,bad_209a,0.4864273824386183,66.0,54,F,40.0,18.0,7.0,19.0,7.0,White-Not Hispanic/Latino,White-Not Hispanic/Latino,124,BAD_209,2mos,24,7.0,412,15,209,bad_209b,0.4818753344034243
+189,bad_209a,0.4864273824386183,66.0,54,F,40.0,18.0,7.0,19.0,7.0,White-Not Hispanic/Latino,White-Not Hispanic/Latino,124,BAD_209,2mos,24,7.0,412,15,209,bad_209b,0.4818753344034243
+190,bad_209a,0.4864273824386183,66.0,54,F,40.0,18.0,7.0,19.0,7.0,White-Not Hispanic/Latino,White-Not Hispanic/Latino,124,BAD_209,2mos,27,6.7,478,27,209,bad_209b,0.4818753344034243
+191,bad_209a,0.4864273824386183,66.0,54,F,40.0,18.0,7.0,19.0,7.0,White-Not Hispanic/Latino,White-Not Hispanic/Latino,124,BAD_209,2mos,27,6.7,478,27,209,bad_209b,0.4818753344034243
+192,bad_209a,0.4864273824386183,66.0,54,F,40.0,18.0,7.0,19.0,7.0,White-Not Hispanic/Latino,White-Not Hispanic/Latino,124,BAD_209,2mos,27,6.7,478,27,209,bad_209b,0.4818753344034243
+193,bad_209a,0.4864273824386183,66.0,54,F,40.0,18.0,7.0,19.0,7.0,White-Not Hispanic/Latino,White-Not Hispanic/Latino,124,BAD_209,2mos,27,6.7,478,27,209,bad_209b,0.4818753344034243
+194,bad_209a,0.4864273824386183,66.0,54,F,40.0,18.0,7.0,19.0,7.0,White-Not Hispanic/Latino,White-Not Hispanic/Latino,124,BAD_209,2mos,27,6.7,478,27,209,bad_209b,0.4818753344034243
+195,bad_209a,0.4864273824386183,66.0,54,F,40.0,18.0,7.0,19.0,7.0,White-Not Hispanic/Latino,White-Not Hispanic/Latino,124,BAD_209,2mos,30,10.0,599,34,209,bad_209b,0.4818753344034243
+196,bad_209a,0.4864273824386183,66.0,54,F,40.0,18.0,7.0,19.0,7.0,White-Not Hispanic/Latino,White-Not Hispanic/Latino,124,BAD_209,2mos,30,10.0,599,34,209,bad_209b,0.4818753344034243
+197,bad_209a,0.4864273824386183,66.0,54,F,40.0,18.0,7.0,19.0,7.0,White-Not Hispanic/Latino,White-Not Hispanic/Latino,124,BAD_209,2mos,30,10.0,599,34,209,bad_209b,0.4818753344034243
+198,bad_209a,0.4864273824386183,66.0,54,F,40.0,18.0,7.0,19.0,7.0,White-Not Hispanic/Latino,White-Not Hispanic/Latino,124,BAD_209,2mos,30,10.0,599,34,209,bad_209b,0.4818753344034243
+199,bad_209a,0.4864273824386183,66.0,54,F,40.0,18.0,7.0,19.0,7.0,White-Not Hispanic/Latino,White-Not Hispanic/Latino,124,BAD_209,2mos,30,10.0,599,34,209,bad_209b,0.4818753344034243
+200,bad_211a,0.4233497191011235,60.5,63,F,38.0,15.0,6.0,17.0,6.0,White-Not Hispanic/Latino,White-Not Hispanic/Latino,111,BAD_211,2mos,18,0.0,40,0,211,bad_211b,0.49988964686998394
+201,bad_211a,0.4233497191011235,60.5,63,F,38.0,15.0,6.0,17.0,6.0,White-Not Hispanic/Latino,White-Not Hispanic/Latino,111,BAD_211,2mos,18,0.0,40,0,211,bad_211b,0.49988964686998394
+202,bad_211a,0.4233497191011235,60.5,63,F,38.0,15.0,6.0,17.0,6.0,White-Not Hispanic/Latino,White-Not Hispanic/Latino,111,BAD_211,2mos,18,0.0,40,0,211,bad_211b,0.49988964686998394
+203,bad_211a,0.4233497191011235,60.5,63,F,38.0,15.0,6.0,17.0,6.0,White-Not Hispanic/Latino,White-Not Hispanic/Latino,111,BAD_211,2mos,18,0.0,40,0,211,bad_211b,0.49988964686998394
+204,bad_211a,0.4233497191011235,60.5,63,F,38.0,15.0,6.0,17.0,6.0,White-Not Hispanic/Latino,White-Not Hispanic/Latino,111,BAD_211,2mos,18,0.0,40,0,211,bad_211b,0.49988964686998394
+205,bad_211a,0.4233497191011235,60.5,63,F,38.0,15.0,6.0,17.0,6.0,White-Not Hispanic/Latino,White-Not Hispanic/Latino,111,BAD_211,2mos,21,0.0,155,0,211,bad_211b,0.49988964686998394
+206,bad_211a,0.4233497191011235,60.5,63,F,38.0,15.0,6.0,17.0,6.0,White-Not Hispanic/Latino,White-Not Hispanic/Latino,111,BAD_211,2mos,21,0.0,155,0,211,bad_211b,0.49988964686998394
+207,bad_211a,0.4233497191011235,60.5,63,F,38.0,15.0,6.0,17.0,6.0,White-Not Hispanic/Latino,White-Not Hispanic/Latino,111,BAD_211,2mos,21,0.0,155,0,211,bad_211b,0.49988964686998394
+208,bad_211a,0.4233497191011235,60.5,63,F,38.0,15.0,6.0,17.0,6.0,White-Not Hispanic/Latino,White-Not Hispanic/Latino,111,BAD_211,2mos,21,0.0,155,0,211,bad_211b,0.49988964686998394
+209,bad_211a,0.4233497191011235,60.5,63,F,38.0,15.0,6.0,17.0,6.0,White-Not Hispanic/Latino,White-Not Hispanic/Latino,111,BAD_211,2mos,21,0.0,155,0,211,bad_211b,0.49988964686998394
+210,bad_211a,0.4233497191011235,60.5,63,F,38.0,15.0,6.0,17.0,6.0,White-Not Hispanic/Latino,White-Not Hispanic/Latino,111,BAD_211,2mos,24,0.0,280,0,211,bad_211b,0.49988964686998394
+211,bad_211a,0.4233497191011235,60.5,63,F,38.0,15.0,6.0,17.0,6.0,White-Not Hispanic/Latino,White-Not Hispanic/Latino,111,BAD_211,2mos,24,0.0,280,0,211,bad_211b,0.49988964686998394
+212,bad_211a,0.4233497191011235,60.5,63,F,38.0,15.0,6.0,17.0,6.0,White-Not Hispanic/Latino,White-Not Hispanic/Latino,111,BAD_211,2mos,24,0.0,280,0,211,bad_211b,0.49988964686998394
+213,bad_211a,0.4233497191011235,60.5,63,F,38.0,15.0,6.0,17.0,6.0,White-Not Hispanic/Latino,White-Not Hispanic/Latino,111,BAD_211,2mos,24,0.0,280,0,211,bad_211b,0.49988964686998394
+214,bad_211a,0.4233497191011235,60.5,63,F,38.0,15.0,6.0,17.0,6.0,White-Not Hispanic/Latino,White-Not Hispanic/Latino,111,BAD_211,2mos,24,0.0,280,0,211,bad_211b,0.49988964686998394
+215,bad_211a,0.4233497191011235,60.5,63,F,38.0,15.0,6.0,17.0,6.0,White-Not Hispanic/Latino,White-Not Hispanic/Latino,111,BAD_211,2mos,27,4.0,426,8,211,bad_211b,0.49988964686998394
+216,bad_211a,0.4233497191011235,60.5,63,F,38.0,15.0,6.0,17.0,6.0,White-Not Hispanic/Latino,White-Not Hispanic/Latino,111,BAD_211,2mos,27,4.0,426,8,211,bad_211b,0.49988964686998394
+217,bad_211a,0.4233497191011235,60.5,63,F,38.0,15.0,6.0,17.0,6.0,White-Not Hispanic/Latino,White-Not Hispanic/Latino,111,BAD_211,2mos,27,4.0,426,8,211,bad_211b,0.49988964686998394
+218,bad_211a,0.4233497191011235,60.5,63,F,38.0,15.0,6.0,17.0,6.0,White-Not Hispanic/Latino,White-Not Hispanic/Latino,111,BAD_211,2mos,27,4.0,426,8,211,bad_211b,0.49988964686998394
+219,bad_211a,0.4233497191011235,60.5,63,F,38.0,15.0,6.0,17.0,6.0,White-Not Hispanic/Latino,White-Not Hispanic/Latino,111,BAD_211,2mos,27,4.0,426,8,211,bad_211b,0.49988964686998394
+220,bad_211a,0.4233497191011235,60.5,63,F,38.0,15.0,6.0,17.0,6.0,White-Not Hispanic/Latino,White-Not Hispanic/Latino,111,BAD_211,2mos,30,6.3,589,24,211,bad_211b,0.49988964686998394
+221,bad_211a,0.4233497191011235,60.5,63,F,38.0,15.0,6.0,17.0,6.0,White-Not Hispanic/Latino,White-Not Hispanic/Latino,111,BAD_211,2mos,30,6.3,589,24,211,bad_211b,0.49988964686998394
+222,bad_211a,0.4233497191011235,60.5,63,F,38.0,15.0,6.0,17.0,6.0,White-Not Hispanic/Latino,White-Not Hispanic/Latino,111,BAD_211,2mos,30,6.3,589,24,211,bad_211b,0.49988964686998394
+223,bad_211a,0.4233497191011235,60.5,63,F,38.0,15.0,6.0,17.0,6.0,White-Not Hispanic/Latino,White-Not Hispanic/Latino,111,BAD_211,2mos,30,6.3,589,24,211,bad_211b,0.49988964686998394
+224,bad_211a,0.4233497191011235,60.5,63,F,38.0,15.0,6.0,17.0,6.0,White-Not Hispanic/Latino,White-Not Hispanic/Latino,111,BAD_211,2mos,30,6.3,589,24,211,bad_211b,0.49988964686998394
+225,bad_215a,0.41782702177833264,59.5,60,F,42.0,16.0,6.0,22.0,7.0,"Asian/Pacific Islander, White-Not Hispanic/Latino",White-Not Hispanic/Latino,112,BAD_215,2mos,18,0.0,75,0,215,bad_215b,0.48094007490636703
+226,bad_215a,0.41782702177833264,59.5,60,F,42.0,16.0,6.0,22.0,7.0,"Asian/Pacific Islander, White-Not Hispanic/Latino",White-Not Hispanic/Latino,112,BAD_215,2mos,18,0.0,75,0,215,bad_215b,0.48094007490636703
+227,bad_215a,0.41782702177833264,59.5,60,F,42.0,16.0,6.0,22.0,7.0,"Asian/Pacific Islander, White-Not Hispanic/Latino",White-Not Hispanic/Latino,112,BAD_215,2mos,18,0.0,75,0,215,bad_215b,0.48094007490636703
+228,bad_215a,0.41782702177833264,59.5,60,F,42.0,16.0,6.0,22.0,7.0,"Asian/Pacific Islander, White-Not Hispanic/Latino",White-Not Hispanic/Latino,112,BAD_215,2mos,18,0.0,75,0,215,bad_215b,0.48094007490636703
+229,bad_215a,0.41782702177833264,59.5,60,F,42.0,16.0,6.0,22.0,7.0,"Asian/Pacific Islander, White-Not Hispanic/Latino",White-Not Hispanic/Latino,112,BAD_215,2mos,18,0.0,75,0,215,bad_215b,0.48094007490636703
+230,bad_215a,0.41782702177833264,59.5,60,F,42.0,16.0,6.0,22.0,7.0,"Asian/Pacific Islander, White-Not Hispanic/Latino",White-Not Hispanic/Latino,112,BAD_215,2mos,21,2.0,287,1,215,bad_215b,0.48094007490636703
+231,bad_215a,0.41782702177833264,59.5,60,F,42.0,16.0,6.0,22.0,7.0,"Asian/Pacific Islander, White-Not Hispanic/Latino",White-Not Hispanic/Latino,112,BAD_215,2mos,21,2.0,287,1,215,bad_215b,0.48094007490636703
+232,bad_215a,0.41782702177833264,59.5,60,F,42.0,16.0,6.0,22.0,7.0,"Asian/Pacific Islander, White-Not Hispanic/Latino",White-Not Hispanic/Latino,112,BAD_215,2mos,21,2.0,287,1,215,bad_215b,0.48094007490636703
+233,bad_215a,0.41782702177833264,59.5,60,F,42.0,16.0,6.0,22.0,7.0,"Asian/Pacific Islander, White-Not Hispanic/Latino",White-Not Hispanic/Latino,112,BAD_215,2mos,21,2.0,287,1,215,bad_215b,0.48094007490636703
+234,bad_215a,0.41782702177833264,59.5,60,F,42.0,16.0,6.0,22.0,7.0,"Asian/Pacific Islander, White-Not Hispanic/Latino",White-Not Hispanic/Latino,112,BAD_215,2mos,21,2.0,287,1,215,bad_215b,0.48094007490636703
+235,bad_215a,0.41782702177833264,59.5,60,F,42.0,16.0,6.0,22.0,7.0,"Asian/Pacific Islander, White-Not Hispanic/Latino",White-Not Hispanic/Latino,112,BAD_215,2mos,24,5.7,447,17,215,bad_215b,0.48094007490636703
+236,bad_215a,0.41782702177833264,59.5,60,F,42.0,16.0,6.0,22.0,7.0,"Asian/Pacific Islander, White-Not Hispanic/Latino",White-Not Hispanic/Latino,112,BAD_215,2mos,24,5.7,447,17,215,bad_215b,0.48094007490636703
+237,bad_215a,0.41782702177833264,59.5,60,F,42.0,16.0,6.0,22.0,7.0,"Asian/Pacific Islander, White-Not Hispanic/Latino",White-Not Hispanic/Latino,112,BAD_215,2mos,24,5.7,447,17,215,bad_215b,0.48094007490636703
+238,bad_215a,0.41782702177833264,59.5,60,F,42.0,16.0,6.0,22.0,7.0,"Asian/Pacific Islander, White-Not Hispanic/Latino",White-Not Hispanic/Latino,112,BAD_215,2mos,24,5.7,447,17,215,bad_215b,0.48094007490636703
+239,bad_215a,0.41782702177833264,59.5,60,F,42.0,16.0,6.0,22.0,7.0,"Asian/Pacific Islander, White-Not Hispanic/Latino",White-Not Hispanic/Latino,112,BAD_215,2mos,24,5.7,447,17,215,bad_215b,0.48094007490636703
+240,bad_215a,0.41782702177833264,59.5,60,F,42.0,16.0,6.0,22.0,7.0,"Asian/Pacific Islander, White-Not Hispanic/Latino",White-Not Hispanic/Latino,112,BAD_215,2mos,27,6.3,592,33,215,bad_215b,0.48094007490636703
+241,bad_215a,0.41782702177833264,59.5,60,F,42.0,16.0,6.0,22.0,7.0,"Asian/Pacific Islander, White-Not Hispanic/Latino",White-Not Hispanic/Latino,112,BAD_215,2mos,27,6.3,592,33,215,bad_215b,0.48094007490636703
+242,bad_215a,0.41782702177833264,59.5,60,F,42.0,16.0,6.0,22.0,7.0,"Asian/Pacific Islander, White-Not Hispanic/Latino",White-Not Hispanic/Latino,112,BAD_215,2mos,27,6.3,592,33,215,bad_215b,0.48094007490636703
+243,bad_215a,0.41782702177833264,59.5,60,F,42.0,16.0,6.0,22.0,7.0,"Asian/Pacific Islander, White-Not Hispanic/Latino",White-Not Hispanic/Latino,112,BAD_215,2mos,27,6.3,592,33,215,bad_215b,0.48094007490636703
+244,bad_215a,0.41782702177833264,59.5,60,F,42.0,16.0,6.0,22.0,7.0,"Asian/Pacific Islander, White-Not Hispanic/Latino",White-Not Hispanic/Latino,112,BAD_215,2mos,27,6.3,592,33,215,bad_215b,0.48094007490636703
+245,bad_215a,0.41782702177833264,59.5,60,F,42.0,16.0,6.0,22.0,7.0,"Asian/Pacific Islander, White-Not Hispanic/Latino",White-Not Hispanic/Latino,112,BAD_215,2mos,30,8.0,643,34,215,bad_215b,0.48094007490636703
+246,bad_215a,0.41782702177833264,59.5,60,F,42.0,16.0,6.0,22.0,7.0,"Asian/Pacific Islander, White-Not Hispanic/Latino",White-Not Hispanic/Latino,112,BAD_215,2mos,30,8.0,643,34,215,bad_215b,0.48094007490636703
+247,bad_215a,0.41782702177833264,59.5,60,F,42.0,16.0,6.0,22.0,7.0,"Asian/Pacific Islander, White-Not Hispanic/Latino",White-Not Hispanic/Latino,112,BAD_215,2mos,30,8.0,643,34,215,bad_215b,0.48094007490636703
+248,bad_215a,0.41782702177833264,59.5,60,F,42.0,16.0,6.0,22.0,7.0,"Asian/Pacific Islander, White-Not Hispanic/Latino",White-Not Hispanic/Latino,112,BAD_215,2mos,30,8.0,643,34,215,bad_215b,0.48094007490636703
+249,bad_215a,0.41782702177833264,59.5,60,F,42.0,16.0,6.0,22.0,7.0,"Asian/Pacific Islander, White-Not Hispanic/Latino",White-Not Hispanic/Latino,112,BAD_215,2mos,30,8.0,643,34,215,bad_215b,0.48094007490636703
+250,bad_220a,0.48345318352059924,59.5,64,F,40.0,20.0,7.0,16.0,6.0,White-Not Hispanic/Latino,White-Not Hispanic/Latino,115,BAD_220,2mos,18,0.0,85,0,220,bad_220b,0.5648518115111213
+251,bad_220a,0.48345318352059924,59.5,64,F,40.0,20.0,7.0,16.0,6.0,White-Not Hispanic/Latino,White-Not Hispanic/Latino,115,BAD_220,2mos,18,0.0,85,0,220,bad_220b,0.5648518115111213
+252,bad_220a,0.48345318352059924,59.5,64,F,40.0,20.0,7.0,16.0,6.0,White-Not Hispanic/Latino,White-Not Hispanic/Latino,115,BAD_220,2mos,18,0.0,85,0,220,bad_220b,0.5648518115111213
+253,bad_220a,0.48345318352059924,59.5,64,F,40.0,20.0,7.0,16.0,6.0,White-Not Hispanic/Latino,White-Not Hispanic/Latino,115,BAD_220,2mos,18,0.0,85,0,220,bad_220b,0.5648518115111213
+254,bad_220a,0.48345318352059924,59.5,64,F,40.0,20.0,7.0,16.0,6.0,White-Not Hispanic/Latino,White-Not Hispanic/Latino,115,BAD_220,2mos,18,0.0,85,0,220,bad_220b,0.5648518115111213
+255,bad_220a,0.48345318352059924,59.5,64,F,40.0,20.0,7.0,16.0,6.0,White-Not Hispanic/Latino,White-Not Hispanic/Latino,115,BAD_220,2mos,21,2.0,164,5,220,bad_220b,0.5648518115111213
+256,bad_220a,0.48345318352059924,59.5,64,F,40.0,20.0,7.0,16.0,6.0,White-Not Hispanic/Latino,White-Not Hispanic/Latino,115,BAD_220,2mos,21,2.0,164,5,220,bad_220b,0.5648518115111213
+257,bad_220a,0.48345318352059924,59.5,64,F,40.0,20.0,7.0,16.0,6.0,White-Not Hispanic/Latino,White-Not Hispanic/Latino,115,BAD_220,2mos,21,2.0,164,5,220,bad_220b,0.5648518115111213
+258,bad_220a,0.48345318352059924,59.5,64,F,40.0,20.0,7.0,16.0,6.0,White-Not Hispanic/Latino,White-Not Hispanic/Latino,115,BAD_220,2mos,21,2.0,164,5,220,bad_220b,0.5648518115111213
+259,bad_220a,0.48345318352059924,59.5,64,F,40.0,20.0,7.0,16.0,6.0,White-Not Hispanic/Latino,White-Not Hispanic/Latino,115,BAD_220,2mos,21,2.0,164,5,220,bad_220b,0.5648518115111213
+260,bad_220a,0.48345318352059924,59.5,64,F,40.0,20.0,7.0,16.0,6.0,White-Not Hispanic/Latino,White-Not Hispanic/Latino,115,BAD_220,2mos,24,3.3,325,7,220,bad_220b,0.5648518115111213
+261,bad_220a,0.48345318352059924,59.5,64,F,40.0,20.0,7.0,16.0,6.0,White-Not Hispanic/Latino,White-Not Hispanic/Latino,115,BAD_220,2mos,24,3.3,325,7,220,bad_220b,0.5648518115111213
+262,bad_220a,0.48345318352059924,59.5,64,F,40.0,20.0,7.0,16.0,6.0,White-Not Hispanic/Latino,White-Not Hispanic/Latino,115,BAD_220,2mos,24,3.3,325,7,220,bad_220b,0.5648518115111213
+263,bad_220a,0.48345318352059924,59.5,64,F,40.0,20.0,7.0,16.0,6.0,White-Not Hispanic/Latino,White-Not Hispanic/Latino,115,BAD_220,2mos,24,3.3,325,7,220,bad_220b,0.5648518115111213
+264,bad_220a,0.48345318352059924,59.5,64,F,40.0,20.0,7.0,16.0,6.0,White-Not Hispanic/Latino,White-Not Hispanic/Latino,115,BAD_220,2mos,24,3.3,325,7,220,bad_220b,0.5648518115111213
+265,bad_220a,0.48345318352059924,59.5,64,F,40.0,20.0,7.0,16.0,6.0,White-Not Hispanic/Latino,White-Not Hispanic/Latino,115,BAD_220,2mos,27,6.0,421,7,220,bad_220b,0.5648518115111213
+266,bad_220a,0.48345318352059924,59.5,64,F,40.0,20.0,7.0,16.0,6.0,White-Not Hispanic/Latino,White-Not Hispanic/Latino,115,BAD_220,2mos,27,6.0,421,7,220,bad_220b,0.5648518115111213
+267,bad_220a,0.48345318352059924,59.5,64,F,40.0,20.0,7.0,16.0,6.0,White-Not Hispanic/Latino,White-Not Hispanic/Latino,115,BAD_220,2mos,27,6.0,421,7,220,bad_220b,0.5648518115111213
+268,bad_220a,0.48345318352059924,59.5,64,F,40.0,20.0,7.0,16.0,6.0,White-Not Hispanic/Latino,White-Not Hispanic/Latino,115,BAD_220,2mos,27,6.0,421,7,220,bad_220b,0.5648518115111213
+269,bad_220a,0.48345318352059924,59.5,64,F,40.0,20.0,7.0,16.0,6.0,White-Not Hispanic/Latino,White-Not Hispanic/Latino,115,BAD_220,2mos,27,6.0,421,7,220,bad_220b,0.5648518115111213
+270,bad_220a,0.48345318352059924,59.5,64,F,40.0,20.0,7.0,16.0,6.0,White-Not Hispanic/Latino,White-Not Hispanic/Latino,115,BAD_220,2mos,30,6.3,492,13,220,bad_220b,0.5648518115111213
+271,bad_220a,0.48345318352059924,59.5,64,F,40.0,20.0,7.0,16.0,6.0,White-Not Hispanic/Latino,White-Not Hispanic/Latino,115,BAD_220,2mos,30,6.3,492,13,220,bad_220b,0.5648518115111213
+272,bad_220a,0.48345318352059924,59.5,64,F,40.0,20.0,7.0,16.0,6.0,White-Not Hispanic/Latino,White-Not Hispanic/Latino,115,BAD_220,2mos,30,6.3,492,13,220,bad_220b,0.5648518115111213
+273,bad_220a,0.48345318352059924,59.5,64,F,40.0,20.0,7.0,16.0,6.0,White-Not Hispanic/Latino,White-Not Hispanic/Latino,115,BAD_220,2mos,30,6.3,492,13,220,bad_220b,0.5648518115111213
+274,bad_220a,0.48345318352059924,59.5,64,F,40.0,20.0,7.0,16.0,6.0,White-Not Hispanic/Latino,White-Not Hispanic/Latino,115,BAD_220,2mos,30,6.3,492,13,220,bad_220b,0.5648518115111213
+275,bad_223a,0.5239466292134831,57.0,69,F,39.0,17.0,6.0,20.0,7.0,White-Not Hispanic/Latino,White-Not Hispanic/Latino,109,BAD_223,2mos,18,2.0,124,0,223,bad_223b,0.48894319600499375
+276,bad_223a,0.5239466292134831,57.0,69,F,39.0,17.0,6.0,20.0,7.0,White-Not Hispanic/Latino,White-Not Hispanic/Latino,109,BAD_223,2mos,18,2.0,124,0,223,bad_223b,0.48894319600499375
+277,bad_223a,0.5239466292134831,57.0,69,F,39.0,17.0,6.0,20.0,7.0,White-Not Hispanic/Latino,White-Not Hispanic/Latino,109,BAD_223,2mos,18,2.0,124,0,223,bad_223b,0.48894319600499375
+278,bad_223a,0.5239466292134831,57.0,69,F,39.0,17.0,6.0,20.0,7.0,White-Not Hispanic/Latino,White-Not Hispanic/Latino,109,BAD_223,2mos,18,2.0,124,0,223,bad_223b,0.48894319600499375
+279,bad_223a,0.5239466292134831,57.0,69,F,39.0,17.0,6.0,20.0,7.0,White-Not Hispanic/Latino,White-Not Hispanic/Latino,109,BAD_223,2mos,18,2.0,124,0,223,bad_223b,0.48894319600499375
+280,bad_223a,0.5239466292134831,57.0,69,F,39.0,17.0,6.0,20.0,7.0,White-Not Hispanic/Latino,White-Not Hispanic/Latino,109,BAD_223,2mos,21,4.0,328,4,223,bad_223b,0.48894319600499375
+281,bad_223a,0.5239466292134831,57.0,69,F,39.0,17.0,6.0,20.0,7.0,White-Not Hispanic/Latino,White-Not Hispanic/Latino,109,BAD_223,2mos,21,4.0,328,4,223,bad_223b,0.48894319600499375
+282,bad_223a,0.5239466292134831,57.0,69,F,39.0,17.0,6.0,20.0,7.0,White-Not Hispanic/Latino,White-Not Hispanic/Latino,109,BAD_223,2mos,21,4.0,328,4,223,bad_223b,0.48894319600499375
+283,bad_223a,0.5239466292134831,57.0,69,F,39.0,17.0,6.0,20.0,7.0,White-Not Hispanic/Latino,White-Not Hispanic/Latino,109,BAD_223,2mos,21,4.0,328,4,223,bad_223b,0.48894319600499375
+284,bad_223a,0.5239466292134831,57.0,69,F,39.0,17.0,6.0,20.0,7.0,White-Not Hispanic/Latino,White-Not Hispanic/Latino,109,BAD_223,2mos,21,4.0,328,4,223,bad_223b,0.48894319600499375
+285,bad_223a,0.5239466292134831,57.0,69,F,39.0,17.0,6.0,20.0,7.0,White-Not Hispanic/Latino,White-Not Hispanic/Latino,109,BAD_223,2mos,24,7.7,476,13,223,bad_223b,0.48894319600499375
+286,bad_223a,0.5239466292134831,57.0,69,F,39.0,17.0,6.0,20.0,7.0,White-Not Hispanic/Latino,White-Not Hispanic/Latino,109,BAD_223,2mos,24,7.7,476,13,223,bad_223b,0.48894319600499375
+287,bad_223a,0.5239466292134831,57.0,69,F,39.0,17.0,6.0,20.0,7.0,White-Not Hispanic/Latino,White-Not Hispanic/Latino,109,BAD_223,2mos,24,7.7,476,13,223,bad_223b,0.48894319600499375
+288,bad_223a,0.5239466292134831,57.0,69,F,39.0,17.0,6.0,20.0,7.0,White-Not Hispanic/Latino,White-Not Hispanic/Latino,109,BAD_223,2mos,24,7.7,476,13,223,bad_223b,0.48894319600499375
+289,bad_223a,0.5239466292134831,57.0,69,F,39.0,17.0,6.0,20.0,7.0,White-Not Hispanic/Latino,White-Not Hispanic/Latino,109,BAD_223,2mos,24,7.7,476,13,223,bad_223b,0.48894319600499375
+290,bad_223a,0.5239466292134831,57.0,69,F,39.0,17.0,6.0,20.0,7.0,White-Not Hispanic/Latino,White-Not Hispanic/Latino,109,BAD_223,2mos,27,8.3,609,35,223,bad_223b,0.48894319600499375
+291,bad_223a,0.5239466292134831,57.0,69,F,39.0,17.0,6.0,20.0,7.0,White-Not Hispanic/Latino,White-Not Hispanic/Latino,109,BAD_223,2mos,27,8.3,609,35,223,bad_223b,0.48894319600499375
+292,bad_223a,0.5239466292134831,57.0,69,F,39.0,17.0,6.0,20.0,7.0,White-Not Hispanic/Latino,White-Not Hispanic/Latino,109,BAD_223,2mos,27,8.3,609,35,223,bad_223b,0.48894319600499375
+293,bad_223a,0.5239466292134831,57.0,69,F,39.0,17.0,6.0,20.0,7.0,White-Not Hispanic/Latino,White-Not Hispanic/Latino,109,BAD_223,2mos,27,8.3,609,35,223,bad_223b,0.48894319600499375
+294,bad_223a,0.5239466292134831,57.0,69,F,39.0,17.0,6.0,20.0,7.0,White-Not Hispanic/Latino,White-Not Hispanic/Latino,109,BAD_223,2mos,27,8.3,609,35,223,bad_223b,0.48894319600499375
+295,bad_223a,0.5239466292134831,57.0,69,F,39.0,17.0,6.0,20.0,7.0,White-Not Hispanic/Latino,White-Not Hispanic/Latino,109,BAD_223,2mos,30,11.3,650,37,223,bad_223b,0.48894319600499375
+296,bad_223a,0.5239466292134831,57.0,69,F,39.0,17.0,6.0,20.0,7.0,White-Not Hispanic/Latino,White-Not Hispanic/Latino,109,BAD_223,2mos,30,11.3,650,37,223,bad_223b,0.48894319600499375
+297,bad_223a,0.5239466292134831,57.0,69,F,39.0,17.0,6.0,20.0,7.0,White-Not Hispanic/Latino,White-Not Hispanic/Latino,109,BAD_223,2mos,30,11.3,650,37,223,bad_223b,0.48894319600499375
+298,bad_223a,0.5239466292134831,57.0,69,F,39.0,17.0,6.0,20.0,7.0,White-Not Hispanic/Latino,White-Not Hispanic/Latino,109,BAD_223,2mos,30,11.3,650,37,223,bad_223b,0.48894319600499375
+299,bad_223a,0.5239466292134831,57.0,69,F,39.0,17.0,6.0,20.0,7.0,White-Not Hispanic/Latino,White-Not Hispanic/Latino,109,BAD_223,2mos,30,11.3,650,37,223,bad_223b,0.48894319600499375
+300,bad_224a,0.4595985699693565,66.0,59,M,40.0,19.0,7.0,19.0,7.0,"Hispanic/Latino, White",White-Not Hispanic/Latino,86,BAD_224,2mos,18,2.0,175,1,224,bad_224b,0.5567977528089888
+301,bad_224a,0.4595985699693565,66.0,59,M,40.0,19.0,7.0,19.0,7.0,"Hispanic/Latino, White",White-Not Hispanic/Latino,86,BAD_224,2mos,18,2.0,175,1,224,bad_224b,0.5567977528089888
+302,bad_224a,0.4595985699693565,66.0,59,M,40.0,19.0,7.0,19.0,7.0,"Hispanic/Latino, White",White-Not Hispanic/Latino,86,BAD_224,2mos,18,2.0,175,1,224,bad_224b,0.5567977528089888
+303,bad_224a,0.4595985699693565,66.0,59,M,40.0,19.0,7.0,19.0,7.0,"Hispanic/Latino, White",White-Not Hispanic/Latino,86,BAD_224,2mos,18,2.0,175,1,224,bad_224b,0.5567977528089888
+304,bad_224a,0.4595985699693565,66.0,59,M,40.0,19.0,7.0,19.0,7.0,"Hispanic/Latino, White",White-Not Hispanic/Latino,86,BAD_224,2mos,18,2.0,175,1,224,bad_224b,0.5567977528089888
+305,bad_224a,0.4595985699693565,66.0,59,M,40.0,19.0,7.0,19.0,7.0,"Hispanic/Latino, White",White-Not Hispanic/Latino,86,BAD_224,2mos,21,4.0,288,14,224,bad_224b,0.5567977528089888
+306,bad_224a,0.4595985699693565,66.0,59,M,40.0,19.0,7.0,19.0,7.0,"Hispanic/Latino, White",White-Not Hispanic/Latino,86,BAD_224,2mos,21,4.0,288,14,224,bad_224b,0.5567977528089888
+307,bad_224a,0.4595985699693565,66.0,59,M,40.0,19.0,7.0,19.0,7.0,"Hispanic/Latino, White",White-Not Hispanic/Latino,86,BAD_224,2mos,21,4.0,288,14,224,bad_224b,0.5567977528089888
+308,bad_224a,0.4595985699693565,66.0,59,M,40.0,19.0,7.0,19.0,7.0,"Hispanic/Latino, White",White-Not Hispanic/Latino,86,BAD_224,2mos,21,4.0,288,14,224,bad_224b,0.5567977528089888
+309,bad_224a,0.4595985699693565,66.0,59,M,40.0,19.0,7.0,19.0,7.0,"Hispanic/Latino, White",White-Not Hispanic/Latino,86,BAD_224,2mos,21,4.0,288,14,224,bad_224b,0.5567977528089888
+310,bad_224a,0.4595985699693565,66.0,59,M,40.0,19.0,7.0,19.0,7.0,"Hispanic/Latino, White",White-Not Hispanic/Latino,86,BAD_224,2mos,24,8.3,534,29,224,bad_224b,0.5567977528089888
+311,bad_224a,0.4595985699693565,66.0,59,M,40.0,19.0,7.0,19.0,7.0,"Hispanic/Latino, White",White-Not Hispanic/Latino,86,BAD_224,2mos,24,8.3,534,29,224,bad_224b,0.5567977528089888
+312,bad_224a,0.4595985699693565,66.0,59,M,40.0,19.0,7.0,19.0,7.0,"Hispanic/Latino, White",White-Not Hispanic/Latino,86,BAD_224,2mos,24,8.3,534,29,224,bad_224b,0.5567977528089888
+313,bad_224a,0.4595985699693565,66.0,59,M,40.0,19.0,7.0,19.0,7.0,"Hispanic/Latino, White",White-Not Hispanic/Latino,86,BAD_224,2mos,24,8.3,534,29,224,bad_224b,0.5567977528089888
+314,bad_224a,0.4595985699693565,66.0,59,M,40.0,19.0,7.0,19.0,7.0,"Hispanic/Latino, White",White-Not Hispanic/Latino,86,BAD_224,2mos,24,8.3,534,29,224,bad_224b,0.5567977528089888
+315,bad_224a,0.4595985699693565,66.0,59,M,40.0,19.0,7.0,19.0,7.0,"Hispanic/Latino, White",White-Not Hispanic/Latino,86,BAD_224,2mos,27,9.0,656,35,224,bad_224b,0.5567977528089888
+316,bad_224a,0.4595985699693565,66.0,59,M,40.0,19.0,7.0,19.0,7.0,"Hispanic/Latino, White",White-Not Hispanic/Latino,86,BAD_224,2mos,27,9.0,656,35,224,bad_224b,0.5567977528089888
+317,bad_224a,0.4595985699693565,66.0,59,M,40.0,19.0,7.0,19.0,7.0,"Hispanic/Latino, White",White-Not Hispanic/Latino,86,BAD_224,2mos,27,9.0,656,35,224,bad_224b,0.5567977528089888
+318,bad_224a,0.4595985699693565,66.0,59,M,40.0,19.0,7.0,19.0,7.0,"Hispanic/Latino, White",White-Not Hispanic/Latino,86,BAD_224,2mos,27,9.0,656,35,224,bad_224b,0.5567977528089888
+319,bad_224a,0.4595985699693565,66.0,59,M,40.0,19.0,7.0,19.0,7.0,"Hispanic/Latino, White",White-Not Hispanic/Latino,86,BAD_224,2mos,27,9.0,656,35,224,bad_224b,0.5567977528089888
+320,bad_224a,0.4595985699693565,66.0,59,M,40.0,19.0,7.0,19.0,7.0,"Hispanic/Latino, White",White-Not Hispanic/Latino,86,BAD_224,2mos,30,15.3,672,37,224,bad_224b,0.5567977528089888
+321,bad_224a,0.4595985699693565,66.0,59,M,40.0,19.0,7.0,19.0,7.0,"Hispanic/Latino, White",White-Not Hispanic/Latino,86,BAD_224,2mos,30,15.3,672,37,224,bad_224b,0.5567977528089888
+322,bad_224a,0.4595985699693565,66.0,59,M,40.0,19.0,7.0,19.0,7.0,"Hispanic/Latino, White",White-Not Hispanic/Latino,86,BAD_224,2mos,30,15.3,672,37,224,bad_224b,0.5567977528089888
+323,bad_224a,0.4595985699693565,66.0,59,M,40.0,19.0,7.0,19.0,7.0,"Hispanic/Latino, White",White-Not Hispanic/Latino,86,BAD_224,2mos,30,15.3,672,37,224,bad_224b,0.5567977528089888
+324,bad_224a,0.4595985699693565,66.0,59,M,40.0,19.0,7.0,19.0,7.0,"Hispanic/Latino, White",White-Not Hispanic/Latino,86,BAD_224,2mos,30,15.3,672,37,224,bad_224b,0.5567977528089888
+325,bad_225a,0.4692640449438202,66.0,65,F,38.0,17.0,6.0,17.0,7.0,White-Not Hispanic/Latino,White-Not Hispanic/Latino,120,BAD_225,2mos,18,2.3,42,2,225,bad_225b,0.5480305867665418
+326,bad_225a,0.4692640449438202,66.0,65,F,38.0,17.0,6.0,17.0,7.0,White-Not Hispanic/Latino,White-Not Hispanic/Latino,120,BAD_225,2mos,18,2.3,42,2,225,bad_225b,0.5480305867665418
+327,bad_225a,0.4692640449438202,66.0,65,F,38.0,17.0,6.0,17.0,7.0,White-Not Hispanic/Latino,White-Not Hispanic/Latino,120,BAD_225,2mos,18,2.3,42,2,225,bad_225b,0.5480305867665418
+328,bad_225a,0.4692640449438202,66.0,65,F,38.0,17.0,6.0,17.0,7.0,White-Not Hispanic/Latino,White-Not Hispanic/Latino,120,BAD_225,2mos,18,2.3,42,2,225,bad_225b,0.5480305867665418
+329,bad_225a,0.4692640449438202,66.0,65,F,38.0,17.0,6.0,17.0,7.0,White-Not Hispanic/Latino,White-Not Hispanic/Latino,120,BAD_225,2mos,18,2.3,42,2,225,bad_225b,0.5480305867665418
+330,bad_225a,0.4692640449438202,66.0,65,F,38.0,17.0,6.0,17.0,7.0,White-Not Hispanic/Latino,White-Not Hispanic/Latino,120,BAD_225,2mos,21,4.0,107,5,225,bad_225b,0.5480305867665418
+331,bad_225a,0.4692640449438202,66.0,65,F,38.0,17.0,6.0,17.0,7.0,White-Not Hispanic/Latino,White-Not Hispanic/Latino,120,BAD_225,2mos,21,4.0,107,5,225,bad_225b,0.5480305867665418
+332,bad_225a,0.4692640449438202,66.0,65,F,38.0,17.0,6.0,17.0,7.0,White-Not Hispanic/Latino,White-Not Hispanic/Latino,120,BAD_225,2mos,21,4.0,107,5,225,bad_225b,0.5480305867665418
+333,bad_225a,0.4692640449438202,66.0,65,F,38.0,17.0,6.0,17.0,7.0,White-Not Hispanic/Latino,White-Not Hispanic/Latino,120,BAD_225,2mos,21,4.0,107,5,225,bad_225b,0.5480305867665418
+334,bad_225a,0.4692640449438202,66.0,65,F,38.0,17.0,6.0,17.0,7.0,White-Not Hispanic/Latino,White-Not Hispanic/Latino,120,BAD_225,2mos,21,4.0,107,5,225,bad_225b,0.5480305867665418
+335,bad_225a,0.4692640449438202,66.0,65,F,38.0,17.0,6.0,17.0,7.0,White-Not Hispanic/Latino,White-Not Hispanic/Latino,120,BAD_225,2mos,24,5.0,187,0,225,bad_225b,0.5480305867665418
+336,bad_225a,0.4692640449438202,66.0,65,F,38.0,17.0,6.0,17.0,7.0,White-Not Hispanic/Latino,White-Not Hispanic/Latino,120,BAD_225,2mos,24,5.0,187,0,225,bad_225b,0.5480305867665418
+337,bad_225a,0.4692640449438202,66.0,65,F,38.0,17.0,6.0,17.0,7.0,White-Not Hispanic/Latino,White-Not Hispanic/Latino,120,BAD_225,2mos,24,5.0,187,0,225,bad_225b,0.5480305867665418
+338,bad_225a,0.4692640449438202,66.0,65,F,38.0,17.0,6.0,17.0,7.0,White-Not Hispanic/Latino,White-Not Hispanic/Latino,120,BAD_225,2mos,24,5.0,187,0,225,bad_225b,0.5480305867665418
+339,bad_225a,0.4692640449438202,66.0,65,F,38.0,17.0,6.0,17.0,7.0,White-Not Hispanic/Latino,White-Not Hispanic/Latino,120,BAD_225,2mos,24,5.0,187,0,225,bad_225b,0.5480305867665418
+340,bad_225a,0.4692640449438202,66.0,65,F,38.0,17.0,6.0,17.0,7.0,White-Not Hispanic/Latino,White-Not Hispanic/Latino,120,BAD_225,2mos,27,5.0,638,17,225,bad_225b,0.5480305867665418
+341,bad_225a,0.4692640449438202,66.0,65,F,38.0,17.0,6.0,17.0,7.0,White-Not Hispanic/Latino,White-Not Hispanic/Latino,120,BAD_225,2mos,27,5.0,638,17,225,bad_225b,0.5480305867665418
+342,bad_225a,0.4692640449438202,66.0,65,F,38.0,17.0,6.0,17.0,7.0,White-Not Hispanic/Latino,White-Not Hispanic/Latino,120,BAD_225,2mos,27,5.0,638,17,225,bad_225b,0.5480305867665418
+343,bad_225a,0.4692640449438202,66.0,65,F,38.0,17.0,6.0,17.0,7.0,White-Not Hispanic/Latino,White-Not Hispanic/Latino,120,BAD_225,2mos,27,5.0,638,17,225,bad_225b,0.5480305867665418
+344,bad_225a,0.4692640449438202,66.0,65,F,38.0,17.0,6.0,17.0,7.0,White-Not Hispanic/Latino,White-Not Hispanic/Latino,120,BAD_225,2mos,27,5.0,638,17,225,bad_225b,0.5480305867665418
+345,bad_225a,0.4692640449438202,66.0,65,F,38.0,17.0,6.0,17.0,7.0,White-Not Hispanic/Latino,White-Not Hispanic/Latino,120,BAD_225,2mos,30,6.0,670,26,225,bad_225b,0.5480305867665418
+346,bad_225a,0.4692640449438202,66.0,65,F,38.0,17.0,6.0,17.0,7.0,White-Not Hispanic/Latino,White-Not Hispanic/Latino,120,BAD_225,2mos,30,6.0,670,26,225,bad_225b,0.5480305867665418
+347,bad_225a,0.4692640449438202,66.0,65,F,38.0,17.0,6.0,17.0,7.0,White-Not Hispanic/Latino,White-Not Hispanic/Latino,120,BAD_225,2mos,30,6.0,670,26,225,bad_225b,0.5480305867665418
+348,bad_225a,0.4692640449438202,66.0,65,F,38.0,17.0,6.0,17.0,7.0,White-Not Hispanic/Latino,White-Not Hispanic/Latino,120,BAD_225,2mos,30,6.0,670,26,225,bad_225b,0.5480305867665418
+349,bad_225a,0.4692640449438202,66.0,65,F,38.0,17.0,6.0,17.0,7.0,White-Not Hispanic/Latino,White-Not Hispanic/Latino,120,BAD_225,2mos,30,6.0,670,26,225,bad_225b,0.5480305867665418
+350,bad_229a,0.5047504395016433,58.0,57,F,39.0,19.0,7.0,16.0,6.0,"Hispanic/Latino, White",White-Not Hispanic/Latino,132,BAD_229,2mos,18,3.3,97,1,229,bad_229b,0.490474406991261
+351,bad_229a,0.5047504395016433,58.0,57,F,39.0,19.0,7.0,16.0,6.0,"Hispanic/Latino, White",White-Not Hispanic/Latino,132,BAD_229,2mos,18,3.3,97,1,229,bad_229b,0.490474406991261
+352,bad_229a,0.5047504395016433,58.0,57,F,39.0,19.0,7.0,16.0,6.0,"Hispanic/Latino, White",White-Not Hispanic/Latino,132,BAD_229,2mos,18,3.3,97,1,229,bad_229b,0.490474406991261
+353,bad_229a,0.5047504395016433,58.0,57,F,39.0,19.0,7.0,16.0,6.0,"Hispanic/Latino, White",White-Not Hispanic/Latino,132,BAD_229,2mos,18,3.3,97,1,229,bad_229b,0.490474406991261
+354,bad_229a,0.5047504395016433,58.0,57,F,39.0,19.0,7.0,16.0,6.0,"Hispanic/Latino, White",White-Not Hispanic/Latino,132,BAD_229,2mos,18,3.3,97,1,229,bad_229b,0.490474406991261
+355,bad_229a,0.5047504395016433,58.0,57,F,39.0,19.0,7.0,16.0,6.0,"Hispanic/Latino, White",White-Not Hispanic/Latino,132,BAD_229,2mos,21,6.7,484,17,229,bad_229b,0.490474406991261
+356,bad_229a,0.5047504395016433,58.0,57,F,39.0,19.0,7.0,16.0,6.0,"Hispanic/Latino, White",White-Not Hispanic/Latino,132,BAD_229,2mos,21,6.7,484,17,229,bad_229b,0.490474406991261
+357,bad_229a,0.5047504395016433,58.0,57,F,39.0,19.0,7.0,16.0,6.0,"Hispanic/Latino, White",White-Not Hispanic/Latino,132,BAD_229,2mos,21,6.7,484,17,229,bad_229b,0.490474406991261
+358,bad_229a,0.5047504395016433,58.0,57,F,39.0,19.0,7.0,16.0,6.0,"Hispanic/Latino, White",White-Not Hispanic/Latino,132,BAD_229,2mos,21,6.7,484,17,229,bad_229b,0.490474406991261
+359,bad_229a,0.5047504395016433,58.0,57,F,39.0,19.0,7.0,16.0,6.0,"Hispanic/Latino, White",White-Not Hispanic/Latino,132,BAD_229,2mos,21,6.7,484,17,229,bad_229b,0.490474406991261
+360,bad_229a,0.5047504395016433,58.0,57,F,39.0,19.0,7.0,16.0,6.0,"Hispanic/Latino, White",White-Not Hispanic/Latino,132,BAD_229,2mos,24,8.3,570,22,229,bad_229b,0.490474406991261
+361,bad_229a,0.5047504395016433,58.0,57,F,39.0,19.0,7.0,16.0,6.0,"Hispanic/Latino, White",White-Not Hispanic/Latino,132,BAD_229,2mos,24,8.3,570,22,229,bad_229b,0.490474406991261
+362,bad_229a,0.5047504395016433,58.0,57,F,39.0,19.0,7.0,16.0,6.0,"Hispanic/Latino, White",White-Not Hispanic/Latino,132,BAD_229,2mos,24,8.3,570,22,229,bad_229b,0.490474406991261
+363,bad_229a,0.5047504395016433,58.0,57,F,39.0,19.0,7.0,16.0,6.0,"Hispanic/Latino, White",White-Not Hispanic/Latino,132,BAD_229,2mos,24,8.3,570,22,229,bad_229b,0.490474406991261
+364,bad_229a,0.5047504395016433,58.0,57,F,39.0,19.0,7.0,16.0,6.0,"Hispanic/Latino, White",White-Not Hispanic/Latino,132,BAD_229,2mos,24,8.3,570,22,229,bad_229b,0.490474406991261
+365,bad_229a,0.5047504395016433,58.0,57,F,39.0,19.0,7.0,16.0,6.0,"Hispanic/Latino, White",White-Not Hispanic/Latino,132,BAD_229,2mos,27,10.0,616,36,229,bad_229b,0.490474406991261
+366,bad_229a,0.5047504395016433,58.0,57,F,39.0,19.0,7.0,16.0,6.0,"Hispanic/Latino, White",White-Not Hispanic/Latino,132,BAD_229,2mos,27,10.0,616,36,229,bad_229b,0.490474406991261
+367,bad_229a,0.5047504395016433,58.0,57,F,39.0,19.0,7.0,16.0,6.0,"Hispanic/Latino, White",White-Not Hispanic/Latino,132,BAD_229,2mos,27,10.0,616,36,229,bad_229b,0.490474406991261
+368,bad_229a,0.5047504395016433,58.0,57,F,39.0,19.0,7.0,16.0,6.0,"Hispanic/Latino, White",White-Not Hispanic/Latino,132,BAD_229,2mos,27,10.0,616,36,229,bad_229b,0.490474406991261
+369,bad_229a,0.5047504395016433,58.0,57,F,39.0,19.0,7.0,16.0,6.0,"Hispanic/Latino, White",White-Not Hispanic/Latino,132,BAD_229,2mos,27,10.0,616,36,229,bad_229b,0.490474406991261
+370,bad_229a,0.5047504395016433,58.0,57,F,39.0,19.0,7.0,16.0,6.0,"Hispanic/Latino, White",White-Not Hispanic/Latino,132,BAD_229,2mos,30,14.7,646,37,229,bad_229b,0.490474406991261
+371,bad_229a,0.5047504395016433,58.0,57,F,39.0,19.0,7.0,16.0,6.0,"Hispanic/Latino, White",White-Not Hispanic/Latino,132,BAD_229,2mos,30,14.7,646,37,229,bad_229b,0.490474406991261
+372,bad_229a,0.5047504395016433,58.0,57,F,39.0,19.0,7.0,16.0,6.0,"Hispanic/Latino, White",White-Not Hispanic/Latino,132,BAD_229,2mos,30,14.7,646,37,229,bad_229b,0.490474406991261
+373,bad_229a,0.5047504395016433,58.0,57,F,39.0,19.0,7.0,16.0,6.0,"Hispanic/Latino, White",White-Not Hispanic/Latino,132,BAD_229,2mos,30,14.7,646,37,229,bad_229b,0.490474406991261
+374,bad_229a,0.5047504395016433,58.0,57,F,39.0,19.0,7.0,16.0,6.0,"Hispanic/Latino, White",White-Not Hispanic/Latino,132,BAD_229,2mos,30,14.7,646,37,229,bad_229b,0.490474406991261
+375,bad_309a,0.5009987515605493,0.0,59,M,39.0,16.0,6.0,17.0,6.0,White-Not Hispanic/Latino,White-Not Hispanic/Latino,129,BAD_309,2mos,18,2.0,24,0,309,bad_309b,0.5074914105302256
+376,bad_309a,0.5009987515605493,0.0,59,M,39.0,16.0,6.0,17.0,6.0,White-Not Hispanic/Latino,White-Not Hispanic/Latino,129,BAD_309,2mos,18,2.0,24,0,309,bad_309b,0.5074914105302256
+377,bad_309a,0.5009987515605493,0.0,59,M,39.0,16.0,6.0,17.0,6.0,White-Not Hispanic/Latino,White-Not Hispanic/Latino,129,BAD_309,2mos,18,2.0,24,0,309,bad_309b,0.5074914105302256
+378,bad_309a,0.5009987515605493,0.0,59,M,39.0,16.0,6.0,17.0,6.0,White-Not Hispanic/Latino,White-Not Hispanic/Latino,129,BAD_309,2mos,18,2.0,24,0,309,bad_309b,0.5074914105302256
+379,bad_309a,0.5009987515605493,0.0,59,M,39.0,16.0,6.0,17.0,6.0,White-Not Hispanic/Latino,White-Not Hispanic/Latino,129,BAD_309,2mos,18,2.0,24,0,309,bad_309b,0.5074914105302256
+380,bad_309a,0.5009987515605493,0.0,59,M,39.0,16.0,6.0,17.0,6.0,White-Not Hispanic/Latino,White-Not Hispanic/Latino,129,BAD_309,2mos,21,0.0,65,0,309,bad_309b,0.5074914105302256
+381,bad_309a,0.5009987515605493,0.0,59,M,39.0,16.0,6.0,17.0,6.0,White-Not Hispanic/Latino,White-Not Hispanic/Latino,129,BAD_309,2mos,21,0.0,65,0,309,bad_309b,0.5074914105302256
+382,bad_309a,0.5009987515605493,0.0,59,M,39.0,16.0,6.0,17.0,6.0,White-Not Hispanic/Latino,White-Not Hispanic/Latino,129,BAD_309,2mos,21,0.0,65,0,309,bad_309b,0.5074914105302256
+383,bad_309a,0.5009987515605493,0.0,59,M,39.0,16.0,6.0,17.0,6.0,White-Not Hispanic/Latino,White-Not Hispanic/Latino,129,BAD_309,2mos,21,0.0,65,0,309,bad_309b,0.5074914105302256
+384,bad_309a,0.5009987515605493,0.0,59,M,39.0,16.0,6.0,17.0,6.0,White-Not Hispanic/Latino,White-Not Hispanic/Latino,129,BAD_309,2mos,21,0.0,65,0,309,bad_309b,0.5074914105302256
+385,bad_309a,0.5009987515605493,0.0,59,M,39.0,16.0,6.0,17.0,6.0,White-Not Hispanic/Latino,White-Not Hispanic/Latino,129,BAD_309,2mos,24,3.3,202,0,309,bad_309b,0.5074914105302256
+386,bad_309a,0.5009987515605493,0.0,59,M,39.0,16.0,6.0,17.0,6.0,White-Not Hispanic/Latino,White-Not Hispanic/Latino,129,BAD_309,2mos,24,3.3,202,0,309,bad_309b,0.5074914105302256
+387,bad_309a,0.5009987515605493,0.0,59,M,39.0,16.0,6.0,17.0,6.0,White-Not Hispanic/Latino,White-Not Hispanic/Latino,129,BAD_309,2mos,24,3.3,202,0,309,bad_309b,0.5074914105302256
+388,bad_309a,0.5009987515605493,0.0,59,M,39.0,16.0,6.0,17.0,6.0,White-Not Hispanic/Latino,White-Not Hispanic/Latino,129,BAD_309,2mos,24,3.3,202,0,309,bad_309b,0.5074914105302256
+389,bad_309a,0.5009987515605493,0.0,59,M,39.0,16.0,6.0,17.0,6.0,White-Not Hispanic/Latino,White-Not Hispanic/Latino,129,BAD_309,2mos,24,3.3,202,0,309,bad_309b,0.5074914105302256
+390,bad_309a,0.5009987515605493,0.0,59,M,39.0,16.0,6.0,17.0,6.0,White-Not Hispanic/Latino,White-Not Hispanic/Latino,129,BAD_309,2mos,27,2.7,418,9,309,bad_309b,0.5074914105302256
+391,bad_309a,0.5009987515605493,0.0,59,M,39.0,16.0,6.0,17.0,6.0,White-Not Hispanic/Latino,White-Not Hispanic/Latino,129,BAD_309,2mos,27,2.7,418,9,309,bad_309b,0.5074914105302256
+392,bad_309a,0.5009987515605493,0.0,59,M,39.0,16.0,6.0,17.0,6.0,White-Not Hispanic/Latino,White-Not Hispanic/Latino,129,BAD_309,2mos,27,2.7,418,9,309,bad_309b,0.5074914105302256
+393,bad_309a,0.5009987515605493,0.0,59,M,39.0,16.0,6.0,17.0,6.0,White-Not Hispanic/Latino,White-Not Hispanic/Latino,129,BAD_309,2mos,27,2.7,418,9,309,bad_309b,0.5074914105302256
+394,bad_309a,0.5009987515605493,0.0,59,M,39.0,16.0,6.0,17.0,6.0,White-Not Hispanic/Latino,White-Not Hispanic/Latino,129,BAD_309,2mos,27,2.7,418,9,309,bad_309b,0.5074914105302256
+395,bad_309a,0.5009987515605493,0.0,59,M,39.0,16.0,6.0,17.0,6.0,White-Not Hispanic/Latino,White-Not Hispanic/Latino,129,BAD_309,2mos,30,7.7,574,26,309,bad_309b,0.5074914105302256
+396,bad_309a,0.5009987515605493,0.0,59,M,39.0,16.0,6.0,17.0,6.0,White-Not Hispanic/Latino,White-Not Hispanic/Latino,129,BAD_309,2mos,30,7.7,574,26,309,bad_309b,0.5074914105302256
+397,bad_309a,0.5009987515605493,0.0,59,M,39.0,16.0,6.0,17.0,6.0,White-Not Hispanic/Latino,White-Not Hispanic/Latino,129,BAD_309,2mos,30,7.7,574,26,309,bad_309b,0.5074914105302256
+398,bad_309a,0.5009987515605493,0.0,59,M,39.0,16.0,6.0,17.0,6.0,White-Not Hispanic/Latino,White-Not Hispanic/Latino,129,BAD_309,2mos,30,7.7,574,26,309,bad_309b,0.5074914105302256
+399,bad_309a,0.5009987515605493,0.0,59,M,39.0,16.0,6.0,17.0,6.0,White-Not Hispanic/Latino,White-Not Hispanic/Latino,129,BAD_309,2mos,30,7.7,574,26,309,bad_309b,0.5074914105302256
+400,bad_310a,0.47184100231853043,0.0,64,F,39.0,16.0,6.0,18.0,6.0,White-Not Hispanic/Latino,White-Not Hispanic/Latino,123,BAD_310,2mos,18,0.0,16,0,310,bad_310b,0.5272945491689107
+401,bad_310a,0.47184100231853043,0.0,64,F,39.0,16.0,6.0,18.0,6.0,White-Not Hispanic/Latino,White-Not Hispanic/Latino,123,BAD_310,2mos,18,0.0,16,0,310,bad_310b,0.5272945491689107
+402,bad_310a,0.47184100231853043,0.0,64,F,39.0,16.0,6.0,18.0,6.0,White-Not Hispanic/Latino,White-Not Hispanic/Latino,123,BAD_310,2mos,18,0.0,16,0,310,bad_310b,0.5272945491689107
+403,bad_310a,0.47184100231853043,0.0,64,F,39.0,16.0,6.0,18.0,6.0,White-Not Hispanic/Latino,White-Not Hispanic/Latino,123,BAD_310,2mos,18,0.0,16,0,310,bad_310b,0.5272945491689107
+404,bad_310a,0.47184100231853043,0.0,64,F,39.0,16.0,6.0,18.0,6.0,White-Not Hispanic/Latino,White-Not Hispanic/Latino,123,BAD_310,2mos,18,0.0,16,0,310,bad_310b,0.5272945491689107
+405,bad_310a,0.47184100231853043,0.0,64,F,39.0,16.0,6.0,18.0,6.0,White-Not Hispanic/Latino,White-Not Hispanic/Latino,123,BAD_310,2mos,21,0.0,57,0,310,bad_310b,0.5272945491689107
+406,bad_310a,0.47184100231853043,0.0,64,F,39.0,16.0,6.0,18.0,6.0,White-Not Hispanic/Latino,White-Not Hispanic/Latino,123,BAD_310,2mos,21,0.0,57,0,310,bad_310b,0.5272945491689107
+407,bad_310a,0.47184100231853043,0.0,64,F,39.0,16.0,6.0,18.0,6.0,White-Not Hispanic/Latino,White-Not Hispanic/Latino,123,BAD_310,2mos,21,0.0,57,0,310,bad_310b,0.5272945491689107
+408,bad_310a,0.47184100231853043,0.0,64,F,39.0,16.0,6.0,18.0,6.0,White-Not Hispanic/Latino,White-Not Hispanic/Latino,123,BAD_310,2mos,21,0.0,57,0,310,bad_310b,0.5272945491689107
+409,bad_310a,0.47184100231853043,0.0,64,F,39.0,16.0,6.0,18.0,6.0,White-Not Hispanic/Latino,White-Not Hispanic/Latino,123,BAD_310,2mos,21,0.0,57,0,310,bad_310b,0.5272945491689107
+410,bad_310a,0.47184100231853043,0.0,64,F,39.0,16.0,6.0,18.0,6.0,White-Not Hispanic/Latino,White-Not Hispanic/Latino,123,BAD_310,2mos,24,4.0,376,3,310,bad_310b,0.5272945491689107
+411,bad_310a,0.47184100231853043,0.0,64,F,39.0,16.0,6.0,18.0,6.0,White-Not Hispanic/Latino,White-Not Hispanic/Latino,123,BAD_310,2mos,24,4.0,376,3,310,bad_310b,0.5272945491689107
+412,bad_310a,0.47184100231853043,0.0,64,F,39.0,16.0,6.0,18.0,6.0,White-Not Hispanic/Latino,White-Not Hispanic/Latino,123,BAD_310,2mos,24,4.0,376,3,310,bad_310b,0.5272945491689107
+413,bad_310a,0.47184100231853043,0.0,64,F,39.0,16.0,6.0,18.0,6.0,White-Not Hispanic/Latino,White-Not Hispanic/Latino,123,BAD_310,2mos,24,4.0,376,3,310,bad_310b,0.5272945491689107
+414,bad_310a,0.47184100231853043,0.0,64,F,39.0,16.0,6.0,18.0,6.0,White-Not Hispanic/Latino,White-Not Hispanic/Latino,123,BAD_310,2mos,24,4.0,376,3,310,bad_310b,0.5272945491689107
+415,bad_310a,0.47184100231853043,0.0,64,F,39.0,16.0,6.0,18.0,6.0,White-Not Hispanic/Latino,White-Not Hispanic/Latino,123,BAD_310,2mos,27,3.7,542,24,310,bad_310b,0.5272945491689107
+416,bad_310a,0.47184100231853043,0.0,64,F,39.0,16.0,6.0,18.0,6.0,White-Not Hispanic/Latino,White-Not Hispanic/Latino,123,BAD_310,2mos,27,3.7,542,24,310,bad_310b,0.5272945491689107
+417,bad_310a,0.47184100231853043,0.0,64,F,39.0,16.0,6.0,18.0,6.0,White-Not Hispanic/Latino,White-Not Hispanic/Latino,123,BAD_310,2mos,27,3.7,542,24,310,bad_310b,0.5272945491689107
+418,bad_310a,0.47184100231853043,0.0,64,F,39.0,16.0,6.0,18.0,6.0,White-Not Hispanic/Latino,White-Not Hispanic/Latino,123,BAD_310,2mos,27,3.7,542,24,310,bad_310b,0.5272945491689107
+419,bad_310a,0.47184100231853043,0.0,64,F,39.0,16.0,6.0,18.0,6.0,White-Not Hispanic/Latino,White-Not Hispanic/Latino,123,BAD_310,2mos,27,3.7,542,24,310,bad_310b,0.5272945491689107
+420,bad_310a,0.47184100231853043,0.0,64,F,39.0,16.0,6.0,18.0,6.0,White-Not Hispanic/Latino,White-Not Hispanic/Latino,123,BAD_310,2mos,30,8.0,584,30,310,bad_310b,0.5272945491689107
+421,bad_310a,0.47184100231853043,0.0,64,F,39.0,16.0,6.0,18.0,6.0,White-Not Hispanic/Latino,White-Not Hispanic/Latino,123,BAD_310,2mos,30,8.0,584,30,310,bad_310b,0.5272945491689107
+422,bad_310a,0.47184100231853043,0.0,64,F,39.0,16.0,6.0,18.0,6.0,White-Not Hispanic/Latino,White-Not Hispanic/Latino,123,BAD_310,2mos,30,8.0,584,30,310,bad_310b,0.5272945491689107
+423,bad_310a,0.47184100231853043,0.0,64,F,39.0,16.0,6.0,18.0,6.0,White-Not Hispanic/Latino,White-Not Hispanic/Latino,123,BAD_310,2mos,30,8.0,584,30,310,bad_310b,0.5272945491689107
+424,bad_310a,0.47184100231853043,0.0,64,F,39.0,16.0,6.0,18.0,6.0,White-Not Hispanic/Latino,White-Not Hispanic/Latino,123,BAD_310,2mos,30,8.0,584,30,310,bad_310b,0.5272945491689107
+425,bad_311a,0.4982921348314607,0.0,64,M,41.0,18.0,6.0,15.0,5.0,White-Not Hispanic/Latino,White-Not Hispanic/Latino,136,BAD_311,2mos,18,2.0,37,1,311,bad_311b,0.4786738798723818
+426,bad_311a,0.4982921348314607,0.0,64,M,41.0,18.0,6.0,15.0,5.0,White-Not Hispanic/Latino,White-Not Hispanic/Latino,136,BAD_311,2mos,18,2.0,37,1,311,bad_311b,0.4786738798723818
+427,bad_311a,0.4982921348314607,0.0,64,M,41.0,18.0,6.0,15.0,5.0,White-Not Hispanic/Latino,White-Not Hispanic/Latino,136,BAD_311,2mos,18,2.0,37,1,311,bad_311b,0.4786738798723818
+428,bad_311a,0.4982921348314607,0.0,64,M,41.0,18.0,6.0,15.0,5.0,White-Not Hispanic/Latino,White-Not Hispanic/Latino,136,BAD_311,2mos,18,2.0,37,1,311,bad_311b,0.4786738798723818
+429,bad_311a,0.4982921348314607,0.0,64,M,41.0,18.0,6.0,15.0,5.0,White-Not Hispanic/Latino,White-Not Hispanic/Latino,136,BAD_311,2mos,18,2.0,37,1,311,bad_311b,0.4786738798723818
+430,bad_311a,0.4982921348314607,0.0,64,M,41.0,18.0,6.0,15.0,5.0,White-Not Hispanic/Latino,White-Not Hispanic/Latino,136,BAD_311,2mos,21,2.7,53,1,311,bad_311b,0.4786738798723818
+431,bad_311a,0.4982921348314607,0.0,64,M,41.0,18.0,6.0,15.0,5.0,White-Not Hispanic/Latino,White-Not Hispanic/Latino,136,BAD_311,2mos,21,2.7,53,1,311,bad_311b,0.4786738798723818
+432,bad_311a,0.4982921348314607,0.0,64,M,41.0,18.0,6.0,15.0,5.0,White-Not Hispanic/Latino,White-Not Hispanic/Latino,136,BAD_311,2mos,21,2.7,53,1,311,bad_311b,0.4786738798723818
+433,bad_311a,0.4982921348314607,0.0,64,M,41.0,18.0,6.0,15.0,5.0,White-Not Hispanic/Latino,White-Not Hispanic/Latino,136,BAD_311,2mos,21,2.7,53,1,311,bad_311b,0.4786738798723818
+434,bad_311a,0.4982921348314607,0.0,64,M,41.0,18.0,6.0,15.0,5.0,White-Not Hispanic/Latino,White-Not Hispanic/Latino,136,BAD_311,2mos,21,2.7,53,1,311,bad_311b,0.4786738798723818
+435,bad_311a,0.4982921348314607,0.0,64,M,41.0,18.0,6.0,15.0,5.0,White-Not Hispanic/Latino,White-Not Hispanic/Latino,136,BAD_311,2mos,24,3.7,75,2,311,bad_311b,0.4786738798723818
+436,bad_311a,0.4982921348314607,0.0,64,M,41.0,18.0,6.0,15.0,5.0,White-Not Hispanic/Latino,White-Not Hispanic/Latino,136,BAD_311,2mos,24,3.7,75,2,311,bad_311b,0.4786738798723818
+437,bad_311a,0.4982921348314607,0.0,64,M,41.0,18.0,6.0,15.0,5.0,White-Not Hispanic/Latino,White-Not Hispanic/Latino,136,BAD_311,2mos,24,3.7,75,2,311,bad_311b,0.4786738798723818
+438,bad_311a,0.4982921348314607,0.0,64,M,41.0,18.0,6.0,15.0,5.0,White-Not Hispanic/Latino,White-Not Hispanic/Latino,136,BAD_311,2mos,24,3.7,75,2,311,bad_311b,0.4786738798723818
+439,bad_311a,0.4982921348314607,0.0,64,M,41.0,18.0,6.0,15.0,5.0,White-Not Hispanic/Latino,White-Not Hispanic/Latino,136,BAD_311,2mos,24,3.7,75,2,311,bad_311b,0.4786738798723818
+440,bad_311a,0.4982921348314607,0.0,64,M,41.0,18.0,6.0,15.0,5.0,White-Not Hispanic/Latino,White-Not Hispanic/Latino,136,BAD_311,2mos,27,4.3,385,11,311,bad_311b,0.4786738798723818
+441,bad_311a,0.4982921348314607,0.0,64,M,41.0,18.0,6.0,15.0,5.0,White-Not Hispanic/Latino,White-Not Hispanic/Latino,136,BAD_311,2mos,27,4.3,385,11,311,bad_311b,0.4786738798723818
+442,bad_311a,0.4982921348314607,0.0,64,M,41.0,18.0,6.0,15.0,5.0,White-Not Hispanic/Latino,White-Not Hispanic/Latino,136,BAD_311,2mos,27,4.3,385,11,311,bad_311b,0.4786738798723818
+443,bad_311a,0.4982921348314607,0.0,64,M,41.0,18.0,6.0,15.0,5.0,White-Not Hispanic/Latino,White-Not Hispanic/Latino,136,BAD_311,2mos,27,4.3,385,11,311,bad_311b,0.4786738798723818
+444,bad_311a,0.4982921348314607,0.0,64,M,41.0,18.0,6.0,15.0,5.0,White-Not Hispanic/Latino,White-Not Hispanic/Latino,136,BAD_311,2mos,27,4.3,385,11,311,bad_311b,0.4786738798723818
+445,bad_311a,0.4982921348314607,0.0,64,M,41.0,18.0,6.0,15.0,5.0,White-Not Hispanic/Latino,White-Not Hispanic/Latino,136,BAD_311,2mos,30,5.0,510,8,311,bad_311b,0.4786738798723818
+446,bad_311a,0.4982921348314607,0.0,64,M,41.0,18.0,6.0,15.0,5.0,White-Not Hispanic/Latino,White-Not Hispanic/Latino,136,BAD_311,2mos,30,5.0,510,8,311,bad_311b,0.4786738798723818
+447,bad_311a,0.4982921348314607,0.0,64,M,41.0,18.0,6.0,15.0,5.0,White-Not Hispanic/Latino,White-Not Hispanic/Latino,136,BAD_311,2mos,30,5.0,510,8,311,bad_311b,0.4786738798723818
+448,bad_311a,0.4982921348314607,0.0,64,M,41.0,18.0,6.0,15.0,5.0,White-Not Hispanic/Latino,White-Not Hispanic/Latino,136,BAD_311,2mos,30,5.0,510,8,311,bad_311b,0.4786738798723818
+449,bad_311a,0.4982921348314607,0.0,64,M,41.0,18.0,6.0,15.0,5.0,White-Not Hispanic/Latino,White-Not Hispanic/Latino,136,BAD_311,2mos,30,5.0,510,8,311,bad_311b,0.4786738798723818
+450,bad_312a,0.5003651685393258,0.0,54,F,40.0,16.0,6.0,16.0,6.0,White-Not Hispanic/Latino,White-Not Hispanic/Latino,123,BAD_312,2mos,18,2.0,22,2,312,bad_312b,0.5071551186017478
+451,bad_312a,0.5003651685393258,0.0,54,F,40.0,16.0,6.0,16.0,6.0,White-Not Hispanic/Latino,White-Not Hispanic/Latino,123,BAD_312,2mos,18,2.0,22,2,312,bad_312b,0.5071551186017478
+452,bad_312a,0.5003651685393258,0.0,54,F,40.0,16.0,6.0,16.0,6.0,White-Not Hispanic/Latino,White-Not Hispanic/Latino,123,BAD_312,2mos,18,2.0,22,2,312,bad_312b,0.5071551186017478
+453,bad_312a,0.5003651685393258,0.0,54,F,40.0,16.0,6.0,16.0,6.0,White-Not Hispanic/Latino,White-Not Hispanic/Latino,123,BAD_312,2mos,18,2.0,22,2,312,bad_312b,0.5071551186017478
+454,bad_312a,0.5003651685393258,0.0,54,F,40.0,16.0,6.0,16.0,6.0,White-Not Hispanic/Latino,White-Not Hispanic/Latino,123,BAD_312,2mos,18,2.0,22,2,312,bad_312b,0.5071551186017478
+455,bad_312a,0.5003651685393258,0.0,54,F,40.0,16.0,6.0,16.0,6.0,White-Not Hispanic/Latino,White-Not Hispanic/Latino,123,BAD_312,2mos,21,2.0,106,2,312,bad_312b,0.5071551186017478
+456,bad_312a,0.5003651685393258,0.0,54,F,40.0,16.0,6.0,16.0,6.0,White-Not Hispanic/Latino,White-Not Hispanic/Latino,123,BAD_312,2mos,21,2.0,106,2,312,bad_312b,0.5071551186017478
+457,bad_312a,0.5003651685393258,0.0,54,F,40.0,16.0,6.0,16.0,6.0,White-Not Hispanic/Latino,White-Not Hispanic/Latino,123,BAD_312,2mos,21,2.0,106,2,312,bad_312b,0.5071551186017478
+458,bad_312a,0.5003651685393258,0.0,54,F,40.0,16.0,6.0,16.0,6.0,White-Not Hispanic/Latino,White-Not Hispanic/Latino,123,BAD_312,2mos,21,2.0,106,2,312,bad_312b,0.5071551186017478
+459,bad_312a,0.5003651685393258,0.0,54,F,40.0,16.0,6.0,16.0,6.0,White-Not Hispanic/Latino,White-Not Hispanic/Latino,123,BAD_312,2mos,21,2.0,106,2,312,bad_312b,0.5071551186017478
+460,bad_312a,0.5003651685393258,0.0,54,F,40.0,16.0,6.0,16.0,6.0,White-Not Hispanic/Latino,White-Not Hispanic/Latino,123,BAD_312,2mos,24,1.7,222,2,312,bad_312b,0.5071551186017478
+461,bad_312a,0.5003651685393258,0.0,54,F,40.0,16.0,6.0,16.0,6.0,White-Not Hispanic/Latino,White-Not Hispanic/Latino,123,BAD_312,2mos,24,1.7,222,2,312,bad_312b,0.5071551186017478
+462,bad_312a,0.5003651685393258,0.0,54,F,40.0,16.0,6.0,16.0,6.0,White-Not Hispanic/Latino,White-Not Hispanic/Latino,123,BAD_312,2mos,24,1.7,222,2,312,bad_312b,0.5071551186017478
+463,bad_312a,0.5003651685393258,0.0,54,F,40.0,16.0,6.0,16.0,6.0,White-Not Hispanic/Latino,White-Not Hispanic/Latino,123,BAD_312,2mos,24,1.7,222,2,312,bad_312b,0.5071551186017478
+464,bad_312a,0.5003651685393258,0.0,54,F,40.0,16.0,6.0,16.0,6.0,White-Not Hispanic/Latino,White-Not Hispanic/Latino,123,BAD_312,2mos,24,1.7,222,2,312,bad_312b,0.5071551186017478
+465,bad_312a,0.5003651685393258,0.0,54,F,40.0,16.0,6.0,16.0,6.0,White-Not Hispanic/Latino,White-Not Hispanic/Latino,123,BAD_312,2mos,30,2.3,458,2,312,bad_312b,0.5071551186017478
+466,bad_312a,0.5003651685393258,0.0,54,F,40.0,16.0,6.0,16.0,6.0,White-Not Hispanic/Latino,White-Not Hispanic/Latino,123,BAD_312,2mos,30,2.3,458,2,312,bad_312b,0.5071551186017478
+467,bad_312a,0.5003651685393258,0.0,54,F,40.0,16.0,6.0,16.0,6.0,White-Not Hispanic/Latino,White-Not Hispanic/Latino,123,BAD_312,2mos,30,2.3,458,2,312,bad_312b,0.5071551186017478
+468,bad_312a,0.5003651685393258,0.0,54,F,40.0,16.0,6.0,16.0,6.0,White-Not Hispanic/Latino,White-Not Hispanic/Latino,123,BAD_312,2mos,30,2.3,458,2,312,bad_312b,0.5071551186017478
+469,bad_312a,0.5003651685393258,0.0,54,F,40.0,16.0,6.0,16.0,6.0,White-Not Hispanic/Latino,White-Not Hispanic/Latino,123,BAD_312,2mos,30,2.3,458,2,312,bad_312b,0.5071551186017478
+470,bad_312a,0.5003651685393258,0.0,54,F,40.0,16.0,6.0,16.0,6.0,White-Not Hispanic/Latino,White-Not Hispanic/Latino,123,BAD_312,2mos,27,2.0,263,0,312,bad_312b,0.5071551186017478
+471,bad_312a,0.5003651685393258,0.0,54,F,40.0,16.0,6.0,16.0,6.0,White-Not Hispanic/Latino,White-Not Hispanic/Latino,123,BAD_312,2mos,27,2.0,263,0,312,bad_312b,0.5071551186017478
+472,bad_312a,0.5003651685393258,0.0,54,F,40.0,16.0,6.0,16.0,6.0,White-Not Hispanic/Latino,White-Not Hispanic/Latino,123,BAD_312,2mos,27,2.0,263,0,312,bad_312b,0.5071551186017478
+473,bad_312a,0.5003651685393258,0.0,54,F,40.0,16.0,6.0,16.0,6.0,White-Not Hispanic/Latino,White-Not Hispanic/Latino,123,BAD_312,2mos,27,2.0,263,0,312,bad_312b,0.5071551186017478
+474,bad_312a,0.5003651685393258,0.0,54,F,40.0,16.0,6.0,16.0,6.0,White-Not Hispanic/Latino,White-Not Hispanic/Latino,123,BAD_312,2mos,27,2.0,263,0,312,bad_312b,0.5071551186017478
+475,bad_921a,0.4864885689762796,0.0,54,M,38.0,16.0,6.0,20.0,7.0,White-Not Hispanic Latino,White-Not Hispanic/Latino,111,BAD_921,2mos,18,0.0,147,0,921,bad_921b,0.47083832709113604
+476,bad_921a,0.4864885689762796,0.0,54,M,38.0,16.0,6.0,20.0,7.0,White-Not Hispanic Latino,White-Not Hispanic/Latino,111,BAD_921,2mos,18,0.0,147,0,921,bad_921b,0.47083832709113604
+477,bad_921a,0.4864885689762796,0.0,54,M,38.0,16.0,6.0,20.0,7.0,White-Not Hispanic Latino,White-Not Hispanic/Latino,111,BAD_921,2mos,18,0.0,147,0,921,bad_921b,0.47083832709113604
+478,bad_921a,0.4864885689762796,0.0,54,M,38.0,16.0,6.0,20.0,7.0,White-Not Hispanic Latino,White-Not Hispanic/Latino,111,BAD_921,2mos,18,0.0,147,0,921,bad_921b,0.47083832709113604
+479,bad_921a,0.4864885689762796,0.0,54,M,38.0,16.0,6.0,20.0,7.0,White-Not Hispanic Latino,White-Not Hispanic/Latino,111,BAD_921,2mos,18,0.0,147,0,921,bad_921b,0.47083832709113604
+480,bad_921a,0.4864885689762796,0.0,54,M,38.0,16.0,6.0,20.0,7.0,White-Not Hispanic Latino,White-Not Hispanic/Latino,111,BAD_921,2mos,21,5.0,363,6,921,bad_921b,0.47083832709113604
+481,bad_921a,0.4864885689762796,0.0,54,M,38.0,16.0,6.0,20.0,7.0,White-Not Hispanic Latino,White-Not Hispanic/Latino,111,BAD_921,2mos,21,5.0,363,6,921,bad_921b,0.47083832709113604
+482,bad_921a,0.4864885689762796,0.0,54,M,38.0,16.0,6.0,20.0,7.0,White-Not Hispanic Latino,White-Not Hispanic/Latino,111,BAD_921,2mos,21,5.0,363,6,921,bad_921b,0.47083832709113604
+483,bad_921a,0.4864885689762796,0.0,54,M,38.0,16.0,6.0,20.0,7.0,White-Not Hispanic Latino,White-Not Hispanic/Latino,111,BAD_921,2mos,21,5.0,363,6,921,bad_921b,0.47083832709113604
+484,bad_921a,0.4864885689762796,0.0,54,M,38.0,16.0,6.0,20.0,7.0,White-Not Hispanic Latino,White-Not Hispanic/Latino,111,BAD_921,2mos,21,5.0,363,6,921,bad_921b,0.47083832709113604
+485,bad_921a,0.4864885689762796,0.0,54,M,38.0,16.0,6.0,20.0,7.0,White-Not Hispanic Latino,White-Not Hispanic/Latino,111,BAD_921,2mos,24,7.0,549,24,921,bad_921b,0.47083832709113604
+486,bad_921a,0.4864885689762796,0.0,54,M,38.0,16.0,6.0,20.0,7.0,White-Not Hispanic Latino,White-Not Hispanic/Latino,111,BAD_921,2mos,24,7.0,549,24,921,bad_921b,0.47083832709113604
+487,bad_921a,0.4864885689762796,0.0,54,M,38.0,16.0,6.0,20.0,7.0,White-Not Hispanic Latino,White-Not Hispanic/Latino,111,BAD_921,2mos,24,7.0,549,24,921,bad_921b,0.47083832709113604
+488,bad_921a,0.4864885689762796,0.0,54,M,38.0,16.0,6.0,20.0,7.0,White-Not Hispanic Latino,White-Not Hispanic/Latino,111,BAD_921,2mos,24,7.0,549,24,921,bad_921b,0.47083832709113604
+489,bad_921a,0.4864885689762796,0.0,54,M,38.0,16.0,6.0,20.0,7.0,White-Not Hispanic Latino,White-Not Hispanic/Latino,111,BAD_921,2mos,24,7.0,549,24,921,bad_921b,0.47083832709113604
+490,bad_921a,0.4864885689762796,0.0,54,M,38.0,16.0,6.0,20.0,7.0,White-Not Hispanic Latino,White-Not Hispanic/Latino,111,BAD_921,2mos,27,10.7,623,37,921,bad_921b,0.47083832709113604
+491,bad_921a,0.4864885689762796,0.0,54,M,38.0,16.0,6.0,20.0,7.0,White-Not Hispanic Latino,White-Not Hispanic/Latino,111,BAD_921,2mos,27,10.7,623,37,921,bad_921b,0.47083832709113604
+492,bad_921a,0.4864885689762796,0.0,54,M,38.0,16.0,6.0,20.0,7.0,White-Not Hispanic Latino,White-Not Hispanic/Latino,111,BAD_921,2mos,27,10.7,623,37,921,bad_921b,0.47083832709113604
+493,bad_921a,0.4864885689762796,0.0,54,M,38.0,16.0,6.0,20.0,7.0,White-Not Hispanic Latino,White-Not Hispanic/Latino,111,BAD_921,2mos,27,10.7,623,37,921,bad_921b,0.47083832709113604
+494,bad_921a,0.4864885689762796,0.0,54,M,38.0,16.0,6.0,20.0,7.0,White-Not Hispanic Latino,White-Not Hispanic/Latino,111,BAD_921,2mos,27,10.7,623,37,921,bad_921b,0.47083832709113604
+495,bad_921a,0.4864885689762796,0.0,54,M,38.0,16.0,6.0,20.0,7.0,White-Not Hispanic Latino,White-Not Hispanic/Latino,111,BAD_921,2mos,30,8.7,667,37,921,bad_921b,0.47083832709113604
+496,bad_921a,0.4864885689762796,0.0,54,M,38.0,16.0,6.0,20.0,7.0,White-Not Hispanic Latino,White-Not Hispanic/Latino,111,BAD_921,2mos,30,8.7,667,37,921,bad_921b,0.47083832709113604
+497,bad_921a,0.4864885689762796,0.0,54,M,38.0,16.0,6.0,20.0,7.0,White-Not Hispanic Latino,White-Not Hispanic/Latino,111,BAD_921,2mos,30,8.7,667,37,921,bad_921b,0.47083832709113604
+498,bad_921a,0.4864885689762796,0.0,54,M,38.0,16.0,6.0,20.0,7.0,White-Not Hispanic Latino,White-Not Hispanic/Latino,111,BAD_921,2mos,30,8.7,667,37,921,bad_921b,0.47083832709113604
+499,bad_921a,0.4864885689762796,0.0,54,M,38.0,16.0,6.0,20.0,7.0,White-Not Hispanic Latino,White-Not Hispanic/Latino,111,BAD_921,2mos,30,8.7,667,37,921,bad_921b,0.47083832709113604
+500,bad_925a,0.5279719794701069,0.0,62,F,40.0,,6.0,,7.0,,,124,BAD_925,2mos,18,2.5,27,1,925,bad_925b,0.5868820224719101
+501,bad_925a,0.5279719794701069,0.0,62,F,40.0,,6.0,,7.0,,,124,BAD_925,2mos,18,2.5,27,1,925,bad_925b,0.5868820224719101
+502,bad_925a,0.5279719794701069,0.0,62,F,40.0,,6.0,,7.0,,,124,BAD_925,2mos,18,2.5,27,1,925,bad_925b,0.5868820224719101
+503,bad_925a,0.5279719794701069,0.0,62,F,40.0,,6.0,,7.0,,,124,BAD_925,2mos,18,2.5,27,1,925,bad_925b,0.5868820224719101
+504,bad_925a,0.5279719794701069,0.0,62,F,40.0,,6.0,,7.0,,,124,BAD_925,2mos,18,2.5,27,1,925,bad_925b,0.5868820224719101
+505,bad_925a,0.5279719794701069,0.0,62,F,40.0,,6.0,,7.0,,,124,BAD_925,2mos,21,0.0,66,0,925,bad_925b,0.5868820224719101
+506,bad_925a,0.5279719794701069,0.0,62,F,40.0,,6.0,,7.0,,,124,BAD_925,2mos,21,0.0,66,0,925,bad_925b,0.5868820224719101
+507,bad_925a,0.5279719794701069,0.0,62,F,40.0,,6.0,,7.0,,,124,BAD_925,2mos,21,0.0,66,0,925,bad_925b,0.5868820224719101
+508,bad_925a,0.5279719794701069,0.0,62,F,40.0,,6.0,,7.0,,,124,BAD_925,2mos,21,0.0,66,0,925,bad_925b,0.5868820224719101
+509,bad_925a,0.5279719794701069,0.0,62,F,40.0,,6.0,,7.0,,,124,BAD_925,2mos,21,0.0,66,0,925,bad_925b,0.5868820224719101
+510,bad_925a,0.5279719794701069,0.0,62,F,40.0,,6.0,,7.0,,,124,BAD_925,2mos,24,0.0,99,0,925,bad_925b,0.5868820224719101
+511,bad_925a,0.5279719794701069,0.0,62,F,40.0,,6.0,,7.0,,,124,BAD_925,2mos,24,0.0,99,0,925,bad_925b,0.5868820224719101
+512,bad_925a,0.5279719794701069,0.0,62,F,40.0,,6.0,,7.0,,,124,BAD_925,2mos,24,0.0,99,0,925,bad_925b,0.5868820224719101
+513,bad_925a,0.5279719794701069,0.0,62,F,40.0,,6.0,,7.0,,,124,BAD_925,2mos,24,0.0,99,0,925,bad_925b,0.5868820224719101
+514,bad_925a,0.5279719794701069,0.0,62,F,40.0,,6.0,,7.0,,,124,BAD_925,2mos,24,0.0,99,0,925,bad_925b,0.5868820224719101
+515,bad_925a,0.5279719794701069,0.0,62,F,40.0,,6.0,,7.0,,,124,BAD_925,2mos,27,3.0,234,7,925,bad_925b,0.5868820224719101
+516,bad_925a,0.5279719794701069,0.0,62,F,40.0,,6.0,,7.0,,,124,BAD_925,2mos,27,3.0,234,7,925,bad_925b,0.5868820224719101
+517,bad_925a,0.5279719794701069,0.0,62,F,40.0,,6.0,,7.0,,,124,BAD_925,2mos,27,3.0,234,7,925,bad_925b,0.5868820224719101
+518,bad_925a,0.5279719794701069,0.0,62,F,40.0,,6.0,,7.0,,,124,BAD_925,2mos,27,3.0,234,7,925,bad_925b,0.5868820224719101
+519,bad_925a,0.5279719794701069,0.0,62,F,40.0,,6.0,,7.0,,,124,BAD_925,2mos,27,3.0,234,7,925,bad_925b,0.5868820224719101
+520,bad_925a,0.5279719794701069,0.0,62,F,40.0,,6.0,,7.0,,,124,BAD_925,2mos,30,7.7,387,19,925,bad_925b,0.5868820224719101
+521,bad_925a,0.5279719794701069,0.0,62,F,40.0,,6.0,,7.0,,,124,BAD_925,2mos,30,7.7,387,19,925,bad_925b,0.5868820224719101
+522,bad_925a,0.5279719794701069,0.0,62,F,40.0,,6.0,,7.0,,,124,BAD_925,2mos,30,7.7,387,19,925,bad_925b,0.5868820224719101
+523,bad_925a,0.5279719794701069,0.0,62,F,40.0,,6.0,,7.0,,,124,BAD_925,2mos,30,7.7,387,19,925,bad_925b,0.5868820224719101
+524,bad_925a,0.5279719794701069,0.0,62,F,40.0,,6.0,,7.0,,,124,BAD_925,2mos,30,7.7,387,19,925,bad_925b,0.5868820224719101
