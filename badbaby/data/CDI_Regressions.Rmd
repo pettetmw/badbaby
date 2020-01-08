@@ -1,0 +1,260 @@
+---
+title: "CDI responses onto MEG & demographic predictors"
+author: "Kambiz Tavabi"
+date: "10/25/2019"
+output: pdf_document
+---
+
+```{r setup, include  =  FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+#The Data
+*TODO*
+_Is tidy format with repeating unit indices correct?_
+_Would you factorize scale predictors e.g maternalEdu?_
+```{r read data, echo = FALSE}
+library(tidyverse)
+ds <- read_csv("auc_55_liblinear_Individual-RM.csv", 
+    col_types = cols(X1 = col_skip(), contrast = col_factor(levels = c("ba_vs_wa", 
+        "standard_vs_ba", "standard_vs_wa")), 
+        gender = col_factor(levels = c("F", "M")), 
+        group = col_factor(levels = c("6mos", "2mos"))))
+
+```
+
+```{r mutate variables, echo = FALSE}
+ds <- ds %>% as_tibble() %>% mutate(
+  scale.ses = scale(ses, center = 0),
+  scale.cdiAge = scale(cdiAge, center = 0), 
+  cdi.age = factor(cdiAge, levels = c(18, 21, 24, 27, 30)),
+  contrast = fct_recode(contrast,
+                      "/ba/" = "standard_vs_ba",
+                      "/wa/" = "standard_vs_wa",
+                      "/Xa/" = "ba_vs_wa"))
+str(ds)
+```
+
+```{r arrange long by AUC responses, echo = FALSE}
+arrange(ds, contrast, subject, cdiAge)
+ds.long <- ds %>% pivot_longer(
+  cols = starts_with("AUC"),
+  names_to = "type",
+  values_to = "response",
+  values_drop_na = TRUE
+)
+
+```
+
+```{r get sample sizes, echo = FALSE}
+ds.long %>% group_by(subject, group) %>%
+  summarise(n = n_distinct(subject)) %>%
+  ungroup() %>%
+  group_by(group) %>%
+  summarise(n = n())
+```
+
+```{r histograms, echo = FALSE}
+ds.long %>% ggplot() +
+  geom_freqpoly(mapping = aes(x = response, color = contrast), binwidth = 0.05) +
+  facet_wrap(~group) +
+  theme_minimal() +
+  labs(title = "Distributions of ROC area under curve values",
+         subtitle = "by contrast",
+         x = "Area Under Curve (AU)",
+         y = "Count")
+
+```
+The frequency distributions of mean cross-validated ROC scores computed within the MMN time-window of interest 235-530ms post-stimulus onset. For 2-(n = 25) and 6-months (n = 35) old infants hearing deviants tokens of CVs contrasting /ba/ and /wa/ along VOT & manner spectrums as deviants against a CV standard stimulus with the categorical percept boundary sound, a sharper distribution of ROC scores is evident. That is by 6-months age, cortical auditory activity in the MMN time-window here represented by ROC area under curve values from the samplewise (multi-class) logistic regression of AEF response magnitudes onto stimulus token is sharper. Infact, by 6-months of age the distributions for both oddball contrasts (?a --> ba or ?a -->wa) as well as the classification between evoked activity in response to the two deviants (/ba/ & /wa/). Specifically, with age auditory discriminatory activity in the infant auditory cortex sharpens around chance level in classification scores, meaning that by 6-months, as phonetic learning approaches the categorical perception milestone towrads the end of the first-year, temporal response curve modelling shows that older infants more narrowly discriminate CV stimuli as comapred to their younger (more) "citizens of the world" peers. 
+
+```{r RM differences between logit scoresr}
+ds.auc_rm <- ds.long %>% filter(simmInclude == 1) 
+bp.auc <- ggplot(data = ds.auc_rm,
+                 mapping = aes(x=reorder(type, response, FUN = median),
+                               y=response, fill=contrast)) +
+  geom_boxplot() +
+  labs(title = "Mean AUC for infant groups", 
+         x = "Age (in months)",
+         y = "AUC",
+         fill = "Contrast") +
+  theme_minimal()
+bp.auc
+```
+```{r}
+# Data vectors
+xa2  <- ds %>% filter(simmInclude == 1, contrast == "/Xa/", group == "2mos") %>% 
+  distinct(subject, .keep_all = TRUE) %>% 
+  select("AUC_2mos")
+xa6  <- ds %>% filter(simmInclude == 1, contrast == "/Xa/", group == "6mos") %>% 
+  distinct(subject, .keep_all = TRUE) %>% 
+  select("AUC_6mos")
+(res <- wilcox.test(xa2$AUC_2mos, xa6$AUC_6mos, 
+                    alternative = c("greater"), paired = TRUE))
+```
+
+```{r AUC response descriptives by age, echo = FALSE}
+library(GGally) 
+library(psych)
+ds.filt <- filter(ds, group == "2mos")
+(describeBy(ds.filt$AUC_2mos, list(ds.filt$contrast), digits = 2, mat = TRUE)) 
+pm2 <-
+  ggpairs(
+    ds.long %>% filter(group == "2mos"),
+    columns = c("response", "ses", "vocab", "m3l"),
+    progress = FALSE,
+    upper = list(
+      continuous = wrap("cor", size = 2),
+      mapping = aes(color=contrast)
+    ),
+    diag = list(
+      continuous = wrap("barDiag", alpha = 0, color="blue")
+    ),
+    lower = list(
+      continuous = wrap("smooth", alpha = 0.7, color = "blue", size = .5)),
+    title = "Two-months-old"
+  )
+
+pm2 +
+  theme_minimal() 
+```
+
+
+```{r six mos descriptives, echo = FALSE}
+
+ds.filt <- filter(ds, group == "6mos")
+(describeBy(ds.filt$AUC_6mos, list(ds.filt$contrast), digits = 2, mat = TRUE)) 
+
+pm6 <-
+  ggpairs(
+    ds.long %>% filter(group == "6mos"),
+    columns = c("response", "ses", "vocab", "m3l"),
+    progress = FALSE,
+    upper = list(
+      continuous = wrap("cor", size = 2),
+      mapping = aes(color=contrast)
+    ),
+    diag = list(
+      continuous = wrap("barDiag", alpha = 0, color="blue")
+    ),
+    lower = list(
+      continuous = wrap("smooth", alpha = 0.7, color = "blue", size = .5)),
+    title = "Six-months-old",
+)
+
+pm6 +
+  theme_minimal()
+```
+
+
+##Spaghetti plots
+1. Vocab over age by SES
+```{r vocab by ses, echo = FALSE}
+library(ggthemes)
+sp.ses <- ggplot(data = ds, aes(x = cdi.age,
+                                 y = vocab, group = subjId, color = ses.scale))
+sp.ses+geom_line(size = .8, alpha = .5) +
+  stat_smooth(aes(group = 1), method = "lm", se = TRUE, 
+              size = 1, show.legend = FALSE) +
+  stat_summary(aes(group = 1), geom = "point", fun.y = mean, shape = 18, 
+               size = 3, show.legend = FALSE) +
+  labs(title = "Language outcome", 
+       subtitle = "Regression line ± error",
+       x = "Age (in months)",
+       y = "Vocabulary size",
+       color = "SES") +
+  theme_classic() + 
+  theme(axis.title.y = element_text(face = "bold", angle = 90),
+        axis.title.x = element_text(face = "bold"))
+
+```
+
+1. Vocab over age by SES
+```{r vocab by auc, echo = FALSE}
+sp.auc <- ggplot(data = ds, aes(x = cdi.age,
+                                 y = vocab, group = subjId, color = auc))
+sp.auc+geom_line(size = .8, alpha = .5) +
+  stat_smooth(aes(group = 1), method = "lm", se = TRUE, 
+              size = 1, show.legend = FALSE) +
+  stat_summary(aes(group = 1), geom = "point", fun.y = mean, shape = 18, 
+               size = 3, show.legend = FALSE) +
+  labs(title = "Language outcome", 
+       subtitle = "Regression line ± error",
+       x = "Age (in months)",
+       y = "Vocabulary size",
+       color = "AUC") +
+  theme_classic() + 
+  theme(axis.title.y = element_text(face = "bold", angle = 90),
+        axis.title.x = element_text(face = "bold"))
+```
+
+#Models - Vocabulary size
+1. Simple linear model
+*TODO*
+_Recommendations on centring/scaling predictors_
+```{r select vocab, echo = FALSE}
+vocab <- dplyr::select(ds, c(auc, age, subjId, ses, gender, headSize,
+                       maternalEdu, maternalEthno, maternalHscore,
+                       paternalEdu, paternalEthno, paternalHscore,
+                       birthWeight, cdiAge, vocab))
+vocab.fit <- lm(vocab~.-subjId, data = vocab, 
+                contrasts = contr.helmert(vocab$maternalEthno))
+summary(vocab.fit)
+par(mfrow = c(2,2))
+plot(vocab.fit)
+```
+*TODO*
+_Do you know how to interpret the Scale-Loc and Res v Lev diagnostic plots?_
+
+2. Mixed - intercepts only by random factor
+```{r null mixed, echo = FALSE}
+library(lme4)
+library(arm)
+vocab.null <- lmer (vocab ~ 1 + (1 | subjId), data = vocab)
+display(vocab.null)
+summary(vocab.null)
+```
+
+3. Mixed - Slopes only by random factor
+```{r subject random slopes, echo = FALSE}
+vocab.lm1 <- lmer(vocab ~ cdiAge*ses+age:auc +
+                     (0+cdiAge | subjId), 
+                 data = vocab)
+display(vocab.lm1)
+summary(vocab.lm1)
+```
+
+4. Mixed - Intercepts and slopes by random factor (correlated) *converges after centering predictors*
+```{r correl intercepts slopes, echo = FALSE}
+vocab.lm2 <- lmer(vocab ~ cdiAge*ses+age:auc +
+                     (1+cdiAge | subjId), 
+                 data = vocab)
+display(vocab.lm2)
+summary(vocab.lm2)
+```
+
+5. Mixed - Intercepts and slopes by random factor (uncorrelated)
+```{r uncorrel intercepts slopes, echo = FALSE}
+vocab.lm3 <- lmer(vocab ~ cdiAge*ses+age:auc + 
+                     cdiAge + (cdiAge || subjId), 
+                 data = vocab)
+display(vocab.lm3)
+summary(vocab.lm3)
+```
+
+6. _AFEX_ Mixed - Intercepts & slopes (correlated)
+```{r afex mixed, echo = FALSE}
+library("afex") # needed for mixed() and attaches lme4 automatically.
+afex_options(emmeans_model = "multivariate")  # ANOVAs involving RM factors, follow-up tests based on the multivariate model are generally preferred to univariate follow-up tests.
+set_sum_contrasts()  # orthogonal sum-to-zero contrasts
+
+vocab.aov <- mixed(
+  vocab ~ cdiAge * ses + 
+      (1+cdiAge | subjId),
+  data = vocab,
+  method = "LRT",
+  expand_re = T
+)
+summary(vocab.aov)
+```
+*TODO*
+_Can you see why AFEX is complaining that Age & SES variables are NOT centered on 0?_
