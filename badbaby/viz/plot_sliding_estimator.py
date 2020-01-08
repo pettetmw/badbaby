@@ -137,15 +137,22 @@ for iii, analysis in enumerate(analysese):
              'group']]
         rm = ag.merge(ma_, on='subject', sort=True,
                       validate='1:1').reset_index()
-        rm = ag[ag.subject.isin(rm_cohort)].reset_index()
-        rm = rm.merge(covars, on='subject', validate='m:m')
-        rm.to_csv(op.join(defaults.datadir, 'RM-SCORES_%s_%d_%s.csv' % (
-            ctrst, lp, solver)))
         # Wilcoxon signed-rank test Alt H0 2- < 6-months
         x = rm[rm.group_x == '2mos']['auc'].values
         y = rm[rm.group_x == '6mos']['auc'].values
-        stat, pval = stats.wilcoxon(x, y, alternative="two-sided")
+        stat, pval = stats.wilcoxon(x, y,
+                                    alternative=alt)
         print('%s (W, P-value): (%f, %f)' % (ctrst, stat, pval))
+        rm = auc_df[auc_df.subject.isin(rm_cohort)].reset_index()
+        rm = rm.merge(covars, on='subject', validate='1:m')
+        rm.drop(['contrast', 'simmInclude'], axis=1, inplace=True)
+        XX = rm[rm.group == '2mos']
+        YY = rm[rm.group == '6mos'][['subject', 'auc']]
+        for _df in [XX, YY]:
+            _df['ids'] = [xx.strip('bad_') for xx in _df.subject]
+        DF = XX.merge(YY, on='ids', suffixes=('_2mos', '_6mos'))
+        DF.to_csv(op.join(defaults.datadir, 'RM-SCORES_%s_%d_%s.csv' % (
+            ctrst, lp, solver)))
 
 # n_axs = len(scores[cci]) + 1
 # n_rows = int(np.ceil(n_axs / 4.))
