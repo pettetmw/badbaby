@@ -13,13 +13,13 @@ import pandas as pd
 import seaborn as sns
 import xarray as xr
 from scipy import stats
-
+from mne import grand_average
 import badbaby.return_dataframes as rd
 from badbaby import defaults
 
-sns.set_style('ticks')
-sns.set_palette('deep')
 # parameters
+sns.set_style('ticks')
+sns.set_palette('muted')
 workdir = defaults.datapath
 analysese = ['Individual', 'Oddball']
 lp = defaults.lowpass
@@ -30,20 +30,19 @@ regex = r"[abc]$"
 
 # Wrangle MEG & CDI covariates
 MEG, CDI = rd.return_dataframes('mmn')
-MEG.reset_index(inplace=True)
-MEG['subject'] = ['bad_%s' % xx for xx in MEG.subjId]
-MEG['subjId'] = [re.split(regex, ss)[0].upper() for ss in MEG.subjId]
-MEG['subjId'] = ['BAD_%s' % xx for xx in MEG.subjId]
-s_ = MEG.age < 80
-MEG['group'] = s_.map({True: '2mos', False: '6mos'})
-covars = pd.merge(MEG[['simmInclude', 'ses', 'age', 'gender', 'headSize',
-                       'maternalEdu', 'maternalHscore',
-                       'paternalEdu', 'paternalHscore',
-                       'maternalEthno', 'paternalEthno', 'birthWeight',
-                       'subjId', 'subject', 'group']], CDI, on='subjId',
+ma_ = MEG.age < 80
+MEG['group'] = ma_.map({True: '2mos', False: '6mos'})
+CDI['dummy'] = [xx.lstrip('bad_') for xx in CDI.subjId]
+MEG['dummy'] = [xx.lstrip('bad_') for xx in MEG.index]
+COVAR = MEG.merge(CDI, on='dummy', left_index=True,
                   validate='m:m')
-rm_cohort = covars[covars.simmInclude == 1].subject.unique()
-# pd.set_option('mode.chained_assignment', 'raise')
+COVAR = COVAR[['simmInclude', 'ses', 'age', 'gender',
+               'headSize',
+               'maternalEdu', 'maternalHscore',
+               'paternalEdu', 'paternalHscore',
+               'maternalEthno', 'paternalEthno', 'birthWeight',
+               'group', 'dummy', 'cdiAge', 'm3l', 'vocab']]
+COVAR.insert(0, 'ids', COVAR.dummy.values)
 
 for iii, analysis in enumerate(analysese):
     if iii == 0:
@@ -56,51 +55,32 @@ for iii, analysis in enumerate(analysese):
         # alt = 'less'
     combos = list(itertools.combinations(conditions, 2))
     for cci, cc in enumerate(combos):
-        ctrst = '_vs_'.join(cc)
-        title = ctrst.replace('_vs_', ' vs. ')
-        aucs = list()
-        scrs = list()
-        for aix in ages:
-            auc_fi = op.join(defaults.datadir,
-                             '%smos_%d_%s_%s_AUC.nc'
-                             % (aix, lp, solver, analysis))
-            auc_df = xr.open_dataarray(auc_fi).to_dataframe('auc')
-            auc_df.reset_index(inplace=True, level=1)
-            scores_fi = op.join(defaults.datadir,
-                                '%smos_%d_%s_%s_SCORES.nc'
-                                % (aix, lp, solver, analysis))
-            scores_df = xr.open_dataarray(scores_fi).to_dataframe('scores')
-            scores_df.reset_index(inplace=True, level=(1, 2))
-            auc_ctrst = auc_df.loc[ctrst].merge(MEG['subject'], on='subject',
-                                                right_index=True)
-            scrs_ctrst = scores_df.loc[ctrst].merge(MEG['subject'],
-                                                    on='subject',
-                                                    right_index=True)
-            # combine AUC & scores group datasets
-            subjs = MEG[MEG.group == '%dmos' % aix]['subject'].values
-            aa = auc_ctrst[auc_ctrst.subject.isin(subjs)].reset_index(
-                drop=True)
-            aa['group'] = pd.Series(
-                np.repeat(np.array('%dmos' % aix), len(aa)))
-            aucs.append(aa)
-            ss = scrs_ctrst[scrs_ctrst.subject.isin(subjs)].reset_index(
-                drop=True)
-            ss['group'] = pd.Series(
-                np.repeat(np.array('%dmos' % aix), len(ss)))
-            scrs.append(ss)
+        contrast = '-'.join(cc)
+        fi = op.join(defaults.datadir,
+                         'AUC_%d_%s_%s.nc'
+                         % (lp, solver, analysis))
+        dfa = xr.open_dataarray(fi).to_dataframe('auc')
+        dfa.reset_index(inplace=True, level=0, drop=True)
+        fi = op.join(defaults.datadir,
+                            'SCORES_%d_%s_%s.nc'
+                            % (lp, solver, analysis))
+        dfs = xr.open_dataarray(fi).to_dataframe('scores')
+        dfs.reset_index(inplace=True, level=[0,1], drop=True)
+        # combine frames
+        
         # plot timeseries scores over groups
         fig, ax = plt.subplots(1, figsize=(6.6, 5))
         sns.lineplot(x='time', y='scores', hue='group',
                      data=pd.concat(scrs, ignore_index=True),
                      ax=ax)
         ax.set(xlabel='Time (s)', ylabel='Score (AUC)')
-        ax.set_title(title)
+        ax.set_title(contrast)
         ax.axhline(.5, color='k', linestyle='--', label='chance', alpha=.25)
         ax.axvline(.0, color='k', linestyle='-', alpha=.25)
         ax.legend()
         fig.savefig(op.join(defaults.figsdir,
                             'GRPAVR-SCORES_%s_%d_%s.png' % (
-                                ctrst, lp, solver)))
+                                contrast, lp, solver)))
         # plot mean-window AUC
         ag = pd.concat(aucs, ignore_index=True)
         ag['ids'] = [xx.lstrip('bad_') for xx in ag.subject]
@@ -114,11 +94,11 @@ for iii, analysis in enumerate(analysese):
                      alpha=.25)
         h.ax.set_xlabel('Subject')
         h.ax.set_ylabel('AUC')
-        h.ax.set_title('%s' % ctrst)
+        h.ax.set_title('%s' % contrast)
         plt.legend()
         plt.savefig(op.join(defaults.figsdir,
                             'IND-SCORES_%s_%d_%s.png' % (
-                                ctrst, lp, solver)))
+                                contrast, lp, solver)))
         g = sns.catplot(x='group', y='auc',
                         data=ag, kind='box',
                         height=6, legend=False)
@@ -126,28 +106,37 @@ for iii, analysis in enumerate(analysese):
                      alpha=.25)
         g.ax.set_xlabel('Age')
         g.ax.set_ylabel('AUC')
-        g.ax.set_title(title)
+        g.ax.set_title(contrast)
         plt.legend()
         plt.savefig(op.join(defaults.figsdir,
                             'GRP-SCORES_%s_%d_%s.png' % (
-                                ctrst, lp, solver)))
-        ma_ = MEG[MEG.simmInclude == 1][
+                                contrast, lp, solver)))
+        
+        ag = ag.pivot(index='subject', columns='group', values=['ids', 'auc'])
+        ag.reset_index(inplace=True)
+        rm = ag.join(ma_)
+        x = rm[rm[('auc', '2mos')].notna()][('auc', '2mos')].values
+        y = rm[rm[('auc', '6mos')].notna()][('auc', '6mos')].values
+        rm['ids'] = [xx.lstrip('bad_') for xx in rm.subject]
+        rm.to_csv(op.join(defaults.datadir, 'RM-SCORES_%s_%d_%s.csv' % (
+            contrast, lp, solver)))
+        # Wilcoxon signed-rank test Alt H0 2- < 6-months
+        stat, pval = stats.wilcoxon(x, y, alternative="less")
+        print('%s (W, P-value): (%f, %f)' % (contrast, stat, pval))
+
+
+MEG.reset_index(inplace=True)
+MEG['subject'] = ['bad_%s' % xx for xx in MEG.subjId]
+MEG['ids'] =
+MEG['subjId'] =
+MEG['subjId'] = ['BAD_%s' % xx for xx in MEG.subjId]
+
+
+rm_cohort = covars[covars.simmInclude == 1].subject.unique()
+ma_ = MEG[MEG.simmInclude == 1][
             ['ses', 'gender', 'headSize', 'birthWeight', 'subject',
              'group']]
-        rm = ag.merge(ma_, on='subject', sort=True,
-                      validate='1:1').reset_index()
-        rm = ag[ag.subject.isin(rm_cohort)].reset_index()
-        rm = rm.merge(covars, on='subject', validate='m:m')
-        rm.drop(['index', 'group_y', 'complex'], axis=1, inplace=True)
-        
-        rm.to_csv(op.join(defaults.datadir, 'RM-SCORES_%s_%d_%s.csv' % (
-            ctrst, lp, solver)))
-        # Wilcoxon signed-rank test Alt H0 2- < 6-months
-        x = rm[rm.group_x == '2mos']['auc'].values
-        y = rm[rm.group_x == '6mos']['auc'].values
-        stat, pval = stats.wilcoxon(x, y,
-                                    alternative="two-sided")
-        print('%s (W, P-value): (%f, %f)' % (ctrst, stat, pval))
+        ma_.columns = pd.MultiIndex.from_product([['ids'], ma_.columns])
 
 # n_axs = len(scores[cci]) + 1
 # n_rows = int(np.ceil(n_axs / 4.))
@@ -169,11 +158,25 @@ for iii, analysis in enumerate(analysese):
 # fig.text(0.5, 0.02, 'Time (s)', ha='center', fontsize=16)
 # fig.text(0.01, 0.5, 'Area under curve', va='center',
 #          rotation='vertical', fontsize=16)
-# fig.text(0.5, 0.98, '%s' % ctrst,
+# fig.text(0.5, 0.98, '%s' % contrast,
 #          ha='center', va='center', fontsize=16)
 # fig.subplots_adjust()
 # fig.savefig(op.join(defaults.figsdir,
 #                     '%smos_%d_%s_%s_%s-scores.png' % (
 #                     aix, lp, solver,
-#                     ctrst, tag)),
+#                     contrast, tag)),
 #             bbox_to_inches='tight')
+
+
+for aix in ages:
+    
+    # Group averaged (ages) cv-score topomaps
+    hs = grand_average(list(patterns[cs])).plot_joint(
+        times=np.arange(win[0],
+                        win[1], .05),
+        title='patterns', **joint_kwargs)
+    for hx, ch in zip(hs, ['mag', 'grad']):
+        hx.savefig(op.join(defaults.figsdir,
+                           '%dmos-avr-%s-%s-%s-topo_.png' %
+                           (aix, solver, contrast, ch)),
+                   bbox_inches='tight')
