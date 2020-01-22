@@ -9,7 +9,7 @@ import os.path as op
 import seaborn as sns
 import xarray as xr
 from scipy import stats
-
+from mne import grand_average
 import badbaby.return_dataframes as rd
 from badbaby import defaults
 
