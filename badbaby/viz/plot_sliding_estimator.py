@@ -6,10 +6,11 @@ ERFs."""
 import itertools
 import os.path as op
 
+import numpy as np
+import pandas as pd
 import seaborn as sns
 import xarray as xr
 from scipy import stats
-from mne import grand_average
 import badbaby.return_dataframes as rd
 from badbaby import defaults
 
@@ -22,7 +23,7 @@ lp = defaults.lowpass
 window = defaults.peak_window
 groups = ['2mos', '6mos']
 solver = 'lbfgs'
-regex = r"[abc]$"
+regex = r"[abcd_]$"
 
 # Wrangle df1 & df2 covariates
 df1, df2 = rd.return_dataframes('mmn')
@@ -95,11 +96,19 @@ for iii, analysis in enumerate(analysese):
     ax.legend()
     g.savefig(op.join(defaults.figsdir, 'GRP-SCORES_%d_%s.png' % (lp, solver)))
     rm = aucs[aucs.simmInclude == 1]
-    rm = rm.pivot_table(index=['group', 'subject']).unstack('group')
-    rm.to_csv(op.join(defaults.datadir, 'RM-SCORES_%d_%s.csv' % (lp, solver)))
+    rm = rm.pivot_table(index=['group', 'subject'])
+    pieces = dict(zip(groups, [rm.loc[ag, :] for ag in groups]))
+    for kk, vv in pieces.items():
+        vv.insert(0, 'ids', np.unique([xx.strip(regex) for xx in vv.index]))
+        pieces[kk].update((kk, vv.reset_index(drop=True)))
+    result = pd.merge(pieces['2mos'][['ids', 'age', 'auc']], pieces['6mos'],
+                      on='ids',
+                      suffixes=groups)
+    result.to_csv(op.join(defaults.datadir, 'RM-SCORES_%d_%s.csv' % (lp,
+                                                                     solver)))
     for cc in contrasts:
-        x = rm[rm[('auc', '2mos')].notna()][('auc', '2mos')].values
-        y = rm[rm[('auc', '6mos')].notna()][('auc', '6mos')].values
+        x = result.auc2mos.values
+        y = result.auc6mos.values
         # Wilcoxon signed-rank test Alt H0 2- < 6-months
         stat, pval = stats.wilcoxon(x, y, alternative="less")
         print('%s (W, P-value): (%f, %f)' % (cc, stat, pval))
