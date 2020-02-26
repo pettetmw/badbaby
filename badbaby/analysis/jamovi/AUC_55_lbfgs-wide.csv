@@ -1,0 +1,421 @@
+contrast,id,auc2mos,auc6mos,age2mos,age6mos,headsz2mos,headsz6mos,ses,gender,birth_weight,maternal_edu,maternal_hscore,paternal_edu,paternal_hscore,maternal_ethno,paternal_ethno,cdi_age,m3l,vocab
+standard-deviant,116a,0.570165418227216,0.48515248796147700,65,206,37,44,41.5,M,102,16,6,14,6,Asian/Pacific Islander,"White-Not Hispanic/Latino, Native American/Eskimo",18,2,80
+standard-deviant,116a,0.570165418227216,0.48515248796147700,65,206,37,44,41.5,M,102,16,6,14,6,Asian/Pacific Islander,"White-Not Hispanic/Latino, Native American/Eskimo",21,2,306
+standard-deviant,116a,0.570165418227216,0.48515248796147700,65,206,37,44,41.5,M,102,16,6,14,6,Asian/Pacific Islander,"White-Not Hispanic/Latino, Native American/Eskimo",24,3.3,445
+standard-deviant,116a,0.570165418227216,0.48515248796147700,65,206,37,44,41.5,M,102,16,6,14,6,Asian/Pacific Islander,"White-Not Hispanic/Latino, Native American/Eskimo",27,2,485
+standard-deviant,116a,0.570165418227216,0.48515248796147700,65,206,37,44,41.5,M,102,16,6,14,6,Asian/Pacific Islander,"White-Not Hispanic/Latino, Native American/Eskimo",30,4.3,667
+standard-deviant,119a,0.4600749063670410,0.5593723186925430,67,208,40,44,63,M,115,17,6,16,6,"Hispanic/Latino, White",White-Not Hispanic/Latino,18,0,30
+standard-deviant,119a,0.4600749063670410,0.5593723186925430,67,208,40,44,63,M,115,17,6,16,6,"Hispanic/Latino, White",White-Not Hispanic/Latino,21,2.7,50
+standard-deviant,119a,0.4600749063670410,0.5593723186925430,67,208,40,44,63,M,115,17,6,16,6,"Hispanic/Latino, White",White-Not Hispanic/Latino,24,3.7,105
+standard-deviant,119a,0.4600749063670410,0.5593723186925430,67,208,40,44,63,M,115,17,6,16,6,"Hispanic/Latino, White",White-Not Hispanic/Latino,27,3.7,182
+standard-deviant,119a,0.4600749063670410,0.5593723186925430,67,208,40,44,63,M,115,17,6,16,6,"Hispanic/Latino, White",White-Not Hispanic/Latino,30,5.7,488
+standard-deviant,122a,0.50479088639201,0.5472222222222220,60,185,39,42,43,M,111,14,5,12,5,White-Not Hispanic/Latino,Black-Not hispanic/Latino,18,0,65
+standard-deviant,122a,0.50479088639201,0.5472222222222220,60,185,39,42,43,M,111,14,5,12,5,White-Not Hispanic/Latino,Black-Not hispanic/Latino,21,2,112
+standard-deviant,122a,0.50479088639201,0.5472222222222220,60,185,39,42,43,M,111,14,5,12,5,White-Not Hispanic/Latino,Black-Not hispanic/Latino,24,3.3,307
+standard-deviant,122a,0.50479088639201,0.5472222222222220,60,185,39,42,43,M,111,14,5,12,5,White-Not Hispanic/Latino,Black-Not hispanic/Latino,27,2.3,449
+standard-deviant,122a,0.50479088639201,0.5472222222222220,60,185,39,42,43,M,111,14,5,12,5,White-Not Hispanic/Latino,Black-Not hispanic/Latino,30,6.7,658
+standard-deviant,124a,0.4869494382022470,0.4487515605493140,75,190,39,44,42,M,112,18,6,12,4,White-Not Hispanic/Latino,White-Not Hispanic/Latino,18,2.5,89
+standard-deviant,124a,0.4869494382022470,0.4487515605493140,75,190,39,44,42,M,112,18,6,12,4,White-Not Hispanic/Latino,White-Not Hispanic/Latino,21,1.5,183
+standard-deviant,124a,0.4869494382022470,0.4487515605493140,75,190,39,44,42,M,112,18,6,12,4,White-Not Hispanic/Latino,White-Not Hispanic/Latino,24,4.7,398
+standard-deviant,124a,0.4869494382022470,0.4487515605493140,75,190,39,44,42,M,112,18,6,12,4,White-Not Hispanic/Latino,White-Not Hispanic/Latino,27,8.3,587
+standard-deviant,124a,0.4869494382022470,0.4487515605493140,75,190,39,44,42,M,112,18,6,12,4,White-Not Hispanic/Latino,White-Not Hispanic/Latino,30,10.3,656
+standard-deviant,127a,0.5166791510611740,0.5270387016229710,57,191,40,43,35,F,127,17,6,16,5,White-Not Hispanic/Latino,White-Not Hispanic/Latino,18,2,116
+standard-deviant,127a,0.5166791510611740,0.5270387016229710,57,191,40,43,35,F,127,17,6,16,5,White-Not Hispanic/Latino,White-Not Hispanic/Latino,21,5,277
+standard-deviant,127a,0.5166791510611740,0.5270387016229710,57,191,40,43,35,F,127,17,6,16,5,White-Not Hispanic/Latino,White-Not Hispanic/Latino,24,6,456
+standard-deviant,127a,0.5166791510611740,0.5270387016229710,57,191,40,43,35,F,127,17,6,16,5,White-Not Hispanic/Latino,White-Not Hispanic/Latino,27,8.3,544
+standard-deviant,127a,0.5166791510611740,0.5270387016229710,57,191,40,43,35,F,127,17,6,16,5,White-Not Hispanic/Latino,White-Not Hispanic/Latino,30,11,633
+standard-deviant,128a,0.5084868604327240,0.49659624849103900,54,193,39,44,22,M,108,12,4,12,4,Trinidad American,"Black-Not Hispanic/Latino, Native American/Eskimo, White",18,0,46
+standard-deviant,128a,0.5084868604327240,0.49659624849103900,54,193,39,44,22,M,108,12,4,12,4,Trinidad American,"Black-Not Hispanic/Latino, Native American/Eskimo, White",21,0,88
+standard-deviant,128a,0.5084868604327240,0.49659624849103900,54,193,39,44,22,M,108,12,4,12,4,Trinidad American,"Black-Not Hispanic/Latino, Native American/Eskimo, White",24,2,136
+standard-deviant,128a,0.5084868604327240,0.49659624849103900,54,193,39,44,22,M,108,12,4,12,4,Trinidad American,"Black-Not Hispanic/Latino, Native American/Eskimo, White",27,2.7,195
+standard-deviant,128a,0.5084868604327240,0.49659624849103900,54,193,39,44,22,M,108,12,4,12,4,Trinidad American,"Black-Not Hispanic/Latino, Native American/Eskimo, White",30,0,254
+standard-deviant,131a,0.5037627965043700,0.4850669050051070,54,188,39,43,36.5,F,106,12,4,12,4,Asian/Pacific Islander,Hispanic/Latino and Black Hispanic/Latino,18,0,3
+standard-deviant,131a,0.5037627965043700,0.4850669050051070,54,188,39,43,36.5,F,106,12,4,12,4,Asian/Pacific Islander,Hispanic/Latino and Black Hispanic/Latino,21,0,8
+standard-deviant,131a,0.5037627965043700,0.4850669050051070,54,188,39,43,36.5,F,106,12,4,12,4,Asian/Pacific Islander,Hispanic/Latino and Black Hispanic/Latino,24,0,41
+standard-deviant,131a,0.5037627965043700,0.4850669050051070,54,188,39,43,36.5,F,106,12,4,12,4,Asian/Pacific Islander,Hispanic/Latino and Black Hispanic/Latino,30,2.7,201
+standard-deviant,131a,0.5037627965043700,0.4850669050051070,54,188,39,43,36.5,F,106,12,4,12,4,Asian/Pacific Islander,Hispanic/Latino and Black Hispanic/Latino,27,0,88
+standard-deviant,209a,0.49332362324871700,0.49859773497413900,54,189,40,45,66,F,124,18,7,19,7,White-Not Hispanic/Latino,White-Not Hispanic/Latino,18,0,147
+standard-deviant,209a,0.49332362324871700,0.49859773497413900,54,189,40,45,66,F,124,18,7,19,7,White-Not Hispanic/Latino,White-Not Hispanic/Latino,21,3.7,302
+standard-deviant,209a,0.49332362324871700,0.49859773497413900,54,189,40,45,66,F,124,18,7,19,7,White-Not Hispanic/Latino,White-Not Hispanic/Latino,24,7,412
+standard-deviant,209a,0.49332362324871700,0.49859773497413900,54,189,40,45,66,F,124,18,7,19,7,White-Not Hispanic/Latino,White-Not Hispanic/Latino,27,6.7,478
+standard-deviant,209a,0.49332362324871700,0.49859773497413900,54,189,40,45,66,F,124,18,7,19,7,White-Not Hispanic/Latino,White-Not Hispanic/Latino,30,10,599
+standard-deviant,211a,0.4378511235955060,0.4918997936253150,63,189,38,43,60.5,F,111,15,6,17,6,White-Not Hispanic/Latino,White-Not Hispanic/Latino,18,0,40
+standard-deviant,211a,0.4378511235955060,0.4918997936253150,63,189,38,43,60.5,F,111,15,6,17,6,White-Not Hispanic/Latino,White-Not Hispanic/Latino,21,0,155
+standard-deviant,211a,0.4378511235955060,0.4918997936253150,63,189,38,43,60.5,F,111,15,6,17,6,White-Not Hispanic/Latino,White-Not Hispanic/Latino,24,0,280
+standard-deviant,211a,0.4378511235955060,0.4918997936253150,63,189,38,43,60.5,F,111,15,6,17,6,White-Not Hispanic/Latino,White-Not Hispanic/Latino,27,4,426
+standard-deviant,211a,0.4378511235955060,0.4918997936253150,63,189,38,43,60.5,F,111,15,6,17,6,White-Not Hispanic/Latino,White-Not Hispanic/Latino,30,6.3,589
+standard-deviant,215a,0.43425925925925900,0.48980649188514400,60,198,42,46,59.5,F,112,16,6,22,7,"Asian/Pacific Islander, White-Not Hispanic/Latino",White-Not Hispanic/Latino,18,0,75
+standard-deviant,215a,0.43425925925925900,0.48980649188514400,60,198,42,46,59.5,F,112,16,6,22,7,"Asian/Pacific Islander, White-Not Hispanic/Latino",White-Not Hispanic/Latino,21,2,287
+standard-deviant,215a,0.43425925925925900,0.48980649188514400,60,198,42,46,59.5,F,112,16,6,22,7,"Asian/Pacific Islander, White-Not Hispanic/Latino",White-Not Hispanic/Latino,24,5.7,447
+standard-deviant,215a,0.43425925925925900,0.48980649188514400,60,198,42,46,59.5,F,112,16,6,22,7,"Asian/Pacific Islander, White-Not Hispanic/Latino",White-Not Hispanic/Latino,27,6.3,592
+standard-deviant,215a,0.43425925925925900,0.48980649188514400,60,198,42,46,59.5,F,112,16,6,22,7,"Asian/Pacific Islander, White-Not Hispanic/Latino",White-Not Hispanic/Latino,30,8,643
+standard-deviant,220a,0.4644794007490640,0.5778906787434080,64,199,40,43,59.5,F,115,20,7,16,6,White-Not Hispanic/Latino,White-Not Hispanic/Latino,18,0,85
+standard-deviant,220a,0.4644794007490640,0.5778906787434080,64,199,40,43,59.5,F,115,20,7,16,6,White-Not Hispanic/Latino,White-Not Hispanic/Latino,21,2,164
+standard-deviant,220a,0.4644794007490640,0.5778906787434080,64,199,40,43,59.5,F,115,20,7,16,6,White-Not Hispanic/Latino,White-Not Hispanic/Latino,24,3.3,325
+standard-deviant,220a,0.4644794007490640,0.5778906787434080,64,199,40,43,59.5,F,115,20,7,16,6,White-Not Hispanic/Latino,White-Not Hispanic/Latino,27,6,421
+standard-deviant,220a,0.4644794007490640,0.5778906787434080,64,199,40,43,59.5,F,115,20,7,16,6,White-Not Hispanic/Latino,White-Not Hispanic/Latino,30,6.3,492
+standard-deviant,223a,0.526852176966292,0.47167415730337100,69,202,39,44,57,F,109,17,6,20,7,White-Not Hispanic/Latino,White-Not Hispanic/Latino,18,2,124
+standard-deviant,223a,0.526852176966292,0.47167415730337100,69,202,39,44,57,F,109,17,6,20,7,White-Not Hispanic/Latino,White-Not Hispanic/Latino,21,4,328
+standard-deviant,223a,0.526852176966292,0.47167415730337100,69,202,39,44,57,F,109,17,6,20,7,White-Not Hispanic/Latino,White-Not Hispanic/Latino,24,7.7,476
+standard-deviant,223a,0.526852176966292,0.47167415730337100,69,202,39,44,57,F,109,17,6,20,7,White-Not Hispanic/Latino,White-Not Hispanic/Latino,27,8.3,609
+standard-deviant,223a,0.526852176966292,0.47167415730337100,69,202,39,44,57,F,109,17,6,20,7,White-Not Hispanic/Latino,White-Not Hispanic/Latino,30,11.3,650
+standard-deviant,224a,0.4532236976506640,0.5643707865168540,59,179,40,45,66,M,86,19,7,19,7,"Hispanic/Latino, White",White-Not Hispanic/Latino,18,2,175
+standard-deviant,224a,0.4532236976506640,0.5643707865168540,59,179,40,45,66,M,86,19,7,19,7,"Hispanic/Latino, White",White-Not Hispanic/Latino,21,4,288
+standard-deviant,224a,0.4532236976506640,0.5643707865168540,59,179,40,45,66,M,86,19,7,19,7,"Hispanic/Latino, White",White-Not Hispanic/Latino,24,8.3,534
+standard-deviant,224a,0.4532236976506640,0.5643707865168540,59,179,40,45,66,M,86,19,7,19,7,"Hispanic/Latino, White",White-Not Hispanic/Latino,27,9,656
+standard-deviant,224a,0.4532236976506640,0.5643707865168540,59,179,40,45,66,M,86,19,7,19,7,"Hispanic/Latino, White",White-Not Hispanic/Latino,30,15.3,672
+standard-deviant,225a,0.45428901373283400,0.5408214731585520,65,197,38,42,66,F,120,17,6,17,7,White-Not Hispanic/Latino,White-Not Hispanic/Latino,18,2.3,42
+standard-deviant,225a,0.45428901373283400,0.5408214731585520,65,197,38,42,66,F,120,17,6,17,7,White-Not Hispanic/Latino,White-Not Hispanic/Latino,21,4,107
+standard-deviant,225a,0.45428901373283400,0.5408214731585520,65,197,38,42,66,F,120,17,6,17,7,White-Not Hispanic/Latino,White-Not Hispanic/Latino,24,5,187
+standard-deviant,225a,0.45428901373283400,0.5408214731585520,65,197,38,42,66,F,120,17,6,17,7,White-Not Hispanic/Latino,White-Not Hispanic/Latino,27,5,638
+standard-deviant,225a,0.45428901373283400,0.5408214731585520,65,197,38,42,66,F,120,17,6,17,7,White-Not Hispanic/Latino,White-Not Hispanic/Latino,30,6,670
+standard-deviant,229a,0.5113716273026060,0.4919962546816480,57,189,39,41,58,F,132,19,7,16,6,"Hispanic/Latino, White",White-Not Hispanic/Latino,18,3.3,97
+standard-deviant,229a,0.5113716273026060,0.4919962546816480,57,189,39,41,58,F,132,19,7,16,6,"Hispanic/Latino, White",White-Not Hispanic/Latino,21,6.7,484
+standard-deviant,229a,0.5113716273026060,0.4919962546816480,57,189,39,41,58,F,132,19,7,16,6,"Hispanic/Latino, White",White-Not Hispanic/Latino,24,8.3,570
+standard-deviant,229a,0.5113716273026060,0.4919962546816480,57,189,39,41,58,F,132,19,7,16,6,"Hispanic/Latino, White",White-Not Hispanic/Latino,27,10,616
+standard-deviant,229a,0.5113716273026060,0.4919962546816480,57,189,39,41,58,F,132,19,7,16,6,"Hispanic/Latino, White",White-Not Hispanic/Latino,30,14.7,646
+standard-deviant,309a,0.5109550561797750,0.5001601820039000,59,188,39,43,53,M,129,16,6,17,6,White-Not Hispanic/Latino,White-Not Hispanic/Latino,18,2,24
+standard-deviant,309a,0.5109550561797750,0.5001601820039000,59,188,39,43,53,M,129,16,6,17,6,White-Not Hispanic/Latino,White-Not Hispanic/Latino,21,0,65
+standard-deviant,309a,0.5109550561797750,0.5001601820039000,59,188,39,43,53,M,129,16,6,17,6,White-Not Hispanic/Latino,White-Not Hispanic/Latino,24,3.3,202
+standard-deviant,309a,0.5109550561797750,0.5001601820039000,59,188,39,43,53,M,129,16,6,17,6,White-Not Hispanic/Latino,White-Not Hispanic/Latino,27,2.7,418
+standard-deviant,309a,0.5109550561797750,0.5001601820039000,59,188,39,43,53,M,129,16,6,17,6,White-Not Hispanic/Latino,White-Not Hispanic/Latino,30,7.7,574
+standard-deviant,310a,0.48644328517924000,0.5103045779552420,64,186,39,44,48,F,123,16,6,18,6,White-Not Hispanic/Latino,White-Not Hispanic/Latino,18,0,16
+standard-deviant,310a,0.48644328517924000,0.5103045779552420,64,186,39,44,48,F,123,16,6,18,6,White-Not Hispanic/Latino,White-Not Hispanic/Latino,21,0,57
+standard-deviant,310a,0.48644328517924000,0.5103045779552420,64,186,39,44,48,F,123,16,6,18,6,White-Not Hispanic/Latino,White-Not Hispanic/Latino,24,4,376
+standard-deviant,310a,0.48644328517924000,0.5103045779552420,64,186,39,44,48,F,123,16,6,18,6,White-Not Hispanic/Latino,White-Not Hispanic/Latino,27,3.7,542
+standard-deviant,310a,0.48644328517924000,0.5103045779552420,64,186,39,44,48,F,123,16,6,18,6,White-Not Hispanic/Latino,White-Not Hispanic/Latino,30,8,584
+standard-deviant,311a,0.49603370786516900,0.467749341101401,64,191,41,45,51.5,M,136,18,6,15,5,White-Not Hispanic/Latino,White-Not Hispanic/Latino,18,2,37
+standard-deviant,311a,0.49603370786516900,0.467749341101401,64,191,41,45,51.5,M,136,18,6,15,5,White-Not Hispanic/Latino,White-Not Hispanic/Latino,21,2.7,53
+standard-deviant,311a,0.49603370786516900,0.467749341101401,64,191,41,45,51.5,M,136,18,6,15,5,White-Not Hispanic/Latino,White-Not Hispanic/Latino,24,3.7,75
+standard-deviant,311a,0.49603370786516900,0.467749341101401,64,191,41,45,51.5,M,136,18,6,15,5,White-Not Hispanic/Latino,White-Not Hispanic/Latino,27,4.3,385
+standard-deviant,311a,0.49603370786516900,0.467749341101401,64,191,41,45,51.5,M,136,18,6,15,5,White-Not Hispanic/Latino,White-Not Hispanic/Latino,30,5,510
+standard-deviant,312a,0.4999157303370790,0.48461558468580900,54,188,40,45,53,F,123,16,6,16,6,White-Not Hispanic/Latino,White-Not Hispanic/Latino,18,2,22
+standard-deviant,312a,0.4999157303370790,0.48461558468580900,54,188,40,45,53,F,123,16,6,16,6,White-Not Hispanic/Latino,White-Not Hispanic/Latino,21,2,106
+standard-deviant,312a,0.4999157303370790,0.48461558468580900,54,188,40,45,53,F,123,16,6,16,6,White-Not Hispanic/Latino,White-Not Hispanic/Latino,24,1.7,222
+standard-deviant,312a,0.4999157303370790,0.48461558468580900,54,188,40,45,53,F,123,16,6,16,6,White-Not Hispanic/Latino,White-Not Hispanic/Latino,30,2.3,458
+standard-deviant,312a,0.4999157303370790,0.48461558468580900,54,188,40,45,53,F,123,16,6,16,6,White-Not Hispanic/Latino,White-Not Hispanic/Latino,27,2,263
+standard-deviant,921a,0.45676010455680400,0.4723008739076160,54,193,38,44,62,M,111,16,6,20,7,White-Not Hispanic Latino,White-Not Hispanic/Latino,18,0,147
+standard-deviant,921a,0.45676010455680400,0.4723008739076160,54,193,38,44,62,M,111,16,6,20,7,White-Not Hispanic Latino,White-Not Hispanic/Latino,21,5,363
+standard-deviant,921a,0.45676010455680400,0.4723008739076160,54,193,38,44,62,M,111,16,6,20,7,White-Not Hispanic Latino,White-Not Hispanic/Latino,24,7,549
+standard-deviant,921a,0.45676010455680400,0.4723008739076160,54,193,38,44,62,M,111,16,6,20,7,White-Not Hispanic Latino,White-Not Hispanic/Latino,27,10.7,623
+standard-deviant,921a,0.45676010455680400,0.4723008739076160,54,193,38,44,62,M,111,16,6,20,7,White-Not Hispanic Latino,White-Not Hispanic/Latino,30,8.7,667
+standard-deviant,925a,0.5239839090026360,0.6114719101123600,62,185,40,43,66,F,124,16,6,18,7,White-Not Hispanic Latino,White-Not Hispanic Latino,18,2.5,27
+standard-deviant,925a,0.5239839090026360,0.6114719101123600,62,185,40,43,66,F,124,16,6,18,7,White-Not Hispanic Latino,White-Not Hispanic Latino,21,0,66
+standard-deviant,925a,0.5239839090026360,0.6114719101123600,62,185,40,43,66,F,124,16,6,18,7,White-Not Hispanic Latino,White-Not Hispanic Latino,24,0,99
+standard-deviant,925a,0.5239839090026360,0.6114719101123600,62,185,40,43,66,F,124,16,6,18,7,White-Not Hispanic Latino,White-Not Hispanic Latino,27,3,234
+standard-deviant,925a,0.5239839090026360,0.6114719101123600,62,185,40,43,66,F,124,16,6,18,7,White-Not Hispanic Latino,White-Not Hispanic Latino,30,7.7,387
+standard-ba,116a,0.41579275905118600,0.5862944756554310,65,206,37,44,41.5,M,102,16,6,14,6,Asian/Pacific Islander,"White-Not Hispanic/Latino, Native American/Eskimo",18,2,80
+standard-ba,116a,0.41579275905118600,0.5862944756554310,65,206,37,44,41.5,M,102,16,6,14,6,Asian/Pacific Islander,"White-Not Hispanic/Latino, Native American/Eskimo",21,2,306
+standard-ba,116a,0.41579275905118600,0.5862944756554310,65,206,37,44,41.5,M,102,16,6,14,6,Asian/Pacific Islander,"White-Not Hispanic/Latino, Native American/Eskimo",24,3.3,445
+standard-ba,116a,0.41579275905118600,0.5862944756554310,65,206,37,44,41.5,M,102,16,6,14,6,Asian/Pacific Islander,"White-Not Hispanic/Latino, Native American/Eskimo",27,2,485
+standard-ba,116a,0.41579275905118600,0.5862944756554310,65,206,37,44,41.5,M,102,16,6,14,6,Asian/Pacific Islander,"White-Not Hispanic/Latino, Native American/Eskimo",30,4.3,667
+standard-wa,116a,0.5612983770287140,0.5742041198501870,65,206,37,44,41.5,M,102,16,6,14,6,Asian/Pacific Islander,"White-Not Hispanic/Latino, Native American/Eskimo",18,2,80
+standard-wa,116a,0.5612983770287140,0.5742041198501870,65,206,37,44,41.5,M,102,16,6,14,6,Asian/Pacific Islander,"White-Not Hispanic/Latino, Native American/Eskimo",21,2,306
+standard-wa,116a,0.5612983770287140,0.5742041198501870,65,206,37,44,41.5,M,102,16,6,14,6,Asian/Pacific Islander,"White-Not Hispanic/Latino, Native American/Eskimo",24,3.3,445
+standard-wa,116a,0.5612983770287140,0.5742041198501870,65,206,37,44,41.5,M,102,16,6,14,6,Asian/Pacific Islander,"White-Not Hispanic/Latino, Native American/Eskimo",27,2,485
+standard-wa,116a,0.5612983770287140,0.5742041198501870,65,206,37,44,41.5,M,102,16,6,14,6,Asian/Pacific Islander,"White-Not Hispanic/Latino, Native American/Eskimo",30,4.3,667
+ba-wa,116a,0.4990324594257180,0.5296933520599250,65,206,37,44,41.5,M,102,16,6,14,6,Asian/Pacific Islander,"White-Not Hispanic/Latino, Native American/Eskimo",18,2,80
+ba-wa,116a,0.4990324594257180,0.5296933520599250,65,206,37,44,41.5,M,102,16,6,14,6,Asian/Pacific Islander,"White-Not Hispanic/Latino, Native American/Eskimo",21,2,306
+ba-wa,116a,0.4990324594257180,0.5296933520599250,65,206,37,44,41.5,M,102,16,6,14,6,Asian/Pacific Islander,"White-Not Hispanic/Latino, Native American/Eskimo",24,3.3,445
+ba-wa,116a,0.4990324594257180,0.5296933520599250,65,206,37,44,41.5,M,102,16,6,14,6,Asian/Pacific Islander,"White-Not Hispanic/Latino, Native American/Eskimo",27,2,485
+ba-wa,116a,0.4990324594257180,0.5296933520599250,65,206,37,44,41.5,M,102,16,6,14,6,Asian/Pacific Islander,"White-Not Hispanic/Latino, Native American/Eskimo",30,4.3,667
+standard-ba,119a,0.49093820224719100,0.5452284644194760,67,208,40,44,63,M,115,17,6,16,6,"Hispanic/Latino, White",White-Not Hispanic/Latino,18,0,30
+standard-ba,119a,0.49093820224719100,0.5452284644194760,67,208,40,44,63,M,115,17,6,16,6,"Hispanic/Latino, White",White-Not Hispanic/Latino,21,2.7,50
+standard-ba,119a,0.49093820224719100,0.5452284644194760,67,208,40,44,63,M,115,17,6,16,6,"Hispanic/Latino, White",White-Not Hispanic/Latino,24,3.7,105
+standard-ba,119a,0.49093820224719100,0.5452284644194760,67,208,40,44,63,M,115,17,6,16,6,"Hispanic/Latino, White",White-Not Hispanic/Latino,27,3.7,182
+standard-ba,119a,0.49093820224719100,0.5452284644194760,67,208,40,44,63,M,115,17,6,16,6,"Hispanic/Latino, White",White-Not Hispanic/Latino,30,5.7,488
+standard-wa,119a,0.527191011235955,0.5176067415730340,67,208,40,44,63,M,115,17,6,16,6,"Hispanic/Latino, White",White-Not Hispanic/Latino,18,0,30
+standard-wa,119a,0.527191011235955,0.5176067415730340,67,208,40,44,63,M,115,17,6,16,6,"Hispanic/Latino, White",White-Not Hispanic/Latino,21,2.7,50
+standard-wa,119a,0.527191011235955,0.5176067415730340,67,208,40,44,63,M,115,17,6,16,6,"Hispanic/Latino, White",White-Not Hispanic/Latino,24,3.7,105
+standard-wa,119a,0.527191011235955,0.5176067415730340,67,208,40,44,63,M,115,17,6,16,6,"Hispanic/Latino, White",White-Not Hispanic/Latino,27,3.7,182
+standard-wa,119a,0.527191011235955,0.5176067415730340,67,208,40,44,63,M,115,17,6,16,6,"Hispanic/Latino, White",White-Not Hispanic/Latino,30,5.7,488
+ba-wa,119a,0.5243595505617980,0.5027565543071160,67,208,40,44,63,M,115,17,6,16,6,"Hispanic/Latino, White",White-Not Hispanic/Latino,18,0,30
+ba-wa,119a,0.5243595505617980,0.5027565543071160,67,208,40,44,63,M,115,17,6,16,6,"Hispanic/Latino, White",White-Not Hispanic/Latino,21,2.7,50
+ba-wa,119a,0.5243595505617980,0.5027565543071160,67,208,40,44,63,M,115,17,6,16,6,"Hispanic/Latino, White",White-Not Hispanic/Latino,24,3.7,105
+ba-wa,119a,0.5243595505617980,0.5027565543071160,67,208,40,44,63,M,115,17,6,16,6,"Hispanic/Latino, White",White-Not Hispanic/Latino,27,3.7,182
+ba-wa,119a,0.5243595505617980,0.5027565543071160,67,208,40,44,63,M,115,17,6,16,6,"Hispanic/Latino, White",White-Not Hispanic/Latino,30,5.7,488
+standard-ba,122a,0.5096754057428220,0.5141783707865170,60,185,39,42,43,M,111,14,5,12,5,White-Not Hispanic/Latino,Black-Not hispanic/Latino,18,0,65
+standard-ba,122a,0.5096754057428220,0.5141783707865170,60,185,39,42,43,M,111,14,5,12,5,White-Not Hispanic/Latino,Black-Not hispanic/Latino,21,2,112
+standard-ba,122a,0.5096754057428220,0.5141783707865170,60,185,39,42,43,M,111,14,5,12,5,White-Not Hispanic/Latino,Black-Not hispanic/Latino,24,3.3,307
+standard-ba,122a,0.5096754057428220,0.5141783707865170,60,185,39,42,43,M,111,14,5,12,5,White-Not Hispanic/Latino,Black-Not hispanic/Latino,27,2.3,449
+standard-ba,122a,0.5096754057428220,0.5141783707865170,60,185,39,42,43,M,111,14,5,12,5,White-Not Hispanic/Latino,Black-Not hispanic/Latino,30,6.7,658
+standard-wa,122a,0.4777777777777780,0.4700772471910110,60,185,39,42,43,M,111,14,5,12,5,White-Not Hispanic/Latino,Black-Not hispanic/Latino,18,0,65
+standard-wa,122a,0.4777777777777780,0.4700772471910110,60,185,39,42,43,M,111,14,5,12,5,White-Not Hispanic/Latino,Black-Not hispanic/Latino,21,2,112
+standard-wa,122a,0.4777777777777780,0.4700772471910110,60,185,39,42,43,M,111,14,5,12,5,White-Not Hispanic/Latino,Black-Not hispanic/Latino,24,3.3,307
+standard-wa,122a,0.4777777777777780,0.4700772471910110,60,185,39,42,43,M,111,14,5,12,5,White-Not Hispanic/Latino,Black-Not hispanic/Latino,27,2.3,449
+standard-wa,122a,0.4777777777777780,0.4700772471910110,60,185,39,42,43,M,111,14,5,12,5,White-Not Hispanic/Latino,Black-Not hispanic/Latino,30,6.7,658
+ba-wa,122a,0.5701622971285890,0.4237148876404500,60,185,39,42,43,M,111,14,5,12,5,White-Not Hispanic/Latino,Black-Not hispanic/Latino,18,0,65
+ba-wa,122a,0.5701622971285890,0.4237148876404500,60,185,39,42,43,M,111,14,5,12,5,White-Not Hispanic/Latino,Black-Not hispanic/Latino,21,2,112
+ba-wa,122a,0.5701622971285890,0.4237148876404500,60,185,39,42,43,M,111,14,5,12,5,White-Not Hispanic/Latino,Black-Not hispanic/Latino,24,3.3,307
+ba-wa,122a,0.5701622971285890,0.4237148876404500,60,185,39,42,43,M,111,14,5,12,5,White-Not Hispanic/Latino,Black-Not hispanic/Latino,27,2.3,449
+ba-wa,122a,0.5701622971285890,0.4237148876404500,60,185,39,42,43,M,111,14,5,12,5,White-Not Hispanic/Latino,Black-Not hispanic/Latino,30,6.7,658
+standard-ba,124a,0.4960205992509360,0.5227528089887640,75,190,39,44,42,M,112,18,6,12,4,White-Not Hispanic/Latino,White-Not Hispanic/Latino,18,2.5,89
+standard-ba,124a,0.4960205992509360,0.5227528089887640,75,190,39,44,42,M,112,18,6,12,4,White-Not Hispanic/Latino,White-Not Hispanic/Latino,21,1.5,183
+standard-ba,124a,0.4960205992509360,0.5227528089887640,75,190,39,44,42,M,112,18,6,12,4,White-Not Hispanic/Latino,White-Not Hispanic/Latino,24,4.7,398
+standard-ba,124a,0.4960205992509360,0.5227528089887640,75,190,39,44,42,M,112,18,6,12,4,White-Not Hispanic/Latino,White-Not Hispanic/Latino,27,8.3,587
+standard-ba,124a,0.4960205992509360,0.5227528089887640,75,190,39,44,42,M,112,18,6,12,4,White-Not Hispanic/Latino,White-Not Hispanic/Latino,30,10.3,656
+standard-wa,124a,0.5495318352059930,0.5719101123595510,75,190,39,44,42,M,112,18,6,12,4,White-Not Hispanic/Latino,White-Not Hispanic/Latino,18,2.5,89
+standard-wa,124a,0.5495318352059930,0.5719101123595510,75,190,39,44,42,M,112,18,6,12,4,White-Not Hispanic/Latino,White-Not Hispanic/Latino,21,1.5,183
+standard-wa,124a,0.5495318352059930,0.5719101123595510,75,190,39,44,42,M,112,18,6,12,4,White-Not Hispanic/Latino,White-Not Hispanic/Latino,24,4.7,398
+standard-wa,124a,0.5495318352059930,0.5719101123595510,75,190,39,44,42,M,112,18,6,12,4,White-Not Hispanic/Latino,White-Not Hispanic/Latino,27,8.3,587
+standard-wa,124a,0.5495318352059930,0.5719101123595510,75,190,39,44,42,M,112,18,6,12,4,White-Not Hispanic/Latino,White-Not Hispanic/Latino,30,10.3,656
+ba-wa,124a,0.5277621722846440,0.5171348314606740,75,190,39,44,42,M,112,18,6,12,4,White-Not Hispanic/Latino,White-Not Hispanic/Latino,18,2.5,89
+ba-wa,124a,0.5277621722846440,0.5171348314606740,75,190,39,44,42,M,112,18,6,12,4,White-Not Hispanic/Latino,White-Not Hispanic/Latino,21,1.5,183
+ba-wa,124a,0.5277621722846440,0.5171348314606740,75,190,39,44,42,M,112,18,6,12,4,White-Not Hispanic/Latino,White-Not Hispanic/Latino,24,4.7,398
+ba-wa,124a,0.5277621722846440,0.5171348314606740,75,190,39,44,42,M,112,18,6,12,4,White-Not Hispanic/Latino,White-Not Hispanic/Latino,27,8.3,587
+ba-wa,124a,0.5277621722846440,0.5171348314606740,75,190,39,44,42,M,112,18,6,12,4,White-Not Hispanic/Latino,White-Not Hispanic/Latino,30,10.3,656
+standard-ba,127a,0.4966966292134830,0.4622808988764050,57,191,40,43,35,F,127,17,6,16,5,White-Not Hispanic/Latino,White-Not Hispanic/Latino,18,2,116
+standard-ba,127a,0.4966966292134830,0.4622808988764050,57,191,40,43,35,F,127,17,6,16,5,White-Not Hispanic/Latino,White-Not Hispanic/Latino,21,5,277
+standard-ba,127a,0.4966966292134830,0.4622808988764050,57,191,40,43,35,F,127,17,6,16,5,White-Not Hispanic/Latino,White-Not Hispanic/Latino,24,6,456
+standard-ba,127a,0.4966966292134830,0.4622808988764050,57,191,40,43,35,F,127,17,6,16,5,White-Not Hispanic/Latino,White-Not Hispanic/Latino,27,8.3,544
+standard-ba,127a,0.4966966292134830,0.4622808988764050,57,191,40,43,35,F,127,17,6,16,5,White-Not Hispanic/Latino,White-Not Hispanic/Latino,30,11,633
+standard-wa,127a,0.5193258426966290,0.48072471910112400,57,191,40,43,35,F,127,17,6,16,5,White-Not Hispanic/Latino,White-Not Hispanic/Latino,18,2,116
+standard-wa,127a,0.5193258426966290,0.48072471910112400,57,191,40,43,35,F,127,17,6,16,5,White-Not Hispanic/Latino,White-Not Hispanic/Latino,21,5,277
+standard-wa,127a,0.5193258426966290,0.48072471910112400,57,191,40,43,35,F,127,17,6,16,5,White-Not Hispanic/Latino,White-Not Hispanic/Latino,24,6,456
+standard-wa,127a,0.5193258426966290,0.48072471910112400,57,191,40,43,35,F,127,17,6,16,5,White-Not Hispanic/Latino,White-Not Hispanic/Latino,27,8.3,544
+standard-wa,127a,0.5193258426966290,0.48072471910112400,57,191,40,43,35,F,127,17,6,16,5,White-Not Hispanic/Latino,White-Not Hispanic/Latino,30,11,633
+ba-wa,127a,0.5575168539325840,0.47728651685393300,57,191,40,43,35,F,127,17,6,16,5,White-Not Hispanic/Latino,White-Not Hispanic/Latino,18,2,116
+ba-wa,127a,0.5575168539325840,0.47728651685393300,57,191,40,43,35,F,127,17,6,16,5,White-Not Hispanic/Latino,White-Not Hispanic/Latino,21,5,277
+ba-wa,127a,0.5575168539325840,0.47728651685393300,57,191,40,43,35,F,127,17,6,16,5,White-Not Hispanic/Latino,White-Not Hispanic/Latino,24,6,456
+ba-wa,127a,0.5575168539325840,0.47728651685393300,57,191,40,43,35,F,127,17,6,16,5,White-Not Hispanic/Latino,White-Not Hispanic/Latino,27,8.3,544
+ba-wa,127a,0.5575168539325840,0.47728651685393300,57,191,40,43,35,F,127,17,6,16,5,White-Not Hispanic/Latino,White-Not Hispanic/Latino,30,11,633
+standard-ba,128a,0.4780786516853930,0.5029438202247190,54,193,39,44,22,M,108,12,4,12,4,Trinidad American,"Black-Not Hispanic/Latino, Native American/Eskimo, White",18,0,46
+standard-ba,128a,0.4780786516853930,0.5029438202247190,54,193,39,44,22,M,108,12,4,12,4,Trinidad American,"Black-Not Hispanic/Latino, Native American/Eskimo, White",21,0,88
+standard-ba,128a,0.4780786516853930,0.5029438202247190,54,193,39,44,22,M,108,12,4,12,4,Trinidad American,"Black-Not Hispanic/Latino, Native American/Eskimo, White",24,2,136
+standard-ba,128a,0.4780786516853930,0.5029438202247190,54,193,39,44,22,M,108,12,4,12,4,Trinidad American,"Black-Not Hispanic/Latino, Native American/Eskimo, White",27,2.7,195
+standard-ba,128a,0.4780786516853930,0.5029438202247190,54,193,39,44,22,M,108,12,4,12,4,Trinidad American,"Black-Not Hispanic/Latino, Native American/Eskimo, White",30,0,254
+standard-wa,128a,0.5046441947565540,0.48686142322097400,54,193,39,44,22,M,108,12,4,12,4,Trinidad American,"Black-Not Hispanic/Latino, Native American/Eskimo, White",18,0,46
+standard-wa,128a,0.5046441947565540,0.48686142322097400,54,193,39,44,22,M,108,12,4,12,4,Trinidad American,"Black-Not Hispanic/Latino, Native American/Eskimo, White",21,0,88
+standard-wa,128a,0.5046441947565540,0.48686142322097400,54,193,39,44,22,M,108,12,4,12,4,Trinidad American,"Black-Not Hispanic/Latino, Native American/Eskimo, White",24,2,136
+standard-wa,128a,0.5046441947565540,0.48686142322097400,54,193,39,44,22,M,108,12,4,12,4,Trinidad American,"Black-Not Hispanic/Latino, Native American/Eskimo, White",27,2.7,195
+standard-wa,128a,0.5046441947565540,0.48686142322097400,54,193,39,44,22,M,108,12,4,12,4,Trinidad American,"Black-Not Hispanic/Latino, Native American/Eskimo, White",30,0,254
+ba-wa,128a,0.419932584269663,0.4214719101123600,54,193,39,44,22,M,108,12,4,12,4,Trinidad American,"Black-Not Hispanic/Latino, Native American/Eskimo, White",18,0,46
+ba-wa,128a,0.419932584269663,0.4214719101123600,54,193,39,44,22,M,108,12,4,12,4,Trinidad American,"Black-Not Hispanic/Latino, Native American/Eskimo, White",21,0,88
+ba-wa,128a,0.419932584269663,0.4214719101123600,54,193,39,44,22,M,108,12,4,12,4,Trinidad American,"Black-Not Hispanic/Latino, Native American/Eskimo, White",24,2,136
+ba-wa,128a,0.419932584269663,0.4214719101123600,54,193,39,44,22,M,108,12,4,12,4,Trinidad American,"Black-Not Hispanic/Latino, Native American/Eskimo, White",27,2.7,195
+ba-wa,128a,0.419932584269663,0.4214719101123600,54,193,39,44,22,M,108,12,4,12,4,Trinidad American,"Black-Not Hispanic/Latino, Native American/Eskimo, White",30,0,254
+standard-ba,131a,0.48205617977528100,0.44105992509363300,54,188,39,43,36.5,F,106,12,4,12,4,Asian/Pacific Islander,Hispanic/Latino and Black Hispanic/Latino,18,0,3
+standard-ba,131a,0.48205617977528100,0.44105992509363300,54,188,39,43,36.5,F,106,12,4,12,4,Asian/Pacific Islander,Hispanic/Latino and Black Hispanic/Latino,21,0,8
+standard-ba,131a,0.48205617977528100,0.44105992509363300,54,188,39,43,36.5,F,106,12,4,12,4,Asian/Pacific Islander,Hispanic/Latino and Black Hispanic/Latino,24,0,41
+standard-ba,131a,0.48205617977528100,0.44105992509363300,54,188,39,43,36.5,F,106,12,4,12,4,Asian/Pacific Islander,Hispanic/Latino and Black Hispanic/Latino,30,2.7,201
+standard-ba,131a,0.48205617977528100,0.44105992509363300,54,188,39,43,36.5,F,106,12,4,12,4,Asian/Pacific Islander,Hispanic/Latino and Black Hispanic/Latino,27,0,88
+standard-wa,131a,0.5640955056179780,0.5252172284644190,54,188,39,43,36.5,F,106,12,4,12,4,Asian/Pacific Islander,Hispanic/Latino and Black Hispanic/Latino,18,0,3
+standard-wa,131a,0.5640955056179780,0.5252172284644190,54,188,39,43,36.5,F,106,12,4,12,4,Asian/Pacific Islander,Hispanic/Latino and Black Hispanic/Latino,21,0,8
+standard-wa,131a,0.5640955056179780,0.5252172284644190,54,188,39,43,36.5,F,106,12,4,12,4,Asian/Pacific Islander,Hispanic/Latino and Black Hispanic/Latino,24,0,41
+standard-wa,131a,0.5640955056179780,0.5252172284644190,54,188,39,43,36.5,F,106,12,4,12,4,Asian/Pacific Islander,Hispanic/Latino and Black Hispanic/Latino,30,2.7,201
+standard-wa,131a,0.5640955056179780,0.5252172284644190,54,188,39,43,36.5,F,106,12,4,12,4,Asian/Pacific Islander,Hispanic/Latino and Black Hispanic/Latino,27,0,88
+ba-wa,131a,0.46021348314606700,0.5332172284644190,54,188,39,43,36.5,F,106,12,4,12,4,Asian/Pacific Islander,Hispanic/Latino and Black Hispanic/Latino,18,0,3
+ba-wa,131a,0.46021348314606700,0.5332172284644190,54,188,39,43,36.5,F,106,12,4,12,4,Asian/Pacific Islander,Hispanic/Latino and Black Hispanic/Latino,21,0,8
+ba-wa,131a,0.46021348314606700,0.5332172284644190,54,188,39,43,36.5,F,106,12,4,12,4,Asian/Pacific Islander,Hispanic/Latino and Black Hispanic/Latino,24,0,41
+ba-wa,131a,0.46021348314606700,0.5332172284644190,54,188,39,43,36.5,F,106,12,4,12,4,Asian/Pacific Islander,Hispanic/Latino and Black Hispanic/Latino,30,2.7,201
+ba-wa,131a,0.46021348314606700,0.5332172284644190,54,188,39,43,36.5,F,106,12,4,12,4,Asian/Pacific Islander,Hispanic/Latino and Black Hispanic/Latino,27,0,88
+standard-ba,209a,0.48508988764044900,0.42384519350811500,54,189,40,45,66,F,124,18,7,19,7,White-Not Hispanic/Latino,White-Not Hispanic/Latino,18,0,147
+standard-ba,209a,0.48508988764044900,0.42384519350811500,54,189,40,45,66,F,124,18,7,19,7,White-Not Hispanic/Latino,White-Not Hispanic/Latino,21,3.7,302
+standard-ba,209a,0.48508988764044900,0.42384519350811500,54,189,40,45,66,F,124,18,7,19,7,White-Not Hispanic/Latino,White-Not Hispanic/Latino,24,7,412
+standard-ba,209a,0.48508988764044900,0.42384519350811500,54,189,40,45,66,F,124,18,7,19,7,White-Not Hispanic/Latino,White-Not Hispanic/Latino,27,6.7,478
+standard-ba,209a,0.48508988764044900,0.42384519350811500,54,189,40,45,66,F,124,18,7,19,7,White-Not Hispanic/Latino,White-Not Hispanic/Latino,30,10,599
+standard-wa,209a,0.43380898876404500,0.49522471910112400,54,189,40,45,66,F,124,18,7,19,7,White-Not Hispanic/Latino,White-Not Hispanic/Latino,18,0,147
+standard-wa,209a,0.43380898876404500,0.49522471910112400,54,189,40,45,66,F,124,18,7,19,7,White-Not Hispanic/Latino,White-Not Hispanic/Latino,21,3.7,302
+standard-wa,209a,0.43380898876404500,0.49522471910112400,54,189,40,45,66,F,124,18,7,19,7,White-Not Hispanic/Latino,White-Not Hispanic/Latino,24,7,412
+standard-wa,209a,0.43380898876404500,0.49522471910112400,54,189,40,45,66,F,124,18,7,19,7,White-Not Hispanic/Latino,White-Not Hispanic/Latino,27,6.7,478
+standard-wa,209a,0.43380898876404500,0.49522471910112400,54,189,40,45,66,F,124,18,7,19,7,White-Not Hispanic/Latino,White-Not Hispanic/Latino,30,10,599
+ba-wa,209a,0.46061235955056200,0.5691635455680400,54,189,40,45,66,F,124,18,7,19,7,White-Not Hispanic/Latino,White-Not Hispanic/Latino,18,0,147
+ba-wa,209a,0.46061235955056200,0.5691635455680400,54,189,40,45,66,F,124,18,7,19,7,White-Not Hispanic/Latino,White-Not Hispanic/Latino,21,3.7,302
+ba-wa,209a,0.46061235955056200,0.5691635455680400,54,189,40,45,66,F,124,18,7,19,7,White-Not Hispanic/Latino,White-Not Hispanic/Latino,24,7,412
+ba-wa,209a,0.46061235955056200,0.5691635455680400,54,189,40,45,66,F,124,18,7,19,7,White-Not Hispanic/Latino,White-Not Hispanic/Latino,27,6.7,478
+ba-wa,209a,0.46061235955056200,0.5691635455680400,54,189,40,45,66,F,124,18,7,19,7,White-Not Hispanic/Latino,White-Not Hispanic/Latino,30,10,599
+standard-ba,211a,0.656320224719101,0.5412687265917600,63,189,38,43,60.5,F,111,15,6,17,6,White-Not Hispanic/Latino,White-Not Hispanic/Latino,18,0,40
+standard-ba,211a,0.656320224719101,0.5412687265917600,63,189,38,43,60.5,F,111,15,6,17,6,White-Not Hispanic/Latino,White-Not Hispanic/Latino,21,0,155
+standard-ba,211a,0.656320224719101,0.5412687265917600,63,189,38,43,60.5,F,111,15,6,17,6,White-Not Hispanic/Latino,White-Not Hispanic/Latino,24,0,280
+standard-ba,211a,0.656320224719101,0.5412687265917600,63,189,38,43,60.5,F,111,15,6,17,6,White-Not Hispanic/Latino,White-Not Hispanic/Latino,27,4,426
+standard-ba,211a,0.656320224719101,0.5412687265917600,63,189,38,43,60.5,F,111,15,6,17,6,White-Not Hispanic/Latino,White-Not Hispanic/Latino,30,6.3,589
+standard-wa,211a,0.6066479400749060,0.5852059925093630,63,189,38,43,60.5,F,111,15,6,17,6,White-Not Hispanic/Latino,White-Not Hispanic/Latino,18,0,40
+standard-wa,211a,0.6066479400749060,0.5852059925093630,63,189,38,43,60.5,F,111,15,6,17,6,White-Not Hispanic/Latino,White-Not Hispanic/Latino,21,0,155
+standard-wa,211a,0.6066479400749060,0.5852059925093630,63,189,38,43,60.5,F,111,15,6,17,6,White-Not Hispanic/Latino,White-Not Hispanic/Latino,24,0,280
+standard-wa,211a,0.6066479400749060,0.5852059925093630,63,189,38,43,60.5,F,111,15,6,17,6,White-Not Hispanic/Latino,White-Not Hispanic/Latino,27,4,426
+standard-wa,211a,0.6066479400749060,0.5852059925093630,63,189,38,43,60.5,F,111,15,6,17,6,White-Not Hispanic/Latino,White-Not Hispanic/Latino,30,6.3,589
+ba-wa,211a,0.5718164794007490,0.559749531835206,63,189,38,43,60.5,F,111,15,6,17,6,White-Not Hispanic/Latino,White-Not Hispanic/Latino,18,0,40
+ba-wa,211a,0.5718164794007490,0.559749531835206,63,189,38,43,60.5,F,111,15,6,17,6,White-Not Hispanic/Latino,White-Not Hispanic/Latino,21,0,155
+ba-wa,211a,0.5718164794007490,0.559749531835206,63,189,38,43,60.5,F,111,15,6,17,6,White-Not Hispanic/Latino,White-Not Hispanic/Latino,24,0,280
+ba-wa,211a,0.5718164794007490,0.559749531835206,63,189,38,43,60.5,F,111,15,6,17,6,White-Not Hispanic/Latino,White-Not Hispanic/Latino,27,4,426
+ba-wa,211a,0.5718164794007490,0.559749531835206,63,189,38,43,60.5,F,111,15,6,17,6,White-Not Hispanic/Latino,White-Not Hispanic/Latino,30,6.3,589
+standard-ba,215a,0.4679101123595510,0.49128651685393300,60,198,42,46,59.5,F,112,16,6,22,7,"Asian/Pacific Islander, White-Not Hispanic/Latino",White-Not Hispanic/Latino,18,0,75
+standard-ba,215a,0.4679101123595510,0.49128651685393300,60,198,42,46,59.5,F,112,16,6,22,7,"Asian/Pacific Islander, White-Not Hispanic/Latino",White-Not Hispanic/Latino,21,2,287
+standard-ba,215a,0.4679101123595510,0.49128651685393300,60,198,42,46,59.5,F,112,16,6,22,7,"Asian/Pacific Islander, White-Not Hispanic/Latino",White-Not Hispanic/Latino,24,5.7,447
+standard-ba,215a,0.4679101123595510,0.49128651685393300,60,198,42,46,59.5,F,112,16,6,22,7,"Asian/Pacific Islander, White-Not Hispanic/Latino",White-Not Hispanic/Latino,27,6.3,592
+standard-ba,215a,0.4679101123595510,0.49128651685393300,60,198,42,46,59.5,F,112,16,6,22,7,"Asian/Pacific Islander, White-Not Hispanic/Latino",White-Not Hispanic/Latino,30,8,643
+standard-wa,215a,0.4995056179775280,0.48972471910112400,60,198,42,46,59.5,F,112,16,6,22,7,"Asian/Pacific Islander, White-Not Hispanic/Latino",White-Not Hispanic/Latino,18,0,75
+standard-wa,215a,0.4995056179775280,0.48972471910112400,60,198,42,46,59.5,F,112,16,6,22,7,"Asian/Pacific Islander, White-Not Hispanic/Latino",White-Not Hispanic/Latino,21,2,287
+standard-wa,215a,0.4995056179775280,0.48972471910112400,60,198,42,46,59.5,F,112,16,6,22,7,"Asian/Pacific Islander, White-Not Hispanic/Latino",White-Not Hispanic/Latino,24,5.7,447
+standard-wa,215a,0.4995056179775280,0.48972471910112400,60,198,42,46,59.5,F,112,16,6,22,7,"Asian/Pacific Islander, White-Not Hispanic/Latino",White-Not Hispanic/Latino,27,6.3,592
+standard-wa,215a,0.4995056179775280,0.48972471910112400,60,198,42,46,59.5,F,112,16,6,22,7,"Asian/Pacific Islander, White-Not Hispanic/Latino",White-Not Hispanic/Latino,30,8,643
+ba-wa,215a,0.4929438202247190,0.4747977528089890,60,198,42,46,59.5,F,112,16,6,22,7,"Asian/Pacific Islander, White-Not Hispanic/Latino",White-Not Hispanic/Latino,18,0,75
+ba-wa,215a,0.4929438202247190,0.4747977528089890,60,198,42,46,59.5,F,112,16,6,22,7,"Asian/Pacific Islander, White-Not Hispanic/Latino",White-Not Hispanic/Latino,21,2,287
+ba-wa,215a,0.4929438202247190,0.4747977528089890,60,198,42,46,59.5,F,112,16,6,22,7,"Asian/Pacific Islander, White-Not Hispanic/Latino",White-Not Hispanic/Latino,24,5.7,447
+ba-wa,215a,0.4929438202247190,0.4747977528089890,60,198,42,46,59.5,F,112,16,6,22,7,"Asian/Pacific Islander, White-Not Hispanic/Latino",White-Not Hispanic/Latino,27,6.3,592
+ba-wa,215a,0.4929438202247190,0.4747977528089890,60,198,42,46,59.5,F,112,16,6,22,7,"Asian/Pacific Islander, White-Not Hispanic/Latino",White-Not Hispanic/Latino,30,8,643
+standard-ba,220a,0.4867665418227220,0.47250702247191000,64,199,40,43,59.5,F,115,20,7,16,6,White-Not Hispanic/Latino,White-Not Hispanic/Latino,18,0,85
+standard-ba,220a,0.4867665418227220,0.47250702247191000,64,199,40,43,59.5,F,115,20,7,16,6,White-Not Hispanic/Latino,White-Not Hispanic/Latino,21,2,164
+standard-ba,220a,0.4867665418227220,0.47250702247191000,64,199,40,43,59.5,F,115,20,7,16,6,White-Not Hispanic/Latino,White-Not Hispanic/Latino,24,3.3,325
+standard-ba,220a,0.4867665418227220,0.47250702247191000,64,199,40,43,59.5,F,115,20,7,16,6,White-Not Hispanic/Latino,White-Not Hispanic/Latino,27,6,421
+standard-ba,220a,0.4867665418227220,0.47250702247191000,64,199,40,43,59.5,F,115,20,7,16,6,White-Not Hispanic/Latino,White-Not Hispanic/Latino,30,6.3,492
+standard-wa,220a,0.3591760299625470,0.5340941011235960,64,199,40,43,59.5,F,115,20,7,16,6,White-Not Hispanic/Latino,White-Not Hispanic/Latino,18,0,85
+standard-wa,220a,0.3591760299625470,0.5340941011235960,64,199,40,43,59.5,F,115,20,7,16,6,White-Not Hispanic/Latino,White-Not Hispanic/Latino,21,2,164
+standard-wa,220a,0.3591760299625470,0.5340941011235960,64,199,40,43,59.5,F,115,20,7,16,6,White-Not Hispanic/Latino,White-Not Hispanic/Latino,24,3.3,325
+standard-wa,220a,0.3591760299625470,0.5340941011235960,64,199,40,43,59.5,F,115,20,7,16,6,White-Not Hispanic/Latino,White-Not Hispanic/Latino,27,6,421
+standard-wa,220a,0.3591760299625470,0.5340941011235960,64,199,40,43,59.5,F,115,20,7,16,6,White-Not Hispanic/Latino,White-Not Hispanic/Latino,30,6.3,492
+ba-wa,220a,0.5074906367041200,0.4682116104868910,64,199,40,43,59.5,F,115,20,7,16,6,White-Not Hispanic/Latino,White-Not Hispanic/Latino,18,0,85
+ba-wa,220a,0.5074906367041200,0.4682116104868910,64,199,40,43,59.5,F,115,20,7,16,6,White-Not Hispanic/Latino,White-Not Hispanic/Latino,21,2,164
+ba-wa,220a,0.5074906367041200,0.4682116104868910,64,199,40,43,59.5,F,115,20,7,16,6,White-Not Hispanic/Latino,White-Not Hispanic/Latino,24,3.3,325
+ba-wa,220a,0.5074906367041200,0.4682116104868910,64,199,40,43,59.5,F,115,20,7,16,6,White-Not Hispanic/Latino,White-Not Hispanic/Latino,27,6,421
+ba-wa,220a,0.5074906367041200,0.4682116104868910,64,199,40,43,59.5,F,115,20,7,16,6,White-Not Hispanic/Latino,White-Not Hispanic/Latino,30,6.3,492
+standard-ba,223a,0.5799040262172290,0.5094831460674160,69,202,39,44,57,F,109,17,6,20,7,White-Not Hispanic/Latino,White-Not Hispanic/Latino,18,2,124
+standard-ba,223a,0.5799040262172290,0.5094831460674160,69,202,39,44,57,F,109,17,6,20,7,White-Not Hispanic/Latino,White-Not Hispanic/Latino,21,4,328
+standard-ba,223a,0.5799040262172290,0.5094831460674160,69,202,39,44,57,F,109,17,6,20,7,White-Not Hispanic/Latino,White-Not Hispanic/Latino,24,7.7,476
+standard-ba,223a,0.5799040262172290,0.5094831460674160,69,202,39,44,57,F,109,17,6,20,7,White-Not Hispanic/Latino,White-Not Hispanic/Latino,27,8.3,609
+standard-ba,223a,0.5799040262172290,0.5094831460674160,69,202,39,44,57,F,109,17,6,20,7,White-Not Hispanic/Latino,White-Not Hispanic/Latino,30,11.3,650
+standard-wa,223a,0.47724719101123600,0.43698314606741600,69,202,39,44,57,F,109,17,6,20,7,White-Not Hispanic/Latino,White-Not Hispanic/Latino,18,2,124
+standard-wa,223a,0.47724719101123600,0.43698314606741600,69,202,39,44,57,F,109,17,6,20,7,White-Not Hispanic/Latino,White-Not Hispanic/Latino,21,4,328
+standard-wa,223a,0.47724719101123600,0.43698314606741600,69,202,39,44,57,F,109,17,6,20,7,White-Not Hispanic/Latino,White-Not Hispanic/Latino,24,7.7,476
+standard-wa,223a,0.47724719101123600,0.43698314606741600,69,202,39,44,57,F,109,17,6,20,7,White-Not Hispanic/Latino,White-Not Hispanic/Latino,27,8.3,609
+standard-wa,223a,0.47724719101123600,0.43698314606741600,69,202,39,44,57,F,109,17,6,20,7,White-Not Hispanic/Latino,White-Not Hispanic/Latino,30,11.3,650
+ba-wa,223a,0.5542720037453180,0.4763314606741570,69,202,39,44,57,F,109,17,6,20,7,White-Not Hispanic/Latino,White-Not Hispanic/Latino,18,2,124
+ba-wa,223a,0.5542720037453180,0.4763314606741570,69,202,39,44,57,F,109,17,6,20,7,White-Not Hispanic/Latino,White-Not Hispanic/Latino,21,4,328
+ba-wa,223a,0.5542720037453180,0.4763314606741570,69,202,39,44,57,F,109,17,6,20,7,White-Not Hispanic/Latino,White-Not Hispanic/Latino,24,7.7,476
+ba-wa,223a,0.5542720037453180,0.4763314606741570,69,202,39,44,57,F,109,17,6,20,7,White-Not Hispanic/Latino,White-Not Hispanic/Latino,27,8.3,609
+ba-wa,223a,0.5542720037453180,0.4763314606741570,69,202,39,44,57,F,109,17,6,20,7,White-Not Hispanic/Latino,White-Not Hispanic/Latino,30,11.3,650
+standard-ba,224a,0.5110411985018730,0.5081123595505620,59,179,40,45,66,M,86,19,7,19,7,"Hispanic/Latino, White",White-Not Hispanic/Latino,18,2,175
+standard-ba,224a,0.5110411985018730,0.5081123595505620,59,179,40,45,66,M,86,19,7,19,7,"Hispanic/Latino, White",White-Not Hispanic/Latino,21,4,288
+standard-ba,224a,0.5110411985018730,0.5081123595505620,59,179,40,45,66,M,86,19,7,19,7,"Hispanic/Latino, White",White-Not Hispanic/Latino,24,8.3,534
+standard-ba,224a,0.5110411985018730,0.5081123595505620,59,179,40,45,66,M,86,19,7,19,7,"Hispanic/Latino, White",White-Not Hispanic/Latino,27,9,656
+standard-ba,224a,0.5110411985018730,0.5081123595505620,59,179,40,45,66,M,86,19,7,19,7,"Hispanic/Latino, White",White-Not Hispanic/Latino,30,15.3,672
+standard-wa,224a,0.43643071161048700,0.4951011235955060,59,179,40,45,66,M,86,19,7,19,7,"Hispanic/Latino, White",White-Not Hispanic/Latino,18,2,175
+standard-wa,224a,0.43643071161048700,0.4951011235955060,59,179,40,45,66,M,86,19,7,19,7,"Hispanic/Latino, White",White-Not Hispanic/Latino,21,4,288
+standard-wa,224a,0.43643071161048700,0.4951011235955060,59,179,40,45,66,M,86,19,7,19,7,"Hispanic/Latino, White",White-Not Hispanic/Latino,24,8.3,534
+standard-wa,224a,0.43643071161048700,0.4951011235955060,59,179,40,45,66,M,86,19,7,19,7,"Hispanic/Latino, White",White-Not Hispanic/Latino,27,9,656
+standard-wa,224a,0.43643071161048700,0.4951011235955060,59,179,40,45,66,M,86,19,7,19,7,"Hispanic/Latino, White",White-Not Hispanic/Latino,30,15.3,672
+ba-wa,224a,0.48740449438202300,0.5541348314606740,59,179,40,45,66,M,86,19,7,19,7,"Hispanic/Latino, White",White-Not Hispanic/Latino,18,2,175
+ba-wa,224a,0.48740449438202300,0.5541348314606740,59,179,40,45,66,M,86,19,7,19,7,"Hispanic/Latino, White",White-Not Hispanic/Latino,21,4,288
+ba-wa,224a,0.48740449438202300,0.5541348314606740,59,179,40,45,66,M,86,19,7,19,7,"Hispanic/Latino, White",White-Not Hispanic/Latino,24,8.3,534
+ba-wa,224a,0.48740449438202300,0.5541348314606740,59,179,40,45,66,M,86,19,7,19,7,"Hispanic/Latino, White",White-Not Hispanic/Latino,27,9,656
+ba-wa,224a,0.48740449438202300,0.5541348314606740,59,179,40,45,66,M,86,19,7,19,7,"Hispanic/Latino, White",White-Not Hispanic/Latino,30,15.3,672
+standard-ba,225a,0.5920786516853930,0.533191011235955,65,197,38,42,66,F,120,17,6,17,7,White-Not Hispanic/Latino,White-Not Hispanic/Latino,18,2.3,42
+standard-ba,225a,0.5920786516853930,0.533191011235955,65,197,38,42,66,F,120,17,6,17,7,White-Not Hispanic/Latino,White-Not Hispanic/Latino,21,4,107
+standard-ba,225a,0.5920786516853930,0.533191011235955,65,197,38,42,66,F,120,17,6,17,7,White-Not Hispanic/Latino,White-Not Hispanic/Latino,24,5,187
+standard-ba,225a,0.5920786516853930,0.533191011235955,65,197,38,42,66,F,120,17,6,17,7,White-Not Hispanic/Latino,White-Not Hispanic/Latino,27,5,638
+standard-ba,225a,0.5920786516853930,0.533191011235955,65,197,38,42,66,F,120,17,6,17,7,White-Not Hispanic/Latino,White-Not Hispanic/Latino,30,6,670
+standard-wa,225a,0.45115168539325800,0.4909044943820230,65,197,38,42,66,F,120,17,6,17,7,White-Not Hispanic/Latino,White-Not Hispanic/Latino,18,2.3,42
+standard-wa,225a,0.45115168539325800,0.4909044943820230,65,197,38,42,66,F,120,17,6,17,7,White-Not Hispanic/Latino,White-Not Hispanic/Latino,21,4,107
+standard-wa,225a,0.45115168539325800,0.4909044943820230,65,197,38,42,66,F,120,17,6,17,7,White-Not Hispanic/Latino,White-Not Hispanic/Latino,24,5,187
+standard-wa,225a,0.45115168539325800,0.4909044943820230,65,197,38,42,66,F,120,17,6,17,7,White-Not Hispanic/Latino,White-Not Hispanic/Latino,27,5,638
+standard-wa,225a,0.45115168539325800,0.4909044943820230,65,197,38,42,66,F,120,17,6,17,7,White-Not Hispanic/Latino,White-Not Hispanic/Latino,30,6,670
+ba-wa,225a,0.562994382022472,0.5220056179775280,65,197,38,42,66,F,120,17,6,17,7,White-Not Hispanic/Latino,White-Not Hispanic/Latino,18,2.3,42
+ba-wa,225a,0.562994382022472,0.5220056179775280,65,197,38,42,66,F,120,17,6,17,7,White-Not Hispanic/Latino,White-Not Hispanic/Latino,21,4,107
+ba-wa,225a,0.562994382022472,0.5220056179775280,65,197,38,42,66,F,120,17,6,17,7,White-Not Hispanic/Latino,White-Not Hispanic/Latino,24,5,187
+ba-wa,225a,0.562994382022472,0.5220056179775280,65,197,38,42,66,F,120,17,6,17,7,White-Not Hispanic/Latino,White-Not Hispanic/Latino,27,5,638
+ba-wa,225a,0.562994382022472,0.5220056179775280,65,197,38,42,66,F,120,17,6,17,7,White-Not Hispanic/Latino,White-Not Hispanic/Latino,30,6,670
+standard-ba,229a,0.5261392009987520,0.516252808988764,57,189,39,41,58,F,132,19,7,16,6,"Hispanic/Latino, White",White-Not Hispanic/Latino,18,3.3,97
+standard-ba,229a,0.5261392009987520,0.516252808988764,57,189,39,41,58,F,132,19,7,16,6,"Hispanic/Latino, White",White-Not Hispanic/Latino,21,6.7,484
+standard-ba,229a,0.5261392009987520,0.516252808988764,57,189,39,41,58,F,132,19,7,16,6,"Hispanic/Latino, White",White-Not Hispanic/Latino,24,8.3,570
+standard-ba,229a,0.5261392009987520,0.516252808988764,57,189,39,41,58,F,132,19,7,16,6,"Hispanic/Latino, White",White-Not Hispanic/Latino,27,10,616
+standard-ba,229a,0.5261392009987520,0.516252808988764,57,189,39,41,58,F,132,19,7,16,6,"Hispanic/Latino, White",White-Not Hispanic/Latino,30,14.7,646
+standard-wa,229a,0.5418071161048690,0.45126966292134800,57,189,39,41,58,F,132,19,7,16,6,"Hispanic/Latino, White",White-Not Hispanic/Latino,18,3.3,97
+standard-wa,229a,0.5418071161048690,0.45126966292134800,57,189,39,41,58,F,132,19,7,16,6,"Hispanic/Latino, White",White-Not Hispanic/Latino,21,6.7,484
+standard-wa,229a,0.5418071161048690,0.45126966292134800,57,189,39,41,58,F,132,19,7,16,6,"Hispanic/Latino, White",White-Not Hispanic/Latino,24,8.3,570
+standard-wa,229a,0.5418071161048690,0.45126966292134800,57,189,39,41,58,F,132,19,7,16,6,"Hispanic/Latino, White",White-Not Hispanic/Latino,27,10,616
+standard-wa,229a,0.5418071161048690,0.45126966292134800,57,189,39,41,58,F,132,19,7,16,6,"Hispanic/Latino, White",White-Not Hispanic/Latino,30,14.7,646
+ba-wa,229a,0.500749063670412,0.47346629213483200,57,189,39,41,58,F,132,19,7,16,6,"Hispanic/Latino, White",White-Not Hispanic/Latino,18,3.3,97
+ba-wa,229a,0.500749063670412,0.47346629213483200,57,189,39,41,58,F,132,19,7,16,6,"Hispanic/Latino, White",White-Not Hispanic/Latino,21,6.7,484
+ba-wa,229a,0.500749063670412,0.47346629213483200,57,189,39,41,58,F,132,19,7,16,6,"Hispanic/Latino, White",White-Not Hispanic/Latino,24,8.3,570
+ba-wa,229a,0.500749063670412,0.47346629213483200,57,189,39,41,58,F,132,19,7,16,6,"Hispanic/Latino, White",White-Not Hispanic/Latino,27,10,616
+ba-wa,229a,0.500749063670412,0.47346629213483200,57,189,39,41,58,F,132,19,7,16,6,"Hispanic/Latino, White",White-Not Hispanic/Latino,30,14.7,646
+standard-ba,309a,0.6171348314606740,0.5378501872659180,59,188,39,43,53,M,129,16,6,17,6,White-Not Hispanic/Latino,White-Not Hispanic/Latino,18,2,24
+standard-ba,309a,0.6171348314606740,0.5378501872659180,59,188,39,43,53,M,129,16,6,17,6,White-Not Hispanic/Latino,White-Not Hispanic/Latino,21,0,65
+standard-ba,309a,0.6171348314606740,0.5378501872659180,59,188,39,43,53,M,129,16,6,17,6,White-Not Hispanic/Latino,White-Not Hispanic/Latino,24,3.3,202
+standard-ba,309a,0.6171348314606740,0.5378501872659180,59,188,39,43,53,M,129,16,6,17,6,White-Not Hispanic/Latino,White-Not Hispanic/Latino,27,2.7,418
+standard-ba,309a,0.6171348314606740,0.5378501872659180,59,188,39,43,53,M,129,16,6,17,6,White-Not Hispanic/Latino,White-Not Hispanic/Latino,30,7.7,574
+standard-wa,309a,0.6367977528089890,0.5745880149812730,59,188,39,43,53,M,129,16,6,17,6,White-Not Hispanic/Latino,White-Not Hispanic/Latino,18,2,24
+standard-wa,309a,0.6367977528089890,0.5745880149812730,59,188,39,43,53,M,129,16,6,17,6,White-Not Hispanic/Latino,White-Not Hispanic/Latino,21,0,65
+standard-wa,309a,0.6367977528089890,0.5745880149812730,59,188,39,43,53,M,129,16,6,17,6,White-Not Hispanic/Latino,White-Not Hispanic/Latino,24,3.3,202
+standard-wa,309a,0.6367977528089890,0.5745880149812730,59,188,39,43,53,M,129,16,6,17,6,White-Not Hispanic/Latino,White-Not Hispanic/Latino,27,2.7,418
+standard-wa,309a,0.6367977528089890,0.5745880149812730,59,188,39,43,53,M,129,16,6,17,6,White-Not Hispanic/Latino,White-Not Hispanic/Latino,30,7.7,574
+ba-wa,309a,0.6275280898876400,0.5236666666666670,59,188,39,43,53,M,129,16,6,17,6,White-Not Hispanic/Latino,White-Not Hispanic/Latino,18,2,24
+ba-wa,309a,0.6275280898876400,0.5236666666666670,59,188,39,43,53,M,129,16,6,17,6,White-Not Hispanic/Latino,White-Not Hispanic/Latino,21,0,65
+ba-wa,309a,0.6275280898876400,0.5236666666666670,59,188,39,43,53,M,129,16,6,17,6,White-Not Hispanic/Latino,White-Not Hispanic/Latino,24,3.3,202
+ba-wa,309a,0.6275280898876400,0.5236666666666670,59,188,39,43,53,M,129,16,6,17,6,White-Not Hispanic/Latino,White-Not Hispanic/Latino,27,2.7,418
+ba-wa,309a,0.6275280898876400,0.5236666666666670,59,188,39,43,53,M,129,16,6,17,6,White-Not Hispanic/Latino,White-Not Hispanic/Latino,30,7.7,574
+standard-ba,310a,0.4802122347066170,0.49329588014981300,64,186,39,44,48,F,123,16,6,18,6,White-Not Hispanic/Latino,White-Not Hispanic/Latino,18,0,16
+standard-ba,310a,0.4802122347066170,0.49329588014981300,64,186,39,44,48,F,123,16,6,18,6,White-Not Hispanic/Latino,White-Not Hispanic/Latino,21,0,57
+standard-ba,310a,0.4802122347066170,0.49329588014981300,64,186,39,44,48,F,123,16,6,18,6,White-Not Hispanic/Latino,White-Not Hispanic/Latino,24,4,376
+standard-ba,310a,0.4802122347066170,0.49329588014981300,64,186,39,44,48,F,123,16,6,18,6,White-Not Hispanic/Latino,White-Not Hispanic/Latino,27,3.7,542
+standard-ba,310a,0.4802122347066170,0.49329588014981300,64,186,39,44,48,F,123,16,6,18,6,White-Not Hispanic/Latino,White-Not Hispanic/Latino,30,8,584
+standard-wa,310a,0.5211298377028710,0.5326367041198500,64,186,39,44,48,F,123,16,6,18,6,White-Not Hispanic/Latino,White-Not Hispanic/Latino,18,0,16
+standard-wa,310a,0.5211298377028710,0.5326367041198500,64,186,39,44,48,F,123,16,6,18,6,White-Not Hispanic/Latino,White-Not Hispanic/Latino,21,0,57
+standard-wa,310a,0.5211298377028710,0.5326367041198500,64,186,39,44,48,F,123,16,6,18,6,White-Not Hispanic/Latino,White-Not Hispanic/Latino,24,4,376
+standard-wa,310a,0.5211298377028710,0.5326367041198500,64,186,39,44,48,F,123,16,6,18,6,White-Not Hispanic/Latino,White-Not Hispanic/Latino,27,3.7,542
+standard-wa,310a,0.5211298377028710,0.5326367041198500,64,186,39,44,48,F,123,16,6,18,6,White-Not Hispanic/Latino,White-Not Hispanic/Latino,30,8,584
+ba-wa,310a,0.5474094881398250,0.43367790262172300,64,186,39,44,48,F,123,16,6,18,6,White-Not Hispanic/Latino,White-Not Hispanic/Latino,18,0,16
+ba-wa,310a,0.5474094881398250,0.43367790262172300,64,186,39,44,48,F,123,16,6,18,6,White-Not Hispanic/Latino,White-Not Hispanic/Latino,21,0,57
+ba-wa,310a,0.5474094881398250,0.43367790262172300,64,186,39,44,48,F,123,16,6,18,6,White-Not Hispanic/Latino,White-Not Hispanic/Latino,24,4,376
+ba-wa,310a,0.5474094881398250,0.43367790262172300,64,186,39,44,48,F,123,16,6,18,6,White-Not Hispanic/Latino,White-Not Hispanic/Latino,27,3.7,542
+ba-wa,310a,0.5474094881398250,0.43367790262172300,64,186,39,44,48,F,123,16,6,18,6,White-Not Hispanic/Latino,White-Not Hispanic/Latino,30,8,584
+standard-ba,311a,0.5707865168539330,0.5093483146067420,64,191,41,45,51.5,M,136,18,6,15,5,White-Not Hispanic/Latino,White-Not Hispanic/Latino,18,2,37
+standard-ba,311a,0.5707865168539330,0.5093483146067420,64,191,41,45,51.5,M,136,18,6,15,5,White-Not Hispanic/Latino,White-Not Hispanic/Latino,21,2.7,53
+standard-ba,311a,0.5707865168539330,0.5093483146067420,64,191,41,45,51.5,M,136,18,6,15,5,White-Not Hispanic/Latino,White-Not Hispanic/Latino,24,3.7,75
+standard-ba,311a,0.5707865168539330,0.5093483146067420,64,191,41,45,51.5,M,136,18,6,15,5,White-Not Hispanic/Latino,White-Not Hispanic/Latino,27,4.3,385
+standard-ba,311a,0.5707865168539330,0.5093483146067420,64,191,41,45,51.5,M,136,18,6,15,5,White-Not Hispanic/Latino,White-Not Hispanic/Latino,30,5,510
+standard-wa,311a,0.5893707865168540,0.5296404494382020,64,191,41,45,51.5,M,136,18,6,15,5,White-Not Hispanic/Latino,White-Not Hispanic/Latino,18,2,37
+standard-wa,311a,0.5893707865168540,0.5296404494382020,64,191,41,45,51.5,M,136,18,6,15,5,White-Not Hispanic/Latino,White-Not Hispanic/Latino,21,2.7,53
+standard-wa,311a,0.5893707865168540,0.5296404494382020,64,191,41,45,51.5,M,136,18,6,15,5,White-Not Hispanic/Latino,White-Not Hispanic/Latino,24,3.7,75
+standard-wa,311a,0.5893707865168540,0.5296404494382020,64,191,41,45,51.5,M,136,18,6,15,5,White-Not Hispanic/Latino,White-Not Hispanic/Latino,27,4.3,385
+standard-wa,311a,0.5893707865168540,0.5296404494382020,64,191,41,45,51.5,M,136,18,6,15,5,White-Not Hispanic/Latino,White-Not Hispanic/Latino,30,5,510
+ba-wa,311a,0.5140674157303370,0.5160786516853930,64,191,41,45,51.5,M,136,18,6,15,5,White-Not Hispanic/Latino,White-Not Hispanic/Latino,18,2,37
+ba-wa,311a,0.5140674157303370,0.5160786516853930,64,191,41,45,51.5,M,136,18,6,15,5,White-Not Hispanic/Latino,White-Not Hispanic/Latino,21,2.7,53
+ba-wa,311a,0.5140674157303370,0.5160786516853930,64,191,41,45,51.5,M,136,18,6,15,5,White-Not Hispanic/Latino,White-Not Hispanic/Latino,24,3.7,75
+ba-wa,311a,0.5140674157303370,0.5160786516853930,64,191,41,45,51.5,M,136,18,6,15,5,White-Not Hispanic/Latino,White-Not Hispanic/Latino,27,4.3,385
+ba-wa,311a,0.5140674157303370,0.5160786516853930,64,191,41,45,51.5,M,136,18,6,15,5,White-Not Hispanic/Latino,White-Not Hispanic/Latino,30,5,510
+standard-ba,312a,0.5488988764044940,0.5319030898876410,54,188,40,45,53,F,123,16,6,16,6,White-Not Hispanic/Latino,White-Not Hispanic/Latino,18,2,22
+standard-ba,312a,0.5488988764044940,0.5319030898876410,54,188,40,45,53,F,123,16,6,16,6,White-Not Hispanic/Latino,White-Not Hispanic/Latino,21,2,106
+standard-ba,312a,0.5488988764044940,0.5319030898876410,54,188,40,45,53,F,123,16,6,16,6,White-Not Hispanic/Latino,White-Not Hispanic/Latino,24,1.7,222
+standard-ba,312a,0.5488988764044940,0.5319030898876410,54,188,40,45,53,F,123,16,6,16,6,White-Not Hispanic/Latino,White-Not Hispanic/Latino,30,2.3,458
+standard-ba,312a,0.5488988764044940,0.5319030898876410,54,188,40,45,53,F,123,16,6,16,6,White-Not Hispanic/Latino,White-Not Hispanic/Latino,27,2,263
+standard-wa,312a,0.47750561797752800,0.5192837078651690,54,188,40,45,53,F,123,16,6,16,6,White-Not Hispanic/Latino,White-Not Hispanic/Latino,18,2,22
+standard-wa,312a,0.47750561797752800,0.5192837078651690,54,188,40,45,53,F,123,16,6,16,6,White-Not Hispanic/Latino,White-Not Hispanic/Latino,21,2,106
+standard-wa,312a,0.47750561797752800,0.5192837078651690,54,188,40,45,53,F,123,16,6,16,6,White-Not Hispanic/Latino,White-Not Hispanic/Latino,24,1.7,222
+standard-wa,312a,0.47750561797752800,0.5192837078651690,54,188,40,45,53,F,123,16,6,16,6,White-Not Hispanic/Latino,White-Not Hispanic/Latino,30,2.3,458
+standard-wa,312a,0.47750561797752800,0.5192837078651690,54,188,40,45,53,F,123,16,6,16,6,White-Not Hispanic/Latino,White-Not Hispanic/Latino,27,2,263
+ba-wa,312a,0.46110112359550600,0.47139044943820200,54,188,40,45,53,F,123,16,6,16,6,White-Not Hispanic/Latino,White-Not Hispanic/Latino,18,2,22
+ba-wa,312a,0.46110112359550600,0.47139044943820200,54,188,40,45,53,F,123,16,6,16,6,White-Not Hispanic/Latino,White-Not Hispanic/Latino,21,2,106
+ba-wa,312a,0.46110112359550600,0.47139044943820200,54,188,40,45,53,F,123,16,6,16,6,White-Not Hispanic/Latino,White-Not Hispanic/Latino,24,1.7,222
+ba-wa,312a,0.46110112359550600,0.47139044943820200,54,188,40,45,53,F,123,16,6,16,6,White-Not Hispanic/Latino,White-Not Hispanic/Latino,30,2.3,458
+ba-wa,312a,0.46110112359550600,0.47139044943820200,54,188,40,45,53,F,123,16,6,16,6,White-Not Hispanic/Latino,White-Not Hispanic/Latino,27,2,263
+standard-ba,921a,0.4824648876404490,0.547623595505618,54,193,38,44,62,M,111,16,6,20,7,White-Not Hispanic Latino,White-Not Hispanic/Latino,18,0,147
+standard-ba,921a,0.4824648876404490,0.547623595505618,54,193,38,44,62,M,111,16,6,20,7,White-Not Hispanic Latino,White-Not Hispanic/Latino,21,5,363
+standard-ba,921a,0.4824648876404490,0.547623595505618,54,193,38,44,62,M,111,16,6,20,7,White-Not Hispanic Latino,White-Not Hispanic/Latino,24,7,549
+standard-ba,921a,0.4824648876404490,0.547623595505618,54,193,38,44,62,M,111,16,6,20,7,White-Not Hispanic Latino,White-Not Hispanic/Latino,27,10.7,623
+standard-ba,921a,0.4824648876404490,0.547623595505618,54,193,38,44,62,M,111,16,6,20,7,White-Not Hispanic Latino,White-Not Hispanic/Latino,30,8.7,667
+standard-wa,921a,0.4521348314606740,0.44454494382022500,54,193,38,44,62,M,111,16,6,20,7,White-Not Hispanic Latino,White-Not Hispanic/Latino,18,0,147
+standard-wa,921a,0.4521348314606740,0.44454494382022500,54,193,38,44,62,M,111,16,6,20,7,White-Not Hispanic Latino,White-Not Hispanic/Latino,21,5,363
+standard-wa,921a,0.4521348314606740,0.44454494382022500,54,193,38,44,62,M,111,16,6,20,7,White-Not Hispanic Latino,White-Not Hispanic/Latino,24,7,549
+standard-wa,921a,0.4521348314606740,0.44454494382022500,54,193,38,44,62,M,111,16,6,20,7,White-Not Hispanic Latino,White-Not Hispanic/Latino,27,10.7,623
+standard-wa,921a,0.4521348314606740,0.44454494382022500,54,193,38,44,62,M,111,16,6,20,7,White-Not Hispanic Latino,White-Not Hispanic/Latino,30,8.7,667
+ba-wa,921a,0.5050842696629210,0.472,54,193,38,44,62,M,111,16,6,20,7,White-Not Hispanic Latino,White-Not Hispanic/Latino,18,0,147
+ba-wa,921a,0.5050842696629210,0.472,54,193,38,44,62,M,111,16,6,20,7,White-Not Hispanic Latino,White-Not Hispanic/Latino,21,5,363
+ba-wa,921a,0.5050842696629210,0.472,54,193,38,44,62,M,111,16,6,20,7,White-Not Hispanic Latino,White-Not Hispanic/Latino,24,7,549
+ba-wa,921a,0.5050842696629210,0.472,54,193,38,44,62,M,111,16,6,20,7,White-Not Hispanic Latino,White-Not Hispanic/Latino,27,10.7,623
+ba-wa,921a,0.5050842696629210,0.472,54,193,38,44,62,M,111,16,6,20,7,White-Not Hispanic Latino,White-Not Hispanic/Latino,30,8.7,667
+standard-ba,925a,0.4887359550561800,0.629681647940075,62,185,40,43,66,F,124,16,6,18,7,White-Not Hispanic Latino,White-Not Hispanic Latino,18,2.5,27
+standard-ba,925a,0.4887359550561800,0.629681647940075,62,185,40,43,66,F,124,16,6,18,7,White-Not Hispanic Latino,White-Not Hispanic Latino,21,0,66
+standard-ba,925a,0.4887359550561800,0.629681647940075,62,185,40,43,66,F,124,16,6,18,7,White-Not Hispanic Latino,White-Not Hispanic Latino,24,0,99
+standard-ba,925a,0.4887359550561800,0.629681647940075,62,185,40,43,66,F,124,16,6,18,7,White-Not Hispanic Latino,White-Not Hispanic Latino,27,3,234
+standard-ba,925a,0.4887359550561800,0.629681647940075,62,185,40,43,66,F,124,16,6,18,7,White-Not Hispanic Latino,White-Not Hispanic Latino,30,7.7,387
+standard-wa,925a,0.5180056179775280,0.5585674157303370,62,185,40,43,66,F,124,16,6,18,7,White-Not Hispanic Latino,White-Not Hispanic Latino,18,2.5,27
+standard-wa,925a,0.5180056179775280,0.5585674157303370,62,185,40,43,66,F,124,16,6,18,7,White-Not Hispanic Latino,White-Not Hispanic Latino,21,0,66
+standard-wa,925a,0.5180056179775280,0.5585674157303370,62,185,40,43,66,F,124,16,6,18,7,White-Not Hispanic Latino,White-Not Hispanic Latino,24,0,99
+standard-wa,925a,0.5180056179775280,0.5585674157303370,62,185,40,43,66,F,124,16,6,18,7,White-Not Hispanic Latino,White-Not Hispanic Latino,27,3,234
+standard-wa,925a,0.5180056179775280,0.5585674157303370,62,185,40,43,66,F,124,16,6,18,7,White-Not Hispanic Latino,White-Not Hispanic Latino,30,7.7,387
+ba-wa,925a,0.4953089887640450,0.45800561797752800,62,185,40,43,66,F,124,16,6,18,7,White-Not Hispanic Latino,White-Not Hispanic Latino,18,2.5,27
+ba-wa,925a,0.4953089887640450,0.45800561797752800,62,185,40,43,66,F,124,16,6,18,7,White-Not Hispanic Latino,White-Not Hispanic Latino,21,0,66
+ba-wa,925a,0.4953089887640450,0.45800561797752800,62,185,40,43,66,F,124,16,6,18,7,White-Not Hispanic Latino,White-Not Hispanic Latino,24,0,99
+ba-wa,925a,0.4953089887640450,0.45800561797752800,62,185,40,43,66,F,124,16,6,18,7,White-Not Hispanic Latino,White-Not Hispanic Latino,27,3,234
+ba-wa,925a,0.4953089887640450,0.45800561797752800,62,185,40,43,66,F,124,16,6,18,7,White-Not Hispanic Latino,White-Not Hispanic Latino,30,7.7,387
