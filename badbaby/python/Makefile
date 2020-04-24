@@ -4,8 +4,8 @@
 # the 2Mo files (without need to check for existence), e.g.,
 # makeCompreportFromTcircevos( '2to6MoComp.html', fake('tcircevo/*b-ave.fif') )
 
-tcircevo/%b-ave.fif : tcircevo/%a-ave.fif
-	echo $@
+#tcircevo/%b-ave.fif : tcircevo/%a-ave.fif
+#	echo $@
 
 # in similar fashion, we can touch a batch of empty targets in bash:
 # for i in ../tone/*/epochs/*epo.fif; do touch epofif/`basename ${i}`; done;
@@ -13,7 +13,7 @@ tcircevo/%b-ave.fif : tcircevo/%a-ave.fif
 # ("$?") that can be passed to report generator
 
 epofif/%b-epo.fif : tcircevo/%b-ave.fif tcircevo/%a-ave.fif ../tone/*/epochs/%b-epo.fif ../tone/*/epochs/%a-epo.fif
-	echo $?
+	echo $@
 
 2MoReport : tcircevo/*a-ave.fif
 	echo makeReportFromTcircevos 2MoTCircs.html $?
