@@ -45,7 +45,7 @@ def Epo2Xdawn(epoPath,xdawnPath=None):
         
     if xdawnPath == epoPath: # e.g., if find/replace fails, or if incorrect args
         # prevent overwriting epoPath
-        errMsg = basename(epoPath) + ' --> error: xdawnPath would overwrite epoPath'
+        errMsg = os.path.basename(epoPath) + ' --> error: xdawnPath would overwrite epoPath'
         print( errMsg )
         return errMsg
     
@@ -100,12 +100,12 @@ def Epo2Xdawn(epoPath,xdawnPath=None):
     try:
         mne.write_evokeds( xdawnPath, [ signal, noise ] )
     except:
-        errMsg = basename(epoPath) + ' --> error writing ' + xdawnPath
+        errMsg = os.path.basename(epoPath) + ' --> error writing ' + xdawnPath
         print( errMsg )
         return errMsg
     
     # Everything worked, so return status string
-    return basename(epoPath) + ' --> ' + basename(xdawnPath)
+    return os.path.basename(epoPath) + ' --> ' + os.path.basename(xdawnPath)
 
 def Xdawn2Tcirc(xdawnPath,tmin=None,tmax=None,fundfreqhz=None):
     # create tcirc stats from xdawn 'signal' and 'noise' that have been
@@ -185,22 +185,52 @@ def Tcirc(epoOrAve,tmin=None,tmax=None,fundfreqhz=None):
     
     return tcirc 
 
+
+
+
 dataPath = '/mnt/scratch/badbaby/tone/'
 
-#tPaths = sorted(glob(dataPath + 'bad*a/epochs/*epo.fif')) # get the existing a's
-tPaths = sorted(glob(dataPath + 'bad*b/epochs/*epo.fif')) # get the existing a's
-#tPaths = tPaths[5:8] # quickie test
+
+
+# # single shot plot_joint for group "a" or "b"
+# tPaths = sorted(glob(dataPath + 'bad*a/epochs/*epo.fif')) # get the existing a's
+# #tPaths = sorted(glob(dataPath + 'bad*b/epochs/*epo.fif')) # get the existing b's
+# tPaths = tPaths[5:8] # quickie test
+
+# ## for comparison, the adult pilot
+# #tPaths = sorted(glob(dataPath + 'bad_000/epochs/bad_000_tone_epo.fif')) # bad_000 is Adult pilot (E Larson)
+
+# tcircs = [ Tcirc(mne.read_epochs(p),tmin=0.5,tmax=1.0) for p in tPaths ]
+# tcircavg = np.mean( np.stack( tcircs, 2 ), 2 )
+# #
+# info = mne.io.read_info(tPaths[0])
+# info['sfreq']=0.5;
+# tcircave = mne.EvokedArray( tcircavg, info )
+
+# tcircave.plot_joint(times=[2.0,4.0,6.0,38.0,40.0,42.0],
+#                     ts_args=dict(xlim=(0,60),ylim=(0,4),
+#                                   scalings=dict(grad=1, mag=1),
+#                                   units=dict(grad='Tcirc', mag='Tcirc')))
+
+
+
+
+
+# list comprehensions over group "a" or "b"
+tPaths = [ sorted(glob(dataPath + 'bad*%s/epochs/*epo.fif' % g)) for g in ['a', 'b'] ] # get the existing a's
 
 ## for comparison, the adult pilot
-#tPaths = sorted(glob(dataPath + 'bad_000/epochs/bad_000_tone_epo.fif')) # Adult pilot (E Larson)
+#tPaths = sorted(glob(dataPath + 'bad_000/epochs/bad_000_tone_epo.fif')) # bad_000 is Adult pilot (E Larson)
 
-tcircs = [ Tcirc(mne.read_epochs(p),tmin=0.5,tmax=1.0) for p in tPaths ]
-tcircavg = np.mean( np.stack( tcircs, 2 ), 2 )
-#
-info = mne.io.read_info(tPaths[0])
+tcircs = [ [ Tcirc(mne.read_epochs(p),tmin=0.5,tmax=1.0) for p in g ] for g in tPaths ];
+info = mne.io.read_info(tPaths[0][0])
 info['sfreq']=0.5;
-tcircave = mne.EvokedArray( tcircavg, info )
-tcircave.plot_joint(times=[2.0,4.0,6.0,38.0,40.0,42.0],ts_args=dict(xlim=(0,60),ylim=(0,4),scalings=dict(grad=1, mag=1),units=dict(grad='Tcirc', mag='Tcirc')))
+tcircevos = dict( zip( ['2mo','6mo'], [ [ mne.EvokedArray( t, info ) for t in g ] for g in tcircs ] ) )
+
+
+
+
+
 
 ## for evokeds, you must supply fundfreqhz
 #xdawnPath = 'bad_000_tone_xdawn_ave.fif'
