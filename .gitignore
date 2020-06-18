@@ -45,3 +45,5 @@ temp
 *.~lock.*
 .Rproj.user
 packrat/lib*/
+*.code-workspace
+*.fif
