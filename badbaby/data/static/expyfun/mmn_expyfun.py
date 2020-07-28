@@ -15,10 +15,10 @@
 
 import numpy as np
 from os import path as op
-from paradigm.expyfun import ExperimentController
-from paradigm.expyfun.stimuli import read_wav
-from paradigm.expyfun._trigger_controllers import decimals_to_binary
-from paradigm.expyfun import assert_version
+from badbaby.data.static.expyfun import ExperimentController
+from badbaby.data.static.expyfun.stimuli import read_wav
+from badbaby.data.static.expyfun._trigger_controllers import decimals_to_binary
+from badbaby.data.static.expyfun import assert_version
 
 assert_version('8511a4d')
 
