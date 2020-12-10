@@ -3,18 +3,8 @@ import os
 from os import path as op
 import matplotlib.pyplot as plt
 import mne
+from mne.utils.numerics import grand_average
 from badbaby import defaults
-
-# %%
-def read_in_evoked(filename, condition):
-    """helper to read evoked file"""
-    erf = read_evokeds(filename, condition=condition,
-                       baseline=(None, 0))
-    if erf.info['sfreq'] > 600.0:
-        raise ValueError('Wrong sampling rate!')
-    if len(erf.info['bads']) > 0:
-        erf.interpolate_bads()
-    return erf
 
 # %%
 plt.style.use('ggplot')
@@ -28,17 +18,26 @@ df = defaults.return_dataframes('mmn')[0]
 subjects = ['bad_%s' % ss for ss in df[df['age'] > 150].index]  # sixers
 evokeds = {'standard': [], 'deviant': []}
 for condition in evokeds.keys():
-    evs = list()
     for si, subj in enumerate(subjects):
         print(' %s' % subj)
-        evoked_file = op.join(defaults.datadir, subj, 'inverse',
-                                'Oddball_%d-sss_eq_%s-ave.fif' % (lp, subj))
-        evs.append(read_in_evoked(evoked_file)
-    # do grand averaging
-    print('  Doing %s averaging.' % condition)
-    evokeds[condition].append(grand_average(evs))
+        filename = op.join(defaults.datadir, subj, 'inverse','Oddball_%d-sss_eq_%s-ave.fif' % (lp, subj))
+        erf = mne.read_evokeds(filename, condition=condition,
+                       baseline=(None, 0))
+        if erf.info['sfreq'] > 600.0:
+            raise ValueError('Wrong sampling rate!')
+        if len(erf.info['bads']) > 0:
+            erf.interpolate_bads()
+        evokeds[condition].append(erf)
+print(evokeds)
 
 # %%
-peak = evokeds['deviant'].get_peak(ch_type='grad', tmin=window[0], tmax=window[1])
+ERFS = dict()
+for kk in evokeds.keys():
+    ERFS[kk]=mne.grand_average(evokeds[kk])
+peak = ERFS['deviant'].get_peak(ch_type='grad', tmin=window[0], 
+                                tmax=window[1])
+mne.viz.plot_compare_evokeds(ERFS, combine='gfp', ci=0.9)
 
+#TODO TBC
 
+# %%
