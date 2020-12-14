@@ -80,10 +80,8 @@ for sr, decim in zip([1200, 1800], [2, 3]):
         except ValueError:
             continue
 
-        params.acq_ssh = 'kasga'  # minea
+        params.acq_ssh = 'kasga.ilabs.uw.edu'  # minea
         params.acq_dir = ['/brainstudio/bad_baby']
-        params.sws_ssh = 'localhost'  # kasga
-        params.sws_dir = '/mnt/bakraid/larsoner/sss_work'
         # Set the parameters for head position estimation:
         params.coil_dist_limit = 0.01
         params.coil_t_window = 'auto'  # use the smallest reasonable window size
