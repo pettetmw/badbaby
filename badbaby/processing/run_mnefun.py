@@ -76,7 +76,7 @@ for sr, decim in zip([1200, 1800], [2, 3]):
         params.work_dir = work_dir
         params.subject_indices = np.arange(len(params.subjects))
         try:
-            params.subject_indices = [params.subjects.index('bad_117b')]
+            params.subject_indices = [params.subjects.index('bad_117a')]
         except ValueError:
             continue
 

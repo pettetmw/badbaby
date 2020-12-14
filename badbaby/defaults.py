@@ -9,7 +9,7 @@ import pandas as pd
 
 static = op.join(Path(__file__).parents[0], 'static')
 figsdir = op.join(Path(__file__).parents[0], 'writeup', 'results', 'figures')
-datadir = '//media/ktavabi/ALAYA/data/ilabs/badbaby/mismatch'
+datadir = '/media/ktavabi/ALAYA/data/ilabs/badbaby/mismatch'
 run_name = 'mmn'
 epoching = (-0.1, 0.6)
 #TODO refilter 0.01-30.0
