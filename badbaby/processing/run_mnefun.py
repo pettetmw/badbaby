@@ -18,19 +18,19 @@ import mnefun
 import numpy as np
 import pandas as pd
 
-import badbaby.return_dataframes as rd
 from badbaby import defaults
+from badbaby.defaults import return_dataframes
 
 try:
     # Use niprov as handler for events, or if it's not installed, ignore
     from niprov.mnefunsupport import handler
 except ImportError:
     handler = None
-df = rd.return_dataframes('mmn')[0]
+df = return_dataframes('mmn')[0]
 exclude = defaults.exclude
-df.drop(df[df.index.isin(pd.Series(exclude))].index, inplace=True)
+df.drop(df[df.index.isin(pd.Series(exclude, dtype=int))].index, inplace=True)
 ecg_chs = np.unique(df['ecg'].tolist())
-work_dir = defaults.datapath
+work_dir = defaults.datadir
 
 for sr, decim in zip([1200, 1800], [2, 3]):
     for ch in ecg_chs:
@@ -75,12 +75,15 @@ for sr, decim in zip([1200, 1800], [2, 3]):
         params.dates = [None] * len(params.subjects)
         params.work_dir = work_dir
         params.subject_indices = np.arange(len(params.subjects))
+        try:
+            params.subject_indices = [params.subjects.index('bad_117b')]
+        except ValueError:
+            continue
 
-        params.acq_ssh = 'kambiz@minea.ilabs.uw.edu'  # minea
-        params.acq_dir = ['/data101/bad_baby', '/sinuhe/data01/bad_baby',
-                          '/sinuhe/data03/bad_baby', '/sinuhe_data01/bad_baby']
-        params.sws_ssh = 'kam@kasga.ilabs.uw.edu'  # kasga
-        params.sws_dir = '/data07/kam/sss_work'
+        params.acq_ssh = 'kasga'  # minea
+        params.acq_dir = ['/brainstudio/bad_baby']
+        params.sws_ssh = 'localhost'  # kasga
+        params.sws_dir = '/mnt/bakraid/larsoner/sss_work'
         # Set the parameters for head position estimation:
         params.coil_dist_limit = 0.01
         params.coil_t_window = 'auto'  # use the smallest reasonable window size
@@ -168,18 +171,18 @@ for sr, decim in zip([1200, 1800], [2, 3]):
         default = False
         mnefun.do_processing(
             params,
-            fetch_raw=default,
-            push_raw=default,
-            do_sss=default,
-            do_score=default,
+            fetch_raw=True,
+            push_raw=True,
+            do_sss=True,
+            do_score=True,
             fetch_sss=default,
             do_ch_fix=default,
             gen_ssp=default,
             apply_ssp=default,
-            write_epochs=True,
-            gen_covs=True,
+            write_epochs=default,
+            gen_covs=default,
             gen_fwd=default,
             gen_inv=default,
             gen_report=default,
-            print_status=True
+            print_status=default,
             )

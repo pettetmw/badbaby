@@ -9,7 +9,7 @@ import pandas as pd
 
 static = op.join(Path(__file__).parents[0], 'static')
 figsdir = op.join(Path(__file__).parents[0], 'writeup', 'results', 'figures')
-datadir = '/media/ktavabi/ALAYA/data/ilabs/badbaby/mismatch'
+datadir = '/mnt/bakraid/larsoner/kam/badbaby_data/'
 run_name = 'mmn'
 epoching = (-0.1, 0.6)
 #TODO refilter 0.01-30.0
@@ -17,6 +17,7 @@ lowpass = 55.0
 highpass = 0.1
 peak_window = (.235, .53)
 oddball_stimuli = ['standard', 'ba', 'wa']
+exclude = []
 
 
 def return_dataframes(paradigm, ses=False, longitudinal=False):
@@ -61,7 +62,3 @@ def return_dataframes(paradigm, ses=False, longitudinal=False):
                  'possper', 'ingper', 'edper', 'irwords', 'irwdper', 'ogwords',
                  'combine', 'combper', 'cplxper'], axis=1, inplace=True)
     return xl_meg, xl_cdi
-
-
-
-
