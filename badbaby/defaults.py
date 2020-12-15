@@ -12,9 +12,8 @@ figsdir = op.join(Path(__file__).parents[0], 'writeup', 'results', 'figures')
 datadir = '/media/ktavabi/ALAYA/data/ilabs/badbaby/mismatch'
 run_name = 'mmn'
 epoching = (-0.1, 0.6)
-#TODO refilter 0.01-30.0
-lowpass = 55.0
-highpass = 0.1
+lowpass = 30.0
+highpass = None
 peak_window = (.235, .53)
 oddball_stimuli = ['standard', 'ba', 'wa']
 exclude = []

@@ -20,6 +20,7 @@ import pandas as pd
 
 from badbaby import defaults
 from badbaby.defaults import return_dataframes
+from score import score
 
 try:
     # Use niprov as handler for events, or if it's not installed, ignore
@@ -71,12 +72,12 @@ for sr, decim in zip([1200, 1800], [2, 3]):
         # Set the niprov handler to deal with events:
         params.on_process = None
         params.structurals = [None] * len(params.subjects)
-        # params.score = score
+        params.score = score
         params.dates = [None] * len(params.subjects)
         params.work_dir = work_dir
         params.subject_indices = np.arange(len(params.subjects))
         try:
-            params.subject_indices = [params.subjects.index('bad_117a')]
+            params.subject_indices = [params.subjects.index('bad_220b')]
         except ValueError:
             continue
 
@@ -169,18 +170,18 @@ for sr, decim in zip([1200, 1800], [2, 3]):
         default = False
         mnefun.do_processing(
             params,
-            fetch_raw=True,
-            push_raw=True,
-            do_sss=True,
+            fetch_raw=default,
+            push_raw=default,
             do_score=True,
+            do_sss=default,
             fetch_sss=default,
             do_ch_fix=default,
             gen_ssp=default,
             apply_ssp=default,
-            write_epochs=default,
-            gen_covs=default,
+            write_epochs=True,
+            gen_covs=True,
             gen_fwd=default,
             gen_inv=default,
-            gen_report=default,
+            gen_report=True,
             print_status=default,
             )

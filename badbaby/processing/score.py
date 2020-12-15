@@ -9,7 +9,7 @@ from os import path as op
 import numpy as np
 import mne
 from mnefun import extract_expyfun_events
-from paradigm.expyfun.io import read_tab
+from expyfun.io import read_tab
 
 
 def score(p, subjects):
