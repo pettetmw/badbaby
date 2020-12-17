@@ -13,23 +13,24 @@
 
 Subjects whose names are incorrect and need to be manually copied and renamed:
 
-- bad_208a  bad_208_a
+- bad_208a  bad_208_a  
 - bad_209a  bad_209
 - bad_301a  bad_301
 - bad_921a  bad_921
 - bad_925a  bad_925
 - bad_302a  bad_302
 - bad_116a  bad_116
-- bad_114  *missing*
+- bad_114  *missing*  # bad_114_mmn_raw
 - bad_211a  bad_211
-- bad_214  *missing*
-- bad_110  *missing*
-- bad_117a *missing*
-- bad_215a *missing*
-- bad_217  *missing*
-- bad_119a *missing*
+- bad_214  *missing*  # bad_214_mmn_raw
+- bad_110  *missing*  # bad_110_mmn_raw
+- bad_117a *missing*  # bad_117a_mmn_raw 
+- bad_215a *missing*  # bad_215a_mmn_raw
+- bad_217  *missing*  # bad_217_mmn_raw
+- bad_119a *missing*  # bad_119a_mmn_raw
 
 Need to check anything not transferred that the md5sums match...
+is it possible to match the md5s between the files on my WS and storage?
 """
 
 import os.path as op
@@ -43,11 +44,6 @@ from badbaby import defaults
 from badbaby.defaults import return_dataframes
 from score import score
 
-try:
-    # Use niprov as handler for events, or if it's not installed, ignore
-    from niprov.mnefunsupport import handler
-except ImportError:
-    handler = None
 df = return_dataframes('mmn')[0]
 exclude = defaults.exclude
 df.drop(df[df.index.isin(pd.Series(exclude, dtype=int))].index, inplace=True)
@@ -92,8 +88,6 @@ for sr, decim in zip([1200, 1800], [2, 3]):
                             with open(prebad_file, 'w') as output:
                                 for ch_name in bads:
                                     output.write('%s\n' % ch_name)
-            # Set the niprov handler to deal with events:
-            params.on_process = None
             params.structurals = [None] * len(params.subjects)
             params.score = score
             params.dates = [None] * len(params.subjects)
@@ -104,7 +98,7 @@ for sr, decim in zip([1200, 1800], [2, 3]):
             # except ValueError:
             #     continue
 
-            params.acq_ssh = 'kasga.ilabs.uw.edu'  # minea
+            params.acq_ssh = 'kasga.ilabs.uw.edu'
             params.acq_dir = ['/brainstudio/bad_baby']
             # Set the parameters for head position estimation:
             params.coil_dist_limit = 0.01
@@ -195,7 +189,7 @@ for sr, decim in zip([1200, 1800], [2, 3]):
                 mnefun.do_processing(
                     params,
                     fetch_raw=default,
-                    do_score=False,
+                    do_score=True,
                     push_raw=True,
                     do_sss=True,
                     fetch_sss=True,

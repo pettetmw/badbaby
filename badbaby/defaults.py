@@ -10,7 +10,7 @@ import pandas as pd
 static = op.join(Path(__file__).parents[0], 'static')
 figsdir = op.join(Path(__file__).parents[0], 'writeup', 'results', 'figures')
 datadir = '/media/ktavabi/ALAYA/data/ilabs/badbaby/mismatch'
-tabdir = '/media/ktavabi/ALAYA/data/ilabs/badbaby/tabdir'
+tabdir = '/media/ktavabi/ALAYA/data/ilabs/badbaby/paradigm/data'
 run_name = 'mmn'
 epoching = (-0.1, 0.6)
 lowpass = 30.0

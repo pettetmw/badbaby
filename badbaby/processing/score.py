@@ -64,8 +64,9 @@ def score(p, subjects):
                 # tone/1 or IDS/2 or syllable/3
                 good[ti] = (off_minutes < 120) and \
                     header['exp_name'] == 'syllable' and \
-                    header['session'] == '3'
+                    header['session'] in ('1', '3')
             assert sum(good) == 1, sum(good)
+            # runtime expyfun logging
             data = read_tab(tab_files[np.where(good)[0][0]])
 
             # Correct the triggers
@@ -78,7 +79,9 @@ def score(p, subjects):
             if len(data) == len(events) + 1:
                 data = data[:-1]
                 new_nums = new_nums[:-1]
-                corr = np.corrcoef(events[:, 0], exp_times)[0, 1]
+                # TODO map events sample(s) to expyfun time befor corrcoef
+                corr = np.corrcoef(
+                    events[:, 0] / raw.info['sfreq'], np.array(exp_times) * 10)[0, 1]
                 assert corr > 0.9999999
             wrong = new_nums != events[:, 2]
             if wrong.any():
