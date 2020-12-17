@@ -14,7 +14,7 @@ lp = defaults.lowpass
 window = defaults.peak_window  # peak ERF latency window
 
 # %%
-df = defaults.return_dataframes('mmn')[0]
+df = defaults.return_dataframes('mmn')[0]  # six monthers
 subjects = ['bad_%s' % ss for ss in df[df['age'] > 150].index]  # sixers
 evokeds = {'standard': [], 'deviant': []}
 for condition in evokeds.keys():
@@ -38,6 +38,6 @@ peak = ERFS['deviant'].get_peak(ch_type='grad', tmin=window[0],
                                 tmax=window[1])
 mne.viz.plot_compare_evokeds(ERFS, combine='gfp', ci=0.9)
 
-#TODO TBC
-
-# %%
+#TODO 
+# [] group level MMN interval windowing around deviant peak latency
+# [] individual subject data for ERF conditions
