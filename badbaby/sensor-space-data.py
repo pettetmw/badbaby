@@ -23,6 +23,7 @@ tmin, tmax = defaults.epoching
 lp = defaults.lowpass
 window = defaults.peak_window  # peak ERF latency window
 
+
 # %%
 df = defaults.return_dataframes('mmn')[0]
 subjects = ['bad_%s' % ss for ss in df[df['age'] > 150].index]  # sixers
