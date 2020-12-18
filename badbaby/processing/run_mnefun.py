@@ -129,37 +129,37 @@ params.analyses = [
     'All',
     'Individual',
     'Oddball'
-    ]
+]
 params.out_names = [
     ['All'],
     ['standard', 'ba', 'wa'],
     ['standard', 'deviant']
-    ]
+]
 params.out_numbers = [
     [1, 1, 1],  # Combine all trials
     [1, 2, 3],  # All conditions
     [1, 2, 2]  # oddball
-    ]
+]
 params.must_match = [
     [],
     [0, 1, 2],
     [0, 1, 2]
-    ]
+]
 cov = params.inv_names[0] + '-%.0f-sss-cov.fif' % params.lp_cut
 params.report_params.update(
     whitening=[
         dict(analysis='All', name='All', cov=cov),
         dict(analysis='Oddball', name='standard', cov=cov),
         dict(analysis='Oddball', name='deviant', cov=cov)
-        ],
+    ],
     sensor=[
         dict(analysis='All', name='All', times='peaks'),
         dict(analysis='Oddball', name='standard', times='peaks'),
         dict(analysis='Oddball', name='deviant', times='peaks')
-        ],
+    ],
     source=None,
     psd=True
-    )
+)
 # Set what will run
 good, bad = list(), list()
 use_subjects = params.subjects
@@ -183,7 +183,7 @@ for subject in use_subjects:
             gen_inv=default,
             gen_report=default,
             print_status=default,
-            )
+        )
     except Exception:
         raise
         traceback.print_exc()
