@@ -11,7 +11,11 @@ URL = 'https://github.com/ktavabi/badbaby'
 EMAIL = 'ktavabi@gmail.com'
 AUTHOR = 'Kambiz Tavabi'
 VERSION = '0.1'
+<<<<<<< HEAD
 REQUIRED = ['janitor', 'pandas-profiling']
+=======
+REQUIRED = ['janitor', 'pandas-profiling', 'mne', 'expyfun']
+>>>>>>> dd32bca43f8409c17ab1a5c2736460ef6ca05f32
 
 here = os.path.abspath(os.path.dirname(__file__))  # Where the magic happens:
 setup(
