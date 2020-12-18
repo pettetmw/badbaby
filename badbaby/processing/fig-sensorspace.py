@@ -41,4 +41,4 @@ mne.viz.plot_compare_evokeds(ERFS, combine="gfp", ci=0.9)
 
 # TODO
 # [] group level MMN interval windowing around deviant peak latency
-# [] individual subject data for ERF conditions
+# [] Random individual subject's topoplots for peak deviant ERF
