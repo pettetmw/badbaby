@@ -3,34 +3,39 @@ from os import path as op
 import matplotlib.pyplot as plt
 import mne
 from mne.utils.numerics import grand_average
-from badbaby import defaults
+from badbaby.defaults import (
+    datadir,
+    epoching,
+    lowpass,
+    peak_window,
+    cohort_six
+)
+
+# TODO compute rolling window average ERF magnitude from stimulus onset and feed to classifer.
 
 # %%
 plt.style.use("ggplot")
-workdir = defaults.datadir
-tmin, tmax = defaults.epoching
-lp = defaults.lowpass
-window = defaults.peak_window  # peak ERF latency window
+workdir = datadir
+tmin, tmax = epoching
+lp = lowpass
+window = peak_window  # peak ERF latency window
 
 evokeds = {"standard": [], "deviant": []}
-df = defaults.cohort_six
+df = cohort_six
 subjects = ["bad_%s" % pick for pick in df["id"]]
-for condition in evokeds.keys():
+# averaging gist c/o Larson
+conditions = ['standard', 'deviant']
+evoked_dict = dict((key, list()) for key in conditions)
+for condition in conditions:
     for subject in subjects:
-        print(" %s" % subject)
-        filename = op.join(
-            defaults.datadir,
-            subject,
-            "inverse",
-            "Oddball_%d-sss_eq_%s-ave.fif" % (lp, subj),
-        )
-        erf = mne.read_evokeds(
-            filename,
-            condition=condition,
-            baseline=(None, 0))
-        if len(erf.info["bads"]) > 0:
-            erf.interpolate_bads()
-        evokeds[condition].append(erf)
+        fname = op.join(datadir, subject, 'inverse',
+                        f'Oddball_30-sss_eq_{subject}-ave.fif')
+        evoked_dict[condition].append(mne.read_evokeds(fname, condition))
+evoked = mne.combine_evoked(
+    [mne.grand_average(evoked_dict[condition])
+     for condition in conditions], weights=[-1, 1])
+evoked.pick_types(meg=True)
+evoked.plot_joint()
 
 # %%
 ERFS = dict()
