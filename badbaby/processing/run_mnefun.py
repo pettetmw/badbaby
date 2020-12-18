@@ -1,5 +1,6 @@
 #!/usr/bin/env python
 """mnefun.py: MNEFUN preprocessing pipeline:
+
         1. Determine ACQ sampling rate and ECG channel.
         2. Write ACQ prebad channel to disk.
         3. Score.
@@ -19,24 +20,25 @@ Subjects whose names are incorrect and need to be manually copied and renamed:
 - bad_925a  bad_925
 - bad_302a  bad_302
 - bad_116a  bad_116
-- bad_114  *missing*
 - bad_211a  bad_211
-- bad_214  *missing*
-- bad_110  *missing*
-- bad_117a *missing*
-- bad_215a *missing*
-- bad_217  *missing*
-- bad_119a *missing*
 
-Did not complete preproc:
+Subjects whose data were not on the server and needed to be uploaded were
+[bad_114, bad_214, bad_110, bad_117a, bad_215a, bad_217, bad_119a].
+Files were uploaded to brainstudio with variants of:
+
+    $ rsync -a --rsh="ssh -o KexAlgorithms=diffie-hellman-group1-sha1" --partial --progress --include="*_raw.fif" --include="*_raw-1.fif" --exclude="*" /media/ktavabi/ALAYA/data/ilabs/badbaby/*/bad_114/raw_fif/* larsoner@kasga.ilabs.uw.edu:/data06/larsoner/for_hank/brainstudio
+    >>> mne.io.read_raw_fif('../mismatch/bad_114/raw_fif/bad_114_mmn_raw.fif', allow_maxshield='yes').info['meas_date'].strftime('%y%m%d')
+
+Then repackaged manually into brainstudio/bad_baby/bad_*/*/ directories
+based on the recording dates.
+
+Subjects who did not complete preprocessing:
 
 - 223a: Preproc (Only 13/15 good ECG epochs found)
 
 This is because for about half the time their HPI was no good, so throw them
 out.
 
-Todo:
-- Upload data to brainstudio
 """
 
 import traceback
