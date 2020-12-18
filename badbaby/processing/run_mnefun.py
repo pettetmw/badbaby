@@ -45,17 +45,18 @@ import numpy as np
 import mnefun
 
 from badbaby import defaults
-from badbaby.defaults import return_dataframes
+from badbaby.defaults import df
 from score import score, IN_NAMES, IN_NUMBERS
 
-df = return_dataframes('mmn')[0]
-ecg_channel = dict((f'bad_{k}', v) for k, v in df['ecg'].items())
+ecg_channel = dict((f'bad_{k}', v)
+                   for k, v in zip(df['id'], df['ecg']))
 work_dir = defaults.datadir
 
 good, bad = list(), list()
-subjects = sorted(df.index)
-# Unusable cHPI (not enough good coils for a lot of the recording)
-subjects.pop(subjects.index('223a'))
+subjects = sorted(f'bad_{id_}' for id_ in df['id'])
+assert set(subjects) == set(ecg_channel)
+assert len(subjects) == 76
+subjects.pop(subjects.index('bad_223a'))  # cHPI is no good
 
 # noinspection PyTypeChecker
 tmin, tmax = defaults.epoching
@@ -64,7 +65,7 @@ params = mnefun.Params(
     proj_sfreq=250, decim=300., hp_cut=defaults.highpass, hp_trans='auto',
     lp_cut=defaults.lowpass, lp_trans='auto', bmin=tmin,
     ecg_channel=ecg_channel)
-params.subjects = [f'bad_{s}' for s in subjects]
+params.subjects = subjects
 params.structurals = [None] * len(params.subjects)
 params.score = score
 params.dates = [None] * len(params.subjects)
@@ -85,7 +86,7 @@ params.sss_type = 'python'
 params.sss_regularize = 'in'
 params.tsss_dur = 4.
 params.int_order = 6
-params.st_correlation = .9  # XXX maybe too low?
+params.st_correlation = .98
 params.trans_to = (0., 0., 0.06)
 # Covariance
 params.runs_empty = ['%s_erm']  # Define empty room runs
@@ -167,12 +168,12 @@ for subject in use_subjects:
             fetch_raw=default,
             do_score=default,
             push_raw=default,
-            do_sss=default,
+            do_sss=True,
             fetch_sss=default,
             do_ch_fix=default,
-            gen_ssp=default,
-            apply_ssp=default,
-            write_epochs=default,
+            gen_ssp=True,
+            apply_ssp=True,
+            write_epochs=True,
             gen_covs=default,
             gen_fwd=default,
             gen_inv=default,
