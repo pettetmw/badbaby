@@ -1,27 +1,15 @@
 # %%
 import os
 from os import path as op
+
 import matplotlib.pyplot as plt
 import mne
+from badbaby.defaults import (cohort_six, datadir, epoching, lowpass,
+                              peak_window)
 from mne.utils.numerics import grand_average
-from badbaby.defaults import (
-    datadir,
-    epoching,
-    lowpass,
-    peak_window,
-    cohort_six
-)
 
-# TODO compute rolling window average ERF magnitude from stimulus onset and feed to classifer.
 
 # %%
-plt.style.use("ggplot")
-workdir = datadir
-tmin, tmax = epoching
-lp = lowpass
-window = peak_window  # peak ERF latency window
-
-evokeds = {"standard": [], "deviant": []}
 df = cohort_six
 subjects = ["bad_%s" % pick for pick in df["id"]]
 # averaging gist c/o Larson
@@ -40,12 +28,16 @@ evoked.plot_joint()
 
 # %%
 ERFS = dict()
-for kk in evokeds.keys():
-    ERFS[kk]=mne.grand_average(evokeds[kk])
-peak = ERFS['deviant'].get_peak(ch_type='grad', tmin=window[0], 
-                                tmax=window[1])
+for kk in evoked_dict.keys():
+    ERFS[kk] = mne.grand_average(evoked_dict[kk])
 mne.viz.plot_compare_evokeds(ERFS, combine='gfp', ci=0.9)
 
-#TODO 
+# %%
+ERF = mne.combine_evoked([ERFS[cc] for cc in conditions], weights=[-1, 1])
+ERF.pick_types(meg=True)
+ERF.plot_joint()
+
+# TODO
 # [] group level MMN interval windowing around deviant peak latency
+# [] rolling average ERF magnitude in peak latency window for classifier.
 # [] individual subject data for ERF conditions
