@@ -1,4 +1,5 @@
 # %%
+import os
 from os import path as op
 import matplotlib.pyplot as plt
 import mne
@@ -40,10 +41,11 @@ evoked.plot_joint()
 # %%
 ERFS = dict()
 for kk in evokeds.keys():
-    ERFS[kk] = grand_average(evokeds[kk])
-peak = ERFS["deviant"].get_peak(ch_type="grad", tmin=window[0], tmax=window[1])
-mne.viz.plot_compare_evokeds(ERFS, combine="gfp", ci=0.9)
+    ERFS[kk]=mne.grand_average(evokeds[kk])
+peak = ERFS['deviant'].get_peak(ch_type='grad', tmin=window[0], 
+                                tmax=window[1])
+mne.viz.plot_compare_evokeds(ERFS, combine='gfp', ci=0.9)
 
-# TODO
+#TODO 
 # [] group level MMN interval windowing around deviant peak latency
-# [] Random individual subject's topoplots for peak deviant ERF
+# [] individual subject data for ERF conditions
