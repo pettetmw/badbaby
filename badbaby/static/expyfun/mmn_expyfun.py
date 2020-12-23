@@ -1,26 +1,24 @@
 # -*- coding: utf-8 -*-
 
-# Authors: Kambiz Tavabi <ktavabi@gmail.com>
-#          Maggie Clarke <mdclarke@uw.edu>
-#          Ross Maddox <rkmaddox@uw.edu>
-#
-#          simplified bsd-3 license
-
-"""Script for basic auditory oddball paradigm with 4:1 ratio of standards to deviants using
- designated wav files from HD. Stimulus sequence is psuedorandomized such that deviants never
- occur consecutively and are separated by at least 3 standards.
-
-Notes:
-Formula for converting decimal integer into number of bits borrowed from
-http://www.exploringbinary.com/number-of-bits-in-a-decimal-integer
+"""Script for basic auditory oddball paradigm.
+    4:1 ratio of standards to deviants using designated wav files from HD.
+    Stimulus sequence is psuedorandomized such that deviants never
+    occur consecutively and are separated by at least 3 standards.
+    Notes:
+        Formula for converting decimal integer into number of bits from:
+        http://www.exploringbinary.com/number-of-bits-in-a-decimal-integer
 """
+# Authors: Kambiz Tavabi <ktavabi@gmail.com>
+# Credit: Ross Maddox <rkmaddox@uw.edu>
+# License: simplified bsd-3 license
+
 
 import numpy as np
 from os import path as op
-from paradigm.expyfun import ExperimentController
-from paradigm.expyfun.stimuli import read_wav
-from paradigm.expyfun._trigger_controllers import decimals_to_binary
-from paradigm.expyfun import assert_version
+from badbaby.data.static.expyfun import ExperimentController
+from badbaby.data.static.expyfun.stimuli import read_wav
+from badbaby.data.static.expyfun._trigger_controllers import decimals_to_binary
+from badbaby.data.static.expyfun import assert_version
 
 assert_version('8511a4d')
 
