@@ -6,11 +6,10 @@ import pandas as pd
 static = op.join(Path(__file__).parents[0], "static")
 figsdir = op.join(Path(__file__).parents[0], "writeup", "results", "figures")
 datadir = "/media/ktavabi/ALAYA/data/ilabs/badbaby/mismatch"
-tabdir = '/media/ktavabi/ALAYA/data/ilabs/badbaby/tabdir'
 run_name = "mmn"
 epoching = (-0.1, 0.6)
-lowpass = 30.0
-highpass = None
+lowpass = 55.0
+highpass = 0.1
 peak_window = (0.235, 0.53)
 oddball_stimuli = ["standard", "ba", "wa"]
 columns = [
@@ -25,7 +24,6 @@ columns = [
     "paternaledu",
     "maternalethno",
     "paternalethno",
-    "ecg",
 ]
 df = (
     pd.read_excel(op.join(static, "meg_covariates.xlsx"), sheet_name="mmn")
