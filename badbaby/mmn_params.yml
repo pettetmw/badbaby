@@ -1,0 +1,103 @@
+general:
+  subjects_dir: null
+  subject_indices: null
+
+fetch_raw:
+  subjects: null
+  structurals: null
+  dates: [null]
+  acq_ssh: "kasga.ilabs.uw.edu"
+  acq_dir: ["/brainstudio/bad_baby"]
+  run_names: ["%s_mmn"]
+  runs_empty: ["%s_erm"]
+  subject_run_indices: [null]
+
+scoring:
+  score: null
+
+preprocessing:
+  multithreading:
+    n_jobs: 12
+    n_jobs_fir: "cuda"
+    n_jobs_resample: "cuda"
+  bads:
+    mf_prebad: {
+      __default__: ['MEG0743', 'MEG1442']
+      }
+    mf_autobad: True
+    mf_autobad_type: python
+  head_position_estimation:
+    coil_t_window: auto
+  annotations:
+    coil_dist_limit: 0.01
+    coil_bad_count_duration_limit: 1.0  # sec
+    rotation_limit: 20.0  # deg/s
+    translation_limit: 0.01  # m/s
+  sss:
+    sss_type: python
+    hp_type: python
+    int_order: 6
+    ext_order: 3
+    tsss_dur: 90.
+    st_correlation: 0.95
+    trans_to: twa
+  filtering:
+    lp_cut: 30
+    lp_trans: 6
+    filter_length: auto
+    fir_design: firwin
+    phase: zero
+ ssp:
+   proj_nums: {
+     [[1, 1, 0],  # ECG: grad/mag/eeg
+      [0, 0, 0],  # EOG
+      [1, 1, 0]]
+     }
+   proj_sfreq: 200
+   proj_meg: combined
+   proj_ave: True
+   ecg_t_lims: (-0.04, 0.04)
+   ssp_ecg_reject: dict(grad=np.inf, mag=np.inf)
+
+ epoching:
+  tmin: -0.1
+  tmax: 0.6
+  baseline: [null, 0.]
+  autoreject_thresholds: True
+  autoreject_types: ("grad")
+  flat: dict(grad=1e-13)
+  auto_bad_reject: "auto"
+  auto_bad_flat: dict(grad=1e-13)
+  auto_bad_meg_thresh: 12
+  decim: 3
+  analyses: ["All", "Individual", "Oddball"]
+  in_names: &in_names
+     - std
+     - ba
+     - wa
+  in_numbers: &in_numbers
+     - 103
+     - 104
+     - 105
+  out_names: [["All"], 
+              ["standard", "ba", "wa"], 
+              ["standard", "deviant"]]
+  out_numbers: [[1, 1, 1],  # Combine all trials
+                [1, 2, 3],  # All conditions
+                [1, 2, 2]]  # oddball
+  must_match: [[], [0, 1, 2], [0, 1, 2]]
+  epochs_proj: delayed
+
+covariance:
+  cov_method: shrunk
+  compute_rank: True
+  cov_rank: null
+  cov_rank_method: compute_rank
+  force_erm_cov_rank_full: False
+
+report:
+  whitening: [{analysis: Oddball, name: standard},
+              {analysis: Oddball, name: deviant}]
+  sensor: [{analysis: All, name: All, times: 'peaks', proj: False},
+    {analysis: All, name: All, times: 'peaks'},
+    {analysis: All, name: All, times: 'peaks', proj: 'reconstruct'}]
