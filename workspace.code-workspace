@@ -1,0 +1,13 @@
+{
+	"folders": [
+		{
+			"path": "."
+		},
+		{
+			"path": "../../mnefun"
+		}
+	],
+	"settings": {
+		"python.pythonPath": "/Users/ktavabi/miniconda3/envs/obiwan/bin/python"
+	}
+}
