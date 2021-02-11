@@ -150,3 +150,4 @@ cython_debug/
 .Rproj.user
 .RData
 .DS_Store
+data/

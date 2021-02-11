@@ -8,7 +8,7 @@ fetch_raw:
   dates: [null]
   acq_ssh: "kasga.ilabs.uw.edu"
   acq_dir: ["/brainstudio/bad_baby"]
-  run_names: ["%s_mmn"]
+  run_names: ["%s_mmn", "%s_am", "%s_ids"]
   runs_empty: ["%s_erm"]
   subject_run_indices: [null]
 
@@ -18,12 +18,12 @@ scoring:
 preprocessing:
   multithreading:
     n_jobs: 12
-    n_jobs_fir: "cuda"
-    n_jobs_resample: "cuda"
+    n_jobs_fir: 12
+    n_jobs_resample: 12
   bads:
     mf_prebad: {
       __default__: ['MEG0743', 'MEG1442']
-      }
+    }
     mf_autobad: True
     mf_autobad_type: python
   head_position_estimation:
@@ -47,34 +47,34 @@ preprocessing:
     filter_length: auto
     fir_design: firwin
     phase: zero
- ssp:
-   proj_nums: {
-     [[1, 1, 0],  # ECG: grad/mag/eeg
-      [0, 0, 0],  # EOG
-      [1, 1, 0]]
-     }
+  ssp:
    proj_sfreq: 200
    proj_meg: combined
    proj_ave: True
    ecg_t_lims: (-0.04, 0.04)
    ssp_ecg_reject: dict(grad=np.inf, mag=np.inf)
+   proj_nums: [[1, 1, 0],  # ECG: grad/meg/eeg
+                  [0, 0, 0],  # EOG  (combined saccade and blink events)
+                  [1, 1, 0],  # Continuous (from ERM)
+                  [0, 0, 0],  # HEOG (focus on saccades)
+                  [0, 0, 0]]  # VEOG  (focus on blinks)
 
- epoching:
-  tmin: -0.1
-  tmax: 0.6
-  baseline: [null, 0.]
-  autoreject_thresholds: True
-  autoreject_types: ("grad")
-  flat: dict(grad=1e-13)
-  auto_bad_reject: "auto"
-  auto_bad_flat: dict(grad=1e-13)
-  auto_bad_meg_thresh: 12
-  decim: 3
-  analyses: ["All", "Individual", "Oddball"]
-  in_names: &in_names
-     - std
-     - ba
-     - wa
+  epoching:
+   tmin: -0.1
+   tmax: 0.6
+   baseline: [null, 0.]
+   autoreject_thresholds: True
+   autoreject_types: ("grad")
+   flat: dict(grad=1e-13)
+   auto_bad_reject: "auto"
+   auto_bad_flat: dict(grad=1e-13)
+   auto_bad_meg_thresh: 12
+   decim: 3
+   analyses: ["All", "Individual", "Oddball"]
+   in_names: &in_names
+    - std
+    - ba
+    - wa
   in_numbers: &in_numbers
      - 103
      - 104
