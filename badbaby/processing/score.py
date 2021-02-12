@@ -82,8 +82,8 @@ def score(p, subjects):
                 got.append((off_minutes, header["exp_name"], header["session"]))
             # pick something in the right time frame, and the correct
             # session
-            good = [m < 120 and e in ("syllable", "tone", "IDS") and s in ("1", "2", "3", "4") for m, e, s in got]
-            if sum(good) > 2:
+            good = [m < 120 and e == "syllable" and s in ("1", "3") for m, e, s in got]
+            if sum(good) == 2:
                 idx = np.where(good)[0]
                 sizes = [os.stat(tab_files[ii]).st_size for ii in idx]
                 print(f"    Triaging based on file sizes: {sizes}")
