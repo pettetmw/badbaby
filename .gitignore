@@ -147,3 +147,4 @@ cython_debug/
 .github
 .idea
 .vscode
+data/
