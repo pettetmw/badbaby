@@ -21,18 +21,16 @@ preprocessing:
     n_jobs_fir: 12
     n_jobs_resample: 12
   bads:
-    mf_prebad: {
-      __default__: ['MEG0743', 'MEG1442']
-    }
+    mf_prebad: { __default__: ["MEG0743", "MEG1442"] }
     mf_autobad: True
     mf_autobad_type: python
   head_position_estimation:
     coil_t_window: auto
   annotations:
     coil_dist_limit: 0.01
-    coil_bad_count_duration_limit: 1.0  # sec
-    rotation_limit: 20.0  # deg/s
-    translation_limit: 0.01  # m/s
+    coil_bad_count_duration_limit: 1.0 # sec
+    rotation_limit: 20.0 # deg/s
+    translation_limit: 0.01 # m/s
   sss:
     sss_type: python
     hp_type: python
@@ -48,43 +46,45 @@ preprocessing:
     fir_design: firwin
     phase: zero
   ssp:
-   proj_sfreq: 200
-   proj_meg: combined
-   proj_ave: True
-   ecg_t_lims: (-0.04, 0.04)
-   ssp_ecg_reject: dict(grad=np.inf, mag=np.inf)
-   proj_nums: [[1, 1, 0],  # ECG: grad/meg/eeg
-                  [0, 0, 0],  # EOG  (combined saccade and blink events)
-                  [1, 1, 0],  # Continuous (from ERM)
-                  [0, 0, 0],  # HEOG (focus on saccades)
-                  [0, 0, 0]]  # VEOG  (focus on blinks)
+    proj_sfreq: 200
+    proj_meg: combined
+    proj_ave: True
+    ecg_t_lims: (-0.04, 0.04)
+    ssp_ecg_reject: dict(grad=np.inf, mag=np.inf)
+    proj_nums: [
+        [1, 1, 0], # ECG: grad/meg/eeg
+        [0, 0, 0], # EOG  (combined saccade and blink events)
+        [1, 1, 0], # Continuous (from ERM)
+        [0, 0, 0], # HEOG (focus on saccades)
+        [0, 0, 0],
+      ] # VEOG  (focus on blinks)
 
   epoching:
-   tmin: -0.1
-   tmax: 0.6
-   baseline: [null, 0.]
-   autoreject_thresholds: True
-   autoreject_types: ("grad")
-   flat: dict(grad=1e-13)
-   auto_bad_reject: "auto"
-   auto_bad_flat: dict(grad=1e-13)
-   auto_bad_meg_thresh: 12
-   decim: 3
-   analyses: ["All", "Individual", "Oddball"]
-   in_names: &in_names
-    - std
-    - ba
-    - wa
+    tmin: -0.1
+    tmax: 0.6
+    baseline: [null, 0.]
+    autoreject_thresholds: True
+    autoreject_types: ("grad")
+    flat: dict(grad=1e-13)
+    auto_bad_reject: "auto"
+    auto_bad_flat: dict(grad=1e-13)
+    auto_bad_meg_thresh: 12
+    decim: 3
+    analyses: ["All", "Individual", "Oddball"]
+    in_names: &in_names
+      - std
+      - ba
+      - wa
   in_numbers: &in_numbers
-     - 103
-     - 104
-     - 105
-  out_names: [["All"], 
-              ["standard", "ba", "wa"], 
-              ["standard", "deviant"]]
-  out_numbers: [[1, 1, 1],  # Combine all trials
-                [1, 2, 3],  # All conditions
-                [1, 2, 2]]  # oddball
+    - 103
+    - 104
+    - 105
+  out_names: [["All"], ["standard", "ba", "wa"], ["standard", "deviant"]]
+  out_numbers: [
+      [1, 1, 1], # Combine all trials
+      [1, 2, 3], # All conditions
+      [1, 2, 2],
+    ] # oddball
   must_match: [[], [0, 1, 2], [0, 1, 2]]
   epochs_proj: delayed
 
@@ -96,8 +96,14 @@ covariance:
   force_erm_cov_rank_full: False
 
 report:
-  whitening: [{analysis: Oddball, name: standard},
-              {analysis: Oddball, name: deviant}]
-  sensor: [{analysis: All, name: All, times: 'peaks', proj: False},
-    {analysis: All, name: All, times: 'peaks'},
-    {analysis: All, name: All, times: 'peaks', proj: 'reconstruct'}]
+  whitening:
+    [
+      { analysis: Oddball, name: standard },
+      { analysis: Oddball, name: deviant },
+    ]
+  sensor:
+    [
+      { analysis: All, name: All, times: "peaks", proj: False },
+      { analysis: All, name: All, times: "peaks" },
+      { analysis: All, name: All, times: "peaks", proj: "reconstruct" },
+    ]
