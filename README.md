@@ -54,7 +54,7 @@ out.
 
 
 
-## The paradigms
+## Branches
 
 ### Oddball
 Consonant-vowel syllable stimuli used in an double-oddball [1] paradigm to examine the patterning of auditory evoked activity following changes in phonological voice-onset-timing [2] contrasts in young infants.

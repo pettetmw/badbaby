@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 
-"""EDA gists for sample demographic descriptives."""
+"""plot_demographic_data.py: EDA gists for demographic descriptives."""
 
 import itertools
 import os.path as op
