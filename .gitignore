@@ -147,3 +147,7 @@ cython_debug/
 .github
 .idea
 .vscode
+.Rproj.user
+.RData
+.DS_Store
+data/
