@@ -1,6 +1,6 @@
 general:
   subjects_dir: null
-  subject_indices: null
+  subject_indices: [0,1]
 
 fetch_raw:
   subjects: null
@@ -10,7 +10,7 @@ fetch_raw:
   acq_dir: ["/brainstudio/bad_baby"]
   run_names: ["%s_mmn", "%s_am", "%s_ids"]
   runs_empty: ["%s_erm"]
-  subject_run_indices: [null]
+  subject_run_indices: [null, [0,1,2]]
 
 scoring:
   score: null
@@ -71,11 +71,11 @@ preprocessing:
     auto_bad_meg_thresh: 12
     decim: 3
     analyses: ["All", "Individual", "Oddball"]
-    in_names: &in_names
+    in_names:
       - std
       - ba
       - wa
-  in_numbers: &in_numbers
+  in_numbers:
     - 103
     - 104
     - 105

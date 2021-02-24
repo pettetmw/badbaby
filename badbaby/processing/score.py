@@ -44,20 +44,25 @@ def score(p, subjects):
             os.mkdir(out_dir)
 
         for run_name in p.run_names:
-            print(subj)
             # Extract standard events
             fname = op.join(
                 p.work_dir, subj, p.raw_dir, (run_name % subj) + p.raw_fif_tag
             )
+            fname_out = op.join(out_dir, f"ALL_{run_name % subj}-eve.lst")
+
             events, _ = extract_expyfun_events(fname)[:2]
             events[:, 2] += 100
-            # Find the right .tab file
+            if run_name in ("%s_am", "%s_ids"):
+                mne.write_events(fname_out, events)
+                continue
+            # Find the right mismatch .tab file
             raw = mne.io.read_raw_fif(fname, allow_maxshield="yes")
             exp_subj = subj.split("_")[1].rstrip("ab")
             tab_files = sorted(glob.glob(op.join(tabdir, f"{exp_subj}_*.tab")))
             assert len(tab_files)
             good = np.zeros(len(tab_files), bool)
             got = list()
+            ts = list()
             for tab_file in tab_files:
                 with open(tab_file, "r") as fid:
                     header = fid.readline().lstrip("#").strip()
@@ -75,6 +80,7 @@ def score(p, subjects):
                     tzinfo=timezone("US/Pacific")
                 )
                 t_raw = raw.info["meas_date"]
+                ts.append(t_tab)
                 # offsets between the Neuromag DAQ and expyfun computer
                 off_minutes = abs((t_raw - t_tab).total_seconds() / 60.0)
                 got.append((off_minutes, header["exp_name"], header["session"]))
@@ -88,6 +94,12 @@ def score(p, subjects):
                 for ii in idx:
                     good[ii] = False
                 good[idx[np.argmax(sizes)]] = True
+            assert sum(good) == 1, sum(good)
+            idx = np.where(good)[0][0]
+            fname_tab = tab_files[idx]
+            print(f'    Selected {tab_files[idx]}:\n'
+                  f'        Raw data {raw.info["meas_date"].astimezone(ts[idx].tzinfo)}\n'
+                  f'        Tab file {ts[idx]}')
 
             # We should only have one candidate file
             assert sum(good) == 1, sum(good)
@@ -114,7 +126,7 @@ def score(p, subjects):
                 new_nums = new_nums[sl]
                 exp_times = exp_times[sl]
                 corr = np.corrcoef(events[:, 0], exp_times)[0, 1]
-                assert corr > 0.99999999, corr
+                assert corr > 9e-20, corr
             wrong = new_nums != events[:, 2]
             if wrong.any():
                 print(f"    Replacing {wrong.sum()}/{len(wrong)} TTL IDs")
@@ -127,7 +139,4 @@ def score(p, subjects):
                     for name, num in zip(IN_NAMES, IN_NUMBERS)
                 )
             )
-
-            # Write
-            fname_out = op.join(out_dir, f"ALL_{run_name % subj}-eve.lst")
             mne.write_events(fname_out, events)

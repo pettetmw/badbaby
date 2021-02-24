@@ -89,9 +89,9 @@ assert set(subjects) == set(ecg_channel)
 assert len(subjects) == 76
 subjects.pop(subjects.index("bad_223a"))  # cHPI is no good
 
-params = mnefun.read_params("badbaby/processing/params.yml")
+params = mnefun.read_params("/Users/ktavabi/Github/Projects/badbaby/badbaby/processing/params.yml")
 params.ecg_channel = ecg_channel
-params.subjects = subjects[0:2]
+params.subjects = ['bad_101', 'bad_102']
 params.structurals = [None] * len(params.subjects)
 params.score = score
 params.dates = [None] * len(params.subjects)
@@ -109,16 +109,16 @@ for subject in use_subjects:
             fetch_raw=default,
             do_score=True,
             push_raw=default,
-            do_sss=default,
+            do_sss=True,
             fetch_sss=default,
             do_ch_fix=default,
-            gen_ssp=default,
-            apply_ssp=default,
-            write_epochs=default,
+            gen_ssp=True,
+            apply_ssp=True,
+            write_epochs=True,
             gen_covs=default,
             gen_fwd=default,
             gen_inv=default,
-            gen_report=default,
+            gen_report=True,
             print_status=True,
         )
     except Exception:
