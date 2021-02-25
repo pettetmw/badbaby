@@ -1,6 +1,5 @@
 general:
   subjects_dir: null
-  subject_indices: [0,1]
 
 fetch_raw:
   subjects: null
@@ -44,10 +43,13 @@ preprocessing:
     fir_design: firwin
     phase: zero
   ssp:
+    cont_hp: 20
+    cont_hp_trans: 2
+    cont_lp: 40
+    cont_lp_trans: 2
     proj_sfreq: 200
     proj_meg: combined
     proj_ave: True
-    ecg_t_lims: (-0.04, 0.04)
     proj_nums: [
         [1, 1, 0], # ECG: grad/meg/eeg
         [0, 0, 0], # EOG  (combined saccade and blink events)

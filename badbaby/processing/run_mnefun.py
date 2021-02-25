@@ -75,7 +75,6 @@ meg_features = (
     .select_columns(columns)
     .encode_categorical(columns=columns)
     .rename_columns({"subjid": "id"})
-    .filter_on("behavioral == 1", complement=False)
     .filter_on("complete == 1", complement=False)
 )
 
@@ -86,12 +85,12 @@ ecg_channel = dict(
 good, bad = list(), list()
 subjects = sorted(f"bad_{id_}" for id_ in meg_features["id"])
 assert set(subjects) == set(ecg_channel)
-assert len(subjects) == 76
-subjects.pop(subjects.index("bad_223a"))  # cHPI is no good
+assert len(subjects) == 68
 
 params = mnefun.read_params("badbaby/processing/params.yml")
 params.ecg_channel = ecg_channel
 params.subjects = subjects
+params.subject_indices: np.arange(len(params.subjects))
 params.structurals = [None] * len(params.subjects)
 params.score = score
 params.dates = [None] * len(params.subjects)
@@ -102,6 +101,7 @@ params.subject_run_indices = [[0,1,2]]* len(params.subjects)
 params.flat = dict(grad=1e-13)
 params.auto_bad_flat = dict(grad=1e-13)
 params.ssp_ecg_reject = dict(grad=np.inf, mag=np.inf)
+params.ecg_t_lims = (-0.04, 0.04)
 
 
 
@@ -115,12 +115,12 @@ for subject in use_subjects:
         mnefun.do_processing(
             params,
             fetch_raw=default,
-            do_score=True,
+            do_score=default,
             push_raw=default,
-            do_sss=True,
+            do_sss=default,
             fetch_sss=default,
             do_ch_fix=default,
-            gen_ssp=default,
+            gen_ssp=True,
             apply_ssp=default,
             write_epochs=default,
             gen_covs=default,
