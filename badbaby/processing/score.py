@@ -30,7 +30,7 @@ OTHER_TRIGGER_MAP = {
 }
 IN_NAMES = ("std", "ba", "wa")
 IN_NUMBERS = (103, 104, 105)
-tabdir = "/Users/ktavabi/Github/Projects/badbaby/badbaby/data/tabdir"
+tabdir = "/media/ktavabi/ALAYA/data/ilabs/badbaby/paradigm/data"
 
 
 def score(p, subjects):

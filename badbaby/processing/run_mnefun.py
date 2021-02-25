@@ -48,12 +48,12 @@ from pathlib import Path
 import janitor  # noqa
 import mnefun
 import pandas as pd
+import numpy as np
 
 from score import score
 
 static = op.join(Path(__file__).parents[1], "static")
-datadir = op.join(Path(__file__).parents[1], "data")
-tabdir = op.join(Path(__file__).parents[1], "data", "tabdir")
+
 columns = [
     "subjid",
     "behavioral",
@@ -89,17 +89,25 @@ assert set(subjects) == set(ecg_channel)
 assert len(subjects) == 76
 subjects.pop(subjects.index("bad_223a"))  # cHPI is no good
 
-params = mnefun.read_params("/Users/ktavabi/Github/Projects/badbaby/badbaby/processing/params.yml")
+params = mnefun.read_params("badbaby/processing/params.yml")
 params.ecg_channel = ecg_channel
-params.subjects = ['bad_101', 'bad_102']
+params.subjects = subjects
 params.structurals = [None] * len(params.subjects)
 params.score = score
 params.dates = [None] * len(params.subjects)
-params.work_dir = datadir
+params.work_dir = "/media/ktavabi/ALAYA/data/ilabs/badbaby"
+params.run_names = ["%s_mmn", "%s_am", "%s_ids"]
+params.runs_empty = ["%s_erm"]
+params.subject_run_indices = [[0,1,2]]* len(params.subjects)
+params.flat = dict(grad=1e-13)
+params.auto_bad_flat = dict(grad=1e-13)
+params.ssp_ecg_reject = dict(grad=np.inf, mag=np.inf)
+
+
 
 # Set what will run
 good, bad = list(), list()
-use_subjects = params.subjects
+use_subjects = ['bad_101']
 for subject in use_subjects:
     params.subject_indices = [params.subjects.index(subject)]
     default = False
@@ -112,13 +120,13 @@ for subject in use_subjects:
             do_sss=True,
             fetch_sss=default,
             do_ch_fix=default,
-            gen_ssp=True,
-            apply_ssp=True,
-            write_epochs=True,
+            gen_ssp=default,
+            apply_ssp=default,
+            write_epochs=default,
             gen_covs=default,
             gen_fwd=default,
             gen_inv=default,
-            gen_report=True,
+            gen_report=default,
             print_status=True,
         )
     except Exception:
