@@ -107,7 +107,7 @@ params.ecg_t_lims = (-0.04, 0.04)
 
 # Set what will run
 good, bad = list(), list()
-use_subjects = ['bad_101']
+use_subjects = params.subjects
 for subject in use_subjects:
     params.subject_indices = [params.subjects.index(subject)]
     default = False
@@ -115,13 +115,13 @@ for subject in use_subjects:
         mnefun.do_processing(
             params,
             fetch_raw=default,
-            do_score=default,
+            do_score=True,
             push_raw=default,
-            do_sss=default,
+            do_sss=True,
             fetch_sss=default,
             do_ch_fix=default,
             gen_ssp=True,
-            apply_ssp=default,
+            apply_ssp=True,
             write_epochs=default,
             gen_covs=default,
             gen_fwd=default,
