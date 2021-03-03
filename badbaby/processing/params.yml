@@ -1,65 +1,7 @@
-general:
-  subjects_dir: null
-
-fetch_raw:
-  subjects: null
-  structurals: null
-  dates: [null]
-  acq_ssh: "kasga.ilabs.uw.edu"
-  acq_dir: ["/brainstudio/bad_baby"]
-  
-scoring:
-  score: null
 
 preprocessing:
-  multithreading:
-    n_jobs: cuda
-    n_jobs_fir: cuda
-    n_jobs_resample: cuda
-  bads:
-    mf_prebad: { __default__: ["MEG0743", "MEG1442"] }
-    mf_autobad: True
-    mf_autobad_type: python
-  head_position_estimation:
-    coil_t_window: auto
-  annotations:
-    coil_dist_limit: 0.01
-    coil_bad_count_duration_limit: 1.0 # sec
-    rotation_limit: 20.0 # deg/s
-    translation_limit: 0.01 # m/s
-  sss:
-    sss_type: python
-    hp_type: python
-    int_order: 6
-    ext_order: 3
-    tsss_dur: 90.
-    st_correlation: 0.95
-    trans_to: twa
-    cont_as_esss: True
-  filtering:
-    lp_cut: 30
-    lp_trans: 6
-    filter_length: auto
-    fir_design: firwin
-    phase: zero
-  ssp:
-    cont_hp: 20
-    cont_hp_trans: 2
-    cont_lp: 40
-    cont_lp_trans: 2
-    proj_sfreq: 200
-    proj_meg: combined
-    proj_ave: True
-    proj_nums: [
-        [1, 1, 0], # ECG: grad/meg/eeg
-        [0, 0, 0], # EOG  (combined saccade and blink events)
-        [1, 1, 0], # Continuous (from ERM)
-        [0, 0, 0], # HEOG (focus on saccades)
-        [0, 0, 0],
-      ] # VEOG  (focus on blinks)
-
   epoching:
-    tmin: -0.1
+    tmin: -0.2
     tmax: 0.6
     baseline: [null, 0.]
     autoreject_thresholds: True
@@ -84,13 +26,6 @@ preprocessing:
     ] # oddball
   must_match: [[], [0, 1, 2], [0, 1, 2]]
   epochs_proj: delayed
-
-covariance:
-  cov_method: shrunk
-  compute_rank: True
-  cov_rank: null
-  cov_rank_method: compute_rank
-  force_erm_cov_rank_full: False
 
 report:
   whitening:
