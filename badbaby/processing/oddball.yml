@@ -1,7 +1,6 @@
-
 preprocessing:
   epoching:
-    tmin: -0.2
+    tmin: -0.1
     tmax: 0.6
     baseline: [null, 0.]
     autoreject_thresholds: True
@@ -11,9 +10,9 @@ preprocessing:
     decim: 3
     analyses: ["All", "Individual", "Oddball"]
     in_names: &in_names
-      - std
-      - ba
-      - wa
+    - std
+     - ba
+     - wa
   in_numbers: &in_numbers
     - 103
     - 104
