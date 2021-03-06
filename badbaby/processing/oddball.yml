@@ -1,40 +1,49 @@
-preprocessing:
-  epoching:
-    tmin: -0.1
-    tmax: 0.6
-    baseline: [null, 0.]
-    autoreject_thresholds: True
-    autoreject_types: ["grad"]
-    auto_bad_reject: "auto"
-    auto_bad_meg_thresh: 12
-    decim: 3
-    analyses: ["All", "Individual", "Oddball"]
-    in_names: &in_names
+fetch_raw:
+  run_names: ["%s_mmn"]
+  runs_empty: ["%s_erm"]
+
+epoching:
+   tmin: -0.1
+   tmax: 0.6
+   baseline: [null, 0.]
+   autoreject_thresholds: True
+   autoreject_types: ["grad"]
+   auto_bad_reject: "auto"
+   auto_bad_meg_thresh: 12
+   decim: 3
+   analyses: ["All", "Individual", "Oddball"]
+   in_names: &in_names
     - std
-     - ba
-     - wa
-  in_numbers: &in_numbers
-    - 103
-    - 104
-    - 105
-  out_names: [["All"], ["standard", "ba", "wa"], ["standard", "deviant"]]
-  out_numbers: [
-      [1, 1, 1], # Combine all trials
-      [1, 2, 3], # All conditions
-      [1, 2, 2],
-    ] # oddball
-  must_match: [[], [0, 1, 2], [0, 1, 2]]
-  epochs_proj: delayed
+    - ba
+    - wa
+   in_numbers: &in_numbers
+   - 103
+   - 104
+   - 105
+   out_names: [["All"], ["standard", "ba", "wa"], ["standard", "deviant"]]
+   out_numbers: [
+     [1, 1, 1], # Combine all trials
+     [1, 2, 3], # All conditions
+     [1, 2, 2],
+   ] # oddball
+   must_match: [[], [0, 1, 2], [0, 1, 1]]
+   epochs_proj: delayed
 
 report:
-  whitening:
-    [
-      { analysis: Oddball, name: standard },
-      { analysis: Oddball, name: deviant },
-    ]
-  sensor:
-    [
-      { analysis: All, name: All, times: "peaks", proj: False },
-      { analysis: All, name: All, times: "peaks" },
-      { analysis: All, name: All, times: "peaks", proj: "reconstruct" },
-    ]
+  source_alignment: False
+  bem: False
+  covariance: False
+  drop_log: [
+    {analysis: Oddball, name: standard},
+    {analysis: Oddball, name: deviant}
+  ]
+  whitening: [
+    {analysis: Oddball, name: standard},
+    {analysis: Oddball, name: deviant}
+  ]
+  sensor: [
+    {analysis: Oddball, name: standard, times: 'peaks', proj: False},
+    {analysis: Oddball, name: deviant, times: 'peaks', proj: False},
+    {analysis: Oddball, name: standard, times: 'peaks', proj: 'reconstruct'},
+    {analysis: Oddball, name: deviant, times: 'peaks', proj: 'reconstruct'}
+  ]

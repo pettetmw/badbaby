@@ -87,20 +87,18 @@ subjects = sorted(f"bad_{id_}" for id_ in meg_features["id"])
 assert set(subjects) == set(ecg_channel)
 assert len(subjects) == 68
 
-params = mnefun.Params(
-    n_jobs="cuda",
-    n_jobs_fir="cuda",
-    n_jobs_resample="cuda",
-    proj_sfreq=200,
-    decim=3,
-    tmin = 0,
-    tmax = 1,
-    baseline = (None, None)  # or maybe just None
+params = mnefun.read_params(
+    "/home/ktavabi/Github/badbaby/badbaby/processing/oddball.yml"
 )
+params.n_jobs = "cuda"
+params.n_jobs_fir = "cuda"
+params.n_jobs_resample = "cuda"
+params.proj_sfreq = 200.
+params.decim = 2
 params.acq_ssh = "kasga.ilabs.uw.edu"
 params.acq_dir = ["/brainstudio/bad_baby"]
 
-params.mf_prebad = { "default" :["MEG0743", "MEG1442"]}
+params.mf_prebad = {"default": ["MEG0743", "MEG1442"]}
 params.mf_autobad = True
 params.mf_autobad_type = "python"
 params.coil_t_window = "auto"
@@ -124,11 +122,12 @@ params.proj_sfreq = 200
 params.proj_meg = "combined"
 params.proj_ave = True
 params.proj_nums = [
-    [1, 1, 0],  # ECG: grad/meg/eeg
+    [0, 0, 0],  # ECG: grad/meg/eeg
     [0, 0, 0],  # EOG  (combined saccade and blink events)
-    [1, 1, 0],  # Continuous (from ERM)
+    [0, 0, 0],  # Continuous (from ERM)
     [0, 0, 0],  # HEOG (focus on saccades)
-    [0, 0, 0]]  # VEOG  (focus on blinks)
+    [0, 0, 0],
+]  # VEOG  (focus on blinks)
 
 
 params.ecg_channel = ecg_channel
@@ -138,23 +137,23 @@ params.structurals = [None] * len(params.subjects)
 params.score = score
 params.dates = [None] * len(params.subjects)
 params.work_dir = "/media/ktavabi/ALAYA/data/ilabs/badbaby"
-params.run_names = ["%s_mmn", "%s_am", "%s_ids"]
-params.runs_empty = ["%s_erm"]
-params.subject_run_indices = [[0, 1, 2]] * len(params.subjects)
+# params.run_names = ["%s_mmn", "%s_am", "%s_ids"]
+# params.runs_empty = ["%s_erm"]
+params.subject_run_indices = [[0]] * len(params.subjects)
 params.flat = dict(grad=1e-13)
 params.auto_bad_flat = dict(grad=1e-13)
 params.ssp_ecg_reject = dict(grad=np.inf, mag=np.inf)
 params.ecg_t_lims = (-0.04, 0.04)
 params.cov_method = "shrunk"
 params.compute_rank = True
-params.cov_rank = "null"
+params.cov_rank = "full"
 params.cov_rank_method = "compute_rank"
 params.force_erm_cov_rank_full = False
 
 
 # Set what will run
 good, bad = list(), list()
-use_subjects = params.subjects[:4]
+use_subjects = params.subjects
 for subject in use_subjects:
     params.subject_indices = [params.subjects.index(subject)]
     default = False
@@ -164,16 +163,16 @@ for subject in use_subjects:
             fetch_raw=default,
             do_score=default,
             push_raw=default,
-            do_sss=True,
+            do_sss=default,
             fetch_sss=default,
             do_ch_fix=default,
-            gen_ssp=True,
-            apply_ssp=True,
+            gen_ssp=default,
+            apply_ssp=default,
             write_epochs=default,
-            gen_covs=default,
+            gen_covs=True,
             gen_fwd=default,
             gen_inv=default,
-            gen_report=default,
+            gen_report=True,
             print_status=True,
         )
     except Exception:
