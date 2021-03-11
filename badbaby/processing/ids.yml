@@ -1,5 +1,4 @@
-preprocessing:
-  epoching:
+epoching:
     tmin: 0
     tmax: 300.0
     baseline: [null, null]
@@ -7,8 +6,8 @@ preprocessing:
     autoreject_types: ["grad"]
     auto_bad_reject: "auto"
     auto_bad_meg_thresh: 12
-    decim: 3
-    analyses: ["All", "sntns"]
+    decim: 2
+    analyses: ["All", "Sentences"]
     in_names: &in_names
     - s1
     - s2

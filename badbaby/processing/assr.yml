@@ -1,16 +1,15 @@
-preprocessing:
-  epoching:
-    tmin: -0.2
-    tmax: 1.3
-    baseline: [null, 0.]
-    autoreject_thresholds: True
-    autoreject_types: ["grad"]
-    auto_bad_reject: "auto"
-    auto_bad_meg_thresh: 12
-    decim: 3
-    analyses: ["All"]
-    in_names: &in_names
-      - tone
+epoching:
+  tmin: -0.2
+  tmax: 1.3
+  baseline: [null, 0.]
+  autoreject_thresholds: True
+  autoreject_types: ["grad"]
+  auto_bad_reject: "auto"
+  auto_bad_meg_thresh: 12
+  decim: 2
+  analyses: ["All"]
+  in_names: &in_names
+    - tone
   in_numbers: &in_numbers
     - 103
   out_names: [["All"]]

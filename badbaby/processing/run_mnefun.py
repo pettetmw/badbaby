@@ -48,7 +48,6 @@ from pathlib import Path
 import janitor  # noqa
 import mnefun
 import pandas as pd
-import numpy as np
 
 from score import score
 
@@ -56,6 +55,7 @@ static = op.join(Path(__file__).parents[1], "static")
 
 columns = [
     "subjid",
+    "badch",
     "behavioral",
     "complete",
     "ses",
@@ -82,74 +82,25 @@ ecg_channel = dict(
     (f"bad_{k}", v) for k, v in zip(meg_features["id"], meg_features["ecg"])
 )
 
+bads = dict(
+    (f"bad_{k}", [v]) for k, v in zip(meg_features["id"], meg_features["badch"])
+)
+
+lst = [[1, 2, 0], [0, 0, 0], [1, 1, 0]]  # ECG|EOG|ERM: grad/meg/eeg
+pool = [lst[:] for _ in range(len(meg_features))]
+proj_nums = dict((f"bad_{k}", v) for k, v in zip(meg_features["id"], pool))
+
+
 good, bad = list(), list()
 subjects = sorted(f"bad_{id_}" for id_ in meg_features["id"])
 assert set(subjects) == set(ecg_channel)
 assert len(subjects) == 68
 
 params = mnefun.read_params(
-    "/home/ktavabi/Github/badbaby/badbaby/processing/oddball.yml"
+    op.join(Path(__file__).parents[1], "processing", "badbaby.yml")
 )
-params.n_jobs = "cuda"
-params.n_jobs_fir = "cuda"
-params.n_jobs_resample = "cuda"
-params.proj_sfreq = 200.
-params.decim = 2
-params.acq_ssh = "kasga.ilabs.uw.edu"
-params.acq_dir = ["/brainstudio/bad_baby"]
-
-params.mf_prebad = {"default": ["MEG0743", "MEG1442"]}
-params.mf_autobad = True
-params.mf_autobad_type = "python"
-params.coil_t_window = "auto"
-params.coil_dist_limit = 0.01
-params.coil_bad_count_duration_limit = 1.0  # sec
-params.rotation_limit = 20.0  # deg/s
-params.translation_limit = 0.01  # m/s
-params.sss_type = "python"
-params.hp_type = "python"
-params.int_order = 6
-params.ext_order = 3
-params.tsss_dur = 90.0
-params.st_correlation = 0.95
-params.trans_to = "twa"
-params.cont_as_esss = True
-params.cont_hp = 20
-params.cont_hp_trans = 2
-params.cont_lp = 40
-params.cont_lp_trans = 2
-params.proj_sfreq = 200
-params.proj_meg = "combined"
-params.proj_ave = True
-params.proj_nums = [
-    [0, 0, 0],  # ECG: grad/meg/eeg
-    [0, 0, 0],  # EOG  (combined saccade and blink events)
-    [0, 0, 0],  # Continuous (from ERM)
-    [0, 0, 0],  # HEOG (focus on saccades)
-    [0, 0, 0],
-]  # VEOG  (focus on blinks)
-
-
 params.ecg_channel = ecg_channel
-params.subjects = subjects
-params.subject_indices = np.arange(len(params.subjects))
-params.structurals = [None] * len(params.subjects)
-params.score = score
-params.dates = [None] * len(params.subjects)
-params.work_dir = "/media/ktavabi/ALAYA/data/ilabs/badbaby"
-# params.run_names = ["%s_mmn", "%s_am", "%s_ids"]
-# params.runs_empty = ["%s_erm"]
-params.subject_run_indices = [[0]] * len(params.subjects)
-params.flat = dict(grad=1e-13)
-params.auto_bad_flat = dict(grad=1e-13)
-params.ssp_ecg_reject = dict(grad=np.inf, mag=np.inf)
-params.ecg_t_lims = (-0.04, 0.04)
-params.cov_method = "shrunk"
-params.compute_rank = True
-params.cov_rank = "full"
-params.cov_rank_method = "compute_rank"
-params.force_erm_cov_rank_full = False
-
+params.subjects = ["bad_101", "bad_102"]
 
 # Set what will run
 good, bad = list(), list()
@@ -163,16 +114,16 @@ for subject in use_subjects:
             fetch_raw=default,
             do_score=default,
             push_raw=default,
-            do_sss=default,
+            do_sss=True,
             fetch_sss=default,
             do_ch_fix=default,
-            gen_ssp=default,
-            apply_ssp=default,
+            gen_ssp=True,
+            apply_ssp=True,
             write_epochs=default,
             gen_covs=True,
             gen_fwd=default,
             gen_inv=default,
-            gen_report=True,
+            gen_report=default,
             print_status=True,
         )
     except Exception:
