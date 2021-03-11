@@ -319,7 +319,7 @@ preprocessing:
     hp_type: python
     int_order: 6
     ext_order: 3
-    tsss_dur: 300.0
+    tsss_dur: 10.
     st_correlation: 0.95
     trans_to: twa
     cont_as_esss: True
