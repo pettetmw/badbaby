@@ -13,15 +13,12 @@ epoching:
   in_numbers: &in_numbers
     - 103
   out_names: [["All"]]
-  out_numbers: [[1]] 
+  out_numbers: [[1]]
   must_match: [[]]
   epochs_proj: delayed
 
 report:
-  whitening:
-    [
-      { analysis: All, name: All },
-    ]
+  whitening: [{ analysis: All, name: All }]
   sensor:
     [
       { analysis: All, name: All, times: "peaks", proj: False },
