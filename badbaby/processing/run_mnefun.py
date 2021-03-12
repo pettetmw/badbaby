@@ -4,7 +4,7 @@
         1. Determine ACQ sampling rate and ECG channel.
         2. Write ACQ prebad channel to disk.
         3. Score.
-        4. HP estimation yeilding annotation parameters.
+        4. HP estimation with annotation parameters.
         5. MF and move comp.
         6. Data & ERM covariances.
         7. Autoreject to threshold & reject noisy trials
@@ -120,7 +120,7 @@ for subject in use_subjects:
             gen_ssp=True,
             apply_ssp=True,
             write_epochs=default,
-            gen_covs=True,
+            gen_covs=default,
             gen_fwd=default,
             gen_inv=default,
             gen_report=default,

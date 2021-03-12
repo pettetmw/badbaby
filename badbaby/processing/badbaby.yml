@@ -409,11 +409,14 @@ preprocessing:
     proj_meg: combined
     proj_ave: True
 
-covariance:
-  cov_method: shrunk
-  compute_rank: True
-  cov_rank: null
-  cov_rank_method: compute_rank
-  force_erm_cov_rank_full: False
+epoching:
+  tmin: 0
+  tmax: 1
+  baseline: (None, None)
+  autoreject_thresholds: True
+  autoreject_types: ["grad"]
+  auto_bad_reject: "auto"
+  auto_bad_meg_thresh: 12
+
 
 
