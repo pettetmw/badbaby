@@ -1,45 +1,37 @@
 #!/usr/bin/env python
 """mnefun.py: MNEFUN preprocessing pipeline:
 
-        1. Determine ACQ sampling rate and ECG channel.
-        2. Write ACQ prebad channel to disk.
-        3. Score.
-        4. HP estimation with annotation parameters.
-        5. MF and move comp.
-        6. Data & ERM covariances.
-        7. Autoreject to threshold & reject noisy trials
-        8. Compute ECG & ERM projectors
-        9. Epoching & writing evoked data to disk.
+    Notes:
+    Subjects whose names are incorrect and need to be manually copied and renamed:
 
-Subjects whose names are incorrect and need to be manually copied and renamed:
+    - bad_208a  bad_208_a
+    - bad_209a  bad_209
+    - bad_301a  bad_301
+    - bad_921a  bad_921
+    - bad_925a  bad_925
+    - bad_302a  bad_302
+    - bad_116a  bad_116
+    - bad_211a  bad_211
 
-- bad_208a  bad_208_a
-- bad_209a  bad_209
-- bad_301a  bad_301
-- bad_921a  bad_921
-- bad_925a  bad_925
-- bad_302a  bad_302
-- bad_116a  bad_116
-- bad_211a  bad_211
-
-Subjects whose data were not on the server and needed to be uploaded were
-[bad_114, bad_214, bad_110, bad_117a, bad_215a, bad_217, bad_119a].
-Files were uploaded to brainstudio with variants of:
+    Subjects whose data were not on the server and needed to be uploaded were
+    [bad_114, bad_214, bad_110, bad_117a, bad_215a, bad_217, bad_119a].
+    Files were uploaded to brainstudio with variants of:
 
     $ rsync -a --rsh="ssh -o KexAlgorithms=diffie-hellman-group1-sha1" --partial --progress --include="*_raw.fif" --include="*_raw-1.fif" --exclude="*" /media/ktavabi/ALAYA/data/ilabs/badbaby/*/bad_114/raw_fif/* larsoner@kasga.ilabs.uw.edu:/data06/larsoner/for_hank/brainstudio
     >>> mne.io.read_raw_fif('../mismatch/bad_114/raw_fif/bad_114_mmn_raw.fif', allow_maxshield='yes').info['meas_date'].strftime('%y%m%d')
 
-Then repackaged manually into brainstudio/bad_baby/bad_*/*/ directories
-based on the recording dates.
+    Then repackaged manually into brainstudio/bad_baby/bad_*/*/ directories
+    based on the recording dates.
 
-Subjects who did not complete preprocessing:
+    Subjects who did not complete preprocessing:
 
-- 223a: Preproc (Only 13/15 good ECG epochs found)
+    - 223a: Preproc (Only 13/15 good ECG epochs found)
 
-This is because for about half the time their HPI was no good, so throw them
-out.
-
+    This is because for about half the time their HPI was no good, so throw them
+    out.
 """
+
+# TODO: @larsoner sort out combined channel SSP & determine whether `cont_as_esss` is beneficial @larsoner
 
 import os.path as op
 import traceback
@@ -114,10 +106,10 @@ for subject in use_subjects:
             fetch_raw=default,
             do_score=default,
             push_raw=default,
-            do_sss=default,
+            do_sss=True,
             fetch_sss=default,
             do_ch_fix=default,
-            gen_ssp=default,
+            gen_ssp=True,
             apply_ssp=default,
             write_epochs=default,
             gen_covs=default,
