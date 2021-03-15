@@ -114,17 +114,17 @@ for subject in use_subjects:
             fetch_raw=default,
             do_score=default,
             push_raw=default,
-            do_sss=True,
+            do_sss=default,
             fetch_sss=default,
             do_ch_fix=default,
-            gen_ssp=True,
-            apply_ssp=True,
+            gen_ssp=default,
+            apply_ssp=default,
             write_epochs=default,
             gen_covs=default,
             gen_fwd=default,
             gen_inv=default,
             gen_report=default,
-            print_status=True,
+            print_status=default,
         )
     except Exception:
         raise
