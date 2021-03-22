@@ -5,7 +5,7 @@
 		}
 	],
 	"settings": {
-		"python.pythonPath": "/Users/ktavabi/miniconda3/envs/obiwan/bin/python"
+		"python.pythonPath": "/home/mpettet/anaconda3/bin/python"
 	},
 	"launch": {
 		"version": "0.2.0",
