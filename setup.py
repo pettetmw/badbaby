@@ -11,7 +11,7 @@ URL = 'https://github.com/ktavabi/badbaby'
 EMAIL = 'ktavabi@gmail.com'
 AUTHOR = 'Kambiz Tavabi'
 VERSION = '0.1'
-REQUIRED = ['janitor', 'pandas-profiling', 'mne', 'xlrd', 'openpyxl']
+REQUIRED = ['pyjanitor', 'pandas-profiling', 'mne', 'xlrd', 'openpyxl']
 
 here = os.path.abspath(os.path.dirname(__file__))  # Where the magic happens:
 setup(
