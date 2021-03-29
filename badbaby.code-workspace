@@ -4,19 +4,5 @@
 			"path": "."
 		}
 	],
-	"settings": {
-		"python.pythonPath": "/Users/ktavabi/miniconda3/envs/obiwan/bin/python"
-	},
-	"launch": {
-		"version": "0.2.0",
-		"configurations": [
-			{
-				"name": "Python: Current File",
-				"type": "python",
-				"request": "launch",
-				"program": "${file}",
-				"console": "integratedTerminal"
-			}
-		]
-	}
+	"settings": {}
 }
